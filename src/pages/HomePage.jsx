@@ -13,18 +13,8 @@ export default function HomePage({ onNavigate, onTryOn, onRotate360 }) {
       {/* 1. Hero Banner */}
       <HeroBanner onNavigate={onNavigate} />
 
-      {/* Subtle Section Divider */}
-      <div className="max-w-7xl mx-auto px-6 my-4">
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
-      </div>
-
       {/* 2. Collection Cards */}
       <CollectionCards onSelectCollection={() => onNavigate("products")} />
-
-      {/* Subtle Section Divider */}
-      <div className="max-w-7xl mx-auto px-6 my-4">
-        <div className="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent"></div>
-      </div>
 
       {/* 3. Featured Products */}
       <FeaturedProducts onTryOn={onTryOn} onRotate360={onRotate360} />
