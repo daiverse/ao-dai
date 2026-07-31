@@ -3,20 +3,21 @@ import { ArrowRight, Palette, Sparkles } from "lucide-react";
 
 export default function HeroBanner({ onNavigate }) {
   return (
-    <section className="relative min-h-screen flex flex-col lg:block overflow-hidden bg-white pb-16 lg:pb-20 pt-16">
+    <section className="relative min-h-screen flex flex-col lg:block overflow-hidden bg-white pb-16 lg:pb-20 pt-32 sm:pt-40 lg:pt-36">
       {/* Background Banner Visual */}
       <div className="relative lg:absolute lg:right-0 lg:top-0 w-full lg:w-[62%] h-auto min-h-[55vh] sm:min-h-[65vh] aspect-[4/5] sm:aspect-[3/4] lg:aspect-auto lg:min-h-0 lg:h-full flex-shrink-0">
         <div className="relative w-full h-full bg-[#f5ebe0]/60 overflow-hidden">
-          <div className="absolute inset-0 scale-[1.08] origin-center">
+          <div className="absolute inset-0 origin-top">
             <img
               src="/anh/746927465_122119237899355470_7558522641041819280_n.jpg"
               alt="DaiVerse — Bộ sưu tập cao cấp 2026"
-              className="w-full h-full object-cover object-center"
+              className="w-full h-full object-cover object-top"
             />
           </div>
           {/* Gradient overlays matching serene-ao-dai */}
           <div className="absolute inset-y-0 left-0 w-1/3 sm:w-[28%] bg-gradient-to-r from-white via-white/70 to-transparent pointer-events-none"></div>
-          <div className="absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent lg:hidden pointer-events-none"></div>
+          <div className="absolute inset-x-0 top-0 h-24 sm:h-32 lg:h-44 bg-gradient-to-b from-white via-white/60 to-transparent pointer-events-none z-[2]"></div>
+          <div className="absolute inset-x-0 bottom-0 h-28 sm:h-36 lg:h-48 bg-gradient-to-t from-white via-white/80 via-35% to-transparent pointer-events-none z-[2]"></div>
         </div>
       </div>
 
@@ -28,13 +29,8 @@ export default function HeroBanner({ onNavigate }) {
       <div className="absolute bottom-36 left-[8%] lg:left-[10%] w-3 h-3 border-2 border-[#C85A32]/40 rounded-full hidden lg:block z-[2]"></div>
 
       {/* Hero Content Container */}
-      <div className="container-page relative z-[2] flex-1 lg:flex lg:items-center lg:min-h-[calc(100vh-8rem)]">
-        <div className="max-w-2xl pt-6 sm:pt-8 lg:pt-0">
-          <div className="inline-block mb-4 lg:mb-6">
-            <span className="text-xs tracking-[0.3em] uppercase text-[#18392B] font-semibold bg-[#18392B]/10 px-4 py-1.5 rounded-full border border-[#18392B]/20">
-              Bộ Sưu Tập 2026
-            </span>
-          </div>
+      <div className="container-page relative z-[2] flex-1 lg:flex lg:items-start lg:min-h-[calc(100vh-8rem)] pt-2 lg:pt-6">
+        <div className="max-w-2xl pt-2 lg:pt-4">
 
           <h1 className="font-heading text-4xl sm:text-5xl md:text-6xl xl:text-7xl font-bold text-gray-900 mb-5 lg:mb-6 leading-[1.15]">
             Áo dài<br />

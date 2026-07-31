@@ -10,7 +10,7 @@ export default function FeaturedProducts({ onTryOn, onRotate360 }) {
     : PRODUCTS.filter((p) => p.category === activeCategory);
 
   return (
-    <section className="py-20 bg-[#FBF9F5]">
+    <section className="py-24 lg:py-32 bg-[#FBF9F5]">
       <div className="container-page">
         {/* Section Title */}
         <div className="text-center mb-12 max-w-2xl mx-auto">
