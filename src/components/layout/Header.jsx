@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ShoppingBag, Sparkles, ChevronDown, Menu, X } from "lucide-react";
+import { ShoppingBag, Sparkles, ChevronDown, Menu, X, Palette, History } from "lucide-react";
 import { useCart } from "../../context/CartContext";
 
 export default function Header({ activeTab, setActiveTab, onOpenMobileMenu }) {
@@ -27,9 +27,9 @@ export default function Header({ activeTab, setActiveTab, onOpenMobileMenu }) {
   ];
 
   const aiExperiences = [
-    { id: "design-studio", title: "AI Design Studio", desc: "Tự tay thiết kế kiểu dáng & họa tiết", icon: "🎨" },
-    { id: "try-on", title: "Phòng Xem Đồ AI", desc: "Thử áo dài trực tiếp trên ảnh cá nhân", icon: "✨" },
-    { id: "history", title: "Lịch Sử Thử Đồ", desc: "Xem lại các mẫu đã tạo & thử nghiệm", icon: "📜" }
+    { id: "design-studio", title: "AI Design Studio", desc: "Tự tay thiết kế kiểu dáng & họa tiết", icon: Palette },
+    { id: "try-on", title: "Phòng Xem Đồ AI", desc: "Thử áo dài trực tiếp trên ảnh cá nhân", icon: Sparkles },
+    { id: "history", title: "Lịch Sử Thử Đồ", desc: "Xem lại các mẫu đã tạo & thử nghiệm", icon: History }
   ];
 
   const handleNavClick = (id) => {
@@ -117,26 +117,29 @@ export default function Header({ activeTab, setActiveTab, onOpenMobileMenu }) {
                   <div className="px-3 py-2 border-b border-gray-100">
                     <p className="text-[11px] font-semibold text-[#C85A32] uppercase tracking-wider">Bộ Công Cụ AI 2026</p>
                   </div>
-                  {aiExperiences.map((exp) => (
-                    <button
-                      key={exp.id}
-                      onClick={() => {
-                        handleNavClick(exp.id);
-                        setIsAiDropdownOpen(false);
-                      }}
-                      className="w-full text-left p-3 rounded-xl hover:bg-[#FBF9F5] transition-colors flex items-start gap-3 group cursor-pointer border-none bg-transparent outline-none appearance-none"
-                    >
-                      <span className="text-xl p-1.5 bg-gray-50 rounded-lg group-hover:bg-[#C85A32]/10 transition-colors">
-                        {exp.icon}
-                      </span>
-                      <div>
-                        <p className="text-sm font-semibold text-gray-900 group-hover:text-[#C85A32] transition-colors">
-                          {exp.title}
-                        </p>
-                        <p className="text-xs text-gray-500 leading-snug">{exp.desc}</p>
-                      </div>
-                    </button>
-                  ))}
+                  {aiExperiences.map((exp) => {
+                    const IconComponent = exp.icon;
+                    return (
+                      <button
+                        key={exp.id}
+                        onClick={() => {
+                          handleNavClick(exp.id);
+                          setIsAiDropdownOpen(false);
+                        }}
+                        className="w-full text-left p-2.5 rounded-xl hover:bg-[#FBF9F5] transition-colors flex items-center gap-3 group cursor-pointer border-none bg-transparent outline-none appearance-none"
+                      >
+                        <div className="w-9 h-9 rounded-xl bg-[#18392B]/10 text-[#18392B] group-hover:bg-[#C85A32] group-hover:text-white transition-all flex items-center justify-center shrink-0">
+                          <IconComponent className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <p className="text-sm font-semibold text-gray-900 group-hover:text-[#C85A32] transition-colors">
+                            {exp.title}
+                          </p>
+                          <p className="text-xs text-gray-500 leading-snug">{exp.desc}</p>
+                        </div>
+                      </button>
+                    );
+                  })}
                 </div>
               )}
             </div>

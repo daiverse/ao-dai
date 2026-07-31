@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Sparkles, Palette, Upload, Check, RefreshCw, Wand2, ArrowRight, Bookmark, Image as ImageIcon, Layers, HelpCircle } from "lucide-react";
+import { Sparkles, Palette, Upload, Check, RefreshCw, Wand2, ArrowRight, Bookmark, Image as ImageIcon, Layers, HelpCircle, Flower2, Feather, Crown, Flame, Sun, Waves } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
 export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
@@ -56,12 +56,12 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
 
   // Pattern Library Options
   const patternOptions = [
-    { id: "sen", name: "Hoa Sen", icon: "🪷", desc: "Thêu tay sen vàng kiêu hãnh" },
-    { id: "hac", name: "Chim Hạc", icon: "🦩", desc: "Hạc mây cuộn dệt nổi kim tuyến" },
-    { id: "rong", name: "Rồng", icon: "🐉", desc: "Long triều uốn lụa cổ điển" },
-    { id: "phuong", name: "Phượng", icon: "🦚", desc: "Phượng hoàng hoàng gia quý phái" },
-    { id: "mai", name: "Hoa Mai", icon: "🌼", desc: "Mai vàng nhị thêu tơ tằm" },
-    { id: "song", name: "Sóng Nước", icon: "🌊", desc: "Sóng nước Thủy Ba triều đại" }
+    { id: "sen", name: "Hoa Sen", icon: Flower2, desc: "Thêu tay sen vàng kiêu hãnh", color: "bg-[#E8A5A5]/25 text-[#C85A32]" },
+    { id: "hac", name: "Chim Hạc", icon: Feather, desc: "Hạc mây cuộn dệt nổi kim tuyến", color: "bg-[#C85A32]/15 text-[#C85A32]" },
+    { id: "rong", name: "Rồng", icon: Crown, desc: "Long triều uốn lụa cổ điển", color: "bg-[#18392B]/15 text-[#18392B]" },
+    { id: "phuong", name: "Phượng", icon: Flame, desc: "Phượng hoàng hoàng gia quý phái", color: "bg-[#D4A373]/25 text-[#C85A32]" },
+    { id: "mai", name: "Hoa Mai", icon: Sun, desc: "Mai vàng nhị thêu tơ tằm", color: "bg-[#E9C46A]/25 text-amber-700" },
+    { id: "song", name: "Sóng Nước", icon: Waves, desc: "Sóng nước Thủy Ba triều đại", color: "bg-teal-500/15 text-teal-700" }
   ];
 
   // Sample prompt presets
@@ -289,17 +289,20 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {patternOptions.map((pat) => {
                   const isSelected = selectedPatterns.includes(pat.id);
+                  const IconComp = pat.icon;
                   return (
                     <button
                       key={pat.id}
                       onClick={() => togglePattern(pat.id)}
-                      className={`p-4 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col items-center justify-center gap-2 ${
+                      className={`group p-4 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col items-center justify-center gap-2.5 ${
                         isSelected
                           ? "border-[#C85A32] bg-[#C85A32]/5 ring-2 ring-[#C85A32]/20 shadow-xs"
                           : "border-gray-200 hover:border-gray-300 bg-[#FBF9F5]"
                       }`}
                     >
-                      <span className="text-3xl">{pat.icon}</span>
+                      <div className={`w-10 h-10 rounded-xl ${pat.color} flex items-center justify-center shadow-xs group-hover:scale-110 transition-transform`}>
+                        <IconComp className="w-5 h-5" />
+                      </div>
                       <div>
                         <p className="font-heading font-bold text-xs text-gray-900">{pat.name}</p>
                         <p className="text-[10px] text-gray-500 line-clamp-1">{pat.desc}</p>
