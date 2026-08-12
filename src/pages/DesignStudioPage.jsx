@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Sparkles, Palette, Upload, Check, RefreshCw, Wand2, ArrowRight, Bookmark, Image as ImageIcon, Layers, HelpCircle, Flower2, Feather, Crown, Flame, Sun, Waves } from "lucide-react";
 import { useCart } from "../context/CartContext";
+import { generateAoDaiDesign } from "../utils/hfAI";
 
 export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
   const { showToast } = useCart();
@@ -92,31 +93,48 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
     }
   };
 
-  const handleGenerate = () => {
+  const handleGenerate = async () => {
     setIsGenerating(true);
     setGeneratedResult(null);
 
-    setTimeout(() => {
-      setIsGenerating(false);
+    try {
       const activeSeasonObj = seasonsData.find((s) => s.id === selectedSeason);
+
+      // Gọi FLUX.1-schnell qua SDK chính thức (xử lý CORS tự động)
+      const imageUrl = await generateAoDaiDesign({
+        prompt: promptText,
+        patterns: selectedPatterns,
+        season: selectedSeason,
+        colorName: activeSeasonObj?.colorName || "",
+      });
 
       setGeneratedResult({
         id: `ai-design-${Date.now()}`,
-        name: `Áo Dài AI — ${activeSeasonObj?.name} ${patternOptions.find(p => p.id === selectedPatterns[0])?.name || "Hoa Sen"}`,
+        name: `Áo Dài AI — ${activeSeasonObj?.name} ${patternOptions.find((p) => p.id === selectedPatterns[0])?.name || "Hoa Sen"}`,
         season: activeSeasonObj?.name,
         color: activeSeasonObj?.colorName,
         patterns: selectedPatterns.map((id) => patternOptions.find((p) => p.id === id)?.name),
         prompt: promptText,
-        // High quality generated visual image from user collection
-        image: "/anh/746927465_122119237899355470_7558522641041819280_n.jpg",
+        image: imageUrl,
         baseImage: customBaseImage || activeSeasonObj?.image,
         price: 2150000,
-        formattedPrice: "2.150.000đ"
+        formattedPrice: "2.150.000đ",
       });
 
-      showToast("Tạo thiết kế AI Studio thành công! 🪄");
-    }, 1800);
+      showToast("🪄 FLUX AI đã tạo thiết kế áo dài thành công!");
+    } catch (err) {
+      console.error("AI Design error:", err);
+      const msg = err?.message || "";
+      if (msg.toLowerCase().includes("loading") || msg.includes("503")) {
+        showToast("⏳ Model AI đang khởi động (~30s), hãy thử lại!");
+      } else {
+        showToast(`❌ ${msg || "Lỗi kết nối AI."}`);
+      }
+    } finally {
+      setIsGenerating(false);
+    }
   };
+
 
   const handleTryOnNow = () => {
     if (generatedResult) {

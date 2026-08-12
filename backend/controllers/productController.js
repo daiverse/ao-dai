@@ -1,0 +1,145 @@
+const asyncHandler = require("express-async-handler");
+const Product = require("../models/Product");
+const slugify = require("slugify");
+
+// @desc    Lấy danh sách sản phẩm (filter, sort, phân trang)
+// @route   GET /api/products
+// @access  Public
+const getProducts = asyncHandler(async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 12;
+  const skip = (page - 1) * limit;
+
+  // Build filter
+  const filter = { isActive: true };
+  if (req.query.category && req.query.category !== "all") {
+    filter.category = req.query.category;
+  }
+  if (req.query.collection) {
+    filter.collection = req.query.collection;
+  }
+  if (req.query.isExpress24h === "true") {
+    filter.isExpress24h = true;
+  }
+  if (req.query.isBestSeller === "true") {
+    filter.isBestSeller = true;
+  }
+  if (req.query.isNew === "true") {
+    filter.isNew = true;
+  }
+  if (req.query.minPrice || req.query.maxPrice) {
+    filter.price = {};
+    if (req.query.minPrice) filter.price.$gte = parseInt(req.query.minPrice);
+    if (req.query.maxPrice) filter.price.$lte = parseInt(req.query.maxPrice);
+  }
+  if (req.query.search) {
+    filter.$or = [
+      { name: { $regex: req.query.search, $options: "i" } },
+      { description: { $regex: req.query.search, $options: "i" } },
+      { fabric: { $regex: req.query.search, $options: "i" } },
+    ];
+  }
+
+  // Build sort
+  let sort = { createdAt: -1 };
+  if (req.query.sort === "price_asc") sort = { price: 1 };
+  if (req.query.sort === "price_desc") sort = { price: -1 };
+  if (req.query.sort === "rating") sort = { rating: -1 };
+  if (req.query.sort === "bestseller") sort = { reviewsCount: -1 };
+
+  const total = await Product.countDocuments(filter);
+  const products = await Product.find(filter).sort(sort).skip(skip).limit(limit);
+
+  res.json({
+    success: true,
+    data: products,
+    pagination: { total, page, pages: Math.ceil(total / limit), limit },
+  });
+});
+
+// @desc    Chi tiết sản phẩm theo ID hoặc slug
+// @route   GET /api/products/:id
+// @access  Public
+const getProductById = asyncHandler(async (req, res) => {
+  const product = await Product.findOne({
+    $or: [
+      { _id: req.params.id.match(/^[a-f\d]{24}$/i) ? req.params.id : null },
+      { slug: req.params.id },
+    ],
+    isActive: true,
+  });
+
+  if (!product) {
+    res.status(404);
+    throw new Error("Không tìm thấy sản phẩm.");
+  }
+
+  res.json({ success: true, data: product });
+});
+
+// @desc    Tạo sản phẩm mới [Admin]
+// @route   POST /api/products
+// @access  Private/Admin
+const createProduct = asyncHandler(async (req, res) => {
+  const productData = req.body;
+
+  // Tạo slug nếu chưa có
+  if (!productData.slug && productData.name) {
+    productData.slug =
+      slugify(productData.name, { lower: true, locale: "vi" }) +
+      "-" +
+      Date.now();
+  }
+
+  const product = await Product.create(productData);
+
+  res.status(201).json({
+    success: true,
+    message: "Tạo sản phẩm thành công!",
+    data: product,
+  });
+});
+
+// @desc    Cập nhật sản phẩm [Admin]
+// @route   PUT /api/products/:id
+// @access  Private/Admin
+const updateProduct = asyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    res.status(404);
+    throw new Error("Không tìm thấy sản phẩm.");
+  }
+
+  const updated = await Product.findByIdAndUpdate(req.params.id, req.body, {
+    new: true,
+    runValidators: true,
+  });
+
+  res.json({ success: true, message: "Cập nhật sản phẩm thành công!", data: updated });
+});
+
+// @desc    Xóa sản phẩm (soft delete) [Admin]
+// @route   DELETE /api/products/:id
+// @access  Private/Admin
+const deleteProduct = asyncHandler(async (req, res) => {
+  const product = await Product.findById(req.params.id);
+
+  if (!product) {
+    res.status(404);
+    throw new Error("Không tìm thấy sản phẩm.");
+  }
+
+  product.isActive = false;
+  await product.save();
+
+  res.json({ success: true, message: "Đã xóa sản phẩm." });
+});
+
+module.exports = {
+  getProducts,
+  getProductById,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+};

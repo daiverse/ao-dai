@@ -59,10 +59,10 @@ export default function StoryHeritage({ onNavigate }) {
                 Hành Trình Di Sản
               </p>
               <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-                Hồn Việt Trong Từng <span className="text-[#18392B] italic">Tà Áo Tơ Lụa</span>
+                Giải Pháp Cá Nhân Hóa Áo Dài <span className="text-[#18392B] italic">Với Công Nghệ AI & Thử Mặc 3D</span>
               </h2>
               <p className="text-base text-gray-600 mt-4 leading-relaxed">
-                Tại DaiVerse, chúng tôi tin rằng tà áo dài không chỉ đơn thuần là trang phục, mà là biểu tượng văn hóa thanh lịch, kiêu hãnh của người phụ nữ Việt Nam qua nhiều thế hệ.
+                DaiVerse được xây dựng với mong muốn mang đến một trải nghiệm mua sắm áo dài hiện đại, trực quan và cá nhân hóa hơn. Thông qua việc ứng dụng công nghệ AI, mô phỏng 3D và thử đồ ảo, DaiVerse giúp khách hàng dễ dàng lựa chọn kiểu dáng, tùy chỉnh thiết kế, xem trước áo dài trên mô hình ảo và đặt may sản phẩm phù hợp với vóc dáng, phong cách cũng như dịp sử dụng của mình.
               </p>
             </div>
 

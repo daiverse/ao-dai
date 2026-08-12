@@ -49,11 +49,11 @@ export default function AboutPage() {
             Câu Chuyện Thương Hiệu · Di Sản & Đổi Mới
           </span>
           <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.15]">
-            Gìn Giữ Di Sản Áo Dài Việt<br />
-            <span className="text-[#18392B] italic font-heading font-semibold">Trong Kỷ Nguyên Mới</span>
+            DaiVerse – Giải Pháp Cá Nhân Hóa Áo Dài Việt<br />
+            <span className="text-[#18392B] italic font-heading font-semibold">Với Công Nghệ AI & Thử Mặc 3D</span>
           </h1>
           <p className="text-base sm:text-lg text-gray-600 mt-4 leading-relaxed max-w-2xl mx-auto">
-            DaiVerse là hành trình kết nối nghệ thuật dệt lụa thêu tay di sản hàng trăm năm với sức mạnh cá nhân hóa từ công nghệ trí tuệ nhân tạo AI Studio.
+            DaiVerse được xây dựng với mong muốn mang đến một trải nghiệm mua sắm áo dài hiện đại, trực quan và cá nhân hóa hơn. Thông qua việc ứng dụng công nghệ AI, mô phỏng 3D và thử đồ ảo, DaiVerse giúp khách hàng dễ dàng lựa chọn kiểu dáng, tùy chỉnh thiết kế, xem trước áo dài trên mô hình ảo và đặt may sản phẩm phù hợp với vóc dáng, phong cách cũng như dịp sử dụng của mình.
           </p>
         </div>
 

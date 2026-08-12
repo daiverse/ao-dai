@@ -3,26 +3,16 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { COLLECTIONS } from "../../data/collections";
 
 export default function CollectionCards({ onSelectCollection }) {
-  const collectionDetails = [
-    {
-      ...COLLECTIONS[0],
-      secondaryImage: "/anh/746947278_122119072383355470_6400495368402003300_n.jpg",
-      tagline: "Vẻ đẹp thuần khiết & tự nhiên",
-      details: ["Thêu sen hồng thủ công 18h", "Chất lụa tơ tằm dệt 100%", "Cổ áo 3cm phom chuẩn"]
-    },
-    {
-      ...COLLECTIONS[1],
-      secondaryImage: "/anh/748931198_122119072389355470_4323049577285984388_n.jpg",
-      tagline: "Ánh lụa êm ái tựa dòng nước",
-      details: ["Lụa Bảo Lộc mềm mại", "Hiệu ứng ánh trăng dịu êm", "Hỗ trợ bóp eo miễn phí"]
-    },
-    {
-      ...COLLECTIONS[2],
-      secondaryImage: "/anh/748552016_122119237911355470_8898990539200168318_n.jpg",
-      tagline: "Hồn di sản hoàng gia Huế",
-      details: ["Gấm dệt sợi kim tuyến", "Họa tiết thêu tay Hoàng Thành", "Tà áo xòe rủ quý phái"]
-    }
-  ];
+  const collectionDetails = (COLLECTIONS || []).map((col, index) => ({
+    ...col,
+    secondaryImage: col.secondaryImage || "/anh/746947278_122119072383355470_6400495368402003300_n.jpg",
+    tagline: col.subtitle || "Vẻ đẹp thuần khiết & tự nhiên",
+    details: col.details || [
+      "Bạch Lan — Lụa gấm trúc cao cấp",
+      "Thanh Phong — Set 3 món tafta dáng suông",
+      "Sương Mai, Mộc An & Hồng Nguyệt — Tơ tằm & ánh kim"
+    ]
+  }));
 
   return (
     <section className="py-20 lg:py-28 bg-white">
@@ -33,11 +23,11 @@ export default function CollectionCards({ onSelectCollection }) {
             Bộ Sưu Tập Di Sản · 2026
           </span>
           <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.15]">
-            Ba câu chuyện,{" "}
-            <em className="text-[#8B0000] font-heading italic font-normal">ba nguồn cảm hứng</em>
+            Mộc Lan Collection,{" "}
+            <em className="text-[#8B0000] font-heading italic font-normal">vẻ đẹp thuần khiết Việt</em>
           </h2>
           <p className="text-base lg:text-lg text-gray-600 mt-5 leading-relaxed">
-            Mỗi bộ sưu tập là một tác phẩm thời trang độc bản — kết hợp hài hòa giữa chất di sản may đo truyền thống và trải nghiệm công nghệ AI hiện đại.
+            Bộ sưu tập Mộc Lan là sự hòa quyện tuyệt vời giữa chất liệu lụa gấm di sản và công nghệ cá nhân hóa AI Studio hiện đại.
           </p>
         </div>
 
@@ -62,7 +52,7 @@ export default function CollectionCards({ onSelectCollection }) {
                     className="group relative cursor-pointer rounded-3xl overflow-hidden shadow-2xl bg-gray-100 aspect-[4/3] sm:aspect-[16/10] border border-gray-100"
                   >
                     <img
-                      src={col.fallbackImage}
+                      src={col.image || col.fallbackImage || "/anh/746927465_122119237899355470_7558522641041819280_n.jpg"}
                       alt={col.name}
                       className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-1000"
                     />

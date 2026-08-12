@@ -9,26 +9,30 @@ export const CATEGORIES = [
 
 export const PRODUCTS = [
   {
-    id: "ad-01",
-    name: "Áo Dài Gấm Sen Thêu Tay Mộng Liên",
-    collection: "mong-lien",
-    category: "theu-tay",
-    price: 1850000,
-    originalPrice: 2200000,
-    formattedPrice: "1.850.000đ",
-    formattedOriginalPrice: "2.200.000đ",
-    rating: 4.9,
-    reviewsCount: 48,
+    id: "ad-moclan-01",
+    name: "Áo Dài Lụa Gấm Trúc Bạch Lan",
+    collection: "moc-lan",
+    category: "truyen-thong",
+    price: 1599000,
+    originalPrice: 1890000,
+    formattedPrice: "1.599.000đ",
+    formattedOriginalPrice: "1.890.000đ",
+    rating: 5.0,
+    reviewsCount: 68,
     isNew: true,
     isBestSeller: true,
     isExpress24h: true,
     expressTag: "Sẵn size S, M, L - Giao hỏa tốc 24h",
-    description: "Áo dài chất liệu gấm tơ cao cấp phối họa tiết thêu sen hồng nổi bật. Cổ cao 3cm truyền thống tôn dáng thanh thoát.",
-    fabric: "Gấm Lụa Tơ Tằm",
+    description: "Bộ sản phẩm áo kèm quần chất liệu lụa gấm trúc CAO CẤP. Mang sự giao thoa giữa nét đẹp truyền thống và hơi thở đương đại.",
+    storyTitle: "BẠCH LAN | KHỞI ĐẦU CỦA MỘT VẺ ĐẸP THUẦN KHIẾT",
+    storyContent: "Có những vẻ đẹp không cần quá rực rỡ để trở nên nổi bật. Bạch Lan không chỉ là một tà áo dài. Đó là sự giao thoa giữa nét đẹp truyền thống và hơi thở đương đại. Là món quà dành cho những cô gái yêu sự tối giản nhưng vẫn muốn mình thật nổi bật. Từng chi tiết được hoàn thiện với mong muốn khi khoác lên mình Bạch Lan, bạn không chỉ mặc một chiếc áo dài mà còn khoác lên sự tự tin, sự dịu dàng và niềm tự hào về vẻ đẹp Việt.",
+    fabric: "Lụa gấm trúc cao cấp",
     colors: [
-      { name: "Hồng Mộng Liên", code: "#E8A5A5" },
       { name: "Trắng Ngọc", code: "#F8F5EE" },
-      { name: "Xanh Thủy Tinh", code: "#9BBEC8" }
+      { name: "Đỏ Đô", code: "#8B0000" },
+      { name: "Xanh Biển", code: "#1E3A8A" },
+      { name: "Xanh Ngọc", code: "#0D9488" },
+      { name: "Hồng Đỗ", code: "#DB2777" }
     ],
     sizes: ["S", "M", "L", "XL", "Tailored (May theo số đo)"],
     images: [
@@ -38,63 +42,32 @@ export const PRODUCTS = [
     has360View: true,
     hasAiTryOn: true,
     hotspots: [
-      { x: "45%", y: "30%", title: "Thêu Tay Hoa Sen", description: "Mỗi đóa sen thêu thủ công hơn 18 giờ tỉ mỉ." },
-      { x: "50%", y: "15%", title: "Cổ Áo 3cm Classic", description: "Đường viền lụa ôm sát tinh tế tôn dáng cổ." }
+      { x: "45%", y: "30%", title: "Lụa Gấm Trúc", description: "Họa tiết dệt gấm trúc tinh xảo mềm mại." },
+      { x: "50%", y: "15%", title: "Cổ Áo Tối Giản", description: "Tôn vinh vẻ đẹp thuần khiết và thanh thoát." }
     ]
   },
   {
-    id: "ad-02",
-    name: "Áo Dài Cưới Gấm Hoàng Gia Xích Nguyệt",
-    collection: "huong-co-do",
-    category: "cuoi",
-    price: 2450000,
-    originalPrice: 2800000,
-    formattedPrice: "2.450.000đ",
-    formattedOriginalPrice: "2.800.000đ",
-    rating: 5.0,
-    reviewsCount: 62,
-    isNew: false,
+    id: "ad-moclan-02",
+    name: "Áo Dài Tafta Dáng Suông Thanh Phong",
+    collection: "moc-lan",
+    category: "cach-tan",
+    price: 1799000,
+    originalPrice: 2100000,
+    formattedPrice: "1.799.000đ",
+    formattedOriginalPrice: "2.100.000đ",
+    rating: 4.9,
+    reviewsCount: 52,
+    isNew: true,
     isBestSeller: true,
     isExpress24h: true,
-    expressTag: "Nhận nhanh trong 24h kèm khăn đóng",
-    description: "Thiết kế áo dài cưới đỏ thắm gấm dệt hoa văn hoàng gia. Mang ý nghĩa hạnh phúc viên mãn và phú quý cho ngày trọng đại.",
-    fabric: "Gấm Thượng Hải Cao Cấp",
+    expressTag: "Set 3 món cao cấp (Áo, Quần & Áo khoác choàng)",
+    description: "Thiết kế dáng suông tafta 2 lớp (áo ngoài 1 lớp). Áo choàng ngoài tay cánh dơi chun gấu sau, chun cổ tay, dáng gile, cổ thuyền dây trang trí ngực khóa sau.",
+    storyTitle: "THANH PHONG | Thanh thoát trong từng nhịp gió",
+    storyContent: "Có những vẻ đẹp không cần quá rực rỡ để trở nên nổi bật. Đó là sự nhẹ nhàng đủ để khiến người khác lưu luyến, là nét thanh lịch được thể hiện qua từng đường cắt may và từng chuyển động của tà áo. Lấy cảm hứng từ làn gió mát mang theo sự bình yên và tự do, Thanh Phong mang gam màu xanh dịu cùng họa tiết tinh tế, tạo nên tổng thể mềm mại nhưng vẫn đầy cuốn hút. Thiết kế hướng đến người phụ nữ yêu sự tối giản, thanh lịch và luôn tự tin thể hiện bản sắc riêng.",
+    fabric: "Tafta cao cấp (giãn ngang nhẹ)",
     colors: [
-      { name: "Đỏ Son Hoàng Gia", code: "#9B1C1C" },
-      { name: "Vàng Kim", code: "#D4AF37" }
-    ],
-    sizes: ["S", "M", "L", "XL"],
-    images: [
-      "/anh/747178293_122119072509355470_7986902361393680700_n.jpg",
-      "/anh/748552016_122119237911355470_8898990539200168318_n.jpg"
-    ],
-    has360View: true,
-    hasAiTryOn: true,
-    hotspots: [
-      { x: "50%", y: "40%", title: "Họa Tiết Chim Phụng", description: "Dệt nổi sợi kim tuyến phản chiếu ánh sáng lộng lẫy." }
-    ]
-  },
-  {
-    id: "ad-03",
-    name: "Áo Dài Lụa Tơ Tằm Trăng Trong Lụa",
-    collection: "trang-trong-lua",
-    category: "truyen-thong",
-    price: 1499000,
-    originalPrice: 1750000,
-    formattedPrice: "1.499.000đ",
-    formattedOriginalPrice: "1.750.000đ",
-    rating: 4.8,
-    reviewsCount: 35,
-    isNew: true,
-    isBestSeller: false,
-    isExpress24h: true,
-    expressTag: "Giao 24h - Miễn phí bóp eo theo dáng",
-    description: "Sự kết hợp giữa chất liệu lụa Bảo Lộc mềm mại như nước và phom dáng áo dài thanh lịch. Cảm giác nhẹ nhàng êm ái.",
-    fabric: "Lụa Bảo Lộc 100%",
-    colors: [
-      { name: "Xanh Ngọc Lục", code: "#18392B" },
-      { name: "Trắng Kem", code: "#FDFBF7" },
-      { name: "Hồng Phấn", code: "#F4C2C2" }
+      { name: "Xanh Dịu", code: "#2563EB" },
+      { name: "Đỏ Thanh Phong", code: "#DC2626" }
     ],
     sizes: ["S", "M", "L", "XL"],
     images: [
@@ -102,204 +75,101 @@ export const PRODUCTS = [
       "/anh/748931198_122119072389355470_4323049577285984388_n.jpg"
     ],
     has360View: true,
+    hasAiTryOn: true,
+    hotspots: [
+      { x: "50%", y: "40%", title: "Áo Choàng Tay Cánh Dơi", description: "Thiết kế gile cổ thuyền khóa sau sang trọng." }
+    ]
+  },
+  {
+    id: "ad-moclan-03",
+    name: "Áo Dài Gấm Tơ Mềm Sương Mai",
+    collection: "moc-lan",
+    category: "truyen-thong",
+    price: 1499000,
+    originalPrice: 1750000,
+    formattedPrice: "1.499.000đ",
+    formattedOriginalPrice: "1.750.000đ",
+    rating: 4.9,
+    reviewsCount: 43,
+    isNew: true,
+    isBestSeller: false,
+    isExpress24h: true,
+    expressTag: "Giao 24h - Miễn phí may đo",
+    description: "Chất liệu gấm tơ mềm cao cấp: mềm, mịn, mát, co dãn tốt. Phong cách trẻ trung, thanh lịch, giản dị phù hợp mọi lứa tuổi.",
+    storyTitle: "SƯƠNG MAI | Khi bình yên được khoác lên thành tà áo",
+    storyContent: "Có những buổi sáng khiến người ta chẳng muốn vội. Là khi ánh nắng vừa chạm khẽ lên hiên nhà, khi làn gió mang theo hương cỏ non và những giọt sương còn đọng trên cánh lá. Đó cũng chính là nguồn cảm hứng để Daiverse tạo nên Sương Mai. Một thiết kế mang gam xanh ngọc dịu nhẹ, gợi nhớ đến vẻ đẹp thuần khiết của buổi sớm. Không phô trương, không cầu kỳ, chỉ lặng lẽ tôn lên nét thanh tao của người mặc.",
+    fabric: "Gấm tơ mềm cao cấp",
+    colors: [
+      { name: "Xanh Ngọc Dịu", code: "#14B8A6" },
+      { name: "Trắng Kem", code: "#FDFBF7" }
+    ],
+    sizes: ["S", "M", "L", "XL"],
+    images: [
+      "/anh/747178293_122119072509355470_7986902361393680700_n.jpg",
+      "/anh/748552016_122119237911355470_8898990539200168318_n.jpg"
+    ],
+    has360View: true,
     hasAiTryOn: true
   },
   {
-    id: "ad-04",
-    name: "Áo Dài Cách Tân Tay Phồng Thanh Hà",
-    collection: "mong-lien",
+    id: "ad-moclan-04",
+    name: "Áo Dài Cách Tân Chất Tơ Mộc An",
+    collection: "moc-lan",
     category: "cach-tan",
-    price: 1350000,
-    originalPrice: 1600000,
-    formattedPrice: "1.350.000đ",
-    formattedOriginalPrice: "1.600.000đ",
-    rating: 4.7,
-    reviewsCount: 29,
-    isNew: false,
-    isBestSeller: false,
+    price: 1599000,
+    originalPrice: 1850000,
+    formattedPrice: "1.599.000đ",
+    formattedOriginalPrice: "1.850.000đ",
+    rating: 4.8,
+    reviewsCount: 39,
+    isNew: true,
+    isBestSeller: true,
     isExpress24h: false,
-    description: "Phom dáng cách tân trẻ trung với thiết kế tay phồng nhẹ và chân váy đính kèm. Thích hợp cho các buổi tiệc và dạo phố.",
-    fabric: "Lụa Organza Phối Tơ",
+    description: "Áo dài cách tân chất tơ mềm mại. Sắc hồng phấn dịu dàng kết hợp điểm nhấn xanh non nơi tà quần như bức tranh mùa xuân.",
+    storyTitle: "MỘC AN | Bình yên trong từng nếp áo",
+    storyContent: "Có những vẻ đẹp không đến từ sự nổi bật, mà từ cảm giác bình yên khi ngắm nhìn. Mộc An được lấy cảm hứng từ thiên nhiên – nơi mọi thứ đều nhẹ nhàng, chậm rãi nhưng luôn mang một sức sống bền bỉ. Đó là vẻ đẹp của sự an nhiên, của những tâm hồn biết trân trọng những điều giản dị. Mộc An – dành cho những cô gái yêu sự tinh tế, sống chậm để cảm nhận và luôn mang trong mình một vẻ đẹp dịu dàng rất riêng.",
+    fabric: "Tơ mềm cao cấp",
     colors: [
-      { name: "Vàng Nắng", code: "#E9C46A" },
-      { name: "Xanh Pastel", code: "#A8DADC" }
+      { name: "Hồng Phấn", code: "#F472B6" },
+      { name: "Vàng Nắng", code: "#FBBF24" },
+      { name: "Xanh Cốm", code: "#84CC16" },
+      { name: "Xanh Dương", code: "#3B82F6" }
     ],
     sizes: ["S", "M", "L"],
     images: [
       "/anh/748948738_122119559763355470_8315866031234642956_n.jpg",
       "/anh/748978674_122119238085355470_3727930377974231420_n.jpg"
     ],
-    has360View: false,
+    has360View: true,
     hasAiTryOn: true
   },
   {
-    id: "ad-05",
-    name: "Áo Dài Cử Tấm Dệt Kim Tuyến",
-    collection: "huong-co-do",
-    category: "theu-tay",
-    price: 1800000,
-    originalPrice: 2100000,
-    formattedPrice: "1.800.000đ",
-    formattedOriginalPrice: "2.100.000đ",
-    rating: 4.9,
-    reviewsCount: 53,
+    id: "ad-moclan-05",
+    name: "Áo Dài Tơ Tằm Ánh Kim 4 Tà Hồng Nguyệt",
+    collection: "moc-lan",
+    category: "truyen-thong",
+    price: 1499000,
+    originalPrice: 1790000,
+    formattedPrice: "1.499.000đ",
+    formattedOriginalPrice: "1.790.000đ",
+    rating: 5.0,
+    reviewsCount: 58,
     isNew: true,
     isBestSeller: true,
     isExpress24h: true,
-    expressTag: "Đặt nhận trong ngày tại TP.HCM & HN",
-    description: "Áo dài phong cách Cử Tấm quý phái. Thắt eo tôn dáng chuẩn, tà áo xòe rủ tự nhiên với các đường nét thêu nổi hoa cúc.",
-    fabric: "Gấm Thêu Nổi",
+    expressTag: "Sẵn size S, M, L - Giao nhanh 24h",
+    description: "Áo tơ tằm ánh kim 4 tà hồng và vàng cao cấp. Thiết kế ôm đường nét, kết hợp họa tiết dệt tinh xảo đằm thắm.",
+    storyTitle: "HỒNG NGUYỆT | Dịu dàng như ánh trăng, rạng rỡ theo cách riêng",
+    storyContent: "Cũng như ánh trăng mang sắc hồng dịu nhẹ giữa bầu trời chiều, Hồng Nguyệt lan tỏa một sức hút rất riêng – nhẹ nhàng, đằm thắm nhưng đủ để lưu lại trong lòng người đối diện. Lấy cảm hứng từ vẻ đẹp ấy, Daiverse tạo nên một thiết kế dành cho những cô gái yêu sự nữ tính và thanh lịch. Hồng Nguyệt – dành cho những tâm hồn yêu sự dịu dàng, trân trọng nét đẹp truyền thống và luôn tự tin viết nên câu chuyện của riêng mình.",
+    fabric: "Tơ tằm ánh kim 4 tà cao cấp",
     colors: [
-      { name: "Đỏ Rượu", code: "#6B1D2F" },
-      { name: "Xanh Rêu Hoàng Gia", code: "#2D5A27" }
+      { name: "Hồng Ánh Kim", code: "#EC4899" },
+      { name: "Vàng Ánh Kim", code: "#F59E0B" }
     ],
     sizes: ["S", "M", "L", "XL"],
     images: [
       "/anh/749239603_122119072485355470_980697849173578283_n.jpg",
       "/anh/749315083_122119238007355470_8087645459800718314_n.jpg"
-    ],
-    has360View: true,
-    hasAiTryOn: true
-  },
-  {
-    id: "ad-06",
-    name: "Áo Dài Cưới Lụa Thêu Song Hỷ",
-    collection: "huong-co-do",
-    category: "cuoi",
-    price: 2950000,
-    originalPrice: 3400000,
-    formattedPrice: "2.950.000đ",
-    formattedOriginalPrice: "3.400.000đ",
-    rating: 5.0,
-    reviewsCount: 88,
-    isNew: false,
-    isBestSeller: true,
-    isExpress24h: false,
-    description: "Áo dài cưới thêu tay Song Hỷ kết hợp đính đá pha sáng cao cấp. Đi kèm khăn đóng dệt đồng điệu cho cô dâu rạng rỡ.",
-    fabric: "Lụa Tơ Tằm Ý & Pha Lê Swarovsky",
-    colors: [
-      { name: "Đỏ Son", code: "#A71930" },
-      { name: "Trắng Tinh Khôi", code: "#FFFFFF" }
-    ],
-    sizes: ["S", "M", "L", "XL", "Tailored"],
-    images: [
-      "/anh/750277229_122119559757355470_6275700024698490744_n.jpg",
-      "/anh/752347459_122120858961355470_5997594624170821473_n.jpg"
-    ],
-    has360View: true,
-    hasAiTryOn: true
-  },
-  {
-    id: "ad-07",
-    name: "Áo Dài Gấm Dệt Hoa Văn Cổ Di Sản",
-    collection: "huong-co-do",
-    category: "truyen-thong",
-    price: 1950000,
-    originalPrice: 2300000,
-    formattedPrice: "1.950.000đ",
-    formattedOriginalPrice: "2.300.000đ",
-    rating: 4.9,
-    reviewsCount: 41,
-    isNew: true,
-    isBestSeller: true,
-    isExpress24h: true,
-    expressTag: "Sẵn size S, M, L - Giao hỏa tốc 24h",
-    description: "Hoa văn di sản hoàng cung Huế thêu tay lộng lẫy trên nền gấm thượng hạng.",
-    fabric: "Gấm Di Sản Thượng Hải",
-    colors: [
-      { name: "Xanh Ngọc Lục", code: "#18392B" },
-      { name: "Vàng Hổ Phách", code: "#D4AF37" }
-    ],
-    sizes: ["S", "M", "L", "XL"],
-    images: [
-      "/anh/753471319_122120858943355470_7991801264771199577_n.jpg",
-      "/anh/753652294_122120859075355470_523410657087258177_n.jpg"
-    ],
-    has360View: true,
-    hasAiTryOn: true
-  },
-  {
-    id: "ad-08",
-    name: "Áo Dài Lụa Tơ Tằm Hoàng Cúc Cách Tân",
-    collection: "trang-trong-lua",
-    category: "cach-tan",
-    price: 1680000,
-    originalPrice: 1950000,
-    formattedPrice: "1.680.000đ",
-    formattedOriginalPrice: "1.950.000đ",
-    rating: 4.8,
-    reviewsCount: 37,
-    isNew: true,
-    isBestSeller: false,
-    isExpress24h: true,
-    expressTag: "Giao 24h - Hỗ trợ chỉnh eo",
-    description: "Sắc vàng hoàng cúc nổi bật phối cùng phom dáng tà xòe cách tân quyến rũ.",
-    fabric: "Lụa Tơ Tằm Hà Đông",
-    colors: [
-      { name: "Vàng Hoàng Cúc", code: "#E9C46A" },
-      { name: "Hồng Đào", code: "#E8A5A5" }
-    ],
-    sizes: ["S", "M", "L"],
-    images: [
-      "/anh/754058094_122120859087355470_3079712870670515575_n.jpg",
-      "/anh/754189695_122121323961355470_4835644296669048277_n.jpg"
-    ],
-    has360View: true,
-    hasAiTryOn: true
-  },
-  {
-    id: "ad-09",
-    name: "Áo Dài Thêu Tay Đóa Sen Ngọc",
-    collection: "mong-lien",
-    category: "theu-tay",
-    price: 2200000,
-    originalPrice: 2600000,
-    formattedPrice: "2.200.000đ",
-    formattedOriginalPrice: "2.600.000đ",
-    rating: 5.0,
-    reviewsCount: 56,
-    isNew: true,
-    isBestSeller: true,
-    isExpress24h: true,
-    expressTag: "Nhận nhanh trong 24h",
-    description: "Đóa sen trắng ngọc được nghệ nhân đính kết tỉ mỉ trên chất liệu gấm tơ mềm mịn.",
-    fabric: "Gấm Lụa Sen Thượng Hạng",
-    colors: [
-      { name: "Trắng Ngọc Khôi", code: "#F8F5EE" },
-      { name: "Xanh Ngọc", code: "#18392B" }
-    ],
-    sizes: ["S", "M", "L", "XL", "Tailored"],
-    images: [
-      "/anh/754462727_122121325533355470_5308022674007869796_n.jpg",
-      "/anh/754463095_122121323955355470_8016593937347573814_n.jpg"
-    ],
-    has360View: true,
-    hasAiTryOn: true
-  },
-  {
-    id: "ad-10",
-    name: "Áo Dài Cưới Gấm Phụng Hoàng Sơn",
-    collection: "huong-co-do",
-    category: "cuoi",
-    price: 3100000,
-    originalPrice: 3600000,
-    formattedPrice: "3.100.000đ",
-    formattedOriginalPrice: "3.600.000đ",
-    rating: 5.0,
-    reviewsCount: 74,
-    isNew: true,
-    isBestSeller: true,
-    isExpress24h: true,
-    expressTag: "Ưu tiên giao hỏa tốc ngày cưới",
-    description: "Bộ áo dài cưới đỏ thắm quyền quý đính đá pha lê Swarovski phản chiếu hào quang sang trọng.",
-    fabric: "Gấm Thượng Hải & Pha Lê",
-    colors: [
-      { name: "Đỏ Son Quyền Quý", code: "#9B1C1C" }
-    ],
-    sizes: ["S", "M", "L", "XL", "Tailored"],
-    images: [
-      "/anh/755736353_122121324117355470_11826430014490496_n.jpg",
-      "/anh/756873041_122121325557355470_9187559362789881870_n.jpg"
     ],
     has360View: true,
     hasAiTryOn: true
