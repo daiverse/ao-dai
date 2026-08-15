@@ -1,10 +1,27 @@
-import React, { useState, useEffect } from "react";
-import { X, Truck, CreditCard, ShieldCheck, CheckCircle2, RefreshCw, ChevronRight, Copy, ArrowLeft, Sparkles, MapPin, Phone, User, FileText } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import {
+  X,
+  Truck,
+  CreditCard,
+  ShieldCheck,
+  CheckCircle2,
+  RefreshCw,
+  ChevronRight,
+  Copy,
+  ArrowLeft,
+  Sparkles,
+  MapPin,
+  Phone,
+  User,
+  FileText,
+  ExternalLink,
+  QrCode,
+} from "lucide-react";
 import { useCart } from "../../context/CartContext";
 import { useAuth } from "../../context/AuthContext";
 
 export default function CheckoutModal({ isOpen, onClose }) {
-  const { cart, totalPrice, formattedTotalPrice, removeFromCart, setIsCartOpen } = useCart();
+  const { cart, totalPrice, formattedTotalPrice, removeFromCart } = useCart();
   const { user, token, isAuthenticated, openAuthModal } = useAuth();
 
   const [step, setStep] = useState(1); // 1: Shipping, 2: Payment & QR, 3: Success
@@ -18,10 +35,16 @@ export default function CheckoutModal({ isOpen, onClose }) {
   const [city, setCity] = useState("Hà Nội");
   const [note, setNote] = useState("");
 
-  // Payment Method State
-  const [paymentMethod, setPaymentMethod] = useState("COD"); // 'COD' | 'BANK'
+  // Payment Method State: 'COD' | 'PAYOS' | 'BANK'
+  const [paymentMethod, setPaymentMethod] = useState("PAYOS");
   const [createdOrder, setCreatedOrder] = useState(null);
   const [isCopied, setIsCopied] = useState(false);
+
+  // PayOS QR States
+  const [payOsData, setPayOsData] = useState(null);
+  const [isPayOsLoading, setIsPayOsLoading] = useState(false);
+  const [payOsStatus, setPayOsStatus] = useState("PENDING"); // 'PENDING' | 'PAID' | 'CANCELLED'
+  const pollingTimerRef = useRef(null);
 
   // Autofill user info if logged in
   useEffect(() => {
@@ -30,6 +53,13 @@ export default function CheckoutModal({ isOpen, onClose }) {
       if (user.phone) setPhone(user.phone);
     }
   }, [user, isOpen]);
+
+  // Clean up polling timer
+  useEffect(() => {
+    return () => {
+      if (pollingTimerRef.current) clearInterval(pollingTimerRef.current);
+    };
+  }, []);
 
   if (!isOpen) return null;
 
@@ -42,14 +72,100 @@ export default function CheckoutModal({ isOpen, onClose }) {
     currency: "VND",
   }).format(finalTotal);
 
-  // VietQR Image URL Generator
-  const vietQrUrl = `https://img.vietqr.io/image/mb-0394961557-compact2.png?amount=${finalTotal}&addInfo=${encodeURIComponent(
-    createdOrder ? createdOrder.orderCode : "DV-2026-AODAI"
-  )}&accountName=DAIVERSE%20AO%20DAI`;
+  // Khởi tạo thông tin PayOS QR Link
+  const handleGeneratePayOsLink = async () => {
+    setIsPayOsLoading(true);
+    setError("");
 
-  // Submit Order
+    try {
+      const res = await fetch("http://localhost:5000/api/payos/create-payment-link", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          amount: finalTotal,
+          description: `May ao dai DV-${Date.now().toString().slice(-6)}`,
+          items: cart.map((item) => ({
+            name: item.product?.name || item.name || "Áo Dài Thiết Kế",
+            quantity: item.quantity || 1,
+            price: item.product?.price || item.price || finalTotal,
+          })),
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success && data.data) {
+        setPayOsData(data.data);
+        startPollingPayOsStatus(data.data.orderCode);
+      }
+    } catch (err) {
+      console.error("Lỗi PayOS Client:", err);
+    } finally {
+      setIsPayOsLoading(false);
+    }
+  };
+
+  // Tự động kiểm tra trạng thái thanh toán PayOS định kỳ 3 giây/lần
+  const startPollingPayOsStatus = (orderCode) => {
+    if (pollingTimerRef.current) clearInterval(pollingTimerRef.current);
+
+    pollingTimerRef.current = setInterval(async () => {
+      try {
+        const res = await fetch(`http://localhost:5000/api/payos/order-status/${orderCode}`);
+        const data = await res.json();
+
+        if (data.success && data.status === "PAID") {
+          setPayOsStatus("PAID");
+          clearInterval(pollingTimerRef.current);
+          // Tự động tạo đơn hàng hoàn tất
+          autoCompletePayOsOrder();
+        }
+      } catch (err) {}
+    }, 3000);
+  };
+
+  // Tự động chuyển màn hình thành công khi PayOS quét thành công
+  const autoCompletePayOsOrder = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch("http://localhost:5000/api/orders", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify({
+          orderItems: cart.map((item) => ({
+            product: item.product?._id || item.product?.id,
+            name: item.product?.name || item.name,
+            image: item.product?.images?.[0] || item.image || "",
+            price: item.product?.price || item.price,
+            size: item.size,
+            color: item.color,
+            quantity: item.quantity,
+          })),
+          shippingAddress: { fullName, phone, address, city, note },
+          paymentMethod: "PAYOS",
+          itemsPrice: totalPrice,
+          shippingFee,
+          totalAmount: finalTotal,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.order) {
+        setCreatedOrder(data.order);
+        setStep(3);
+      }
+    } catch (err) {
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Submit Order thủ công (COD hoặc khi bấm xác nhận)
   const handleCreateOrder = async (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
+
     if (!isAuthenticated) {
       openAuthModal("login");
       return;
@@ -82,13 +198,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
         },
         body: JSON.stringify({
           orderItems,
-          shippingAddress: {
-            fullName,
-            phone,
-            address,
-            city,
-            note,
-          },
+          shippingAddress: { fullName, phone, address, city, note },
           paymentMethod,
           itemsPrice: totalPrice,
           shippingFee,
@@ -103,7 +213,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
       }
 
       setCreatedOrder(data.order);
-      setStep(3); // Chuyển sang màn hình thành công
+      setStep(3);
     } catch (err) {
       setError(err.message || "Có lỗi xảy ra khi tạo đơn hàng.");
     } finally {
@@ -135,7 +245,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
           </div>
           <h2 className="font-heading text-2xl font-bold">
             {step === 1 && "Thông Tin Giao Hàng"}
-            {step === 2 && "Phương Thức Thanh Toán"}
+            {step === 2 && "Cổng Thanh Toán QR PayOS"}
             {step === 3 && "Đặt Hàng Thành Công!"}
           </h2>
 
@@ -146,7 +256,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
             </span>
             <ChevronRight className="w-3.5 h-3.5 text-white/40" />
             <span className={`px-3 py-1 rounded-full ${step >= 2 ? "bg-[#C85A32] text-white" : "bg-white/10 text-white/60"}`}>
-              2. Thanh Toán
+              2. Thanh Toán QR
             </span>
             <ChevronRight className="w-3.5 h-3.5 text-white/40" />
             <span className={`px-3 py-1 rounded-full ${step === 3 ? "bg-emerald-600 text-white" : "bg-white/10 text-white/60"}`}>
@@ -251,10 +361,11 @@ export default function CheckoutModal({ isOpen, onClose }) {
                   }
                   setError("");
                   setStep(2);
+                  handleGeneratePayOsLink();
                 }}
                 className="w-full py-3.5 bg-[#18392B] hover:bg-[#18392B]/90 text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer border-none mt-4"
               >
-                <span>Tiếp Tục: Chọn Thanh Toán</span>
+                <span>Tiếp Tục: Chọn Phương Thức Thanh Toán</span>
                 <ChevronRight className="w-4 h-4" />
               </button>
             </div>
@@ -287,7 +398,39 @@ export default function CheckoutModal({ isOpen, onClose }) {
                   Chọn Phương Thức Thanh Toán:
                 </label>
 
-                {/* COD */}
+                {/* 1. PAYOS VIETQR AUTO */}
+                <label
+                  onClick={() => setPaymentMethod("PAYOS")}
+                  className={`p-4 rounded-2xl border flex items-center gap-3 cursor-pointer transition-all ${
+                    paymentMethod === "PAYOS"
+                      ? "border-[#005baa] bg-[#005baa]/5 ring-2 ring-[#005baa]/20"
+                      : "border-gray-200 hover:border-gray-300"
+                  }`}
+                >
+                  <input
+                    type="radio"
+                    name="payment"
+                    checked={paymentMethod === "PAYOS"}
+                    onChange={() => setPaymentMethod("PAYOS")}
+                    className="accent-[#005baa]"
+                  />
+                  <div className="w-9 h-9 rounded-xl bg-[#005baa] text-white flex items-center justify-center shrink-0 font-bold text-xs shadow-sm">
+                    <QrCode className="w-5 h-5" />
+                  </div>
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2">
+                      <p className="font-bold text-xs text-gray-900">Thanh Toán QR PayOS (Tự Động 24/7)</p>
+                      <span className="bg-[#005baa] text-white text-[10px] px-2 py-0.5 rounded-full font-bold">
+                        Khuyên Dùng
+                      </span>
+                    </div>
+                    <p className="text-[11px] text-gray-500 mt-0.5">
+                      Quét mã QR tự động nhận diện khớp đơn 100% bằng ngân hàng bất kỳ (VietQR, MB, VCB)
+                    </p>
+                  </div>
+                </label>
+
+                {/* 2. COD */}
                 <label
                   onClick={() => setPaymentMethod("COD")}
                   className={`p-4 rounded-2xl border flex items-center gap-3 cursor-pointer transition-all ${
@@ -311,54 +454,69 @@ export default function CheckoutModal({ isOpen, onClose }) {
                     <p className="text-[11px] text-gray-500">Kiểm tra sản phẩm vừa vặn mới thanh toán cho shipper</p>
                   </div>
                 </label>
-
-                {/* BANK VIETQR */}
-                <label
-                  onClick={() => setPaymentMethod("BANK")}
-                  className={`p-4 rounded-2xl border flex items-center gap-3 cursor-pointer transition-all ${
-                    paymentMethod === "BANK"
-                      ? "border-[#C85A32] bg-[#C85A32]/5 ring-2 ring-[#C85A32]/20"
-                      : "border-gray-200 hover:border-gray-300"
-                  }`}
-                >
-                  <input
-                    type="radio"
-                    name="payment"
-                    checked={paymentMethod === "BANK"}
-                    onChange={() => setPaymentMethod("BANK")}
-                    className="accent-[#C85A32]"
-                  />
-                  <div className="w-9 h-9 rounded-xl bg-[#C85A32]/10 text-[#C85A32] flex items-center justify-center shrink-0">
-                    <CreditCard className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-xs text-gray-900">Chuyển khoản Ngân hàng (Mã VietQR)</p>
-                    <p className="text-[11px] text-gray-500">Quét mã QR tự động bằng ứng dụng ngân hàng (Auto-confirm)</p>
-                  </div>
-                </label>
               </div>
 
-              {/* Nếu chọn VietQR -> Hiển thị QR Code ngân hàng MBBank */}
-              {paymentMethod === "BANK" && (
-                <div className="p-5 bg-white border-2 border-dashed border-[#C85A32]/40 rounded-2xl text-center space-y-3 animate-fadeIn">
-                  <div className="w-48 h-48 bg-gray-100 rounded-xl overflow-hidden mx-auto shadow-md border border-gray-200">
-                    <img src={vietQrUrl} alt="VietQR MBBank" className="w-full h-full object-cover" />
-                  </div>
-                  <div className="text-xs space-y-1">
-                    <p className="font-bold text-gray-900">MBBank: <span className="text-[#C85A32]">0394961557</span></p>
-                    <p className="font-semibold text-gray-700">Chủ TK: DAIVERSE AO DAI</p>
-                    <div className="inline-flex items-center gap-2 px-3 py-1 bg-amber-50 border border-amber-200 rounded-lg text-[11px] text-amber-800 mt-1">
-                      <span>Nội dung CK: <strong>DV-2026-AODAI</strong></span>
-                      <button
-                        type="button"
-                        onClick={() => handleCopyMemo("DV-2026-AODAI")}
-                        className="text-xs font-bold text-[#C85A32] hover:underline bg-transparent border-none p-0 cursor-pointer flex items-center gap-1"
-                      >
-                        <Copy className="w-3 h-3" />
-                        <span>{isCopied ? "Đã copy!" : "Copy"}</span>
-                      </button>
+              {/* KHUNG HIỂN THỊ MÃ QR PAYOS TỰ ĐỘNG */}
+              {paymentMethod === "PAYOS" && (
+                <div className="p-5 bg-white border-2 border-dashed border-[#005baa]/30 rounded-2xl text-center space-y-3 animate-fadeIn shadow-sm">
+                  {isPayOsLoading ? (
+                    <div className="py-8 flex flex-col items-center gap-2">
+                      <RefreshCw className="w-8 h-8 text-[#005baa] animate-spin" />
+                      <p className="text-xs text-gray-600 font-semibold">Đang kết nối cổng thanh toán PayOS 4K...</p>
                     </div>
-                  </div>
+                  ) : (
+                    <>
+                      <div className="relative w-48 h-48 bg-white p-2 rounded-2xl overflow-hidden mx-auto shadow-md border border-gray-200 group">
+                        <img
+                          src={payOsData?.qrCode || `https://img.vietqr.io/image/mb-0394961557-compact2.png?amount=${finalTotal}&addInfo=DV-AODAI&accountName=DAIVERSE%20AO%20DAI`}
+                          alt="VietQR PayOS Code"
+                          className="w-full h-full object-contain"
+                        />
+                        {payOsStatus === "PAID" && (
+                          <div className="absolute inset-0 bg-emerald-600/90 text-white flex flex-col items-center justify-center gap-1 font-bold animate-fadeIn">
+                            <CheckCircle2 className="w-10 h-10 animate-bounce" />
+                            <span>Đã Nhận Chuyển Khoản!</span>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="text-xs space-y-1.5">
+                        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 text-[#005baa] rounded-full font-bold text-[11px]">
+                          <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                          <span>Đang chờ quét mã QR PayOS...</span>
+                        </div>
+
+                        <p className="font-bold text-gray-900 pt-1">
+                          Số tài khoản: <span className="text-[#005baa] text-sm">{payOsData?.accountNumber || "0394961557"}</span>
+                        </p>
+                        <p className="font-medium text-gray-700">Chủ TK: {payOsData?.accountName || "DAIVERSE AO DAI"}</p>
+
+                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-xl text-[11px] text-gray-800">
+                          <span>Nội dung CK: <strong>{payOsData?.description || "DV-AODAI"}</strong></span>
+                          <button
+                            type="button"
+                            onClick={() => handleCopyMemo(payOsData?.description || "DV-AODAI")}
+                            className="text-xs font-bold text-[#005baa] hover:underline bg-transparent border-none p-0 cursor-pointer flex items-center gap-0.5"
+                          >
+                            <Copy className="w-3 h-3" />
+                            <span>{isCopied ? "Đã copy!" : "Copy"}</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      {payOsData?.checkoutUrl && (
+                        <a
+                          href={payOsData.checkoutUrl}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#005baa] hover:underline pt-1"
+                        >
+                          <span>Mở trang Gateway PayOS</span>
+                          <ExternalLink className="w-3.5 h-3.5" />
+                        </a>
+                      )}
+                    </>
+                  )}
                 </div>
               )}
 
@@ -382,7 +540,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
                   ) : (
                     <>
                       <ShieldCheck className="w-4 h-4" />
-                      <span>XÁC NHẬN ĐẶT HÀNG NGAY</span>
+                      <span>{paymentMethod === "PAYOS" ? "HOÀN TẤT ĐẶT HÀNG QR PAYOS" : "XÁC NHẬN ĐẶT HÀNG COD"}</span>
                     </>
                   )}
                 </button>
@@ -398,7 +556,9 @@ export default function CheckoutModal({ isOpen, onClose }) {
               </div>
               <div>
                 <h3 className="font-heading font-bold text-2xl text-gray-900">Đặt Hàng Thành Công!</h3>
-                <p className="text-xs text-gray-500 mt-1">Cảm ơn bạn đã tin tưởng tay nghề may đo của <strong>DaiVerse</strong></p>
+                <p className="text-xs text-gray-500 mt-1">
+                  Cảm ơn bạn đã tin tưởng dịch vụ của <strong>DaiVerse</strong>. Đơn hàng đang được nghệ nhân tiếp nhận.
+                </p>
               </div>
 
               <div className="p-4 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-left text-xs space-y-2">
@@ -411,8 +571,8 @@ export default function CheckoutModal({ isOpen, onClose }) {
                   <span className="font-semibold text-gray-800">{createdOrder.shippingAddress?.fullName} ({createdOrder.shippingAddress?.phone})</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Địa chỉ giao:</span>
-                  <span className="font-semibold text-gray-800 truncate max-w-[240px]">{createdOrder.shippingAddress?.address}, {createdOrder.shippingAddress?.city}</span>
+                  <span className="text-gray-500">Phương thức:</span>
+                  <span className="font-bold text-[#005baa] uppercase">{createdOrder.paymentMethod}</span>
                 </div>
                 <div className="flex justify-between pt-2 border-t border-gray-200">
                   <span className="text-gray-500">Tổng thanh toán:</span>
