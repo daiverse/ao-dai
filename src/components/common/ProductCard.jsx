@@ -16,11 +16,14 @@ export default function ProductCard({ product, onTryOn, onRotate360 }) {
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image Container */}
-      <div className="relative aspect-[3/4] bg-[#FBF9F5] overflow-hidden">
+      <div 
+        onClick={() => setQuickViewProduct(product)}
+        className="relative aspect-[3/4] bg-[#FBF9F5] overflow-hidden cursor-pointer"
+      >
         <img
           src={isHovered && product.images[1] ? product.images[1] : product.images[0]}
           alt={product.name}
-          className="w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105"
+          className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
         />
 
         {/* Badges Overlay */}
@@ -99,27 +102,6 @@ export default function ProductCard({ product, onTryOn, onRotate360 }) {
           </h3>
         </div>
 
-        {/* Color Swatches */}
-        {product.colors && product.colors.length > 0 && (
-          <div className="flex items-center gap-1.5 pt-1">
-            {product.colors.map((color, idx) => (
-              <button
-                key={idx}
-                onClick={() => setSelectedColorIndex(idx)}
-                className={`w-4 h-4 rounded-full border transition-all cursor-pointer ${
-                  selectedColorIndex === idx 
-                    ? "scale-125 border-[#18392B] ring-2 ring-[#C85A32]/40" 
-                    : "border-gray-300 hover:scale-110"
-                }`}
-                style={{ backgroundColor: color.code }}
-                title={color.name}
-              />
-            ))}
-            <span className="text-[11px] text-gray-400 ml-1">
-              {product.colors[selectedColorIndex]?.name}
-            </span>
-          </div>
-        )}
 
         {/* Price & Add to Cart Action */}
         <div className="flex items-center justify-between pt-2 border-t border-gray-100">

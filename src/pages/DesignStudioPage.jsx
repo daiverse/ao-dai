@@ -424,6 +424,10 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
                       src={generatedResult.image}
                       alt={generatedResult.name}
                       className="w-full h-full object-cover rounded-xl"
+                      onError={(e) => {
+                        e.target.onerror = null;
+                        e.target.src = generatedResult.baseImage || "/anh/746927465_122119237899355470_7558522641041819280_n.jpg";
+                      }}
                     />
 
                     {/* Overlay Details Tag */}

@@ -132,15 +132,15 @@ export default function Footer({ setActiveTab }) {
             <ul className="space-y-3 text-sm text-[#FBF9F5]/60">
               <li className="flex items-start gap-2.5">
                 <MapPin className="w-4 h-4 text-[#C85A32]/80 mt-0.5 shrink-0" />
-                <span>123 Đường Đồng Khởi, Q.1, TP.HCM</span>
+                <span>Hà Nội, Việt Nam</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Phone className="w-4 h-4 text-[#C85A32]/80 shrink-0" />
-                <span>0909 123 456</span>
+                <span>(+84) 394961557</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Mail className="w-4 h-4 text-[#C85A32]/80 shrink-0" />
-                <span>hello@sereneaodai.vn</span>
+                <span>admin@daiverse.com.vn</span>
               </li>
               <li className="flex items-center gap-2.5">
                 <Clock className="w-4 h-4 text-[#C85A32]/80 shrink-0" />

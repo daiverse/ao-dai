@@ -286,7 +286,7 @@ export default function Express24hPage({ onTryOn, onRotate360 }) {
               href="tel:0909123456"
               className="px-6 py-3 bg-[#18392B] text-white font-bold text-sm rounded-xl hover:bg-[#18392B]/90 transition-all shadow-md"
             >
-              Hotline 24/7: 0909 123 456
+              Hotline 24/7: (+84) 394961557
             </a>
           </div>
         </div>

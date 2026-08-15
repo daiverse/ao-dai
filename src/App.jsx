@@ -124,7 +124,10 @@ function AppContent() {
         activeTab={activeTab}
         setActiveTab={setActiveTab}
       />
-      <ProductQuickView onNavigateToTryOn={handleNavigateToTryOn} />
+      <ProductQuickView 
+        onNavigateToTryOn={handleNavigateToTryOn}
+        onNavigateTo360={handleNavigateTo360}
+      />
       <FloatingAiAssistant />
     </div>
   );

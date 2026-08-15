@@ -27,7 +27,15 @@ const productSchema = new mongoose.Schema(
     collection: {
       type: String,
       required: true,
-      enum: ["mong-lien", "trang-trong-lua", "huong-co-do"],
+      trim: true,
+    },
+    storyTitle: {
+      type: String,
+      trim: true,
+    },
+    storyContent: {
+      type: String,
+      trim: true,
     },
     category: {
       type: String,

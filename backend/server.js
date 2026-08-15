@@ -34,8 +34,9 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
-// Static files (ảnh upload)
+// Static files (ảnh upload & sản phẩm)
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
+app.use("/anh", express.static(path.join(__dirname, "../public/anh")));
 
 // API Routes
 app.use("/api/auth", authRoutes);

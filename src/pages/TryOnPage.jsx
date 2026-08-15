@@ -3,6 +3,7 @@ import { Sparkles, Upload, User, Check, RefreshCw, ShoppingBag, ArrowRight, Eye,
 import { PRODUCTS } from "../data/products";
 import { useCart } from "../context/CartContext";
 import { compositeVirtualTryOn } from "../utils/aiVtonComposer";
+import { runVirtualTryOn } from "../utils/hfAI";
 
 export default function TryOnPage({ selectedProductFromState }) {
   const { addToCart } = useCart();
@@ -42,7 +43,7 @@ export default function TryOnPage({ selectedProductFromState }) {
     }
   };
 
-  // Ghép ảnh người dùng / người mẫu với Mẫu Áo Dài Thực Tế được chọn
+  // Ghép ảnh người dùng / người mẫu với Mẫu Áo Dài Thực Tế bằng IDM-VTON AI (fallback Canvas)
   const handleRunAiTryOn = async () => {
     setIsProcessing(true);
     setHasTriedOn(false);
@@ -52,13 +53,21 @@ export default function TryOnPage({ selectedProductFromState }) {
     const garmentImageUrl = selectedProduct?.images?.[0];
 
     try {
-      // Thực hiện ghép chính xác ảnh khuôn mặt cá nhân với mẫu áo dài thực tế
+      // 1. Gọi IDM-VTON AI qua Backend Proxy
+      const aiResult = await runVirtualTryOn(personImageUrl, garmentImageUrl);
+      if (aiResult) {
+        setResultImage(aiResult);
+        setHasTriedOn(true);
+        return;
+      }
+      // 2. Fallback sang Canvas compositor nếu AI remote bận hoặc timeout
       const blendedUrl = await compositeVirtualTryOn(personImageUrl, garmentImageUrl);
       setResultImage(blendedUrl);
       setHasTriedOn(true);
     } catch (err) {
       console.warn("AI VTON error:", err);
-      setResultImage(garmentImageUrl);
+      const blendedUrl = await compositeVirtualTryOn(personImageUrl, garmentImageUrl);
+      setResultImage(blendedUrl);
       setHasTriedOn(true);
     } finally {
       setIsProcessing(false);

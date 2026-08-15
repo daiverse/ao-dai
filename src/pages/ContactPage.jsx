@@ -39,7 +39,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="font-bold text-white">Địa chỉ flagship:</p>
-                  <p className="text-gray-300 mt-0.5">123 Đường Đồng Khởi, Quận 1, Thành Phố Hồ Chí Minh</p>
+                  <p className="text-gray-300 mt-0.5">Hà Nội, Việt Nam</p>
                 </div>
               </div>
 
@@ -49,7 +49,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="font-bold text-white">Hotline tư vấn đặt lịch:</p>
-                  <p className="text-gray-300 mt-0.5">0909 123 456 (Zalo / Call)</p>
+                  <p className="text-gray-300 mt-0.5">(+84) 394961557 (Zalo / Call)</p>
                 </div>
               </div>
 
@@ -59,7 +59,7 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="font-bold text-white">Email hỗ trợ:</p>
-                  <p className="text-gray-300 mt-0.5">hello@sereneaodai.vn</p>
+                  <p className="text-gray-300 mt-0.5">admin@daiverse.com.vn</p>
                 </div>
               </div>
 
