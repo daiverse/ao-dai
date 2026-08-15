@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { X, Mail, Lock, User, Phone, ArrowRight, ShieldCheck, RefreshCw, KeyRound, Sparkles } from "lucide-react";
+import { X, Mail, Lock, User, Phone, ArrowRight, ShieldCheck, RefreshCw, KeyRound, Sparkles, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
-import PasswordStrengthBar from "./PasswordStrengthBar";
+import PasswordStrengthBar, { calculatePasswordStrength } from "./PasswordStrengthBar";
 
 export default function AuthModal() {
   const {
@@ -19,6 +19,10 @@ export default function AuthModal() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
+
+  // Eye toggle states
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   // Form states
   const [email, setEmail] = useState("");
@@ -70,6 +74,12 @@ export default function AuthModal() {
   const handleSendOTPSubmit = async (e) => {
     e.preventDefault();
     setError("");
+
+    const { isValid } = calculatePasswordStrength(password);
+    if (!isValid) {
+      setError("Mật khẩu chưa đủ độ mạnh! Mật khẩu phải đáp ứng ĐỦ CẢ 4 YẾU TỐ (Độ dài, Chữ hoa & thường, Số và Ký tự đặc biệt).");
+      return;
+    }
 
     if (password !== confirmPassword) {
       setError("Mật khẩu xác nhận không trùng khớp. Vui lòng kiểm tra lại.");
@@ -246,13 +256,20 @@ export default function AuthModal() {
                 <div className="relative">
                   <Lock className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     required
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
+                    className="w-full pl-10 pr-11 py-3 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 bg-transparent border-none cursor-pointer p-1"
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
                 </div>
               </div>
 
@@ -369,18 +386,24 @@ export default function AuthModal() {
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-bold text-gray-700 uppercase tracking-wider">Mật khẩu (tối thiểu 6 ký tự)</label>
+                <label className="text-xs font-bold text-gray-700 uppercase tracking-wider">Mật khẩu (Đủ 4 yếu tố)</label>
                 <div className="relative">
                   <Lock className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     required
-                    minLength={6}
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
+                    className="w-full pl-10 pr-11 py-2.5 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 bg-transparent border-none cursor-pointer p-1"
+                  >
+                    {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
                 </div>
                 <PasswordStrengthBar password={password} />
               </div>
@@ -390,14 +413,20 @@ export default function AuthModal() {
                 <div className="relative">
                   <Lock className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                   <input
-                    type="password"
+                    type={showConfirmPassword ? "text" : "password"}
                     required
-                    minLength={6}
                     placeholder="••••••••"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
+                    className="w-full pl-10 pr-11 py-2.5 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
                   />
+                  <button
+                    type="button"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 bg-transparent border-none cursor-pointer p-1"
+                  >
+                    {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                  </button>
                 </div>
                 {confirmPassword && password !== confirmPassword && (
                   <p className="text-[11px] text-rose-600 font-semibold pt-0.5">⚠️ Mật khẩu không trùng khớp</p>

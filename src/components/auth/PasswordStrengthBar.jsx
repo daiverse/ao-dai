@@ -2,64 +2,76 @@ import React from "react";
 import { Check, X } from "lucide-react";
 
 export const calculatePasswordStrength = (password) => {
-  if (!password) return { score: 0, label: "", color: "bg-gray-200", percent: 0, checks: {} };
+  if (!password) {
+    return {
+      isValid: false,
+      score: 0,
+      label: "Rất yếu",
+      color: "bg-rose-500",
+      textColor: "text-rose-600",
+      percent: 0,
+      checks: {
+        length: false,
+        hasUpperAndLower: false,
+        hasNumber: false,
+        hasSpecial: false,
+      },
+    };
+  }
 
   const checks = {
     length: password.length >= 8,
-    hasUpper: /[A-Z]/.test(password),
-    hasLower: /[a-z]/.test(password),
+    hasUpperAndLower: /[A-Z]/.test(password) && /[a-z]/.test(password),
     hasNumber: /[0-9]/.test(password),
     hasSpecial: /[^A-Za-z0-9]/.test(password),
   };
 
-  let score = 0;
-  if (password.length >= 6) score += 1;
-  if (checks.length) score += 1;
-  if (checks.hasUpper && checks.hasLower) score += 1;
-  if (checks.hasNumber) score += 1;
-  if (checks.hasSpecial) score += 1;
+  const isValid = checks.length && checks.hasUpperAndLower && checks.hasNumber && checks.hasSpecial;
 
-  // Max score 4
-  if (score > 4) score = 4;
+  let count = 0;
+  if (checks.length) count++;
+  if (checks.hasUpperAndLower) count++;
+  if (checks.hasNumber) count++;
+  if (checks.hasSpecial) count++;
 
   let label = "Rất yếu";
   let color = "bg-rose-500";
   let textColor = "text-rose-600";
-  let percent = 20;
+  let percent = 25;
 
-  switch (score) {
+  switch (count) {
     case 1:
-      label = "Yếu";
+      label = "Rất yếu";
       color = "bg-rose-500";
       textColor = "text-rose-600";
       percent = 25;
       break;
     case 2:
-      label = "Trung bình";
-      color = "bg-amber-500";
-      textColor = "text-amber-600";
+      label = "Yếu";
+      color = "bg-rose-500";
+      textColor = "text-rose-600";
       percent = 50;
       break;
     case 3:
-      label = "Mạnh";
-      color = "bg-emerald-500";
-      textColor = "text-emerald-600";
+      label = "Trung bình";
+      color = "bg-amber-500";
+      textColor = "text-amber-600";
       percent = 75;
       break;
     case 4:
-      label = "Rất mạnh";
+      label = "Đạt chuẩn mạnh";
       color = "bg-emerald-600";
       textColor = "text-emerald-700";
       percent = 100;
       break;
     default:
       label = "Rất yếu";
-      color = "bg-[#C85A32]";
-      textColor = "text-[#C85A32]";
+      color = "bg-rose-500";
+      textColor = "text-rose-600";
       percent = 15;
   }
 
-  return { score, label, color, textColor, percent, checks };
+  return { isValid, score: count, label, color, textColor, percent, checks };
 };
 
 export default function PasswordStrengthBar({ password }) {
@@ -83,23 +95,26 @@ export default function PasswordStrengthBar({ password }) {
         ></div>
       </div>
 
-      {/* Quick checklist tips */}
+      {/* 4 Bắt Buộc Requirements Checklist */}
       <div className="grid grid-cols-2 gap-1.5 text-[10px] pt-1 text-gray-500">
         <div className="flex items-center gap-1">
-          {checks.length ? <Check className="w-3 h-3 text-emerald-500" /> : <X className="w-3 h-3 text-gray-300" />}
-          <span className={checks.length ? "text-gray-700 font-medium" : ""}>Tối thiểu 8 ký tự</span>
+          {checks.length ? <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3]" /> : <X className="w-3.5 h-3.5 text-rose-500" />}
+          <span className={checks.length ? "text-emerald-700 font-bold" : "text-rose-600 font-medium"}>Tối thiểu 8 ký tự</span>
         </div>
+
         <div className="flex items-center gap-1">
-          {checks.hasUpper && checks.hasLower ? <Check className="w-3 h-3 text-emerald-500" /> : <X className="w-3 h-3 text-gray-300" />}
-          <span className={checks.hasUpper && checks.hasLower ? "text-gray-700 font-medium" : ""}>Chữ hoa & chữ thường</span>
+          {checks.hasUpperAndLower ? <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3]" /> : <X className="w-3.5 h-3.5 text-rose-500" />}
+          <span className={checks.hasUpperAndLower ? "text-emerald-700 font-bold" : "text-rose-600 font-medium"}>Chữ hoa & chữ thường</span>
         </div>
+
         <div className="flex items-center gap-1">
-          {checks.hasNumber ? <Check className="w-3 h-3 text-emerald-500" /> : <X className="w-3 h-3 text-gray-300" />}
-          <span className={checks.hasNumber ? "text-gray-700 font-medium" : ""}>Có chữ số (0-9)</span>
+          {checks.hasNumber ? <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3]" /> : <X className="w-3.5 h-3.5 text-rose-500" />}
+          <span className={checks.hasNumber ? "text-emerald-700 font-bold" : "text-rose-600 font-medium"}>Có chữ số (0-9)</span>
         </div>
+
         <div className="flex items-center gap-1">
-          {checks.hasSpecial ? <Check className="w-3 h-3 text-emerald-500" /> : <X className="w-3 h-3 text-gray-300" />}
-          <span className={checks.hasSpecial ? "text-gray-700 font-medium" : ""}>Có ký tự đặc biệt (@#$)</span>
+          {checks.hasSpecial ? <Check className="w-3.5 h-3.5 text-emerald-600 stroke-[3]" /> : <X className="w-3.5 h-3.5 text-rose-500" />}
+          <span className={checks.hasSpecial ? "text-emerald-700 font-bold" : "text-rose-600 font-medium"}>Có ký tự đặc biệt (@#$)</span>
         </div>
       </div>
     </div>

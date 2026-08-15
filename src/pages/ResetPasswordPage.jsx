@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Lock, ArrowRight, RefreshCw, KeyRound, CheckCircle2 } from "lucide-react";
+import { Lock, ArrowRight, RefreshCw, KeyRound, CheckCircle2, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
-import PasswordStrengthBar from "../components/auth/PasswordStrengthBar";
+import PasswordStrengthBar, { calculatePasswordStrength } from "../components/auth/PasswordStrengthBar";
 
 export default function ResetPasswordPage() {
   const { resetPassword } = useAuth();
   const [token, setToken] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
@@ -28,8 +30,9 @@ export default function ResetPasswordPage() {
       return;
     }
 
-    if (password.length < 6) {
-      setError("Mật khẩu mới phải có ít nhất 6 ký tự.");
+    const { isValid } = calculatePasswordStrength(password);
+    if (!isValid) {
+      setError("Mật khẩu chưa đủ độ mạnh! Mật khẩu phải đáp ứng ĐỦ CẢ 4 YẾU TỐ (Độ dài, Chữ hoa & thường, Số và Ký tự đặc biệt).");
       return;
     }
 
@@ -61,7 +64,7 @@ export default function ResetPasswordPage() {
             <KeyRound className="w-7 h-7" />
           </div>
           <h1 className="font-heading text-2xl font-bold text-gray-900">Tạo Mật Khẩu Mới</h1>
-          <p className="text-xs text-gray-500 font-light">Vui lòng nhập mật khẩu mới cho tài khoản của bạn</p>
+          <p className="text-xs text-gray-500 font-light">Vui lòng nhập mật khẩu mới thỏa mãn đủ 4 yếu tố an toàn</p>
         </div>
 
         {error && (
@@ -79,18 +82,24 @@ export default function ResetPasswordPage() {
         ) : (
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1">
-              <label className="text-xs font-bold text-gray-700 uppercase tracking-wider">Mật khẩu mới</label>
+              <label className="text-xs font-bold text-gray-700 uppercase tracking-wider">Mật khẩu mới (Đủ 4 yếu tố)</label>
               <div className="relative">
                 <Lock className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
-                  type="password"
+                  type={showPassword ? "text" : "password"}
                   required
-                  minLength={6}
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
+                  className="w-full pl-10 pr-11 py-3 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowPassword(!showPassword)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 bg-transparent border-none cursor-pointer p-1"
+                >
+                  {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
               <PasswordStrengthBar password={password} />
             </div>
@@ -100,14 +109,20 @@ export default function ResetPasswordPage() {
               <div className="relative">
                 <Lock className="w-4 h-4 text-gray-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <input
-                  type="password"
+                  type={showConfirmPassword ? "text" : "password"}
                   required
-                  minLength={6}
                   placeholder="••••••••"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full pl-10 pr-4 py-3 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
+                  className="w-full pl-10 pr-11 py-3 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
                 />
+                <button
+                  type="button"
+                  onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 bg-transparent border-none cursor-pointer p-1"
+                >
+                  {showConfirmPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                </button>
               </div>
               {confirmPassword && password !== confirmPassword && (
                 <p className="text-[11px] text-rose-600 font-semibold pt-1">⚠️ Mật khẩu không trùng khớp</p>
