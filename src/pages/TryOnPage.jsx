@@ -184,28 +184,8 @@ export default function TryOnPage({ selectedProductFromState }) {
               </div>
             </div>
 
-            {/* Step 3: Select Color & Size Options */}
-            <div className="p-4 rounded-2xl bg-[#FBF9F5] border border-gray-200/80 space-y-4">
-              <div>
-                <p className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Tùy Chọn Màu Sắc:</p>
-                <div className="flex items-center gap-2 flex-wrap">
-                  {selectedProduct.colors?.map((c, cIdx) => (
-                    <button
-                      key={cIdx}
-                      onClick={() => setSelectedColor(c.name)}
-                      className={`px-3 py-1.5 rounded-full text-xs font-semibold flex items-center gap-2 border cursor-pointer transition-all ${
-                        selectedColor === c.name
-                          ? "border-[#18392B] bg-[#18392B] text-white"
-                          : "border-gray-300 bg-white text-gray-700 hover:bg-gray-50"
-                      }`}
-                    >
-                      <span className="w-3 h-3 rounded-full border border-black/20" style={{ backgroundColor: c.code }}></span>
-                      <span>{c.name}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
+            {/* Step 3: Select Size Option */}
+            <div className="p-4 rounded-2xl bg-[#FBF9F5] border border-gray-200/80">
               <div>
                 <p className="text-xs font-bold text-gray-700 uppercase tracking-wider mb-2">Chọn Size Áo:</p>
                 <div className="flex items-center gap-2">
@@ -340,7 +320,7 @@ export default function TryOnPage({ selectedProductFromState }) {
                 <div>
                   <h4 className="font-heading font-bold text-sm text-gray-900">{selectedProduct.name}</h4>
                   <p className="text-xs text-gray-500 mt-0.5">
-                    Màu chọn: <span className="font-semibold text-gray-800">{selectedColor}</span> · Size: <span className="font-semibold text-gray-800">{selectedSize}</span>
+                    Kích thước: <span className="font-semibold text-gray-800">Size {selectedSize}</span> · Chất liệu: <span className="font-semibold text-gray-800">{selectedProduct.fabric}</span>
                   </p>
                 </div>
                 <div className="text-right">

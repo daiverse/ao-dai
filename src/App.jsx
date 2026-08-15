@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { CartProvider } from "./context/CartContext";
+import { AuthProvider } from "./context/AuthContext";
 
 // Layout & Common Components
 import Header from "./components/layout/Header";
@@ -9,6 +10,7 @@ import MobileMenu from "./components/layout/MobileMenu";
 import ProductQuickView from "./components/common/ProductQuickView";
 import Toast from "./components/common/Toast";
 import FloatingAiAssistant from "./components/common/FloatingAiAssistant";
+import AuthModal from "./components/auth/AuthModal";
 
 // Pages
 import HomePage from "./pages/HomePage";
@@ -22,11 +24,19 @@ import HistoryPage from "./pages/HistoryPage";
 import AboutPage from "./pages/AboutPage";
 import JournalPage from "./pages/JournalPage";
 import ContactPage from "./pages/ContactPage";
+import ResetPasswordPage from "./pages/ResetPasswordPage";
 
 function AppContent() {
   const [activeTab, setActiveTab] = useState("home");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [selectedProductForTryOn, setSelectedProductForTryOn] = useState(null);
+  const [isResetPage, setIsResetPage] = useState(false);
+
+  useEffect(() => {
+    if (window.location.pathname.startsWith("/reset-password/")) {
+      setIsResetPage(true);
+    }
+  }, []);
 
   const handleNavigateToTryOn = (product) => {
     if (product) setSelectedProductForTryOn(product);
@@ -40,6 +50,10 @@ function AppContent() {
   };
 
   const renderCurrentPage = () => {
+    if (isResetPage) {
+      return <ResetPasswordPage />;
+    }
+
     switch (activeTab) {
       case "home":
         return (
@@ -104,7 +118,10 @@ function AppContent() {
       {/* Navigation Bar Header */}
       <Header
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        setActiveTab={(tab) => {
+          setIsResetPage(false);
+          setActiveTab(tab);
+        }}
         onOpenMobileMenu={() => setIsMobileMenuOpen(true)}
       />
 
@@ -114,15 +131,22 @@ function AppContent() {
       </main>
 
       {/* Footer */}
-      <Footer setActiveTab={setActiveTab} />
+      <Footer setActiveTab={(tab) => {
+        setIsResetPage(false);
+        setActiveTab(tab);
+      }} />
 
       {/* Modals & Overlays */}
+      <AuthModal />
       <CartDrawer onNavigateToCheckout={() => setActiveTab("contact")} />
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}
         activeTab={activeTab}
-        setActiveTab={setActiveTab}
+        setActiveTab={(tab) => {
+          setIsResetPage(false);
+          setActiveTab(tab);
+        }}
       />
       <ProductQuickView 
         onNavigateToTryOn={handleNavigateToTryOn}
@@ -135,8 +159,10 @@ function AppContent() {
 
 export default function App() {
   return (
-    <CartProvider>
-      <AppContent />
-    </CartProvider>
+    <AuthProvider>
+      <CartProvider>
+        <AppContent />
+      </CartProvider>
+    </AuthProvider>
   );
 }

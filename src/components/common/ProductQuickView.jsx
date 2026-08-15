@@ -4,6 +4,7 @@ import {
   Truck, RefreshCw, ChevronLeft, ChevronRight, BookOpen, RotateCcw, Maximize2
 } from "lucide-react";
 import { useCart } from "../../context/CartContext";
+import SizeGuideModal from "./SizeGuideModal";
 
 export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 }) {
   const { quickViewProduct, setQuickViewProduct, addToCart } = useCart();
@@ -12,6 +13,7 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
   const [selectedColorIdx, setSelectedColorIdx] = useState(0);
   const [activeTab, setActiveTab] = useState("story"); // "story" | "specs"
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isSizeGuideOpen, setIsSizeGuideOpen] = useState(false);
 
   // Reset indices when quickViewProduct changes
   useEffect(() => {
@@ -292,9 +294,13 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
                     <label className="text-xs font-bold text-gray-700 uppercase tracking-wider">
                       Kích thước (Size):
                     </label>
-                    <span className="text-xs text-[#C85A32] font-medium underline cursor-pointer">
+                    <button
+                      type="button"
+                      onClick={() => setIsSizeGuideOpen(true)}
+                      className="text-xs text-[#C85A32] font-medium underline cursor-pointer bg-transparent border-none p-0"
+                    >
                       Bảng Hướng Dẫn May Đo
-                    </span>
+                    </button>
                   </div>
                   <div className="flex flex-wrap gap-2">
                     {product.sizes.map((sz) => (
@@ -344,6 +350,15 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
           </div>
         </div>
       </div>
+      {/* Size Guide Modal */}
+      <SizeGuideModal
+        isOpen={isSizeGuideOpen}
+        onClose={() => setIsSizeGuideOpen(false)}
+        onSelectTailoredSize={(customData) => {
+          setSelectedSize("Tailored");
+          showToast("Đã áp dụng số đo riêng cho đơn hàng!");
+        }}
+      />
     </div>
   );
 }

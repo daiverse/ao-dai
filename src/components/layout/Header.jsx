@@ -1,11 +1,25 @@
 import React, { useState, useEffect } from "react";
-import { ShoppingBag, Sparkles, ChevronDown, Menu, X, Palette, History } from "lucide-react";
+import { ShoppingBag, Sparkles, ChevronDown, Menu, X, Palette, History, User as UserIcon, LogOut, ShieldCheck } from "lucide-react";
 import { useCart } from "../../context/CartContext";
+import { useAuth } from "../../context/AuthContext";
+
+// Helper: Viết tắt họ và tên đệm nếu tên dài (vd: Nguyễn Văn Minh -> N. V. Minh)
+const formatDisplayName = (fullName) => {
+  if (!fullName) return "";
+  const parts = fullName.trim().split(/\s+/);
+  if (parts.length <= 1) return fullName;
+  const lastName = parts[parts.length - 1];
+  const initials = parts.slice(0, -1).map(p => p.charAt(0).toUpperCase() + ".").join(" ");
+  return `${initials} ${lastName}`;
+};
 
 export default function Header({ activeTab, setActiveTab, onOpenMobileMenu }) {
   const { totalItems, setIsCartOpen } = useCart();
+  const { user, isAuthenticated, logout, openAuthModal } = useAuth();
+  
   const [isScrolled, setIsScrolled] = useState(false);
   const [isAiDropdownOpen, setIsAiDropdownOpen] = useState(false);
+  const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -49,7 +63,7 @@ export default function Header({ activeTab, setActiveTab, onOpenMobileMenu }) {
           {/* Brand Logo */}
           <button 
             onClick={() => handleNavClick("home")}
-            className="flex items-center cursor-pointer group z-10 shrink-0 text-left border-none bg-transparent outline-none p-0 appearance-none mr-2 lg:mr-4 xl:mr-6"
+            className="flex items-center cursor-pointer group z-10 shrink-0 text-left border-none bg-transparent outline-none p-0 appearance-none mr-2 lg:mr-3 xl:mr-5"
           >
             <div className="relative w-10 h-10 sm:w-11 sm:h-11 rounded-full overflow-hidden border border-[#D4A373]/40 shadow-sm group-hover:scale-105 transition-transform bg-[#18392B] flex items-center justify-center">
               <img src="/logo.jpg" alt="DaiVerse" className="w-full h-full object-cover" />
@@ -60,7 +74,7 @@ export default function Header({ activeTab, setActiveTab, onOpenMobileMenu }) {
           </button>
 
           {/* Desktop Navigation (lg+) */}
-          <nav className="hidden lg:flex items-center justify-center gap-2 lg:gap-3 xl:gap-5 z-10 mx-auto">
+          <nav className="hidden lg:flex items-center justify-center gap-1.5 lg:gap-2.5 xl:gap-4 z-10 mx-auto">
             {navItems.map((item) => (
               <button
                 key={item.id}
@@ -87,7 +101,56 @@ export default function Header({ activeTab, setActiveTab, onOpenMobileMenu }) {
           </nav>
 
           {/* Right Actions (Desktop - lg+) */}
-          <div className="hidden lg:flex items-center gap-2 lg:gap-3 z-10 relative shrink-0 ml-2 lg:ml-4 xl:ml-6">
+          <div className="hidden lg:flex items-center gap-2 lg:gap-2.5 z-10 relative shrink-0 ml-1 lg:ml-2 xl:ml-4">
+            {/* User Login/Account Button */}
+            {isAuthenticated ? (
+              <div className="relative">
+                <button
+                  onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
+                  onBlur={() => setTimeout(() => setIsUserDropdownOpen(false), 200)}
+                  className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-200 hover:border-[#C85A32]/40 bg-white transition-all cursor-pointer shadow-sm hover:shadow-md"
+                >
+                  <div className="w-7 h-7 rounded-full overflow-hidden bg-[#18392B] text-white flex items-center justify-center text-xs font-bold shrink-0 shadow-inner">
+                    {user.avatar ? (
+                      <img src={user.avatar} alt={user.name} className="w-full h-full object-cover" />
+                    ) : (
+                      user.name?.charAt(0)?.toUpperCase() || "U"
+                    )}
+                  </div>
+                  <span className="text-xs font-bold text-gray-800 whitespace-nowrap">
+                    {formatDisplayName(user.name)}
+                  </span>
+                  <ChevronDown className={`w-3 h-3 text-gray-400 transition-transform ${isUserDropdownOpen ? "rotate-180" : ""}`} />
+                </button>
+
+                {isUserDropdownOpen && (
+                  <div className="absolute right-0 mt-2.5 w-60 bg-white rounded-2xl shadow-2xl border border-gray-100 p-2 z-50 animate-fade-in">
+                    <div className="px-3.5 py-3 border-b border-gray-100 bg-[#FBF9F5] rounded-xl mb-1">
+                      <p className="text-xs font-bold text-gray-900 leading-snug">{user.name}</p>
+                      <p className="text-[11px] text-gray-500 font-light truncate mt-0.5">{user.email}</p>
+                    </div>
+                    <button
+                      onClick={() => {
+                        logout();
+                        setIsUserDropdownOpen(false);
+                      }}
+                      className="w-full text-left p-2.5 rounded-xl hover:bg-rose-50 text-rose-600 transition-colors flex items-center gap-2 text-xs font-bold cursor-pointer border-none bg-transparent"
+                    >
+                      <LogOut className="w-4 h-4" />
+                      <span>Đăng xuất</span>
+                    </button>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <button
+                onClick={() => openAuthModal("login")}
+                className="px-3.5 py-1.5 rounded-full text-xs font-bold text-[#18392B] border border-[#18392B]/20 hover:bg-[#18392B] hover:text-white transition-all cursor-pointer bg-transparent whitespace-nowrap"
+              >
+                Đăng Nhập
+              </button>
+            )}
+
             <button
               onClick={() => setIsCartOpen(true)}
               aria-label="Giỏ hàng"

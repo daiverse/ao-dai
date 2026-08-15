@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
 const addressSchema = new mongoose.Schema({
   fullName: { type: String, required: true },
@@ -12,14 +13,14 @@ const addressSchema = new mongoose.Schema({
 });
 
 const measurementsSchema = new mongoose.Schema({
-  height: Number,       // chiều cao (cm)
-  weight: Number,       // cân nặng (kg)
-  bust: Number,         // vòng ngực (cm)
-  waist: Number,        // vòng eo (cm)
-  hips: Number,         // vòng mông (cm)
-  shoulderWidth: Number,// rộng vai (cm)
-  armLength: Number,    // dài tay (cm)
-  dressLength: Number,  // dài áo (cm)
+  height: Number,
+  weight: Number,
+  bust: Number,
+  waist: Number,
+  hips: Number,
+  shoulderWidth: Number,
+  armLength: Number,
+  dressLength: Number,
 });
 
 const userSchema = new mongoose.Schema(
@@ -39,42 +40,41 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Vui lòng nhập mật khẩu"],
       minlength: [6, "Mật khẩu tối thiểu 6 ký tự"],
       select: false,
     },
-    phone: {
-      type: String,
-      trim: true,
-    },
-    avatar: {
-      type: String,
-      default: "",
-    },
+    phone: { type: String, trim: true },
+    avatar: { type: String, default: "" },
     role: {
       type: String,
       enum: ["customer", "admin"],
       default: "customer",
     },
+
+    // Google OAuth
+    googleId: { type: String, default: null },
+
+    // Email Verification
+    isEmailVerified: { type: Boolean, default: false },
+    emailOTP: { type: String, select: false },
+    emailOTPExpires: { type: Date, select: false },
+
+    // Reset Password
+    resetPasswordToken: { type: String, select: false },
+    resetPasswordExpires: { type: Date, select: false },
+
+    // Profile
     addresses: [addressSchema],
     measurements: measurementsSchema,
-    wishlist: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
-      },
-    ],
-    isActive: {
-      type: Boolean,
-      default: true,
-    },
+    wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+    isActive: { type: Boolean, default: true },
   },
   { timestamps: true }
 );
 
 // Hash password trước khi lưu
 userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
+  if (!this.isModified("password") || !this.password) return next();
   const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
   next();
@@ -83,6 +83,25 @@ userSchema.pre("save", async function (next) {
 // So sánh password
 userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
+};
+
+// Tạo OTP 6 số
+userSchema.methods.generateEmailOTP = function () {
+  const otp = Math.floor(100000 + Math.random() * 900000).toString();
+  this.emailOTP = otp;
+  this.emailOTPExpires = new Date(Date.now() + 10 * 60 * 1000); // 10 phút
+  return otp;
+};
+
+// Tạo reset password token
+userSchema.methods.generateResetPasswordToken = function () {
+  const resetToken = crypto.randomBytes(32).toString("hex");
+  this.resetPasswordToken = crypto
+    .createHash("sha256")
+    .update(resetToken)
+    .digest("hex");
+  this.resetPasswordExpires = new Date(Date.now() + 60 * 60 * 1000); // 1 giờ
+  return resetToken;
 };
 
 module.exports = mongoose.model("User", userSchema);
