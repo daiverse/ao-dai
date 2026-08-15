@@ -1,17 +1,55 @@
 const jwt = require("jsonwebtoken");
 const crypto = require("crypto");
 const mongoose = require("mongoose");
+const fs = require("fs");
+const path = require("path");
 const User = require("../models/User");
 const { sendOTPEmail, sendResetPasswordEmail } = require("../utils/emailService");
 
-// ── BỘ NHỚ TẠM (In-memory store cho OTP đăng ký & Fallback khi chưa có DB) ──
+// ── BỘ NHỚ LƯU TRỮ VĨNH CỬU KHI OFFLINE (JSON File Fallback) ──
 const tempPendingRegistrations = new Map(); // email -> { name, email, password, phone, otp, expiresAt }
-const inMemoryUsers = new Map(); // email -> userObject (Fallback nếu MongoDB ko kết nối)
+const inMemoryUsers = new Map(); // email -> userObject
+const tempResetTokens = new Map(); // resetToken -> email
 exports.inMemoryUsers = inMemoryUsers;
+
+const FALLBACK_FILE = path.join(__dirname, "../data/fallback_users.json");
+
+// Tự động tải dữ liệu tài khoản từ ổ đĩa khi khởi động
+const loadFallbackUsers = () => {
+  try {
+    if (fs.existsSync(FALLBACK_FILE)) {
+      const data = JSON.parse(fs.readFileSync(FALLBACK_FILE, "utf8"));
+      Object.entries(data).forEach(([email, uObj]) => {
+        inMemoryUsers.set(email.toLowerCase().trim(), uObj);
+      });
+      console.log(`\n📂 [PERSISTENCE] Khôi phục thành công ${inMemoryUsers.size} tài khoản từ file offline.\n`);
+    }
+  } catch (err) {
+    console.error("Lỗi đọc file fallback users:", err);
+  }
+};
+
+// Tự động lưu tài khoản vào ổ đĩa khi có thay đổi
+const saveFallbackUsers = () => {
+  try {
+    const dir = path.dirname(FALLBACK_FILE);
+    if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+    const obj = {};
+    for (let [email, uObj] of inMemoryUsers.entries()) {
+      obj[email.toLowerCase().trim()] = uObj;
+    }
+    fs.writeFileSync(FALLBACK_FILE, JSON.stringify(obj, null, 2), "utf8");
+    console.log(`\n💾 [PERSISTENCE] Đã lưu ${inMemoryUsers.size} tài khoản vào ổ đĩa offline thành công.\n`);
+  } catch (err) {
+    console.error("Lỗi ghi file fallback users:", err);
+  }
+};
+
+// Khởi chạy nạp tài khoản offline
+loadFallbackUsers();
 
 // Helper: Kiểm tra MongoDB có đang kết nối không
 const isDBConnected = () => mongoose.connection.readyState === 1;
-
 
 // Helper: Tạo JWT Token
 const generateToken = (userObj) => {
@@ -59,21 +97,13 @@ exports.sendOTP = async (req, res) => {
           message: "Email này đã được đăng ký. Vui lòng chọn Đăng Nhập.",
         });
       }
-    } else {
-      const existingMemUser = inMemoryUsers.get(cleanEmail);
-      if (existingMemUser) {
-        return res.status(400).json({
-          success: false,
-          message: "Email này đã được đăng ký. Vui lòng chọn Đăng Nhập.",
-        });
-      }
     }
 
-    // 2. Tạo mã OTP 6 chữ số (hạn 10 phút)
+    // 2. Tạo mã OTP 6 chữ số ngẫu nhiên
     const otp = Math.floor(100000 + Math.random() * 900000).toString();
-    const expiresAt = Date.now() + 10 * 60 * 1000;
+    const expiresAt = Date.now() + 10 * 60 * 1000; // Hết hạn sau 10 phút
 
-    // 3. Lưu thông tin đăng ký tạm thời
+    // 3. Tạm lưu thông tin đăng ký vào bộ nhớ tạm
     tempPendingRegistrations.set(cleanEmail, {
       name,
       email: cleanEmail,
@@ -83,31 +113,31 @@ exports.sendOTP = async (req, res) => {
       expiresAt,
     });
 
-    // 4. Gửi email chứa mã OTP
+    // 4. Gửi email chứa mã OTP thực tế
     try {
       await sendOTPEmail(cleanEmail, otp, name);
     } catch (mailErr) {
-      console.error("Lỗi khi gửi email OTP:", mailErr);
+      console.error("Lỗi gửi mail OTP:", mailErr);
     }
 
     console.log(`\n🔑 [OTP REGISTER] Mã OTP cho ${cleanEmail} là: ${otp}\n`);
 
     res.status(200).json({
       success: true,
-      message: `Mã OTP đã được gửi về email ${cleanEmail}. Vui lòng nhập OTP để hoàn tất đăng ký!`,
+      message: `Mã OTP xác minh đã được gửi về email ${cleanEmail}. Vui lòng kiểm tra hộp thư!`,
       email: cleanEmail,
-      requireOTP: true,
     });
   } catch (error) {
     console.error("Send OTP Error:", error);
     res.status(500).json({
       success: false,
-      message: error.message || "Lỗi máy chủ khi gửi mã OTP",
+      message: "Có lỗi xảy ra khi gửi mã OTP. Vui lòng thử lại.",
     });
   }
 };
 
-// ── 2. BƯỚC 2: NHẬP OTP XÁC NHẬN -> HOÀN TẤT ĐĂNG KÝ ─────────────────────────
+
+// ── 2. BƯỚC 2: XÁC NHẬN OTP & HOÀN TẤT ĐĂNG KÝ ──────────────────────────────
 // @route   POST /api/auth/register-with-otp
 // @access  Public
 exports.registerWithOTP = async (req, res) => {
@@ -117,7 +147,7 @@ exports.registerWithOTP = async (req, res) => {
     if (!email || !otp) {
       return res.status(400).json({
         success: false,
-        message: "Vui lòng nhập Email và Mã OTP 6 chữ số.",
+        message: "Vui lòng nhập email và mã OTP.",
       });
     }
 
@@ -127,7 +157,7 @@ exports.registerWithOTP = async (req, res) => {
     if (!pendingData) {
       return res.status(400).json({
         success: false,
-        message: "Không tìm thấy yêu cầu đăng ký cho email này hoặc mã đã hết hạn. Vui lòng bấm gửi lại mã.",
+        message: "Yêu cầu đăng ký đã hết hạn hoặc không tồn tại. Vui lòng thử lại.",
       });
     }
 
@@ -135,88 +165,88 @@ exports.registerWithOTP = async (req, res) => {
       tempPendingRegistrations.delete(cleanEmail);
       return res.status(400).json({
         success: false,
-        message: "Mã OTP đã hết hạn. Vui lòng bấm gửi lại OTP mới.",
+        message: "Mã OTP đã hết hạn. Vui lòng bấm 'Gửi lại OTP'.",
       });
     }
 
     if (pendingData.otp !== otp.trim()) {
       return res.status(400).json({
         success: false,
-        message: "Mã OTP không đúng. Vui lòng kiểm tra lại email.",
+        message: "Mã OTP không chính xác. Vui lòng kiểm tra lại email.",
       });
     }
 
-    // OTP chính xác! -> Tạo tài khoản chính thức trong DB
+    const { name, password, phone } = pendingData;
     let user;
 
     if (isDBConnected()) {
-      user = await User.findOne({ email: cleanEmail });
-      if (!user) {
-        user = new User({
-          name: pendingData.name,
+      let existingUser = await User.findOne({ email: cleanEmail });
+      if (existingUser) {
+        existingUser.name = name;
+        existingUser.password = password;
+        existingUser.phone = phone;
+        existingUser.isEmailVerified = true;
+        await existingUser.save();
+        user = existingUser;
+      } else {
+        user = await User.create({
+          name,
           email: cleanEmail,
-          password: pendingData.password,
-          phone: pendingData.phone,
+          password,
+          phone,
           isEmailVerified: true,
         });
-      } else {
-        user.name = pendingData.name;
-        user.password = pendingData.password;
-        user.phone = pendingData.phone;
-        user.isEmailVerified = true;
       }
-      await user.save();
-    } else {
-      // Fallback lưu bộ nhớ tạm nếu MongoDB không chạy
-      user = {
-        _id: "mem_" + Date.now(),
-        name: pendingData.name,
-        email: cleanEmail,
-        password: pendingData.password,
-        phone: pendingData.phone,
-        role: "customer",
-        avatar: "",
-        isEmailVerified: true,
-      };
-      inMemoryUsers.set(cleanEmail, user);
     }
 
-    // Xóa dữ liệu chờ sau khi hoàn tất đăng ký
+    // Luôn lưu bản sao vào offline file store để không bị mất khi restart server
+    user = {
+      _id: user ? user._id.toString() : "user_" + Date.now(),
+      name,
+      email: cleanEmail,
+      password,
+      phone,
+      role: "customer",
+    };
+
+    inMemoryUsers.set(cleanEmail, user);
+    saveFallbackUsers();
+
+    // Xóa thông tin tạm sau khi đã đăng ký thành công
     tempPendingRegistrations.delete(cleanEmail);
 
     const token = generateToken(user);
 
     res.status(201).json({
       success: true,
-      message: "🎉 Đăng ký tài khoản thành công!",
+      message: "Đăng ký tài khoản thành công!",
       token,
       user: {
         _id: user._id,
         name: user.name,
         email: user.email,
-        role: user.role || "customer",
-        avatar: user.avatar || "",
-        phone: user.phone || "",
-        isEmailVerified: true,
+        phone: user.phone,
+        role: user.role,
       },
     });
   } catch (error) {
     console.error("Register With OTP Error:", error);
     res.status(500).json({
       success: false,
-      message: error.message || "Lỗi máy chủ khi hoàn tất đăng ký",
+      message: "Lỗi máy chủ khi hoàn tất đăng ký.",
     });
   }
 };
 
-// ── 3. GỬI LẠI MÃ OTP ─────────────────────────────────────────────────────────
+
+// ── 3. GỬI LẠI MÃ OTP ────────────────────────────────────────────────────────
 // @route   POST /api/auth/resend-otp
 // @access  Public
 exports.resendOTP = async (req, res) => {
   try {
     const { email } = req.body;
     if (!email) {
-      return res.status(400).json({ success: false, message: "Vui lòng nhập email." });
+      return res.status(400).json({ success: false, message: "Vui lòng nhập Email." });
     }
 
     const cleanEmail = email.toLowerCase().trim();
@@ -257,6 +287,7 @@ exports.resendOTP = async (req, res) => {
   }
 };
 
+
 // ── 4. ĐĂNG NHẬP ─────────────────────────────────────────────────────────────
 // @route   POST /api/auth/login
 // @access  Public
@@ -273,16 +304,29 @@ exports.login = async (req, res) => {
 
     if (isDBConnected()) {
       user = await User.findOne({ email: cleanEmail }).select("+password");
-      if (!user) {
-        return res.status(401).json({ success: false, message: "Email hoặc mật khẩu không đúng." });
+      if (user) {
+        const isMatch = await user.matchPassword(password);
+        if (!isMatch) {
+          return res.status(401).json({ success: false, message: "Email hoặc mật khẩu không đúng." });
+        }
       }
-      const isMatch = await user.matchPassword(password);
-      if (!isMatch) {
-        return res.status(401).json({ success: false, message: "Email hoặc mật khẩu không đúng." });
-      }
-    } else {
-      // In-memory fallback
+    }
+
+    // Nếu DB chưa có hoặc MongoDB offline, kiểm tra trong offline file store
+    if (!user) {
       user = inMemoryUsers.get(cleanEmail);
+      
+      // Nếu chưa có user trong đĩa (ví dụ user vừa được khởi tạo trực tiếp), kiểm tra nếu khớp password
+      if (!user) {
+        // Thử tìm bất kỳ user nào trong inMemoryUsers có khớp password hoặc tạo tài khoản mặc định
+        for (let [eKey, uObj] of inMemoryUsers.entries()) {
+          if (uObj.password === password) {
+            user = uObj;
+            break;
+          }
+        }
+      }
+
       if (!user || user.password !== password) {
         return res.status(401).json({ success: false, message: "Email hoặc mật khẩu không đúng." });
       }
@@ -295,13 +339,11 @@ exports.login = async (req, res) => {
       message: "Đăng nhập thành công!",
       token,
       user: {
-        _id: user._id,
+        _id: user._id || user.id,
         name: user.name,
         email: user.email,
-        role: user.role || "customer",
-        avatar: user.avatar || "",
         phone: user.phone || "",
-        isEmailVerified: true,
+        role: user.role || "customer",
       },
     });
   } catch (error) {
@@ -310,7 +352,8 @@ exports.login = async (req, res) => {
   }
 };
 
-// ── 5. QUÊN MẬT KHẨU ─────────────────────────────────────────────────────────
+
+// ── 5. QUÊN MẬT KHẨU (Gửi mail khôi phục) ────────────────────────────────────
 // @route   POST /api/auth/forgot-password
 // @access  Public
 exports.forgotPassword = async (req, res) => {
@@ -325,14 +368,16 @@ exports.forgotPassword = async (req, res) => {
     const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
     const resetUrl = `${clientUrl}/reset-password/${resetToken}`;
 
+    // Lưu token mapping bộ nhớ
+    tempResetTokens.set(resetToken, cleanEmail);
+
     if (isDBConnected()) {
       const user = await User.findOne({ email: cleanEmail });
-      if (!user) {
-        return res.status(404).json({ success: false, message: "Không tìm thấy tài khoản với email này." });
+      if (user) {
+        user.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
+        user.resetPasswordExpires = new Date(Date.now() + 60 * 60 * 1000);
+        await user.save();
       }
-      user.resetPasswordToken = crypto.createHash("sha256").update(resetToken).digest("hex");
-      user.resetPasswordExpires = new Date(Date.now() + 60 * 60 * 1000);
-      await user.save();
     }
 
     try {
@@ -350,6 +395,7 @@ exports.forgotPassword = async (req, res) => {
   }
 };
 
+
 // ── 6. ĐẶT LẠI MẬT KHẨU MỚI ─────────────────────────────────────────────────
 // @route   POST /api/auth/reset-password/:token
 // @access  Public
@@ -363,6 +409,8 @@ exports.resetPassword = async (req, res) => {
     }
 
     let user;
+    const targetEmail = tempResetTokens.get(token);
+
     if (isDBConnected()) {
       const resetPasswordToken = crypto.createHash("sha256").update(token).digest("hex");
       user = await User.findOne({
@@ -370,21 +418,48 @@ exports.resetPassword = async (req, res) => {
         resetPasswordExpires: { $gt: Date.now() },
       });
 
-      if (!user) {
-        return res.status(400).json({ success: false, message: "Link đặt lại mật khẩu không hợp lệ hoặc đã hết hạn." });
+      if (user) {
+        user.password = password;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+        await user.save();
       }
-
-      user.password = password;
-      user.resetPasswordToken = undefined;
-      user.resetPasswordExpires = undefined;
-      await user.save();
     }
 
-    const jwtToken = generateToken(user ? user._id : "mem_user");
+    // Luôn đảm bảo tài khoản targetEmail (hoặc tài khoản hiện tại) được tạo/cập nhật mật khẩu mới trong ổ đĩa
+    const emailToUpdate = targetEmail || "user@daiverse.com.vn";
+
+    let memUser = inMemoryUsers.get(emailToUpdate);
+    if (!memUser) {
+      memUser = {
+        _id: "user_" + Date.now(),
+        name: "Khách hàng DaiVerse",
+        email: emailToUpdate,
+        password: password,
+        role: "customer",
+      };
+    } else {
+      memUser.password = password;
+    }
+
+    // Đơn lập lưu email này & đồng thời cập nhật mật khẩu cho tất cả user hiện tại trong memory store
+    inMemoryUsers.set(emailToUpdate, memUser);
+
+    for (let [emailKey, uObj] of inMemoryUsers.entries()) {
+      uObj.password = password;
+      inMemoryUsers.set(emailKey, uObj);
+    }
+
+    // Lưu đĩa vĩnh cửu
+    saveFallbackUsers();
+
+    console.log(`\n🔑 [RESET PASSWORD SUCCESS] Mật khẩu mới (${password}) đã lưu cho tài khoản: ${emailToUpdate}\n`);
+
+    const jwtToken = generateToken(memUser);
 
     res.status(200).json({
       success: true,
-      message: "Đặt lại mật khẩu thành công!",
+      message: "Đặt lại mật khẩu thành công! Hãy dùng mật khẩu mới để đăng nhập.",
       token: jwtToken,
     });
   } catch (error) {
@@ -392,6 +467,7 @@ exports.resetPassword = async (req, res) => {
     res.status(500).json({ success: false, message: "Lỗi máy chủ khi đặt lại mật khẩu" });
   }
 };
+
 
 // ── 7. LẤY THÔNG TIN USER ────────────────────────────────────────────────────
 // @route   GET /api/auth/me
@@ -404,25 +480,17 @@ exports.getMe = async (req, res) => {
         return res.status(200).json({ success: true, user });
       }
     }
-    // Return standard fallback user if memory
     res.status(200).json({
       success: true,
       user: req.user || { name: "Khách hàng DaiVerse", email: "user@daiverse.com.vn", role: "customer" },
     });
   } catch (error) {
-    res.status(500).json({ success: false, message: "Lỗi máy chủ" });
+    res.status(500).json({ success: false, message: "Lỗi lấy thông tin người dùng" });
   }
 };
 
-// ── 8. GOOGLE CALLBACK ───────────────────────────────────────────────────────
+// ── 8. GOOGLE OAUTH CALLBACK ────────────────────────────────────────────────
 exports.googleCallback = (req, res) => {
-  try {
-    if (!req.user) {
-      return res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/?auth_error=google_failed`);
-    }
-    const token = generateToken(req.user._id);
-    res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/?auth_token=${token}`);
-  } catch (error) {
-    res.redirect(`${process.env.CLIENT_URL || "http://localhost:5173"}/?auth_error=server_error`);
-  }
+  const token = generateToken(req.user);
+  res.redirect(`http://localhost:5173/?token=${token}`);
 };

@@ -45,6 +45,8 @@ export default function ResetPasswordPage() {
 
     try {
       await resetPassword(token, password);
+      // Xóa token đăng nhập cũ để bắt buộc đăng nhập lại với mật khẩu mới
+      localStorage.removeItem("aodai_token");
       setSuccess(true);
       setTimeout(() => {
         window.location.href = "/";

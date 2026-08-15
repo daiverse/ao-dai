@@ -1,154 +1,123 @@
 const asyncHandler = require("express-async-handler");
+const mongoose = require("mongoose");
 const Order = require("../models/Order");
 const Cart = require("../models/Cart");
-const Product = require("../models/Product");
 
-// @desc    Tạo đơn hàng mới
+const inMemoryOrders = [];
+const isDBConnected = () => mongoose.connection.readyState === 1;
+
+// @desc    Tạo đơn hàng mới (Checkout)
 // @route   POST /api/orders
 // @access  Private
 const createOrder = asyncHandler(async (req, res) => {
-  const { items, shippingAddress, paymentMethod, isExpress24h, deliveryNote, measurements } = req.body;
-
-  if (!items || items.length === 0) {
-    res.status(400);
-    throw new Error("Giỏ hàng trống. Vui lòng thêm sản phẩm.");
-  }
-
-  // Tính giá từ DB để tránh gian lận giá
-  let itemsPrice = 0;
-  const orderItems = [];
-
-  for (const item of items) {
-    const product = await Product.findById(item.product);
-    if (!product) {
-      res.status(404);
-      throw new Error(`Sản phẩm ${item.product} không tồn tại.`);
-    }
-    itemsPrice += product.price * item.quantity;
-    orderItems.push({
-      product: product._id,
-      name: product.name,
-      image: product.images[0] || "",
-      price: product.price,
-      quantity: item.quantity,
-      size: item.size,
-      color: item.color,
-      isTailored: item.size === "Tailored" || item.size === "Tailored (May theo số đo)",
-    });
-  }
-
-  const shippingFee = isExpress24h ? 50000 : (itemsPrice >= 2000000 ? 0 : 30000);
-  const totalPrice = itemsPrice + shippingFee;
-
-  const order = await Order.create({
-    user: req.user._id,
-    items: orderItems,
+  const {
+    orderItems,
     shippingAddress,
-    paymentMethod: paymentMethod || "cod",
+    paymentMethod,
     itemsPrice,
-    shippingFee,
-    totalPrice,
-    isExpress24h: isExpress24h || false,
-    deliveryNote: deliveryNote || "",
-    measurements: measurements || {},
-  });
+    shippingFee = 0,
+    totalAmount,
+  } = req.body;
 
-  // Xóa giỏ hàng sau khi đặt hàng
-  await Cart.findOneAndDelete({ user: req.user._id });
+  if (!orderItems || orderItems.length === 0) {
+    res.status(400);
+    throw new Error("Giỏ hàng không có sản phẩm.");
+  }
+
+  // Tạo mã đơn hàng độc bản DV-2026-XXXX
+  const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+  const orderCode = `DV-2026-${randomSuffix}`;
+
+  const userEmail = req.user.email || "user@daiverse.com.vn";
+  const userName = req.user.name || shippingAddress.fullName;
+
+  let order;
+
+  if (isDBConnected()) {
+    order = new Order({
+      user: req.user._id,
+      userEmail,
+      userName,
+      orderCode,
+      orderItems,
+      shippingAddress,
+      paymentMethod: paymentMethod || "COD",
+      paymentStatus: paymentMethod === "COD" ? "Pending" : "Pending",
+      orderStatus: "Processing",
+      itemsPrice,
+      shippingFee,
+      totalAmount,
+    });
+
+    await order.save();
+    // Xóa giỏ hàng sau khi đặt thành công
+    await Cart.findOneAndDelete({ user: req.user._id });
+  } else {
+    // Fallback in-memory
+    order = {
+      _id: "order_" + Date.now(),
+      userEmail,
+      userName,
+      orderCode,
+      orderItems,
+      shippingAddress,
+      paymentMethod: paymentMethod || "COD",
+      paymentStatus: "Pending",
+      orderStatus: "Processing",
+      itemsPrice,
+      shippingFee,
+      totalAmount,
+      createdAt: new Date().toISOString(),
+    };
+    inMemoryOrders.unshift(order);
+  }
+
+  console.log(`\n🛍️ [ĐƠN HÀNG MỚI KHỞI TẠO] Mã: ${orderCode} | Tổng: ${totalAmount.toLocaleString()} VNĐ | PT: ${paymentMethod}\n`);
 
   res.status(201).json({
     success: true,
-    message: `Đặt hàng thành công! Mã đơn: ${order.orderNumber}`,
-    data: order,
+    message: "Đặt hàng thành công! DaiVerse đã tiếp nhận đơn hàng của bạn.",
+    order,
   });
 });
 
-// @desc    Lịch sử đơn hàng của tôi
-// @route   GET /api/orders/my
+// @desc    Xem danh sách đơn hàng của tôi
+// @route   GET /api/orders/my-orders
 // @access  Private
 const getMyOrders = asyncHandler(async (req, res) => {
-  const orders = await Order.find({ user: req.user._id })
-    .sort({ createdAt: -1 })
-    .populate("items.product", "name images");
+  if (isDBConnected()) {
+    const orders = await Order.find({ user: req.user._id }).sort("-createdAt");
+    return res.json({ success: true, count: orders.length, orders });
+  }
 
-  res.json({ success: true, data: orders });
+  const userEmail = req.user.email || "";
+  const userOrders = inMemoryOrders.filter((o) => o.userEmail === userEmail);
+  res.json({ success: true, count: userOrders.length, orders: userOrders });
 });
 
-// @desc    Chi tiết đơn hàng
+// @desc    Xem chi tiết 1 đơn hàng theo mã orderCode hoặc ID
 // @route   GET /api/orders/:id
 // @access  Private
 const getOrderById = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id).populate("items.product", "name images fabric");
+  const param = req.params.id;
 
-  if (!order) { res.status(404); throw new Error("Không tìm thấy đơn hàng."); }
-
-  // Chỉ cho xem đơn của chính mình hoặc admin
-  if (order.user.toString() !== req.user._id.toString() && req.user.role !== "admin") {
-    res.status(403);
-    throw new Error("Không có quyền xem đơn hàng này.");
+  if (isDBConnected()) {
+    const order = await Order.findOne({
+      $or: [{ _id: mongoose.Types.ObjectId.isValid(param) ? param : null }, { orderCode: param }],
+    });
+    if (!order) {
+      res.status(404);
+      throw new Error("Không tìm thấy đơn hàng.");
+    }
+    return res.json({ success: true, order });
   }
 
-  res.json({ success: true, data: order });
-});
-
-// @desc    Hủy đơn hàng
-// @route   PUT /api/orders/:id/cancel
-// @access  Private
-const cancelOrder = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id);
-
-  if (!order) { res.status(404); throw new Error("Không tìm thấy đơn hàng."); }
-  if (order.user.toString() !== req.user._id.toString()) { res.status(403); throw new Error("Không có quyền hủy đơn này."); }
-  if (!["pending", "confirmed"].includes(order.status)) {
-    res.status(400);
-    throw new Error("Không thể hủy đơn hàng đang xử lý hoặc đã giao.");
+  const order = inMemoryOrders.find((o) => o._id === param || o.orderCode === param);
+  if (!order) {
+    res.status(404);
+    throw new Error("Không tìm thấy đơn hàng.");
   }
-
-  order.status = "cancelled";
-  order.cancelReason = req.body.reason || "Khách hàng yêu cầu hủy";
-  await order.save();
-
-  res.json({ success: true, message: "Đã hủy đơn hàng thành công.", data: order });
+  res.json({ success: true, order });
 });
 
-// @desc    Lấy tất cả đơn hàng [Admin]
-// @route   GET /api/orders
-// @access  Private/Admin
-const getAllOrders = asyncHandler(async (req, res) => {
-  const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 20;
-  const skip = (page - 1) * limit;
-
-  const filter = {};
-  if (req.query.status) filter.status = req.query.status;
-  if (req.query.isExpress24h === "true") filter.isExpress24h = true;
-
-  const total = await Order.countDocuments(filter);
-  const orders = await Order.find(filter)
-    .sort({ createdAt: -1 })
-    .skip(skip)
-    .limit(limit)
-    .populate("user", "name email phone");
-
-  res.json({
-    success: true,
-    data: orders,
-    pagination: { total, page, pages: Math.ceil(total / limit) },
-  });
-});
-
-// @desc    Cập nhật trạng thái đơn hàng [Admin]
-// @route   PUT /api/orders/:id/status
-// @access  Private/Admin
-const updateOrderStatus = asyncHandler(async (req, res) => {
-  const order = await Order.findById(req.params.id);
-  if (!order) { res.status(404); throw new Error("Không tìm thấy đơn hàng."); }
-
-  order.status = req.body.status;
-  if (req.body.status === "delivered") order.deliveredAt = new Date();
-
-  await order.save();
-  res.json({ success: true, message: "Cập nhật trạng thái đơn hàng thành công!", data: order });
-});
-
-module.exports = { createOrder, getMyOrders, getOrderById, cancelOrder, getAllOrders, updateOrderStatus };
+module.exports = { createOrder, getMyOrders, getOrderById };

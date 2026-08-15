@@ -11,6 +11,7 @@ import ProductQuickView from "./components/common/ProductQuickView";
 import Toast from "./components/common/Toast";
 import FloatingAiAssistant from "./components/common/FloatingAiAssistant";
 import AuthModal from "./components/auth/AuthModal";
+import CheckoutModal from "./components/cart/CheckoutModal";
 
 // Pages
 import HomePage from "./pages/HomePage";
@@ -29,6 +30,7 @@ import ResetPasswordPage from "./pages/ResetPasswordPage";
 function AppContent() {
   const [activeTab, setActiveTab] = useState("home");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
   const [selectedProductForTryOn, setSelectedProductForTryOn] = useState(null);
   const [isResetPage, setIsResetPage] = useState(false);
 
@@ -138,7 +140,8 @@ function AppContent() {
 
       {/* Modals & Overlays */}
       <AuthModal />
-      <CartDrawer onNavigateToCheckout={() => setActiveTab("contact")} />
+      <CheckoutModal isOpen={isCheckoutOpen} onClose={() => setIsCheckoutOpen(false)} />
+      <CartDrawer onNavigateToCheckout={() => setIsCheckoutOpen(true)} />
       <MobileMenu
         isOpen={isMobileMenuOpen}
         onClose={() => setIsMobileMenuOpen(false)}

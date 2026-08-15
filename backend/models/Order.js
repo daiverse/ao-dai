@@ -1,94 +1,49 @@
 const mongoose = require("mongoose");
 
 const orderItemSchema = new mongoose.Schema({
-  product: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "Product",
-    required: true,
-  },
+  product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
   name: { type: String, required: true },
   image: { type: String },
   price: { type: Number, required: true },
-  quantity: { type: Number, required: true, min: 1 },
   size: { type: String, required: true },
-  color: { type: String, required: true },
-  isTailored: { type: Boolean, default: false },
-});
-
-const shippingAddressSchema = new mongoose.Schema({
-  fullName: { type: String, required: true },
-  phone: { type: String, required: true },
-  province: { type: String, required: true },
-  district: { type: String, required: true },
-  ward: { type: String, required: true },
-  street: { type: String, required: true },
+  color: { type: String },
+  quantity: { type: Number, required: true, default: 1 },
 });
 
 const orderSchema = new mongoose.Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+    userEmail: { type: String, required: true },
+    userName: { type: String, required: true },
+    orderCode: { type: String, required: true, unique: true },
+    orderItems: [orderItemSchema],
+    shippingAddress: {
+      fullName: { type: String, required: true },
+      phone: { type: String, required: true },
+      address: { type: String, required: true },
+      city: { type: String, default: "Hà Nội" },
+      note: { type: String, default: "" },
     },
-    orderNumber: {
-      type: String,
-      unique: true,
-    },
-    items: [orderItemSchema],
-    shippingAddress: shippingAddressSchema,
     paymentMethod: {
       type: String,
-      enum: ["cod", "banking", "momo", "vnpay"],
-      default: "cod",
+      enum: ["COD", "BANK"],
+      default: "COD",
     },
     paymentStatus: {
       type: String,
-      enum: ["pending", "paid", "failed", "refunded"],
-      default: "pending",
+      enum: ["Pending", "Paid", "Failed"],
+      default: "Pending",
     },
-    status: {
+    orderStatus: {
       type: String,
-      enum: [
-        "pending",      // Chờ xác nhận
-        "confirmed",    // Đã xác nhận
-        "processing",   // Đang xử lý / may đo
-        "shipping",     // Đang giao hàng
-        "delivered",    // Đã giao
-        "cancelled",    // Đã hủy
-      ],
-      default: "pending",
+      enum: ["Processing", "Confirmed", "Shipping", "Completed", "Cancelled"],
+      default: "Processing",
     },
     itemsPrice: { type: Number, required: true, default: 0 },
-    shippingFee: { type: Number, required: true, default: 0 },
-    totalPrice: { type: Number, required: true, default: 0 },
-    isExpress24h: { type: Boolean, default: false },
-    deliveryNote: { type: String, default: "" },
-    measurements: {
-      bust: Number,
-      waist: Number,
-      hips: Number,
-      height: Number,
-      shoulderWidth: Number,
-      armLength: Number,
-      dressLength: Number,
-    },
-    cancelReason: { type: String },
-    deliveredAt: { type: Date },
+    shippingFee: { type: Number, default: 0 },
+    totalAmount: { type: Number, required: true, default: 0 },
   },
   { timestamps: true }
 );
-
-// Tự tạo orderNumber trước khi lưu
-orderSchema.pre("save", async function (next) {
-  if (!this.orderNumber) {
-    const timestamp = Date.now().toString().slice(-8);
-    const random = Math.floor(Math.random() * 1000)
-      .toString()
-      .padStart(3, "0");
-    this.orderNumber = `AD-${timestamp}-${random}`;
-  }
-  next();
-});
 
 module.exports = mongoose.model("Order", orderSchema);
