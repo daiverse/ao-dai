@@ -44,10 +44,17 @@ export const PRODUCTS = [
       "/anh/bach-lan/5.jpg"
     ],
     has360View: true,
+    images360: [
+      { angle: 0, label: "Mặt Trước (0°)", url: "/anh/bach-lan/3D/0.jpg" },
+      { angle: 90, label: "Sườn Phải (90°)", url: "/anh/bach-lan/3D/90.jpg" },
+      { angle: 180, label: "Mặt Sau (180°)", url: "/anh/bach-lan/3D/180.jpg" },
+      { angle: 270, label: "Sườn Trái (270°)", url: "/anh/bach-lan/3D/270.jpg" }
+    ],
     hasAiTryOn: true,
     hotspots: [
-      { x: "45%", y: "30%", title: "Lụa Gấm Trúc", description: "Họa tiết dệt gấm trúc tinh xảo mềm mại." },
-      { x: "50%", y: "15%", title: "Cổ Áo Tối Giản", description: "Tôn vinh vẻ đẹp thuần khiết và thanh thoát." }
+      { x: "48%", y: "28%", title: "Lụa Gấm Trúc Cao Cấp", description: "Họa tiết dệt gấm trúc nổi tinh xảo mềm mại." },
+      { x: "50%", y: "15%", title: "Cổ Áo 3 Phân Giấu Chỉ", description: "Tôn vinh vẻ đẹp thuần khiết và thanh thoát." },
+      { x: "52%", y: "55%", title: "Đường Xẻ Tà Tinh Tế", description: "Tạo độ rủ mềm mại, tự nhiên khi bước đi." }
     ]
   },
   {
@@ -98,7 +105,8 @@ export const PRODUCTS = [
     reviewsCount: 39,
     isNew: true,
     isBestSeller: true,
-    isExpress24h: false,
+    isExpress24h: true,
+    expressTag: "Sẵn size S, M, L - Giao hỏa tốc 24h",
     description: "Áo dài cách tân chất tơ mềm mại. Sắc hồng phấn dịu dàng kết hợp điểm nhấn xanh non nơi tà quần như bức tranh mùa xuân.",
     storyTitle: "MỘC AN | Bình yên trong từng nếp áo",
     storyContent: "Có những vẻ đẹp không đến từ sự nổi bật, mà từ cảm giác bình yên khi ngắm nhìn. Mộc An được lấy cảm hứng từ thiên nhiên – nơi mọi thứ đều nhẹ nhàng, chậm rãi nhưng luôn mang một sức sống bền bỉ. Đó là vẻ đẹp của sự an nhiên, của những tâm hồn biết trân trọng những điều giản dị. Sắc hồng phấn dịu dàng kết hợp cùng điểm nhấn xanh non nơi tà quần như một bức tranh mùa xuân, mang theo hơi thở của cây cỏ và những ngày nắng nhẹ.",

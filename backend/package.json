@@ -10,6 +10,7 @@
     "seed": "node utils/seeder.js"
   },
   "dependencies": {
+    "@huggingface/inference": "^4.13.27",
     "@payos/node": "^2.0.5",
     "axios": "^1.19.0",
     "bcryptjs": "^2.4.3",

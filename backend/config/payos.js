@@ -1,9 +1,51 @@
 const { PayOS } = require("@payos/node");
+require("dotenv").config();
 
-const payOS = new PayOS(
-  process.env.PAYOS_CLIENT_ID || "b8d745c1-3a05-4f76-8802-99ca656f7091",
-  process.env.PAYOS_API_KEY || "b10ed8b4-0c58-4523-8b77-cfc0a2a466a9",
-  process.env.PAYOS_CHECKSUM_KEY || "71c69dbfb4e6c3fa11463e26bb5723b71bf088eb82c1615fbf0a0715d9cf9e54"
-);
+let payOSInstance = null;
+
+try {
+  const clientId = process.env.PAYOS_CLIENT_ID;
+  const apiKey = process.env.PAYOS_API_KEY;
+  const checksumKey = process.env.PAYOS_CHECKSUM_KEY;
+
+  if (clientId && apiKey && checksumKey) {
+    payOSInstance = new PayOS({
+      clientId,
+      apiKey,
+      checksumKey,
+    });
+
+    console.log("✅ Cổng thanh toán PayOS đã khởi tạo thành công với Client ID:", clientId);
+  } else {
+    console.warn("⚠️  Cảnh báo khởi tạo PayOS: Thiếu cấu hình PAYOS_CLIENT_ID / PAYOS_API_KEY trong backend/.env");
+  }
+} catch (err) {
+  console.warn("⚠️  Cảnh báo khởi tạo PayOS:", err.message);
+}
+
+// Interface Wrapper cho SDK v2.0+
+const payOS = {
+  instance: payOSInstance,
+  createPaymentLink: async (paymentData) => {
+    if (!payOSInstance) throw new Error("PayOS SDK chưa được khởi tạo thành công");
+    return await payOSInstance.paymentRequests.create(paymentData);
+  },
+  getPaymentLinkInformation: async (orderCode) => {
+    if (!payOSInstance) throw new Error("PayOS SDK chưa được khởi tạo thành công");
+    return await payOSInstance.paymentRequests.get(orderCode);
+  },
+  cancelPaymentLink: async (orderCode, reason) => {
+    if (!payOSInstance) throw new Error("PayOS SDK chưa được khởi tạo thành công");
+    return await payOSInstance.paymentRequests.cancel(orderCode, reason);
+  },
+  verifyPaymentWebhookData: (webhookBody) => {
+    if (!payOSInstance) return null;
+    return payOSInstance.webhooks.verify(webhookBody);
+  },
+  confirmWebhook: async (webhookUrl) => {
+    if (!payOSInstance) return null;
+    return await payOSInstance.webhooks.confirm(webhookUrl);
+  },
+};
 
 module.exports = payOS;

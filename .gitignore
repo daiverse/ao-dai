@@ -1,3 +1,11 @@
+# Environment variables (MUST NOT BE COMMITTED TO GIT)
+.env
+.env.*
+*.env
+backend/.env
+!.env.example
+!backend/.env.example
+
 # Logs
 logs
 *.log
@@ -7,6 +15,7 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+# Dependency and Build directories
 node_modules
 dist
 dist-ssr

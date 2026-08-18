@@ -2,6 +2,8 @@ const asyncHandler = require("express-async-handler");
 const mongoose = require("mongoose");
 const Order = require("../models/Order");
 const Cart = require("../models/Cart");
+const { sendNewOrderNotificationToAdmin, sendCustomerThankYouEmail } = require("../utils/emailService");
+
 
 const inMemoryOrders = [];
 const isDBConnected = () => mongoose.connection.readyState === 1;
@@ -73,6 +75,16 @@ const createOrder = asyncHandler(async (req, res) => {
   }
 
   console.log(`\n🛍️ [ĐƠN HÀNG MỚI KHỞI TẠO] Mã: ${orderCode} | Tổng: ${totalAmount.toLocaleString()} VNĐ | PT: ${paymentMethod}\n`);
+
+  // 1. Gửi email Form thông tin khách hàng từ Mail A (support.daiverse@gmail.com) đến Mail B (admin@daiverse.com.vn)
+  sendNewOrderNotificationToAdmin(order).catch((err) =>
+    console.error("❌ Lỗi gửi mail thông báo đơn hàng:", err.message)
+  );
+
+  // 2. Gửi email cảm ơn khách hàng từ Mail B (admin@daiverse.com.vn) đến Email của Khách hàng
+  sendCustomerThankYouEmail(order).catch((err) =>
+    console.error("❌ Lỗi gửi mail cảm ơn khách hàng:", err.message)
+  );
 
   res.status(201).json({
     success: true,

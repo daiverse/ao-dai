@@ -3,6 +3,8 @@ import { ShoppingBag, Sparkles, ChevronDown, Menu, X, Palette, History, User as 
 import { useCart } from "../../context/CartContext";
 import { useAuth } from "../../context/AuthContext";
 
+import { FEATURE_FLAGS } from "../../config/featureFlags";
+
 // Helper: Viết tắt họ và tên đệm nếu tên dài (vd: Nguyễn Văn Minh -> N. V. Minh)
 const formatDisplayName = (fullName) => {
   if (!fullName) return "";
@@ -20,6 +22,15 @@ export default function Header({ activeTab, setActiveTab, onOpenMobileMenu }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isAiDropdownOpen, setIsAiDropdownOpen] = useState(false);
   const [isUserDropdownOpen, setIsUserDropdownOpen] = useState(false);
+  const [justLoggedIn, setJustLoggedIn] = useState(false);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      setJustLoggedIn(true);
+      const timer = setTimeout(() => setJustLoggedIn(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [isAuthenticated]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -42,7 +53,7 @@ export default function Header({ activeTab, setActiveTab, onOpenMobileMenu }) {
 
   const aiExperiences = [
     { id: "design-studio", title: "AI Design Studio", desc: "Tự tay thiết kế kiểu dáng & họa tiết", icon: Palette },
-    { id: "try-on", title: "Phòng Xem Đồ AI", desc: "Thử áo dài trực tiếp trên ảnh cá nhân", icon: Sparkles },
+    ...(FEATURE_FLAGS.ENABLE_AI_TRY_ON ? [{ id: "try-on", title: "Phòng Xem Đồ AI", desc: "Thử áo dài trực tiếp trên ảnh cá nhân", icon: Sparkles }] : []),
     { id: "history", title: "Lịch Sử Thử Đồ", desc: "Xem lại các mẫu đã tạo & thử nghiệm", icon: History }
   ];
 
@@ -108,7 +119,11 @@ export default function Header({ activeTab, setActiveTab, onOpenMobileMenu }) {
                 <button
                   onClick={() => setIsUserDropdownOpen(!isUserDropdownOpen)}
                   onBlur={() => setTimeout(() => setIsUserDropdownOpen(false), 200)}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-full border border-gray-200 hover:border-[#C85A32]/40 bg-white transition-all cursor-pointer shadow-sm hover:shadow-md"
+                  className={`flex items-center gap-2 px-3 py-1.5 rounded-full border bg-white transition-all cursor-pointer shadow-sm hover:shadow-md ${
+                    justLoggedIn
+                      ? "border-[#D4A373] ring-4 ring-[#D4A373]/50 shadow-xl scale-105 animate-pulse"
+                      : "border-gray-200 hover:border-[#C85A32]/40"
+                  }`}
                 >
                   <div className="w-7 h-7 rounded-full overflow-hidden bg-[#18392B] text-white flex items-center justify-center text-xs font-bold shrink-0 shadow-inner">
                     {user.avatar ? (

@@ -2,6 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import {
   X,
   Truck,
+  Zap,
+  Clock,
   CreditCard,
   ShieldCheck,
   CheckCircle2,
@@ -34,6 +36,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
   const [address, setAddress] = useState("");
   const [city, setCity] = useState("Hà Nội");
   const [note, setNote] = useState("");
+  const [shippingOption, setShippingOption] = useState("fast"); // 'standard' | 'fast' | 'express'
 
   // Payment Method State: 'COD' | 'PAYOS' | 'BANK'
   const [paymentMethod, setPaymentMethod] = useState("PAYOS");
@@ -63,8 +66,39 @@ export default function CheckoutModal({ isOpen, onClose }) {
 
   if (!isOpen) return null;
 
-  // Tính phí vận chuyển (Miễn phí từ 1.000.000đ)
-  const shippingFee = totalPrice >= 1000000 || totalPrice === 0 ? 0 : 30000;
+  // Danh sách Phương Thức Giao Hàng & Phí Vận Chuyển
+  const shippingRates = {
+    standard: {
+      id: "standard",
+      name: "Giao Tiêu Chuẩn (3 - 5 ngày)",
+      badge: "Tiết kiệm",
+      desc: "Vận chuyển đường bộ tiêu chuẩn toàn quốc",
+      fee: totalPrice >= 1500000 || totalPrice === 0 ? 0 : 30000,
+      feeText: totalPrice >= 1500000 || totalPrice === 0 ? "Miễn phí (Freeship)" : "30.000 đ",
+      icon: Truck,
+    },
+    fast: {
+      id: "fast",
+      name: "Giao Nhanh (1 - 2 ngày)",
+      badge: "Phổ biến",
+      desc: "Vận chuyển hàng không / đường bộ ưu tiên",
+      fee: 50000,
+      feeText: "50.000 đ",
+      icon: Zap,
+    },
+    express: {
+      id: "express",
+      name: "Giao Hỏa Tốc (2h - 24h) ⚡",
+      badge: "VIP 24H",
+      desc: "Shipper riêng giao tận tay + Hộp quà Luxury DaiVerse",
+      fee: 90000,
+      feeText: "90.000 đ",
+      icon: Clock,
+    },
+  };
+
+  const selectedShipping = shippingRates[shippingOption] || shippingRates.fast;
+  const shippingFee = selectedShipping.fee;
   const finalTotal = totalPrice + shippingFee;
 
   const formattedFinalTotal = new Intl.NumberFormat("vi-VN", {
@@ -143,7 +177,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
             color: item.color,
             quantity: item.quantity,
           })),
-          shippingAddress: { fullName, phone, address, city, note },
+          shippingAddress: { fullName, phone, address, city, note, shippingMethod: selectedShipping.name },
           paymentMethod: "PAYOS",
           itemsPrice: totalPrice,
           shippingFee,
@@ -198,7 +232,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
         },
         body: JSON.stringify({
           orderItems,
-          shippingAddress: { fullName, phone, address, city, note },
+          shippingAddress: { fullName, phone, address, city, note, shippingMethod: selectedShipping.name },
           paymentMethod,
           itemsPrice: totalPrice,
           shippingFee,
@@ -352,6 +386,60 @@ export default function CheckoutModal({ isOpen, onClose }) {
                 </div>
               </div>
 
+              {/* LỰA CHỌN PHƯƠNG THỨC GIAO HÀNG */}
+              <div className="space-y-2 pt-2 border-t border-gray-100">
+                <label className="text-xs font-bold text-gray-700 uppercase tracking-wider block">
+                  Chọn Phương Thức Vận Chuyển:
+                </label>
+                <div className="grid grid-cols-1 gap-2.5">
+                  {Object.values(shippingRates).map((opt) => {
+                    const isSelected = shippingOption === opt.id;
+                    const IconComponent = opt.icon;
+                    return (
+                      <div
+                        key={opt.id}
+                        onClick={() => setShippingOption(opt.id)}
+                        className={`p-3.5 rounded-2xl border-2 transition-all cursor-pointer flex items-center justify-between gap-3 ${
+                          isSelected
+                            ? "border-[#18392B] bg-[#18392B]/5 ring-1 ring-[#18392B]/20 shadow-sm"
+                            : "border-gray-200 hover:border-gray-300 bg-[#FBF9F5]"
+                        }`}
+                      >
+                        <div className="flex items-center gap-3 min-w-0">
+                          <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
+                            isSelected ? "bg-[#18392B] text-white" : "bg-gray-200 text-gray-600"
+                          }`}>
+                            <IconComponent className="w-4 h-4" />
+                          </div>
+                          <div className="min-w-0">
+                            <div className="flex items-center gap-2">
+                              <p className="font-bold text-xs text-gray-900 truncate">{opt.name}</p>
+                              {opt.badge && (
+                                <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase shrink-0 ${
+                                  opt.id === "express"
+                                    ? "bg-[#C85A32] text-white animate-pulse"
+                                    : opt.id === "fast"
+                                    ? "bg-[#18392B] text-[#D4A373]"
+                                    : "bg-gray-200 text-gray-700"
+                                }`}>
+                                  {opt.badge}
+                                </span>
+                              )}
+                            </div>
+                            <p className="text-[11px] text-gray-500 truncate mt-0.5">{opt.desc}</p>
+                          </div>
+                        </div>
+                        <div className="text-right shrink-0">
+                          <span className={`font-bold text-xs ${isSelected ? "text-[#C85A32]" : "text-gray-700"}`}>
+                            {opt.feeText}
+                          </span>
+                        </div>
+                      </div>
+                    );
+                  })}
+                </div>
+              </div>
+
               <button
                 type="button"
                 onClick={() => {
@@ -381,10 +469,12 @@ export default function CheckoutModal({ isOpen, onClose }) {
                   <span className="font-semibold text-gray-900">{formattedTotalPrice}</span>
                 </div>
                 <div className="flex justify-between text-gray-600">
+                  <span>Dịch vụ giao hàng:</span>
+                  <span className="font-semibold text-gray-900">{selectedShipping.name}</span>
+                </div>
+                <div className="flex justify-between text-gray-600">
                   <span>Phí vận chuyển:</span>
-                  <span className="font-semibold text-emerald-700">
-                    {shippingFee === 0 ? "Miễn phí (Freeship)" : "30.000 đ"}
-                  </span>
+                  <span className="font-semibold text-emerald-700">{selectedShipping.feeText}</span>
                 </div>
                 <div className="pt-2 border-t border-gray-200 flex justify-between items-center font-bold text-sm">
                   <span className="text-gray-900">TỔNG THÀNH TIỀN:</span>
@@ -468,7 +558,13 @@ export default function CheckoutModal({ isOpen, onClose }) {
                     <>
                       <div className="relative w-48 h-48 bg-white p-2 rounded-2xl overflow-hidden mx-auto shadow-md border border-gray-200 group">
                         <img
-                          src={payOsData?.qrCode || `https://img.vietqr.io/image/mb-0394961557-compact2.png?amount=${finalTotal}&addInfo=DV-AODAI&accountName=DAIVERSE%20AO%20DAI`}
+                          src={
+                            payOsData?.qrCode
+                              ? payOsData.qrCode.startsWith("http") || payOsData.qrCode.startsWith("data:")
+                                ? payOsData.qrCode
+                                : `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(payOsData.qrCode)}`
+                              : `https://img.vietqr.io/image/mb-0394961557-compact2.png?amount=${finalTotal}&addInfo=DV-AODAI&accountName=LE%20THI%20VAN%20ANH`
+                          }
                           alt="VietQR PayOS Code"
                           className="w-full h-full object-contain"
                         />

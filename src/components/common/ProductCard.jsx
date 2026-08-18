@@ -1,13 +1,23 @@
 import React, { useState } from "react";
 import { Sparkles, Eye, ShoppingBag, Star, RotateCcw } from "lucide-react";
 import { useCart } from "../../context/CartContext";
+import { FEATURE_FLAGS } from "../../config/featureFlags";
 
-export default function ProductCard({ product, onTryOn, onRotate360 }) {
+export default function ProductCard({ product, onTryOn, onRotate360, isExpressContext = false }) {
   const { addToCart, setQuickViewProduct } = useCart();
   const [selectedColorIndex, setSelectedColorIndex] = useState(0);
   const [isHovered, setIsHovered] = useState(false);
 
   const selectedColor = product.colors ? product.colors[selectedColorIndex] : null;
+
+  const handleAddToCart = () => {
+    const itemData = {
+      ...product,
+      isExpress24h: isExpressContext,
+      fromExpress24h: isExpressContext,
+    };
+    addToCart(itemData, "M", selectedColor?.name);
+  };
 
   return (
     <div 
@@ -55,7 +65,7 @@ export default function ProductCard({ product, onTryOn, onRotate360 }) {
             <Eye className="w-4 h-4" />
           </button>
 
-          {product.hasAiTryOn && (
+          {FEATURE_FLAGS.ENABLE_AI_TRY_ON && product.hasAiTryOn && (
             <button
               onClick={() => onTryOn && onTryOn(product)}
               className="px-4 py-2.5 bg-[#18392B] backdrop-blur-md text-white text-xs font-semibold rounded-full hover:bg-[#18392B]/90 shadow-lg flex items-center gap-1.5 transition-all cursor-pointer"
@@ -117,7 +127,7 @@ export default function ProductCard({ product, onTryOn, onRotate360 }) {
           </div>
 
           <button
-            onClick={() => addToCart(product, "M", selectedColor?.name)}
+            onClick={handleAddToCart}
             className="p-2.5 bg-[#FBF9F5] text-gray-800 hover:bg-[#18392B] hover:text-white rounded-xl transition-all shadow-xs cursor-pointer"
             title="Thêm vào giỏ hàng"
           >

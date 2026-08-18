@@ -26,6 +26,7 @@ import AboutPage from "./pages/AboutPage";
 import JournalPage from "./pages/JournalPage";
 import ContactPage from "./pages/ContactPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import { FEATURE_FLAGS } from "./config/featureFlags";
 
 function AppContent() {
   const [activeTab, setActiveTab] = useState("home");
@@ -92,6 +93,27 @@ function AppContent() {
           />
         );
       case "try-on":
+        if (!FEATURE_FLAGS.ENABLE_AI_TRY_ON) {
+          return (
+            <div className="pt-36 pb-20 bg-[#FBF9F5] min-h-[70vh] flex items-center justify-center">
+              <div className="container-page text-center max-w-lg mx-auto bg-white p-8 sm:p-10 rounded-3xl border border-gray-100 shadow-xl space-y-4">
+                <div className="w-16 h-16 rounded-full bg-amber-50 text-[#C85A32] flex items-center justify-center mx-auto text-2xl">
+                  ✨
+                </div>
+                <h2 className="font-heading font-bold text-2xl text-gray-900">Tính Năng Tạm Ẩn</h2>
+                <p className="text-sm text-gray-600 leading-relaxed">
+                  Tính năng <strong>"Thử đồ với AI"</strong> hiện đang tạm ngưng bảo trì trên hệ thống. Vui lòng trải nghiệm các bộ sưu tập áo dài khác hoặc quay lại sau!
+                </p>
+                <button
+                  onClick={() => setActiveTab("products")}
+                  className="px-6 py-3 bg-[#18392B] text-white rounded-full text-xs font-bold hover:bg-[#18392B]/90 transition-all shadow-md cursor-pointer border-none"
+                >
+                  Khám Phá Sản Phẩm
+                </button>
+              </div>
+            </div>
+          );
+        }
         return <TryOnPage selectedProductFromState={selectedProductForTryOn} />;
       case "history":
         return <HistoryPage onNavigateToTryOn={() => setActiveTab("try-on")} />;

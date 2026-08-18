@@ -5,6 +5,7 @@ import {
 } from "lucide-react";
 import { useCart } from "../../context/CartContext";
 import SizeGuideModal from "./SizeGuideModal";
+import { FEATURE_FLAGS } from "../../config/featureFlags";
 
 export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 }) {
   const { quickViewProduct, setQuickViewProduct, addToCart } = useCart();
@@ -161,7 +162,7 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
 
               {/* Action shortcuts below gallery */}
               <div className="grid grid-cols-2 gap-2 mt-4">
-                {product.hasAiTryOn && (
+                {FEATURE_FLAGS.ENABLE_AI_TRY_ON && product.hasAiTryOn && (
                   <button
                     onClick={() => {
                       setQuickViewProduct(null);

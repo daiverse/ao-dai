@@ -3,6 +3,7 @@ import { Search, Sparkles, Layers, LayoutGrid, Truck, RefreshCw, Palette } from 
 import { CATEGORIES, PRODUCTS } from "../data/products";
 import { COLLECTIONS } from "../data/collections";
 import ProductCard from "../components/common/ProductCard";
+import { FEATURE_FLAGS } from "../config/featureFlags";
 
 export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -94,13 +95,15 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
               <RefreshCw className="w-3.5 h-3.5 text-[#D4A373]" />
               <span>Đổi trả 30 ngày</span>
             </span>
-            <button
-              onClick={() => onNavigate && onNavigate("try-on")}
-              className="flex items-center gap-1.5 bg-[#C85A32] hover:bg-[#C85A32]/90 text-white px-4 py-1.5 rounded-full transition-all shadow-md cursor-pointer border-none"
-            >
-              <Sparkles className="w-3.5 h-3.5" />
-              <span>Thử đồ AI miễn phí</span>
-            </button>
+            {FEATURE_FLAGS.ENABLE_AI_TRY_ON && (
+              <button
+                onClick={() => onNavigate && onNavigate("try-on")}
+                className="flex items-center gap-1.5 bg-[#C85A32] hover:bg-[#C85A32]/90 text-white px-4 py-1.5 rounded-full transition-all shadow-md cursor-pointer border-none"
+              >
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>Thử đồ AI miễn phí</span>
+              </button>
+            )}
           </div>
         </div>
       </section>
@@ -337,6 +340,7 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
                     product={product}
                     onTryOn={onTryOn}
                     onRotate360={onRotate360}
+                    isExpressContext={false}
                   />
                 ))}
               </div>

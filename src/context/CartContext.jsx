@@ -16,24 +16,21 @@ export function CartProvider({ children }) {
     setTimeout(() => setToastMessage(null), 3500);
   };
 
-  // Tải giỏ hàng cá nhân của User từ Backend khi đăng nhập
+  // 1. Tải giỏ hàng trực tiếp từ Database Server theo tài khoản User
   useEffect(() => {
-    const fetchUserCart = async () => {
+    const fetchUserCartFromDB = async () => {
       if (!token || !isAuthenticated) {
-        setCart([]);
+        setCart([]); // Đăng xuất: Xóa giỏ trình duyệt, giữ nguyên dữ liệu lưu trong DB của tài khoản user
         return;
       }
 
       try {
         const res = await fetch(API_URL, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
+          headers: { Authorization: `Bearer ${token}` },
         });
         const data = await res.json();
 
         if (data.success && data.data && Array.isArray(data.data.items)) {
-          // Normalize server cart format to local format
           const loadedItems = data.data.items.map((item) => ({
             _id: item._id,
             product: item.product || {
@@ -49,45 +46,25 @@ export function CartProvider({ children }) {
           setCart(loadedItems);
         }
       } catch (err) {
-        console.error("Lỗi khi tải giỏ hàng:", err);
+        console.error("Lỗi khi tải giỏ hàng từ Database:", err);
       }
     };
 
-    fetchUserCart();
+    fetchUserCartFromDB();
   }, [token, isAuthenticated]);
 
-  // Thêm vào giỏ hàng -> Bắt buộc Đăng Nhập
+  // 2. Thêm vào giỏ hàng -> Lưu trực tiếp vào Database của User
   const addToCart = async (product, size = "M", color = null, quantity = 1) => {
-    // 1. Nếu chưa đăng nhập -> Chặn & mở Modal Đăng Nhập
-    if (!isAuthenticated) {
-      showToast("⚠️ Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng!");
+    if (!isAuthenticated || !token) {
+      showToast("⚠️ Vui lòng đăng nhập để lưu sản phẩm vào giỏ hàng tài khoản của bạn!");
       openAuthModal("login");
       return;
     }
 
     const selectedColor = color || (product.colors && product.colors[0] ? product.colors[0].name : "Tiêu chuẩn");
 
-    // 2. Thêm vào state local
-    setCart((prevCart) => {
-      const existingIndex = prevCart.findIndex(
-        (item) => item.product.id === product.id && item.size === size && item.color === selectedColor
-      );
-
-      if (existingIndex > -1) {
-        const updated = [...prevCart];
-        updated[existingIndex].quantity += quantity;
-        return updated;
-      } else {
-        return [...prevCart, { product, size, color: selectedColor, quantity }];
-      }
-    });
-
-    showToast(`Đã lưu "${product.name}" vào giỏ hàng của bạn!`);
-    setIsCartOpen(true);
-
-    // 3. Đồng bộ giỏ hàng lên Database Server
     try {
-      await fetch(API_URL, {
+      const res = await fetch(API_URL, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -103,12 +80,51 @@ export function CartProvider({ children }) {
           quantity,
         }),
       });
+
+      const data = await res.json();
+
+      if (data.success) {
+        if (data.data && Array.isArray(data.data.items)) {
+          const updatedItems = data.data.items.map((item) => ({
+            _id: item._id,
+            product: item.product || {
+              id: item.productId || item._id,
+              name: item.name,
+              price: item.price,
+              images: [item.image],
+            },
+            size: item.size,
+            color: item.color,
+            quantity: item.quantity,
+          }));
+          setCart(updatedItems);
+        } else {
+          setCart((prevCart) => {
+            const pId = product.id || product._id;
+            const existingIndex = prevCart.findIndex(
+              (item) => (item.product.id === pId || item.product._id === pId) && item.size === size && item.color === selectedColor
+            );
+
+            if (existingIndex > -1) {
+              const updated = [...prevCart];
+              updated[existingIndex].quantity += quantity;
+              return updated;
+            } else {
+              return [...prevCart, { product, size, color: selectedColor, quantity }];
+            }
+          });
+        }
+
+        showToast(`🛍️ Đã lưu "${product.name}" vào giỏ hàng Database!`);
+        setIsCartOpen(true);
+      }
     } catch (err) {
-      console.error("Lỗi đồng bộ giỏ hàng server:", err);
+      console.error("Lỗi lưu giỏ hàng Database:", err);
+      showToast("❌ Không thể lưu vào giỏ hàng Server.");
     }
   };
 
-  // Xóa khỏi giỏ hàng
+  // 3. Xóa sản phẩm khỏi giỏ trong Database
   const removeFromCart = async (index) => {
     const itemToRemove = cart[index];
     setCart((prev) => prev.filter((_, i) => i !== index));
@@ -120,11 +136,13 @@ export function CartProvider({ children }) {
           method: "DELETE",
           headers: { Authorization: `Bearer ${token}` },
         });
-      } catch (err) {}
+      } catch (err) {
+        console.error("Lỗi xóa giỏ hàng Database:", err);
+      }
     }
   };
 
-  // Cập nhật số lượng
+  // 4. Cập nhật số lượng sản phẩm trong Database
   const updateQuantity = async (index, delta) => {
     const itemToUpdate = cart[index];
     if (!itemToUpdate) return;
@@ -152,7 +170,9 @@ export function CartProvider({ children }) {
           },
           body: JSON.stringify({ quantity: newQty }),
         });
-      } catch (err) {}
+      } catch (err) {
+        console.error("Lỗi cập nhật giỏ hàng Database:", err);
+      }
     }
   };
 

@@ -1,5 +1,6 @@
 import React from "react";
 import { ArrowRight, Palette, Sparkles } from "lucide-react";
+import { FEATURE_FLAGS } from "../../config/featureFlags";
 
 export default function HeroBanner({ onNavigate }) {
   return (
@@ -60,24 +61,26 @@ export default function HeroBanner({ onNavigate }) {
               <span>Thiết kế với AI</span>
             </button>
 
-            <button
-              onClick={() => onNavigate("try-on")}
-              className="inline-flex items-center gap-2.5 px-6 sm:px-7 py-3.5 sm:py-4 border-2 border-[#18392B] text-[#18392B] font-semibold rounded-full hover:bg-[#18392B] hover:text-white transition-all cursor-pointer bg-white/80 backdrop-blur-xs"
-            >
-              <Sparkles className="w-4 h-4 text-[#D4A373]" />
-              <span>Thử đồ với AI</span>
-            </button>
+            {FEATURE_FLAGS.ENABLE_AI_TRY_ON && (
+              <button
+                onClick={() => onNavigate("try-on")}
+                className="inline-flex items-center gap-2.5 px-6 sm:px-7 py-3.5 sm:py-4 border-2 border-[#18392B] text-[#18392B] font-semibold rounded-full hover:bg-[#18392B] hover:text-white transition-all cursor-pointer bg-white/80 backdrop-blur-xs"
+              >
+                <Sparkles className="w-4 h-4 text-[#D4A373]" />
+                <span>Thử đồ với AI</span>
+              </button>
+            )}
           </div>
 
           {/* Stats Bar */}
           <div className="mt-12 lg:mt-16 flex gap-8 sm:gap-12 border-t border-gray-100 pt-8">
             <div>
-              <div className="text-3xl sm:text-4xl font-bold mb-1 font-heading text-[#18392B]">500+</div>
+              <div className="text-3xl sm:text-4xl font-bold mb-1 font-heading text-[#18392B]">5+</div>
               <div className="text-xs sm:text-sm text-gray-500 font-medium">Mẫu áo dài</div>
             </div>
             <div>
-              <div className="text-3xl sm:text-4xl font-bold mb-1 font-heading text-[#18392B]">20K+</div>
-              <div className="text-xs sm:text-sm text-gray-500 font-medium">Khách hàng</div>
+              <div className="text-3xl sm:text-4xl font-bold mb-1 font-heading text-[#18392B]">100+</div>
+              <div className="text-xs sm:text-sm text-gray-500 font-medium">Hàng trăm khách hàng</div>
             </div>
             <div>
               <div className="text-3xl sm:text-4xl font-bold mb-1 font-heading text-[#C85A32]">4.9 ★</div>

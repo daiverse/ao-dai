@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Sparkles, Palette, Upload, Check, RefreshCw, Wand2, ArrowRight, Bookmark, Image as ImageIcon, Layers, HelpCircle, Flower2, Feather, Crown, Flame, Sun, Waves } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { generateAoDaiDesign } from "../utils/hfAI";
+import { FEATURE_FLAGS } from "../config/featureFlags";
 
 export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
   const { showToast } = useCart();
@@ -463,13 +464,15 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
                   </button>
                 ) : (
                   <div className="space-y-2">
-                    <button
-                      onClick={handleTryOnNow}
-                      className="w-full py-3.5 bg-[#18392B] text-white font-bold rounded-2xl shadow-lg shadow-[#18392B]/20 hover:bg-[#18392B]/90 transition-all flex items-center justify-center gap-2 text-sm cursor-pointer"
-                    >
-                      <Sparkles className="w-4 h-4 text-[#D4A373]" />
-                      <span>Thử Đồ Ngay</span>
-                    </button>
+                    {FEATURE_FLAGS.ENABLE_AI_TRY_ON && (
+                      <button
+                        onClick={handleTryOnNow}
+                        className="w-full py-3.5 bg-[#18392B] text-white font-bold rounded-2xl shadow-lg shadow-[#18392B]/20 hover:bg-[#18392B]/90 transition-all flex items-center justify-center gap-2 text-sm cursor-pointer"
+                      >
+                        <Sparkles className="w-4 h-4 text-[#D4A373]" />
+                        <span>Thử Đồ Ngay</span>
+                      </button>
+                    )}
 
                     <div className="grid grid-cols-2 gap-2">
                       <button

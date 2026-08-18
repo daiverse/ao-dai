@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Send, MapPin, Phone, Mail, Clock, Heart, ExternalLink } from "lucide-react";
 import { useCart } from "../../context/CartContext";
+import { FEATURE_FLAGS } from "../../config/featureFlags";
 
 export default function Footer({ setActiveTab }) {
   const [email, setEmail] = useState("");
@@ -91,11 +92,13 @@ export default function Footer({ setActiveTab }) {
                   AI Design Studio
                 </button>
               </li>
-              <li>
-                <button onClick={() => handleNav("try-on")} className="text-sm text-[#FBF9F5]/60 hover:text-[#C85A32] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
-                  Phòng Xem Đồ AI
-                </button>
-              </li>
+              {FEATURE_FLAGS.ENABLE_AI_TRY_ON && (
+                <li>
+                  <button onClick={() => handleNav("try-on")} className="text-sm text-[#FBF9F5]/60 hover:text-[#C85A32] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
+                    Phòng Xem Đồ AI
+                  </button>
+                </li>
+              )}
               <li>
                 <button onClick={() => handleNav("360")} className="text-sm text-[#FBF9F5]/60 hover:text-[#C85A32] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
                   Trải Nghiệm 360°

@@ -255,6 +255,7 @@ export default function Express24hPage({ onTryOn, onRotate360 }) {
                 product={product}
                 onTryOn={onTryOn}
                 onRotate360={onRotate360}
+                isExpressContext={true}
               />
               {/* Express Tag line */}
               <div className="mt-2 px-3 py-1.5 bg-amber-50 border border-amber-200 rounded-xl text-[11px] font-medium text-amber-900 flex items-center justify-between">

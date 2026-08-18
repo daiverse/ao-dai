@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { X, Mail, Lock, User, Phone, ArrowRight, ShieldCheck, RefreshCw, KeyRound, Sparkles, Eye, EyeOff } from "lucide-react";
+import { X, Mail, Lock, User, Phone, ArrowRight, ShieldCheck, RefreshCw, KeyRound, Sparkles, Eye, EyeOff, CheckCircle2 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import PasswordStrengthBar, { calculatePasswordStrength } from "./PasswordStrengthBar";
 
@@ -17,6 +17,7 @@ export default function AuthModal() {
 
   const [view, setView] = useState("login"); // 'login' | 'register' | 'otp' | 'forgot'
   const [loading, setLoading] = useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
   const [error, setError] = useState("");
   const [successMsg, setSuccessMsg] = useState("");
 
@@ -38,6 +39,8 @@ export default function AuthModal() {
       setView(modalInitialView || "login");
       setError("");
       setSuccessMsg("");
+      setLoginSuccess(false);
+      setLoading(false);
       setConfirmPassword("");
       setOtp(["", "", "", "", "", ""]);
     }
@@ -54,7 +57,7 @@ export default function AuthModal() {
 
   if (!isAuthModalOpen) return null;
 
-  // Handle Login
+  // Handle Login với Animation thành công
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setError("");
@@ -62,10 +65,15 @@ export default function AuthModal() {
 
     try {
       await login(email, password);
-      closeAuthModal();
+      setLoginSuccess(true);
+      setLoading(false);
+      setTimeout(() => {
+        setLoginSuccess(false);
+        closeAuthModal();
+      }, 1400);
     } catch (err) {
+      console.error("Login Error:", err);
       setError(err.message || "Đăng nhập thất bại.");
-    } finally {
       setLoading(false);
     }
   };
@@ -133,10 +141,14 @@ export default function AuthModal() {
 
     try {
       await registerWithOTP(email, otpCode);
-      closeAuthModal();
+      setLoginSuccess(true);
+      setLoading(false);
+      setTimeout(() => {
+        setLoginSuccess(false);
+        closeAuthModal();
+      }, 1400);
     } catch (err) {
       setError(err.message || "Xác nhận OTP thất bại.");
-    } finally {
       setLoading(false);
     }
   };
@@ -175,6 +187,27 @@ export default function AuthModal() {
   const handleGoogleLogin = () => {
     window.location.href = "http://localhost:5000/api/auth/google";
   };
+
+  // Màn hình Animation thành công sau khi Đăng nhập / Đăng ký
+  if (loginSuccess) {
+    return (
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fadeIn">
+        <div className="relative w-full max-w-sm bg-white rounded-3xl p-8 shadow-2xl text-center space-y-4 border border-emerald-100 animate-scaleUp">
+          <div className="w-20 h-20 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center mx-auto shadow-lg shadow-emerald-600/20 animate-bounce">
+            <CheckCircle2 className="w-10 h-10" />
+          </div>
+          <div>
+            <h3 className="font-heading font-bold text-2xl text-gray-900">Đăng Nhập Thành Công!</h3>
+            <p className="text-xs text-gray-500 mt-1">Chào mừng bạn đã trở lại với <strong>DaiVerse</strong></p>
+          </div>
+          <div className="inline-flex items-center gap-1.5 text-xs text-[#C85A32] font-semibold bg-amber-50 px-3 py-1.5 rounded-full border border-amber-200/60 animate-pulse">
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Đã đồng bộ thông tin & giỏ hàng...</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fadeIn">

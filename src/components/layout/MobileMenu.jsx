@@ -1,5 +1,6 @@
 import React from "react";
 import { X, Sparkles, ChevronRight } from "lucide-react";
+import { FEATURE_FLAGS } from "../../config/featureFlags";
 
 export default function MobileMenu({ isOpen, onClose, activeTab, setActiveTab }) {
   if (!isOpen) return null;
@@ -11,7 +12,7 @@ export default function MobileMenu({ isOpen, onClose, activeTab, setActiveTab })
     { id: "360", label: "Xem 360°" },
     { id: "lookbook", label: "Bộ Sưu Tập 2026" },
     { id: "design-studio", label: "AI Design Studio (Thiết Kế AI)" },
-    { id: "try-on", label: "Phòng Xem Đồ AI (Thử Đồ AI)" },
+    ...(FEATURE_FLAGS.ENABLE_AI_TRY_ON ? [{ id: "try-on", label: "Phòng Xem Đồ AI (Thử Đồ AI)" }] : []),
     { id: "about", label: "Câu Chuyện Di Sản" },
     { id: "journal", label: "Tạp Chí & Kỹ Năng" },
     { id: "contact", label: "Liên Hệ Showroom" }

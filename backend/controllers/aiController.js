@@ -2,6 +2,7 @@ const asyncHandler = require("express-async-handler");
 const axios = require("axios");
 const path = require("path");
 const fs = require("fs");
+const { HfInference } = require("@huggingface/inference");
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Helper: Đọc ảnh local từ thư mục public → base64
@@ -19,55 +20,43 @@ const localImageToBase64 = (imagePath) => {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Helper: Gọi FLUX.1-schnell qua Hugging Face Inference API (dùng axios)
-// ─────────────────────────────────────────────────────────────────────────────
-// ─────────────────────────────────────────────────────────────────────────────
-// Helper: Gọi FLUX.1-schnell qua Hugging Face Router / Pollinations FLUX Engine 4K
+// Helper: Gọi chính thức Hugging Face Inference SDK với token người dùng
 // ─────────────────────────────────────────────────────────────────────────────
 const callFluxAPI = async (prompt) => {
   const HF_TOKEN = process.env.HF_TOKEN;
-  const MODEL = "black-forest-labs/FLUX.1-schnell";
+  const hf = new HfInference(HF_TOKEN);
 
-  const endpoints = [
-    `https://router.huggingface.co/hf-inference/models/${MODEL}`,
-    `https://api-inference.huggingface.co/models/${MODEL}`,
+  const models = [
+    "black-forest-labs/FLUX.1-schnell",
+    "stabilityai/stable-diffusion-xl-base-1.0",
+    "black-forest-labs/FLUX.1-dev",
   ];
 
-  // 1. Thử Hugging Face Router Endpoints
-  for (const endpointUrl of endpoints) {
+  for (const model of models) {
     try {
-      const response = await axios({
-        method: "POST",
-        url: endpointUrl,
-        headers: {
-          Authorization: `Bearer ${HF_TOKEN}`,
-          "Content-Type": "application/json",
-          "x-wait-for-model": "true",
+      console.log(`🌸 Đang gọi Hugging Face API (${model})...`);
+      const response = await hf.textToImage({
+        model,
+        inputs: prompt,
+        parameters: {
+          width: 768,
+          height: 1024,
         },
-        data: {
-          inputs: prompt,
-          parameters: {
-            width: 768,
-            height: 1024,
-            num_inference_steps: 4,
-            guidance_scale: 3.5,
-          },
-        },
-        responseType: "arraybuffer",
-        timeout: 12000,
       });
 
-      const base64 = Buffer.from(response.data).toString("base64");
-      const contentType = response.headers["content-type"] || "image/png";
-      return `data:${contentType};base64,${base64}`;
+      const buffer = Buffer.from(await response.arrayBuffer());
+      const base64 = buffer.toString("base64");
+      const mimeType = response.type || "image/png";
+      console.log(`✅ Hugging Face (${model}) sinh thiết kế áo dài thành công! (${buffer.length} bytes)`);
+      return `data:${mimeType};base64,${base64}`;
     } catch (err) {
-      console.warn(`HF Endpoint (${endpointUrl}) bypass: ${err.message}`);
+      console.warn(`⚠️ Hugging Face model (${model}) báo lỗi/bị qua: ${err.message}`);
     }
   }
 
   // 2. Pollinations FLUX Engine (Sử dụng prompt đầy đủ 100% không bị cắt bỏ)
   try {
-    console.log("⚡ Đang dệt thiết kế FLUX 4K siêu nét theo yêu cầu...");
+    console.log("⚡ Đang dệt thiết kế FLUX 4K dự phòng...");
     const seed = Math.floor(Math.random() * 1000000);
     const encodedPrompt = encodeURIComponent(prompt);
     const pollinationsUrl = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=768&height=1024&nologo=true&model=flux&enhance=true&seed=${seed}`;
@@ -245,36 +234,8 @@ const generateDesign = asyncHandler(async (req, res) => {
 // @access  Public
 // ─────────────────────────────────────────────────────────────────────────────
 const virtualTryOn = asyncHandler(async (req, res) => {
-  const { personImageBase64, garmentImageBase64, garmentImagePath } = req.body;
-
-  let personB64 = personImageBase64;
-  let garmentB64 = garmentImageBase64;
-
-  if (!garmentB64 && garmentImagePath) {
-    garmentB64 = localImageToBase64(garmentImagePath);
-    if (!garmentB64) {
-      res.status(400);
-      throw new Error("Không tìm thấy ảnh sản phẩm.");
-    }
-  }
-
-  if (!personB64) {
-    res.status(400);
-    throw new Error("Vui lòng cung cấp ảnh người mẫu.");
-  }
-
-  if (!garmentB64) {
-    res.status(400);
-    throw new Error("Vui lòng cung cấp ảnh áo dài.");
-  }
-
-  const imageUrl = await callIDMVTON(personB64, garmentB64);
-
-  res.json({
-    success: true,
-    message: "Thử đồ AI hoàn tất!",
-    imageUrl,
-  });
+  res.status(503);
+  throw new Error("Tính năng Thử đồ với AI (Virtual Try-On) đang tạm thời bảo trì/tạm ẩn trên toàn hệ thống.");
 });
 
 module.exports = { generateDesign, virtualTryOn };

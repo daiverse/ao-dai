@@ -1,6 +1,7 @@
 import React from "react";
 import { Sparkles, Clock, ArrowRight } from "lucide-react";
 import { PRODUCTS } from "../data/products";
+import { FEATURE_FLAGS } from "../config/featureFlags";
 
 export default function HistoryPage({ onNavigateToTryOn }) {
   const sampleHistory = [
@@ -48,13 +49,15 @@ export default function HistoryPage({ onNavigateToTryOn }) {
                 <p className="text-sm font-bold text-[#C85A32] mt-1">{item.price}</p>
               </div>
 
-              <button
-                onClick={() => onNavigateToTryOn && onNavigateToTryOn()}
-                className="w-full py-2.5 bg-[#18392B] text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5"
-              >
-                <Sparkles className="w-3.5 h-3.5 text-[#D4A373]" />
-                <span>Thử Lại Trong Virtual Try-on</span>
-              </button>
+              {FEATURE_FLAGS.ENABLE_AI_TRY_ON && (
+                <button
+                  onClick={() => onNavigateToTryOn && onNavigateToTryOn()}
+                  className="w-full py-2.5 bg-[#18392B] text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5"
+                >
+                  <Sparkles className="w-3.5 h-3.5 text-[#D4A373]" />
+                  <span>Thử Lại Trong Virtual Try-on</span>
+                </button>
+              )}
             </div>
           ))}
         </div>
