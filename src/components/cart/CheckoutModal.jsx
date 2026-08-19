@@ -21,6 +21,7 @@ import {
 } from "lucide-react";
 import { useCart } from "../../context/CartContext";
 import { useAuth } from "../../context/AuthContext";
+import { API_BASE_URL } from "../../config/api";
 
 export default function CheckoutModal({ isOpen, onClose }) {
   const { cart, totalPrice, formattedTotalPrice, removeFromCart } = useCart();
@@ -112,7 +113,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/payos/create-payment-link", {
+      const res = await fetch(`${API_BASE_URL}/api/payos/create-payment-link`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -144,7 +145,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
 
     pollingTimerRef.current = setInterval(async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/payos/order-status/${orderCode}`);
+        const res = await fetch(`${API_BASE_URL}/api/payos/order-status/${orderCode}`);
         const data = await res.json();
 
         if (data.success && data.status === "PAID") {
@@ -161,7 +162,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
   const autoCompletePayOsOrder = async () => {
     setLoading(true);
     try {
-      const res = await fetch("http://localhost:5000/api/orders", {
+      const res = await fetch(`${API_BASE_URL}/api/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -224,7 +225,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
         quantity: item.quantity,
       }));
 
-      const res = await fetch("http://localhost:5000/api/orders", {
+      const res = await fetch(`${API_BASE_URL}/api/orders`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

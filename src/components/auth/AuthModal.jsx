@@ -3,6 +3,8 @@ import { X, Mail, Lock, User, Phone, ArrowRight, ShieldCheck, RefreshCw, KeyRoun
 import { useAuth } from "../../context/AuthContext";
 import PasswordStrengthBar, { calculatePasswordStrength } from "./PasswordStrengthBar";
 
+import { API_BASE_URL } from "../../config/api";
+
 export default function AuthModal() {
   const {
     isAuthModalOpen,
@@ -185,7 +187,7 @@ export default function AuthModal() {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = "http://localhost:5000/api/auth/google";
+    window.location.href = `${API_BASE_URL}/api/auth/google`;
   };
 
   // Màn hình Animation thành công sau khi Đăng nhập / Đăng ký

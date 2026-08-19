@@ -1,8 +1,9 @@
 // ─────────────────────────────────────────────────────────────────────────────
 // Client AI Service Proxy (Bảo mật: Token Hugging Face được ẩn an toàn ở Backend)
 // ─────────────────────────────────────────────────────────────────────────────
+import { API_BASE_URL as BASE_URL } from "../config/api";
 
-const API_BASE_URL = "http://localhost:5000/api/ai";
+const API_BASE_URL = `${BASE_URL}/api/ai`;
 
 /**
  * 🎨 Thiết kế Áo Dài bằng AI (FLUX.1-schnell qua Backend Proxy)
