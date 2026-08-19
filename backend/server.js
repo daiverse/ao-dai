@@ -55,6 +55,15 @@ app.use("/api/reviews", reviewRoutes);
 app.use("/api/articles", articleRoutes);
 app.use("/api/ai", aiRoutes);
 
+// Root welcome route
+app.get("/", (req, res) => {
+  res.json({
+    success: true,
+    message: "🌸 Áo Dài E-Commerce Backend API đang hoạt động bình thường!",
+    health: "/api/health",
+  });
+});
+
 // Health check
 app.get("/api/health", (req, res) => {
   res.json({
