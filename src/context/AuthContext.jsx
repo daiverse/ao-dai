@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
   // Kiểm tra token từ URL (khi redirect từ Google OAuth)
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
-    const authToken = urlParams.get("auth_token");
+    const authToken = urlParams.get("auth_token") || urlParams.get("token");
     const authError = urlParams.get("auth_error");
 
     if (authToken) {

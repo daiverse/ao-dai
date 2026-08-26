@@ -1,6 +1,6 @@
 const nodemailer = require("nodemailer");
 
-// ── Transporter A: support.daiverse@gmail.com → dùng cho Mail thông báo Admin ─
+// ── Transporter A: admin@daiverse.com.vn → dùng cho Mail thông báo Admin ─────
 const createTransporter = () => {
   if (!process.env.EMAIL_HOST || !process.env.EMAIL_USER) {
     return null;
@@ -37,15 +37,15 @@ const createAdminTransporter = () => {
   });
 };
 
-// ── Helper gửi mail qua Transporter A (Support Gmail) ────────────────────────
+// ── Helper gửi mail qua Transporter A (DaiVerse Admin Mail) ─────────────────
 const sendMail = async ({ from, replyTo, to, subject, html }) => {
   const transporter = createTransporter();
-  const supportAddress = process.env.EMAIL_USER || "support.daiverse@gmail.com";
+  const supportAddress = process.env.EMAIL_USER || "admin@daiverse.com.vn";
   const adminAddress = process.env.ADMIN_EMAIL || "admin@daiverse.com.vn";
   const mailFrom = from || `"DaiVerse Support" <${supportAddress}>`;
   const mailReplyTo = replyTo || adminAddress;
 
-  if (!transporter || process.env.EMAIL_PASS === "your_gmail_app_password") {
+  if (!transporter) {
     console.log("\n📧 [DEV LOG - Support Mail] From:", mailFrom, "→ To:", to, "| Subject:", subject);
     return;
   }
@@ -53,8 +53,10 @@ const sendMail = async ({ from, replyTo, to, subject, html }) => {
   try {
     const info = await transporter.sendMail({ from: mailFrom, replyTo: mailReplyTo, to, subject, html });
     console.log(`✅ [SUPPORT MAIL SENT] ID: ${info.messageId} | ${mailFrom} ➜ ${to}`);
+    return info;
   } catch (err) {
     console.error("❌ [SUPPORT MAIL ERROR]:", err.message);
+    throw err;
   }
 };
 
@@ -129,7 +131,7 @@ const baseTemplate = (content) => `
     </div>
     <div class="body">${content}</div>
     <div class="footer">
-      <p>Email này được tự động gửi từ <strong>support.daiverse@gmail.com</strong> tới Quản trị viên <strong>admin@daiverse.com.vn</strong></p>
+      <p>Email này được tự động gửi từ hệ thống <strong>DaiVerse</strong> tới Quản trị viên <strong>admin@daiverse.com.vn</strong></p>
       <p style="margin-top:4px;color:#9CA3AF;">© 2026 DaiVerse Fashion Studio. Tất cả quyền được bảo lưu.</p>
     </div>
   </div>
@@ -139,7 +141,7 @@ const baseTemplate = (content) => `
 
 // ── Gửi Form thông tin đơn hàng từ Mail A (support) đến Mail B (admin) ─────────
 const sendNewOrderNotificationToAdmin = async (order) => {
-  const mailA = process.env.EMAIL_USER || "support.daiverse@gmail.com";
+  const mailA = process.env.EMAIL_USER || "admin@daiverse.com.vn";
   const mailB = process.env.ADMIN_EMAIL || "admin@daiverse.com.vn";
 
   const shipping = order.shippingAddress || {};
@@ -180,10 +182,9 @@ const sendNewOrderNotificationToAdmin = async (order) => {
     .join("");
 
   const html = baseTemplate(`
-    ${
-      is24hShipping
-        ? `<div class="badge-24h">⚡ GẮN NHÃN GIAO 24H (HỎA TỐC HÀ NỘI)</div>`
-        : `<div style="margin-bottom:16px;"><span class="badge-standard">📦 Giao hàng tiêu chuẩn</span></div>`
+    ${is24hShipping
+      ? `<div class="badge-24h">⚡ GẮN NHÃN GIAO 24H (HỎA TỐC HÀ NỘI)</div>`
+      : `<div style="margin-bottom:16px;"><span class="badge-standard">📦 Giao hàng tiêu chuẩn</span></div>`
     }
 
     <h2>📋 FORM THÔNG TIN KHÁCH HÀNG ĐẶT HÀNG</h2>
@@ -219,11 +220,10 @@ const sendNewOrderNotificationToAdmin = async (order) => {
         <tr>
           <td class="label">Nhãn giao hàng:</td>
           <td>
-            ${
-              is24hShipping
-                ? `<span style="background:#FEE2E2;color:#DC2626;padding:4px 10px;border-radius:6px;font-weight:800;font-size:12px;">⚡ GẮN NHÃN 24H (GIAO GẤP 2H - 24H)</span>`
-                : `<span style="background:#E5E7EB;color:#374151;padding:4px 10px;border-radius:6px;font-weight:600;font-size:12px;">Tiêu chuẩn</span>`
-            }
+            ${is24hShipping
+      ? `<span style="background:#FEE2E2;color:#DC2626;padding:4px 10px;border-radius:6px;font-weight:800;font-size:12px;">⚡ GẮN NHÃN 24H (GIAO GẤP 2H - 24H)</span>`
+      : `<span style="background:#E5E7EB;color:#374151;padding:4px 10px;border-radius:6px;font-weight:600;font-size:12px;">Tiêu chuẩn</span>`
+    }
           </td>
         </tr>
       </tbody>
@@ -406,7 +406,7 @@ const sendCustomerThankYouEmail = async (order) => {
   `);
 
   await sendMail({
-    from: `"DaiVerse" <${process.env.EMAIL_USER || "support.daiverse@gmail.com"}>`,
+    from: `"DaiVerse" <${process.env.EMAIL_USER || "admin@daiverse.com.vn"}>`,  
     replyTo: process.env.ADMIN_EMAIL || "admin@daiverse.com.vn",
     to: customerEmail,
     subject,

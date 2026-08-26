@@ -116,17 +116,25 @@ exports.sendOTP = async (req, res) => {
     // 4. Gửi email chứa mã OTP thực tế
     try {
       await sendOTPEmail(cleanEmail, otp, name);
+      console.log(`\n==================================================`);
+      console.log(`✅ [MÃ OTP GỬI EMAIL THÀNH CÔNG] Email: ${cleanEmail} | Mã OTP: ${otp}`);
+      console.log(`==================================================\n`);
+
+      res.status(200).json({
+        success: true,
+        message: `Mã OTP xác minh đã được gửi về email ${cleanEmail}. Vui lòng kiểm tra hộp thư!`,
+        email: cleanEmail,
+      });
     } catch (mailErr) {
-      console.error("Lỗi gửi mail OTP:", mailErr);
+      console.error("❌ [LỖI GỬI MAIL OTP]:", mailErr.message);
+      // Fallback khi email gặp sự cố mạng/môi trường test
+      console.log(`\n🔑 [FALLBACK OTP] Email: ${cleanEmail} | Mã OTP: ${otp}\n`);
+      res.status(200).json({
+        success: true,
+        message: `Đã tạo mã OTP cho ${cleanEmail}. (Lỗi gửi mail: ${mailErr.message} - Mã OTP thử nghiệm: ${otp})`,
+        email: cleanEmail,
+      });
     }
-
-    console.log(`\n🔑 [OTP REGISTER] Mã OTP cho ${cleanEmail} là: ${otp}\n`);
-
-    res.status(200).json({
-      success: true,
-      message: `Mã OTP xác minh đã được gửi về email ${cleanEmail}. Vui lòng kiểm tra hộp thư!`,
-      email: cleanEmail,
-    });
   } catch (error) {
     console.error("Send OTP Error:", error);
     res.status(500).json({
@@ -271,16 +279,21 @@ exports.resendOTP = async (req, res) => {
 
     try {
       await sendOTPEmail(cleanEmail, otp, pendingData?.name || "Bạn");
+      console.log(`\n==================================================`);
+      console.log(`✅ [GỬI LẠI OTP EMAIL THÀNH CÔNG] Email: ${cleanEmail} | Mã OTP mới: ${otp}`);
+      console.log(`==================================================\n`);
+
+      res.status(200).json({
+        success: true,
+        message: `Đã gửi lại mã OTP mới tới ${cleanEmail}.`,
+      });
     } catch (mailErr) {
-      console.error("Lỗi gửi mail OTP:", mailErr);
+      console.error("❌ [LỖI GỬI LẠI MAIL OTP]:", mailErr.message);
+      res.status(200).json({
+        success: true,
+        message: `Đã tạo mã OTP mới cho ${cleanEmail}. (Lỗi gửi mail: ${mailErr.message} - Mã OTP thử nghiệm: ${otp})`,
+      });
     }
-
-    console.log(`\n🔑 [RESEND OTP] Mã OTP mới cho ${cleanEmail} là: ${otp}\n`);
-
-    res.status(200).json({
-      success: true,
-      message: `Đã gửi lại mã OTP mới tới ${cleanEmail}.`,
-    });
   } catch (error) {
     console.error("Resend OTP Error:", error);
     res.status(500).json({ success: false, message: "Không thể gửi lại mã OTP" });
@@ -315,7 +328,7 @@ exports.login = async (req, res) => {
     // Nếu DB chưa có hoặc MongoDB offline, kiểm tra trong offline file store
     if (!user) {
       user = inMemoryUsers.get(cleanEmail);
-      
+
       // Nếu chưa có user trong đĩa (ví dụ user vừa được khởi tạo trực tiếp), kiểm tra nếu khớp password
       if (!user) {
         // Thử tìm bất kỳ user nào trong inMemoryUsers có khớp password hoặc tạo tài khoản mặc định
@@ -382,12 +395,17 @@ exports.forgotPassword = async (req, res) => {
 
     try {
       await sendResetPasswordEmail(cleanEmail, resetUrl, "Khách hàng");
+      console.log(`\n==================================================`);
+      console.log(`✅ [MAIL FORGOT PASSWORD THÀNH CÔNG] Email: ${cleanEmail} | Link: ${resetUrl}`);
+      console.log(`==================================================\n`);
+
       res.status(200).json({
         success: true,
         message: "Hướng dẫn đặt lại mật khẩu đã được gửi về email của bạn.",
       });
     } catch (err) {
-      return res.status(500).json({ success: false, message: "Không thể gửi email đặt lại mật khẩu." });
+      console.error("❌ [LỖI GỬI MAIL QUÊN MẬT KHẨU]:", err.message);
+      return res.status(500).json({ success: false, message: `Không thể gửi email đặt lại mật khẩu (${err.message}).` });
     }
   } catch (error) {
     console.error("Forgot Password Error:", error);
@@ -491,6 +509,19 @@ exports.getMe = async (req, res) => {
 
 // ── 8. GOOGLE OAUTH CALLBACK ────────────────────────────────────────────────
 exports.googleCallback = (req, res) => {
-  const token = generateToken(req.user);
-  res.redirect(`http://localhost:5173/?token=${token}`);
+  try {
+    if (!req.user) {
+      const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
+      return res.redirect(`${clientUrl}/?auth_error=google_failed`);
+    }
+    const token = generateToken(req.user);
+    const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
+    console.log("✅ [GOOGLE AUTH] Đăng nhập thành công:", req.user.email);
+    res.redirect(`${clientUrl}/?auth_token=${token}`);
+  } catch (err) {
+    console.error("❌ [GOOGLE AUTH] Lỗi callback:", err.message);
+    const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
+    res.redirect(`${clientUrl}/?auth_error=google_failed`);
+  }
 };
+

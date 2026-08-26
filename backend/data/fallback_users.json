@@ -3,7 +3,45 @@
     "_id": "user_1786788012344",
     "name": "Khách hàng DaiVerse",
     "email": "minhvvhn@gmail.com",
-    "password": "Tieuvu123123@@",
+    "password": "Tieuvu1234512345@@",
+    "role": "customer"
+  },
+  "envotri@gmail.com": {
+    "_id": "google_101552047626500269557",
+    "name": "Én vô tri",
+    "email": "envotri@gmail.com",
+    "googleId": "101552047626500269557",
+    "avatar": "https://lh3.googleusercontent.com/a/ACg8ocKSav7ZeKYtEEcznnAoW2PQVe0_9X5Rg_HPXAegYKuEKwOQBjE=s96-c",
+    "role": "customer",
+    "isEmailVerified": true,
+    "isActive": true,
+    "password": "Tieuvu1234512345@@"
+  },
+  "mtateeeee@gmail.com": {
+    "_id": "google_113411758929967759254",
+    "name": "Minh Vũ",
+    "email": "mtateeeee@gmail.com",
+    "googleId": "113411758929967759254",
+    "avatar": "https://lh3.googleusercontent.com/a/ACg8ocJnaHcExRwhNElnsGBiNduUwnQprcYbqok4Zg_mIvWerl83YQ=s96-c",
+    "role": "customer",
+    "isEmailVerified": true,
+    "isActive": true,
+    "password": "Tieuvu1234512345@@"
+  },
+  "vvmvvm123456123456@gmail.com": {
+    "_id": "user_1787229425002",
+    "name": "Minh Vũ",
+    "email": "vvmvvm123456123456@gmail.com",
+    "password": "Tieuvu1234512345@@",
+    "phone": "01990406541",
+    "role": "customer"
+  },
+  "minhvvhcm@gmail.com": {
+    "_id": "user_1787230083800",
+    "name": "Minh Vũ",
+    "email": "minhvvhcm@gmail.com",
+    "password": "Tieuvu1234512345@@",
+    "phone": "0377040679",
     "role": "customer"
   }
 }

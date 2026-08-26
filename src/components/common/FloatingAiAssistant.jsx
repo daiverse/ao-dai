@@ -7,7 +7,7 @@ export default function FloatingAiAssistant() {
   const [messages, setMessages] = useState([
     {
       sender: "bot",
-      text: "Xin chào! Tôi là Trợ Lý AI của Serene Áo Dài. Bạn cần tư vấn chọn áo dài cưới, chọn size hay trải nghiệm thiết kế AI?"
+      text: "Xin chào! Tôi là Trợ Lý AI của DaiVerse. Bạn cần tư vấn chọn áo dài cưới, chọn size hay trải nghiệm thiết kế AI?"
     }
   ]);
 
@@ -20,13 +20,13 @@ export default function FloatingAiAssistant() {
     setInputMsg("");
 
     setTimeout(() => {
-      let botReply = "Cảm ơn bạn! Serene Áo Dài khuyến nghị bạn thử trải nghiệm **AI Design Studio** hoặc **Phòng Xem Đồ AI** để phối đồ chuẩn phom dáng nhất.";
+      let botReply = "Cảm ơn bạn! DaiVerse khuyến nghị bạn thử trải nghiệm **AI Design Studio** hoặc **Phòng Xem Đồ AI** để phối đồ chuẩn phom dáng nhất.";
       if (userText.toLowerCase().includes("cưới") || userText.toLowerCase().includes("lễ")) {
         botReply = "Đối với lễ cưới, bộ sưu tập **Hương Cố Đô** và mẫu **Áo Dài Cưới Gấm Hoàng Gia Xích Nguyệt** đang là lựa chọn được yêu thích nhất với sắc đỏ may mắn và họa tiết thêu phượng tinh tế!";
       } else if (userText.toLowerCase().includes("size") || userText.toLowerCase().includes("đo")) {
-        botReply = "Serene có dịch vụ may theo số đo riêng (Tailored Size). Bạn có thể cung cấp Chiều cao, Cân nặng, Vòng 1, Vòng 2 để nghệ nhân may đo chuẩn dáng nhé!";
+        botReply = "DaiVerse có dịch vụ may theo số đo riêng (Tailored Size). Bạn có thể cung cấp Chiều cao, Cân nặng, Vòng 1, Vòng 2 để nghệ nhân may đo chuẩn dáng nhé!";
       } else if (userText.toLowerCase().includes("giá") || userText.toLowerCase().includes("tiền")) {
-        botReply = "Các sản phẩm áo dài Serene có mức giá dao động từ 1.350.000đ - 2.950.000đ tuỳ theo chất liệu gấm lụa tơ tằm và mức độ thêu tay thủ công.";
+        botReply = "Các sản phẩm áo dài DaiVerse có mức giá dao động từ 1.350.000đ - 2.950.000đ tuỳ theo chất liệu gấm lụa tơ tằm và mức độ thêu tay thủ công.";
       }
 
       setMessages((prev) => [...prev, { sender: "bot", text: botReply }]);
@@ -45,7 +45,7 @@ export default function FloatingAiAssistant() {
                 <Bot className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-heading font-semibold text-sm">Trợ Lý AI Serene</h3>
+                <h3 className="font-heading font-semibold text-sm">Trợ Lý AI DaiVerse</h3>
                 <p className="text-[11px] text-[#D4A373] flex items-center gap-1">
                   <span className="w-1.5 h-1.5 bg-green-400 rounded-full animate-ping"></span>
                   Đang hoạt động · Sẵn sàng tư vấn
