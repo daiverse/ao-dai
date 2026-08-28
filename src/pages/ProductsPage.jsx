@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from "react";
-import { Search, Sparkles, Layers, LayoutGrid, Truck, RefreshCw, Palette } from "lucide-react";
+import { Search, Sparkles, Layers, LayoutGrid, Palette } from "lucide-react";
 import { CATEGORIES, PRODUCTS } from "../data/products";
 import { COLLECTIONS } from "../data/collections";
 import ProductCard from "../components/common/ProductCard";
@@ -60,9 +60,9 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
   }, [selectedCategory, selectedCollection, searchTerm, sortOption]);
 
   return (
-    <div className="pt-24 pb-20 bg-[#FBF9F5] min-h-screen">
+    <div className="pt-24 pb-20 bg-[#FDF6C0] min-h-screen">
       {/* 1. Hero Header Banner */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#18392B] via-[#1d4232] to-[#0f241c] text-white py-14 px-4 sm:px-6 lg:px-8 mb-10 shadow-xl border-b border-[#D4A373]/30">
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#FFDF00] via-[#1d4232] to-[#0f241c] text-white py-14 px-4 sm:px-6 lg:px-8 mb-10 shadow-xl border-b border-[#E8C55A]/30">
         <div className="absolute inset-0 opacity-15 mix-blend-overlay pointer-events-none">
           <img
             src="/anh/746927465_122119237899355470_7558522641041819280_n.jpg"
@@ -70,41 +70,33 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
             className="w-full h-full object-cover"
           />
         </div>
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#C85A32]/20 rounded-full blur-3xl pointer-events-none"></div>
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#C8920A]/20 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="container-page relative z-10 text-center max-w-4xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold uppercase tracking-[0.25em] text-[#D4A373]">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold uppercase tracking-[0.25em] text-[#E8C55A]">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Bộ Sưu Tập · {PRODUCTS.length} Thiết Kế</span>
           </div>
 
           <h1 className="font-heading text-4xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
-            Áo Dài <span className="font-heading italic font-normal text-[#D4A373]">Cao Cấp</span>
+            Áo Dài
           </h1>
 
           <p className="text-gray-200 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-light">
-            Từ truyền thống đến cách tân — mỗi tà áo là một tác phẩm nghệ thuật được may bằng tình yêu nghề và trí tuệ nhân tạo.
+            DaiVerse - nơi tinh hoa Việt hòa quyện cùng công nghệ AI, kiến tạo những tà áo độc bản mang dấu ấn riêng của bạn.
           </p>
 
-          <div className="flex flex-wrap items-center justify-center gap-3 pt-2 text-xs sm:text-sm font-medium text-gray-200">
-            <span className="flex items-center gap-1.5 bg-white/10 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-white/15">
-              <Truck className="w-3.5 h-3.5 text-[#D4A373]" />
-              <span>Giao hàng toàn quốc</span>
-            </span>
-            <span className="flex items-center gap-1.5 bg-white/10 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-white/15">
-              <RefreshCw className="w-3.5 h-3.5 text-[#D4A373]" />
-              <span>Đổi trả 30 ngày</span>
-            </span>
-            {FEATURE_FLAGS.ENABLE_AI_TRY_ON && (
+          {FEATURE_FLAGS.ENABLE_AI_TRY_ON && (
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-2 text-xs sm:text-sm font-medium text-gray-200">
               <button
                 onClick={() => onNavigate && onNavigate("try-on")}
-                className="flex items-center gap-1.5 bg-[#C85A32] hover:bg-[#C85A32]/90 text-white px-4 py-1.5 rounded-full transition-all shadow-md cursor-pointer border-none"
+                className="flex items-center gap-1.5 bg-[#C8920A] hover:bg-[#C8920A]/90 text-white px-4 py-1.5 rounded-full transition-all shadow-md cursor-pointer border-none"
               >
                 <Sparkles className="w-3.5 h-3.5" />
                 <span>Thử đồ AI miễn phí</span>
               </button>
-            )}
-          </div>
+            </div>
+          )}
         </div>
       </section>
 
@@ -144,11 +136,11 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
                     onClick={() => setSelectedCollection("all")}
                     className={`w-full p-3.5 rounded-2xl transition-all text-left flex items-center gap-3.5 cursor-pointer border ${
                       selectedCollection === "all"
-                        ? "border-[#18392B] bg-[#FBF9F5] shadow-xs"
+                        ? "border-[#FFDF00] bg-[#FDF6C0] shadow-xs"
                         : "border-gray-200/80 bg-white hover:border-gray-300"
                     }`}
                   >
-                    <div className="w-11 h-11 rounded-2xl bg-[#F5F2EB] flex items-center justify-center text-[#18392B] shrink-0">
+                    <div className="w-11 h-11 rounded-2xl bg-[#F5F2EB] flex items-center justify-center text-[#FFDF00] shrink-0">
                       <Sparkles className="w-5 h-5 text-[#8B6B43]" />
                     </div>
                     <div className="flex-1 min-w-0">
@@ -172,7 +164,7 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
                         onClick={() => setSelectedCollection(col.id)}
                         className={`w-full p-3.5 rounded-2xl transition-all text-left flex items-center gap-3.5 cursor-pointer border ${
                           isSelected
-                            ? "border-[#18392B] bg-[#FBF9F5] shadow-xs"
+                            ? "border-[#FFDF00] bg-[#FDF6C0] shadow-xs"
                             : "border-gray-200/80 bg-white hover:border-gray-300"
                         }`}
                       >
@@ -221,7 +213,7 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
                         onClick={() => setSelectedCategory(cat.id)}
                         className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer border-none outline-none ${
                           isSelected
-                            ? "bg-[#18392B] text-white shadow-sm"
+                            ? "bg-[#FFDF00] text-white shadow-sm"
                             : "bg-[#F5F2EB] text-gray-700 hover:bg-gray-200"
                         }`}
                       >
@@ -264,7 +256,7 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
                   placeholder="Tìm kiếm tên áo, chất liệu gấm lụa..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:border-[#18392B] transition-colors"
+                  className="w-full pl-10 pr-4 py-2.5 bg-[#FDF6C0] border border-gray-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:border-[#FFDF00] transition-colors"
                 />
                 {searchTerm && (
                   <button
@@ -282,11 +274,11 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
                   Hiển thị <strong className="text-gray-900 font-bold">{filteredProducts.length}</strong> sản phẩm
                 </span>
 
-                <div className="flex items-center gap-1 bg-[#FBF9F5] p-1 rounded-2xl border border-gray-200">
+                <div className="flex items-center gap-1 bg-[#FDF6C0] p-1 rounded-2xl border border-gray-200">
                   <button
                     onClick={() => setSortOption("newest")}
                     className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer border-none ${
-                      sortOption === "newest" ? "bg-[#18392B] text-white shadow-xs" : "text-gray-600 hover:text-gray-900"
+                      sortOption === "newest" ? "bg-[#FFDF00] text-white shadow-xs" : "text-gray-600 hover:text-gray-900"
                     }`}
                   >
                     ✦ Mới Nhất
@@ -294,7 +286,7 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
                   <button
                     onClick={() => setSortOption("price-low")}
                     className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer border-none ${
-                      sortOption === "price-low" ? "bg-[#18392B] text-white shadow-xs" : "text-gray-600 hover:text-gray-900"
+                      sortOption === "price-low" ? "bg-[#FFDF00] text-white shadow-xs" : "text-gray-600 hover:text-gray-900"
                     }`}
                   >
                     ↑ Giá Thấp
@@ -302,7 +294,7 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
                   <button
                     onClick={() => setSortOption("price-high")}
                     className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer border-none ${
-                      sortOption === "price-high" ? "bg-[#18392B] text-white shadow-xs" : "text-gray-600 hover:text-gray-900"
+                      sortOption === "price-high" ? "bg-[#FFDF00] text-white shadow-xs" : "text-gray-600 hover:text-gray-900"
                     }`}
                   >
                     ↓ Giá Cao
@@ -327,7 +319,7 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
                     setSelectedCategory("all");
                     setSelectedCollection("all");
                   }}
-                  className="px-6 py-2.5 bg-[#18392B] text-white rounded-full text-xs font-bold hover:bg-[#18392B]/90 transition-all shadow-md cursor-pointer border-none"
+                  className="px-6 py-2.5 bg-[#FFDF00] text-white rounded-full text-xs font-bold hover:bg-[#FFDF00]/90 transition-all shadow-md cursor-pointer border-none"
                 >
                   Xóa tất cả bộ lọc
                 </button>

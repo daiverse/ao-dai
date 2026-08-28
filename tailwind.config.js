@@ -8,11 +8,11 @@ export default {
     extend: {
       colors: {
         lotus: {
-          deep: '#18392B',
-          DEFAULT: '#C85A32',
-          light: '#F4E8E1',
+          deep: '#FFDF00',
+          DEFAULT: '#C8920A',
+          light: '#FDF3CC',
         },
-        cream: '#FBF9F5',
+        cream: '#FDF6C0',
         'deep-red': '#8B0000',
       },
       fontFamily: {

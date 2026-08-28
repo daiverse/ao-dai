@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { X, Mail, Lock, User, Phone, ArrowRight, ShieldCheck, RefreshCw, KeyRound, Sparkles, Eye, EyeOff, CheckCircle2 } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
 import PasswordStrengthBar, { calculatePasswordStrength } from "./PasswordStrengthBar";
@@ -202,7 +202,7 @@ export default function AuthModal() {
             <h3 className="font-heading font-bold text-2xl text-gray-900">Đăng Nhập Thành Công!</h3>
             <p className="text-xs text-gray-500 mt-1">Chào mừng bạn đã trở lại với <strong>DaiVerse</strong></p>
           </div>
-          <div className="inline-flex items-center gap-1.5 text-xs text-[#C85A32] font-semibold bg-amber-50 px-3 py-1.5 rounded-full border border-amber-200/60 animate-pulse">
+          <div className="inline-flex items-center gap-1.5 text-xs text-[#C8920A] font-semibold bg-amber-50 px-3 py-1.5 rounded-full border border-amber-200/60 animate-pulse">
             <Sparkles className="w-3.5 h-3.5" />
             <span>Đã đồng bộ thông tin & giỏ hàng...</span>
           </div>
@@ -223,8 +223,8 @@ export default function AuthModal() {
         </button>
 
         {/* Header Banner */}
-        <div className="bg-gradient-to-r from-[#18392B] to-[#0F241B] p-7 text-white text-center relative">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-[#D4A373] text-[11px] font-bold uppercase tracking-wider mb-2 border border-white/10">
+        <div className="bg-gradient-to-r from-[#FFDF00] to-[#C8A800] p-7 text-white text-center relative">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-[#E8C55A] text-[11px] font-bold uppercase tracking-wider mb-2 border border-white/10">
             <Sparkles className="w-3.5 h-3.5" /> DaiVerse Account
           </div>
           <h2 className="font-heading text-2xl font-bold tracking-tight">
@@ -268,7 +268,7 @@ export default function AuthModal() {
                     placeholder="tenban@domain.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
+                    className="w-full pl-10 pr-4 py-3 bg-[#FDF6C0] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C8920A] focus:bg-white transition-all"
                   />
                 </div>
               </div>
@@ -283,7 +283,7 @@ export default function AuthModal() {
                       setError("");
                       setSuccessMsg("");
                     }}
-                    className="text-xs font-semibold text-[#C85A32] hover:underline bg-transparent border-none cursor-pointer p-0"
+                    className="text-xs font-semibold text-[#C8920A] hover:underline bg-transparent border-none cursor-pointer p-0"
                   >
                     Quên mật khẩu?
                   </button>
@@ -296,7 +296,7 @@ export default function AuthModal() {
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-11 py-3 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
+                    className="w-full pl-10 pr-11 py-3 bg-[#FDF6C0] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C8920A] focus:bg-white transition-all"
                   />
                   <button
                     type="button"
@@ -311,7 +311,7 @@ export default function AuthModal() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3.5 bg-[#C85A32] hover:bg-[#C85A32]/90 text-white font-bold text-sm rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer border-none disabled:opacity-50"
+                className="w-full py-3.5 bg-[#C8920A] hover:bg-[#C8920A]/90 text-white font-bold text-sm rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer border-none disabled:opacity-50"
               >
                 {loading ? (
                   <RefreshCw className="w-4 h-4 animate-spin" />
@@ -365,7 +365,7 @@ export default function AuthModal() {
                     setError("");
                     setSuccessMsg("");
                   }}
-                  className="font-bold text-[#18392B] hover:underline bg-transparent border-none cursor-pointer p-0"
+                  className="font-bold text-[#FFDF00] hover:underline bg-transparent border-none cursor-pointer p-0"
                 >
                   Đăng ký ngay
                 </button>
@@ -386,7 +386,7 @@ export default function AuthModal() {
                     placeholder="Nguyễn Văn A"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 bg-[#FDF6C0] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C8920A] focus:bg-white transition-all"
                   />
                 </div>
               </div>
@@ -401,7 +401,7 @@ export default function AuthModal() {
                     placeholder="tenban@domain.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 bg-[#FDF6C0] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C8920A] focus:bg-white transition-all"
                   />
                 </div>
               </div>
@@ -415,7 +415,7 @@ export default function AuthModal() {
                     placeholder="0912 345 678"
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2.5 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
+                    className="w-full pl-10 pr-4 py-2.5 bg-[#FDF6C0] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C8920A] focus:bg-white transition-all"
                   />
                 </div>
               </div>
@@ -430,7 +430,7 @@ export default function AuthModal() {
                     placeholder="••••••••"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    className="w-full pl-10 pr-11 py-2.5 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
+                    className="w-full pl-10 pr-11 py-2.5 bg-[#FDF6C0] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C8920A] focus:bg-white transition-all"
                   />
                   <button
                     type="button"
@@ -453,7 +453,7 @@ export default function AuthModal() {
                     placeholder="••••••••"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="w-full pl-10 pr-11 py-2.5 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
+                    className="w-full pl-10 pr-11 py-2.5 bg-[#FDF6C0] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C8920A] focus:bg-white transition-all"
                   />
                   <button
                     type="button"
@@ -474,7 +474,7 @@ export default function AuthModal() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3.5 bg-[#18392B] hover:bg-[#18392B]/90 text-white font-bold text-sm rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer border-none disabled:opacity-50 mt-2"
+                className="w-full py-3.5 bg-[#FFDF00] hover:bg-[#FFDF00]/90 text-white font-bold text-sm rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer border-none disabled:opacity-50 mt-2"
               >
                 {loading ? (
                   <RefreshCw className="w-4 h-4 animate-spin" />
@@ -495,7 +495,7 @@ export default function AuthModal() {
                     setError("");
                     setSuccessMsg("");
                   }}
-                  className="font-bold text-[#C85A32] hover:underline bg-transparent border-none cursor-pointer p-0"
+                  className="font-bold text-[#C8920A] hover:underline bg-transparent border-none cursor-pointer p-0"
                 >
                   Đăng nhập
                 </button>
@@ -512,7 +512,7 @@ export default function AuthModal() {
                     key={index}
                     type="text"
                     maxLength="1"
-                    className="otp-input w-12 h-14 text-center font-bold text-xl bg-[#FBF9F5] border-2 border-gray-200 rounded-2xl focus:border-[#C85A32] focus:bg-white focus:outline-none transition-all"
+                    className="otp-input w-12 h-14 text-center font-bold text-xl bg-[#FDF6C0] border-2 border-gray-200 rounded-2xl focus:border-[#C8920A] focus:bg-white focus:outline-none transition-all"
                     value={data}
                     onChange={(e) => handleOtpChange(e.target, index)}
                     onKeyDown={(e) => handleOtpKeyDown(e, index)}
@@ -523,7 +523,7 @@ export default function AuthModal() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3.5 bg-[#C85A32] hover:bg-[#C85A32]/90 text-white font-bold text-sm rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer border-none disabled:opacity-50"
+                className="w-full py-3.5 bg-[#C8920A] hover:bg-[#C8920A]/90 text-white font-bold text-sm rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer border-none disabled:opacity-50"
               >
                 {loading ? (
                   <RefreshCw className="w-4 h-4 animate-spin" />
@@ -542,7 +542,7 @@ export default function AuthModal() {
                     type="button"
                     disabled={resendTimer > 0}
                     onClick={handleResendOTP}
-                    className={`font-bold text-[#18392B] bg-transparent border-none p-0 ${
+                    className={`font-bold text-[#FFDF00] bg-transparent border-none p-0 ${
                       resendTimer > 0 ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:underline"
                     }`}
                   >
@@ -579,7 +579,7 @@ export default function AuthModal() {
                     placeholder="tenban@domain.com"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    className="w-full pl-10 pr-4 py-3 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
+                    className="w-full pl-10 pr-4 py-3 bg-[#FDF6C0] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C8920A] focus:bg-white transition-all"
                   />
                 </div>
               </div>
@@ -587,7 +587,7 @@ export default function AuthModal() {
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-3.5 bg-[#18392B] hover:bg-[#18392B]/90 text-white font-bold text-sm rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer border-none disabled:opacity-50"
+                className="w-full py-3.5 bg-[#FFDF00] hover:bg-[#FFDF00]/90 text-white font-bold text-sm rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer border-none disabled:opacity-50"
               >
                 {loading ? (
                   <RefreshCw className="w-4 h-4 animate-spin" />

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { Lock, ArrowRight, RefreshCw, KeyRound, CheckCircle2, Eye, EyeOff } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import PasswordStrengthBar, { calculatePasswordStrength } from "../components/auth/PasswordStrengthBar";
@@ -59,10 +59,10 @@ export default function ResetPasswordPage() {
   };
 
   return (
-    <div className="pt-36 pb-24 min-h-screen bg-[#FBF9F5] flex items-center justify-center p-4">
+    <div className="pt-36 pb-24 min-h-screen bg-[#FDF6C0] flex items-center justify-center p-4">
       <div className="w-full max-w-md bg-white rounded-3xl shadow-2xl border border-gray-100 p-8 space-y-6">
         <div className="text-center space-y-2">
-          <div className="w-14 h-14 bg-[#18392B]/10 text-[#18392B] rounded-2xl flex items-center justify-center mx-auto mb-2">
+          <div className="w-14 h-14 bg-[#FFDF00]/10 text-[#FFDF00] rounded-2xl flex items-center justify-center mx-auto mb-2">
             <KeyRound className="w-7 h-7" />
           </div>
           <h1 className="font-heading text-2xl font-bold text-gray-900">Tạo Mật Khẩu Mới</h1>
@@ -93,7 +93,7 @@ export default function ResetPasswordPage() {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-11 py-3 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
+                  className="w-full pl-10 pr-11 py-3 bg-[#FDF6C0] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C8920A] focus:bg-white transition-all"
                 />
                 <button
                   type="button"
@@ -116,7 +116,7 @@ export default function ResetPasswordPage() {
                   placeholder="••••••••"
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
-                  className="w-full pl-10 pr-11 py-3 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C85A32] focus:bg-white transition-all"
+                  className="w-full pl-10 pr-11 py-3 bg-[#FDF6C0] border border-gray-200 rounded-2xl text-sm font-medium focus:outline-none focus:border-[#C8920A] focus:bg-white transition-all"
                 />
                 <button
                   type="button"
@@ -137,7 +137,7 @@ export default function ResetPasswordPage() {
             <button
               type="submit"
               disabled={loading}
-              className="w-full py-3.5 bg-[#C85A32] hover:bg-[#C85A32]/90 text-white font-bold text-sm rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer border-none disabled:opacity-50"
+              className="w-full py-3.5 bg-[#C8920A] hover:bg-[#C8920A]/90 text-white font-bold text-sm rounded-2xl transition-all shadow-lg flex items-center justify-center gap-2 cursor-pointer border-none disabled:opacity-50"
             >
               {loading ? (
                 <RefreshCw className="w-4 h-4 animate-spin" />

@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import HeroBanner from "../components/home/HeroBanner";
 import CollectionCards from "../components/home/CollectionCards";
 import FeaturedProducts from "../components/home/FeaturedProducts";
@@ -9,7 +9,7 @@ import Testimonials from "../components/home/Testimonials";
 
 export default function HomePage({ onNavigate, onTryOn, onRotate360 }) {
   return (
-    <div className="bg-[#FBF9F5]">
+    <div className="bg-[#FDF6C0]">
       {/* 1. Hero Banner */}
       <HeroBanner onNavigate={onNavigate} />
 

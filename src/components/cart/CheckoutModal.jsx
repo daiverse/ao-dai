@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+﻿import React, { useState, useEffect, useRef } from "react";
 import {
   X,
   Truck,
@@ -274,8 +274,8 @@ export default function CheckoutModal({ isOpen, onClose }) {
         </button>
 
         {/* Header Step Indicator */}
-        <div className="bg-gradient-to-r from-[#18392B] to-[#0F241B] p-6 text-white text-center shrink-0">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-[#D4A373] text-[11px] font-bold uppercase tracking-wider mb-2 border border-white/10">
+        <div className="bg-gradient-to-r from-[#FFDF00] to-[#C8A800] p-6 text-white text-center shrink-0">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-[#E8C55A] text-[11px] font-bold uppercase tracking-wider mb-2 border border-white/10">
             <Sparkles className="w-3.5 h-3.5" /> DaiVerse Checkout
           </div>
           <h2 className="font-heading text-2xl font-bold">
@@ -286,11 +286,11 @@ export default function CheckoutModal({ isOpen, onClose }) {
 
           {/* Steps Progress */}
           <div className="flex items-center justify-center gap-3 mt-4 text-xs font-bold">
-            <span className={`px-3 py-1 rounded-full ${step >= 1 ? "bg-[#C85A32] text-white" : "bg-white/10 text-white/60"}`}>
+            <span className={`px-3 py-1 rounded-full ${step >= 1 ? "bg-[#C8920A] text-white" : "bg-white/10 text-white/60"}`}>
               1. Địa Chỉ
             </span>
             <ChevronRight className="w-3.5 h-3.5 text-white/40" />
-            <span className={`px-3 py-1 rounded-full ${step >= 2 ? "bg-[#C85A32] text-white" : "bg-white/10 text-white/60"}`}>
+            <span className={`px-3 py-1 rounded-full ${step >= 2 ? "bg-[#C8920A] text-white" : "bg-white/10 text-white/60"}`}>
               2. Thanh Toán QR
             </span>
             <ChevronRight className="w-3.5 h-3.5 text-white/40" />
@@ -322,7 +322,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
                       placeholder="Nguyễn Văn A"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2.5 bg-[#FBF9F5] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C85A32]"
+                      className="w-full pl-9 pr-3 py-2.5 bg-[#FDF6C0] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C8920A]"
                     />
                   </div>
                 </div>
@@ -337,7 +337,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
                       placeholder="0912 345 678"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2.5 bg-[#FBF9F5] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C85A32]"
+                      className="w-full pl-9 pr-3 py-2.5 bg-[#FDF6C0] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C8920A]"
                     />
                   </div>
                 </div>
@@ -348,7 +348,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
                 <select
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="w-full px-3 py-2.5 bg-[#FBF9F5] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C85A32]"
+                  className="w-full px-3 py-2.5 bg-[#FDF6C0] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C8920A]"
                 >
                   <option value="Hà Nội">Hà Nội (Giao hỏa tốc 2h - 24h)</option>
                   <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh (Giao 1 - 2 ngày)</option>
@@ -368,7 +368,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
                     placeholder="VD: Số 18 Tràng Tiền, Hoàn Kiếm"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2.5 bg-[#FBF9F5] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C85A32]"
+                    className="w-full pl-9 pr-3 py-2.5 bg-[#FDF6C0] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C8920A]"
                   />
                 </div>
               </div>
@@ -382,7 +382,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
                     placeholder="VD: May gấp tà áo dài 140cm, giao giờ hành chính"
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2 bg-[#FBF9F5] border border-gray-200 rounded-xl text-xs font-medium focus:outline-none focus:border-[#C85A32]"
+                    className="w-full pl-9 pr-3 py-2 bg-[#FDF6C0] border border-gray-200 rounded-xl text-xs font-medium focus:outline-none focus:border-[#C8920A]"
                   />
                 </div>
               </div>
@@ -402,13 +402,13 @@ export default function CheckoutModal({ isOpen, onClose }) {
                         onClick={() => setShippingOption(opt.id)}
                         className={`p-3.5 rounded-2xl border-2 transition-all cursor-pointer flex items-center justify-between gap-3 ${
                           isSelected
-                            ? "border-[#18392B] bg-[#18392B]/5 ring-1 ring-[#18392B]/20 shadow-sm"
-                            : "border-gray-200 hover:border-gray-300 bg-[#FBF9F5]"
+                            ? "border-[#FFDF00] bg-[#FFDF00]/5 ring-1 ring-[#FFDF00]/20 shadow-sm"
+                            : "border-gray-200 hover:border-gray-300 bg-[#FDF6C0]"
                         }`}
                       >
                         <div className="flex items-center gap-3 min-w-0">
                           <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
-                            isSelected ? "bg-[#18392B] text-white" : "bg-gray-200 text-gray-600"
+                            isSelected ? "bg-[#FFDF00] text-white" : "bg-gray-200 text-gray-600"
                           }`}>
                             <IconComponent className="w-4 h-4" />
                           </div>
@@ -418,9 +418,9 @@ export default function CheckoutModal({ isOpen, onClose }) {
                               {opt.badge && (
                                 <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase shrink-0 ${
                                   opt.id === "express"
-                                    ? "bg-[#C85A32] text-white animate-pulse"
+                                    ? "bg-[#C8920A] text-white animate-pulse"
                                     : opt.id === "fast"
-                                    ? "bg-[#18392B] text-[#D4A373]"
+                                    ? "bg-[#FFDF00] text-[#E8C55A]"
                                     : "bg-gray-200 text-gray-700"
                                 }`}>
                                   {opt.badge}
@@ -431,7 +431,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
                           </div>
                         </div>
                         <div className="text-right shrink-0">
-                          <span className={`font-bold text-xs ${isSelected ? "text-[#C85A32]" : "text-gray-700"}`}>
+                          <span className={`font-bold text-xs ${isSelected ? "text-[#C8920A]" : "text-gray-700"}`}>
                             {opt.feeText}
                           </span>
                         </div>
@@ -452,7 +452,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
                   setStep(2);
                   handleGeneratePayOsLink();
                 }}
-                className="w-full py-3.5 bg-[#18392B] hover:bg-[#18392B]/90 text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer border-none mt-4"
+                className="w-full py-3.5 bg-[#FFDF00] hover:bg-[#FFDF00]/90 text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer border-none mt-4"
               >
                 <span>Tiếp Tục: Chọn Phương Thức Thanh Toán</span>
                 <ChevronRight className="w-4 h-4" />
@@ -464,7 +464,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
           {step === 2 && (
             <form onSubmit={handleCreateOrder} className="space-y-5">
               {/* Tóm tắt tổng tiền */}
-              <div className="p-4 bg-[#FBF9F5] rounded-2xl border border-gray-200 space-y-2 text-xs">
+              <div className="p-4 bg-[#FDF6C0] rounded-2xl border border-gray-200 space-y-2 text-xs">
                 <div className="flex justify-between text-gray-600">
                   <span>Tiền hàng ({cart.length} sản phẩm):</span>
                   <span className="font-semibold text-gray-900">{formattedTotalPrice}</span>
@@ -479,7 +479,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
                 </div>
                 <div className="pt-2 border-t border-gray-200 flex justify-between items-center font-bold text-sm">
                   <span className="text-gray-900">TỔNG THÀNH TIỀN:</span>
-                  <span className="text-base text-[#18392B] font-heading">{formattedFinalTotal}</span>
+                  <span className="text-base text-[#FFDF00] font-heading">{formattedFinalTotal}</span>
                 </div>
               </div>
 
@@ -526,7 +526,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
                   onClick={() => setPaymentMethod("COD")}
                   className={`p-4 rounded-2xl border flex items-center gap-3 cursor-pointer transition-all ${
                     paymentMethod === "COD"
-                      ? "border-[#18392B] bg-[#18392B]/5 ring-2 ring-[#18392B]/20"
+                      ? "border-[#FFDF00] bg-[#FFDF00]/5 ring-2 ring-[#FFDF00]/20"
                       : "border-gray-200 hover:border-gray-300"
                   }`}
                 >
@@ -535,9 +535,9 @@ export default function CheckoutModal({ isOpen, onClose }) {
                     name="payment"
                     checked={paymentMethod === "COD"}
                     onChange={() => setPaymentMethod("COD")}
-                    className="accent-[#18392B]"
+                    className="accent-[#FFDF00]"
                   />
-                  <div className="w-9 h-9 rounded-xl bg-[#18392B]/10 text-[#18392B] flex items-center justify-center shrink-0">
+                  <div className="w-9 h-9 rounded-xl bg-[#FFDF00]/10 text-[#FFDF00] flex items-center justify-center shrink-0">
                     <Truck className="w-5 h-5" />
                   </div>
                   <div>
@@ -630,7 +630,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 py-3.5 bg-[#C85A32] hover:bg-[#C85A32]/90 text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer border-none disabled:opacity-50"
+                  className="flex-1 py-3.5 bg-[#C8920A] hover:bg-[#C8920A]/90 text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer border-none disabled:opacity-50"
                 >
                   {loading ? (
                     <RefreshCw className="w-4 h-4 animate-spin" />
@@ -658,10 +658,10 @@ export default function CheckoutModal({ isOpen, onClose }) {
                 </p>
               </div>
 
-              <div className="p-4 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-left text-xs space-y-2">
+              <div className="p-4 bg-[#FDF6C0] border border-gray-200 rounded-2xl text-left text-xs space-y-2">
                 <div className="flex justify-between">
                   <span className="text-gray-500">Mã đơn hàng:</span>
-                  <span className="font-bold text-[#18392B] text-sm">{createdOrder.orderCode}</span>
+                  <span className="font-bold text-[#FFDF00] text-sm">{createdOrder.orderCode}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-500">Người nhận:</span>
@@ -673,7 +673,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
                 </div>
                 <div className="flex justify-between pt-2 border-t border-gray-200">
                   <span className="text-gray-500">Tổng thanh toán:</span>
-                  <span className="font-bold text-[#C85A32] text-sm">{formattedFinalTotal}</span>
+                  <span className="font-bold text-[#C8920A] text-sm">{formattedFinalTotal}</span>
                 </div>
               </div>
 
@@ -682,7 +682,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
                   onClose();
                   setStep(1);
                 }}
-                className="w-full py-3.5 bg-[#18392B] hover:bg-[#18392B]/90 text-white font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer border-none"
+                className="w-full py-3.5 bg-[#FFDF00] hover:bg-[#FFDF00]/90 text-white font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer border-none"
               >
                 Tiếp Tục Khám Phá Bộ Sưu Tập Áo Dài
               </button>

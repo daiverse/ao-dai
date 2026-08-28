@@ -55,8 +55,8 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
         </button>
 
         {/* Header */}
-        <div className="bg-gradient-to-r from-[#18392B] to-[#0F241B] p-6 text-white text-center shrink-0">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-[#D4A373] text-[11px] font-bold uppercase tracking-wider mb-2 border border-white/10">
+        <div className="bg-gradient-to-r from-[#FFDF00] to-[#C8A800] p-6 text-white text-center shrink-0">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-[#E8C55A] text-[11px] font-bold uppercase tracking-wider mb-2 border border-white/10">
             <Ruler className="w-3.5 h-3.5" /> Chuẩn Phom May Đo Áo Dài Việt
           </div>
           <h2 className="font-heading text-2xl font-bold">Bảng Hướng Dẫn May Đo Chuẩn</h2>
@@ -70,7 +70,7 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
               onClick={() => setActiveTab("chart")}
               className={`px-4 py-2 rounded-full text-xs font-bold transition-all border cursor-pointer ${
                 activeTab === "chart"
-                  ? "bg-[#C85A32] text-white border-[#C85A32] shadow-md"
+                  ? "bg-[#C8920A] text-white border-[#C8920A] shadow-md"
                   : "bg-white/10 text-white/80 border-white/10 hover:bg-white/20"
               }`}
             >
@@ -80,7 +80,7 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
               onClick={() => setActiveTab("how-to-measure")}
               className={`px-4 py-2 rounded-full text-xs font-bold transition-all border cursor-pointer ${
                 activeTab === "how-to-measure"
-                  ? "bg-[#C85A32] text-white border-[#C85A32] shadow-md"
+                  ? "bg-[#C8920A] text-white border-[#C8920A] shadow-md"
                   : "bg-white/10 text-white/80 border-white/10 hover:bg-white/20"
               }`}
             >
@@ -90,11 +90,11 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
               onClick={() => setActiveTab("custom")}
               className={`px-4 py-2 rounded-full text-xs font-bold transition-all border cursor-pointer flex items-center gap-1 ${
                 activeTab === "custom"
-                  ? "bg-[#D4A373] text-[#18392B] border-[#D4A373] shadow-md"
+                  ? "bg-[#E8C55A] text-[#FFDF00] border-[#E8C55A] shadow-md"
                   : "bg-white/10 text-white/80 border-white/10 hover:bg-white/20"
               }`}
             >
-              <Sparkles className="w-3.5 h-3.5 text-[#D4A373]" />
+              <Sparkles className="w-3.5 h-3.5 text-[#E8C55A]" />
               <span>May Theo Số Đo</span>
             </button>
           </div>
@@ -108,7 +108,7 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
               <div className="overflow-x-auto rounded-2xl border border-gray-200">
                 <table className="w-full text-center text-xs">
                   <thead>
-                    <tr className="bg-[#18392B] text-white font-bold uppercase tracking-wider text-[11px]">
+                    <tr className="bg-[#FFDF00] text-white font-bold uppercase tracking-wider text-[11px]">
                       <th className="py-3 px-2">Size</th>
                       <th className="py-3 px-2">Chiều cao (cm)</th>
                       <th className="py-3 px-2">Cân nặng (kg)</th>
@@ -121,15 +121,15 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
                     {sizeData.map((item, idx) => (
                       <tr
                         key={idx}
-                        className={`hover:bg-[#FBF9F5] transition-colors ${
+                        className={`hover:bg-[#FDF6C0] transition-colors ${
                           idx % 2 === 1 ? "bg-gray-50/50" : "bg-white"
                         }`}
                       >
-                        <td className="py-3 px-2 font-bold text-[#18392B] text-sm">{item.size}</td>
+                        <td className="py-3 px-2 font-bold text-[#FFDF00] text-sm">{item.size}</td>
                         <td className="py-3 px-2">{item.height}</td>
                         <td className="py-3 px-2">{item.weight}</td>
                         <td className="py-3 px-2 font-semibold text-gray-900">{item.bust} cm</td>
-                        <td className="py-3 px-2 font-semibold text-[#C85A32]">{item.waist} cm</td>
+                        <td className="py-3 px-2 font-semibold text-[#C8920A]">{item.waist} cm</td>
                         <td className="py-3 px-2 font-semibold text-gray-900">{item.hips} cm</td>
                       </tr>
                     ))}
@@ -138,9 +138,9 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
               </div>
 
               {/* Advice Box */}
-              <div className="p-4 bg-[#FBF9F5] rounded-2xl border border-gray-200/80 space-y-2 text-xs text-gray-600">
-                <div className="flex items-center gap-2 text-[#18392B] font-bold">
-                  <Info className="w-4 h-4 text-[#C85A32]" />
+              <div className="p-4 bg-[#FDF6C0] rounded-2xl border border-gray-200/80 space-y-2 text-xs text-gray-600">
+                <div className="flex items-center gap-2 text-[#FFDF00] font-bold">
+                  <Info className="w-4 h-4 text-[#C8920A]" />
                   <span>Kinh nghiệm chọn size áo dài vừa vặn:</span>
                 </div>
                 <ul className="space-y-1 pl-6 list-disc text-gray-600 leading-relaxed">
@@ -157,7 +157,7 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="p-4 bg-white rounded-2xl border border-gray-200 space-y-2 shadow-xs">
-                  <span className="w-6 h-6 rounded-full bg-[#C85A32] text-white font-bold text-xs flex items-center justify-center">1</span>
+                  <span className="w-6 h-6 rounded-full bg-[#C8920A] text-white font-bold text-xs flex items-center justify-center">1</span>
                   <h4 className="font-bold text-sm text-gray-900">Vòng Ngực (Vòng 1)</h4>
                   <p className="text-xs text-gray-600 leading-relaxed">
                     Vòng thước dây ngang qua phần lớn nhất của ngực. Giữ thước thẳng ngang lưng và mặc áo lót đệm vừa phải khi đo.
@@ -165,7 +165,7 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
                 </div>
 
                 <div className="p-4 bg-white rounded-2xl border border-gray-200 space-y-2 shadow-xs">
-                  <span className="w-6 h-6 rounded-full bg-[#C85A32] text-white font-bold text-xs flex items-center justify-center">2</span>
+                  <span className="w-6 h-6 rounded-full bg-[#C8920A] text-white font-bold text-xs flex items-center justify-center">2</span>
                   <h4 className="font-bold text-sm text-gray-900">Vòng Eo (Vòng 2)</h4>
                   <p className="text-xs text-gray-600 leading-relaxed">
                     Vòng qua vị trí nhỏ nhất của thắt eo (thường cách rốn 4cm hoặc ngang nếp gấp cùi tay khi đứng thẳng). Không hóp bụng.
@@ -173,7 +173,7 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
                 </div>
 
                 <div className="p-4 bg-white rounded-2xl border border-gray-200 space-y-2 shadow-xs">
-                  <span className="w-6 h-6 rounded-full bg-[#C85A32] text-white font-bold text-xs flex items-center justify-center">3</span>
+                  <span className="w-6 h-6 rounded-full bg-[#C8920A] text-white font-bold text-xs flex items-center justify-center">3</span>
                   <h4 className="font-bold text-sm text-gray-900">Vòng Mông (Vòng 3)</h4>
                   <p className="text-xs text-gray-600 leading-relaxed">
                     Đứng chụm hai chân thẳng, đo quanh điểm đỉnh cao nhất của mông để tà áo xòe rủ ôm mượt dáng.
@@ -181,7 +181,7 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
                 </div>
 
                 <div className="p-4 bg-white rounded-2xl border border-gray-200 space-y-2 shadow-xs">
-                  <span className="w-6 h-6 rounded-full bg-[#C85A32] text-white font-bold text-xs flex items-center justify-center">4</span>
+                  <span className="w-6 h-6 rounded-full bg-[#C8920A] text-white font-bold text-xs flex items-center justify-center">4</span>
                   <h4 className="font-bold text-sm text-gray-900">Rộng Vai & Dài Áo</h4>
                   <p className="text-xs text-gray-600 leading-relaxed">
                     <strong>Rộng vai:</strong> Đo từ đầu xương vai trái qua gáy sang vai phải.<br />
@@ -221,7 +221,7 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
                         required
                         value={customHeight}
                         onChange={(e) => setCustomHeight(e.target.value)}
-                        className="w-full px-3 py-2 bg-[#FBF9F5] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C85A32]"
+                        className="w-full px-3 py-2 bg-[#FDF6C0] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C8920A]"
                       />
                     </div>
 
@@ -233,7 +233,7 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
                         required
                         value={customWeight}
                         onChange={(e) => setCustomWeight(e.target.value)}
-                        className="w-full px-3 py-2 bg-[#FBF9F5] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C85A32]"
+                        className="w-full px-3 py-2 bg-[#FDF6C0] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C8920A]"
                       />
                     </div>
 
@@ -245,7 +245,7 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
                         required
                         value={customBust}
                         onChange={(e) => setCustomBust(e.target.value)}
-                        className="w-full px-3 py-2 bg-[#FBF9F5] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C85A32]"
+                        className="w-full px-3 py-2 bg-[#FDF6C0] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C8920A]"
                       />
                     </div>
 
@@ -257,7 +257,7 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
                         required
                         value={customWaist}
                         onChange={(e) => setCustomWaist(e.target.value)}
-                        className="w-full px-3 py-2 bg-[#FBF9F5] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C85A32]"
+                        className="w-full px-3 py-2 bg-[#FDF6C0] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C8920A]"
                       />
                     </div>
 
@@ -269,7 +269,7 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
                         required
                         value={customHips}
                         onChange={(e) => setCustomHips(e.target.value)}
-                        className="w-full px-3 py-2 bg-[#FBF9F5] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C85A32]"
+                        className="w-full px-3 py-2 bg-[#FDF6C0] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#C8920A]"
                       />
                     </div>
 
@@ -280,14 +280,14 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
                         placeholder="VD: Vai hơi gầy, bắp tay nhỏ"
                         value={customNote}
                         onChange={(e) => setCustomNote(e.target.value)}
-                        className="w-full px-3 py-2 bg-[#FBF9F5] border border-gray-200 rounded-xl text-xs font-medium focus:outline-none focus:border-[#C85A32]"
+                        className="w-full px-3 py-2 bg-[#FDF6C0] border border-gray-200 rounded-xl text-xs font-medium focus:outline-none focus:border-[#C8920A]"
                       />
                     </div>
                   </div>
 
                   <button
                     type="submit"
-                    className="w-full py-3 bg-[#18392B] hover:bg-[#18392B]/90 text-white font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer border-none"
+                    className="w-full py-3 bg-[#FFDF00] hover:bg-[#FFDF00]/90 text-white font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer border-none"
                   >
                     Lưu Số Đo May Riêng & Áp Dụng Cho Đơn Hàng
                   </button>
@@ -298,11 +298,11 @@ export default function SizeGuideModal({ isOpen, onClose, onSelectTailoredSize }
         </div>
 
         {/* Footer info */}
-        <div className="bg-[#FBF9F5] px-6 py-3 border-t border-gray-200 text-center text-[11px] text-gray-500 flex items-center justify-between shrink-0">
+        <div className="bg-[#FDF6C0] px-6 py-3 border-t border-gray-200 text-center text-[11px] text-gray-500 flex items-center justify-between shrink-0">
           <span className="flex items-center gap-1">
             <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" /> Cam Kết May Vừa Vặn 100%
           </span>
-          <span>Đổi Size Miễn Phí Trong 30 Ngày</span>
+          <span>Đổi Size Miễn Phí Trong 15 Ngày</span>
         </div>
       </div>
     </div>

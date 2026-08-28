@@ -85,23 +85,23 @@ export default function Product360Page({ onTryOn }) {
   };
 
   return (
-    <div className="pt-28 pb-20 bg-[#0F241B] min-h-screen text-white relative overflow-hidden select-none">
+    <div className="pt-28 pb-20 bg-[#C8A800] min-h-screen text-white relative overflow-hidden select-none">
       {/* Dynamic Lighting Effects */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-[#C85A32]/10 rounded-full blur-3xl pointer-events-none"></div>
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#D4A373]/10 rounded-full blur-2xl pointer-events-none"></div>
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-[#C8920A]/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#E8C55A]/10 rounded-full blur-2xl pointer-events-none"></div>
 
       <div className="container-page relative z-10">
         {/* Title Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C85A32]/20 border border-[#C85A32]/40 text-[#D4A373] text-xs font-bold uppercase tracking-wider mb-3">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C8920A]/20 border border-[#C8920A]/40 text-[#E8C55A] text-xs font-bold uppercase tracking-wider mb-3">
             <RotateCcw className="w-4 h-4 animate-spin" style={{ animationDuration: '10s' }} />
-            <span>Studio Trải Nghiệm 360° Studio</span>
+            <span>DaiVerse 360° Experience</span>
           </div>
           <h1 className="font-heading text-3xl sm:text-5xl font-bold leading-tight">
-            Xoay & Ngắm Chi Tiết <span className="text-[#D4A373] italic">Áo Dài 4 Góc 360°</span>
+            Trải Nghiệm Áo Dài 360° <span className="text-[#E8C55A] italic">Cùng DaiVerse</span>
           </h1>
           <p className="text-gray-300 mt-2 text-xs sm:text-sm max-w-xl mx-auto">
-            Quan sát toàn bộ đường may, nếp gấp vải và hoa văn gấm dệt thực tế từ góc trước 0°, sườn 90° đến mặt sau lưng 180°.
+            Xoay và khám phá từng chi tiết thiết kế với góc nhìn 360°, mang đến trải nghiệm chân thực trước khi lựa chọn chiếc áo dài phù hợp.
           </p>
         </div>
 
@@ -110,7 +110,7 @@ export default function Product360Page({ onTryOn }) {
           <div className="lg:col-span-8 flex flex-col items-center">
             <div
               ref={containerRef}
-              className="relative w-full max-w-lg aspect-[3/4] bg-gradient-to-b from-[#18392B] to-[#0D1F17] rounded-3xl border border-white/20 overflow-hidden shadow-2xl cursor-grab active:cursor-grabbing group"
+              className="relative w-full max-w-lg aspect-[3/4] bg-gradient-to-b from-[#FFDF00] to-[#0D1F17] rounded-3xl border border-white/20 overflow-hidden shadow-2xl cursor-grab active:cursor-grabbing group"
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
@@ -132,17 +132,17 @@ export default function Product360Page({ onTryOn }) {
 
               {/* Angle Tag Badge Overlay */}
               <div className="absolute top-4 left-4 px-4 py-2 bg-black/70 backdrop-blur-md rounded-2xl border border-white/20 text-xs">
-                <p className="font-bold text-[#D4A373] flex items-center gap-1.5">
-                  <Compass className="w-4 h-4 text-[#C85A32]" />
+                <p className="font-bold text-[#E8C55A] flex items-center gap-1.5">
+                  <Compass className="w-4 h-4 text-[#C8920A]" />
                   <span>{selectedProduct.name}</span>
                 </p>
-                <p className="text-[#D4A373] font-semibold text-[11px] mt-0.5">
+                <p className="text-[#E8C55A] font-semibold text-[11px] mt-0.5">
                   Góc chụp: <span className="text-white font-bold">{currentFrame.label}</span>
                 </p>
               </div>
 
               {/* Digital Compass Degree Indicator */}
-              <div className="absolute top-4 right-4 px-3.5 py-1.5 bg-black/70 backdrop-blur-md rounded-full text-xs font-mono font-bold text-[#D4A373] border border-white/20 flex items-center gap-1.5">
+              <div className="absolute top-4 right-4 px-3.5 py-1.5 bg-black/70 backdrop-blur-md rounded-full text-xs font-mono font-bold text-[#E8C55A] border border-white/20 flex items-center gap-1.5">
                 <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></div>
                 <span>{Math.round(rotationAngle)}°</span>
               </div>
@@ -161,17 +161,17 @@ export default function Product360Page({ onTryOn }) {
                         e.stopPropagation();
                         setActiveHotspot(activeHotspot === idx ? null : idx);
                       }}
-                      className="relative w-8 h-8 rounded-full bg-[#C85A32] text-white flex items-center justify-center shadow-xl hover:scale-125 transition-all cursor-pointer"
+                      className="relative w-8 h-8 rounded-full bg-[#C8920A] text-white flex items-center justify-center shadow-xl hover:scale-125 transition-all cursor-pointer"
                     >
                       <Info className="w-4 h-4" />
-                      <span className="absolute inset-0 rounded-full bg-[#C85A32] animate-ping opacity-60"></span>
+                      <span className="absolute inset-0 rounded-full bg-[#C8920A] animate-ping opacity-60"></span>
                     </button>
 
                     {/* Hotspot Card Popup */}
                     {activeHotspot === idx && (
                       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-60 p-3.5 bg-white text-gray-900 rounded-2xl shadow-2xl border border-gray-200 z-30 text-xs animate-fadeIn">
-                        <h4 className="font-bold text-[#18392B] font-heading text-sm flex items-center gap-1">
-                          <Sparkles className="w-3.5 h-3.5 text-[#C85A32]" />
+                        <h4 className="font-bold text-[#FFDF00] font-heading text-sm flex items-center gap-1">
+                          <Sparkles className="w-3.5 h-3.5 text-[#C8920A]" />
                           <span>{hs.title}</span>
                         </h4>
                         <p className="text-gray-600 mt-1 leading-relaxed text-[11px]">{hs.description}</p>
@@ -182,46 +182,13 @@ export default function Product360Page({ onTryOn }) {
 
               {/* Bottom Drag Instruction Pill */}
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-black/70 backdrop-blur-md rounded-full text-xs text-white flex items-center gap-2 border border-white/20 pointer-events-none">
-                <MoveHorizontal className="w-4 h-4 text-[#D4A373] animate-pulse" />
+                <MoveHorizontal className="w-4 h-4 text-[#E8C55A] animate-pulse" />
                 <span>Kéo trái / phải để xoay xoay 360°</span>
               </div>
             </div>
 
-            {/* Quick Angle Selector Bar & Controls */}
-            <div className="w-full max-w-lg mt-5 bg-white/5 p-4 rounded-2xl border border-white/10 space-y-3">
-              <div className="flex items-center justify-between text-xs font-bold text-[#D4A373] uppercase tracking-wider">
-                <span>Chuyển Góc Nhanh:</span>
-                <span className="text-gray-400 font-normal normal-case text-[11px]">Bấm nút để đổi góc chụp</span>
-              </div>
-
-              {/* 4 Angle Preset Buttons */}
-              <div className="grid grid-cols-4 gap-2">
-                {[
-                  { angle: 0, label: "Mặt Trước 0°" },
-                  { angle: 90, label: "Sườn Phải 90°" },
-                  { angle: 180, label: "Mặt Sau 180°" },
-                  { angle: 270, label: "Sườn Trái 270°" },
-                ].map((btn) => {
-                  const isActive = currentFrame.angle === btn.angle;
-                  return (
-                    <button
-                      key={btn.angle}
-                      type="button"
-                      onClick={() => handleJumpToAngle(btn.angle)}
-                      className={`py-2 px-1 rounded-xl text-[11px] font-bold transition-all cursor-pointer text-center border ${
-                        isActive
-                          ? "bg-[#C85A32] text-white border-[#C85A32] shadow-md"
-                          : "bg-white/5 text-gray-300 border-white/10 hover:bg-white/10"
-                      }`}
-                    >
-                      {btn.label}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Action Toolbar: Auto Rotate & Zoom */}
-              <div className="flex items-center justify-between pt-2 border-t border-white/10">
+            {/* Action Toolbar: Auto Rotate & Zoom */}
+            <div className="w-full max-w-lg mt-5 bg-white/5 p-4 rounded-2xl border border-white/10 flex items-center justify-between">
                 <button
                   type="button"
                   onClick={() => setAutoRotate(!autoRotate)}
@@ -256,15 +223,14 @@ export default function Product360Page({ onTryOn }) {
                 </div>
               </div>
             </div>
-          </div>
 
           {/* Right Product Selector List */}
           <div className="lg:col-span-4 bg-white/5 border border-white/15 p-6 rounded-3xl space-y-4">
             <div>
-              <span className="text-xs uppercase tracking-widest text-[#C85A32] font-bold block mb-1">
+              <span className="text-xs uppercase tracking-widest text-[#C8920A] font-bold block mb-1">
                 Bộ Sưu Tập Áo Dài 3D
               </span>
-              <h3 className="font-heading font-bold text-xl text-[#D4A373]">
+              <h3 className="font-heading font-bold text-xl text-[#E8C55A]">
                 Chọn Mẫu Trải Nghiệm 360°
               </h3>
             </div>
@@ -283,7 +249,7 @@ export default function Product360Page({ onTryOn }) {
                     }}
                     className={`w-full p-3 rounded-2xl border flex items-center gap-3 text-left transition-all cursor-pointer ${
                       isSelected
-                        ? "border-[#C85A32] bg-[#C85A32]/20 ring-1 ring-[#C85A32]"
+                        ? "border-[#C8920A] bg-[#C8920A]/20 ring-1 ring-[#C8920A]"
                         : "border-white/10 hover:bg-white/10"
                     }`}
                   >
@@ -296,13 +262,13 @@ export default function Product360Page({ onTryOn }) {
                       <div className="flex items-center justify-between">
                         <p className="font-semibold text-xs text-white truncate">{prod.name}</p>
                         {prod.images360 && (
-                          <span className="bg-[#C85A32] text-white text-[9px] px-1.5 py-0.5 rounded font-bold uppercase shrink-0">
+                          <span className="bg-[#C8920A] text-white text-[9px] px-1.5 py-0.5 rounded font-bold uppercase shrink-0">
                             3D Studio
                           </span>
                         )}
                       </div>
                       <p className="text-[11px] text-gray-300 mt-0.5 truncate">{prod.fabric}</p>
-                      <p className="text-xs font-bold text-[#D4A373] mt-1">{prod.formattedPrice}</p>
+                      <p className="text-xs font-bold text-[#E8C55A] mt-1">{prod.formattedPrice}</p>
                     </div>
                   </button>
                 );
@@ -313,7 +279,7 @@ export default function Product360Page({ onTryOn }) {
               <button
                 type="button"
                 onClick={() => onTryOn && onTryOn(selectedProduct)}
-                className="w-full py-3.5 bg-[#C85A32] hover:bg-[#C85A32]/90 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer text-xs border-none mt-2"
+                className="w-full py-3.5 bg-[#C8920A] hover:bg-[#C8920A]/90 text-white rounded-xl font-bold flex items-center justify-center gap-2 shadow-lg transition-all cursor-pointer text-xs border-none mt-2"
               >
                 <Sparkles className="w-4 h-4" />
                 <span>Thử Mẫu Này Trong AI Fitting Room</span>

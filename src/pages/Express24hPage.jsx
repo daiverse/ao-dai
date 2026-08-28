@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+﻿import React, { useState, useEffect } from "react";
 import { Clock, Zap, ShieldCheck, Truck, Sparkles, MapPin, CheckCircle, ArrowRight, Filter, PhoneCall } from "lucide-react";
 import { PRODUCTS } from "../data/products";
 import ProductCard from "../components/common/ProductCard";
@@ -57,24 +57,24 @@ export default function Express24hPage({ onTryOn, onRotate360 }) {
   };
 
   return (
-    <div className="pt-28 pb-20 bg-[#FBF9F5] min-h-screen">
+    <div className="pt-28 pb-20 bg-[#FDF6C0] min-h-screen">
       {/* Hero Header Section */}
       <div className="container-page">
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#18392B] via-[#1c4434] to-[#0f251c] text-white p-8 sm:p-12 shadow-2xl mb-12 border border-[#D4A373]/30">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#FFDF00] via-[#1c4434] to-[#0f251c] text-white p-8 sm:p-12 shadow-2xl mb-12 border border-[#E8C55A]/30">
           {/* Subtle Background Art */}
-          <div className="absolute top-0 right-0 -mt-10 -mr-10 w-96 h-96 bg-[#C85A32]/20 rounded-full blur-3xl pointer-events-none"></div>
-          <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-[#D4A373]/10 rounded-full blur-2xl pointer-events-none"></div>
+          <div className="absolute top-0 right-0 -mt-10 -mr-10 w-96 h-96 bg-[#C8920A]/20 rounded-full blur-3xl pointer-events-none"></div>
+          <div className="absolute bottom-0 left-1/3 w-64 h-64 bg-[#E8C55A]/10 rounded-full blur-2xl pointer-events-none"></div>
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
             <div className="lg:col-span-7 space-y-6">
-              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C85A32] text-white text-xs font-bold uppercase tracking-wider shadow-lg animate-pulse">
+              <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C8920A] text-white text-xs font-bold uppercase tracking-wider shadow-lg animate-pulse">
                 <Zap className="w-4 h-4 text-amber-300" />
                 <span>Dịch Vụ Ưu Tiên — Giao Hỏa Tốc 24H</span>
               </div>
 
-              <h1 className="font-heading text-4xl sm:text-5xl font-bold leading-tight text-[#FBF9F5]">
+              <h1 className="font-heading text-4xl sm:text-5xl font-bold leading-tight text-[#FDF6C0]">
                 Đặt Hàng & Nhận Áo Dài <br />
-                <span className="text-[#D4A373] italic">Trong Vòng 24 Giờ</span>
+                <span className="text-[#E8C55A] italic">Trong Vòng 24 Giờ</span>
               </h1>
 
               <p className="text-gray-200 text-sm sm:text-base leading-relaxed max-w-xl">
@@ -96,7 +96,7 @@ export default function Express24hPage({ onTryOn, onRotate360 }) {
                     {String(timeLeft.minutes).padStart(2, "0")}m
                   </span>
                   <span>:</span>
-                  <span className="px-2.5 py-1 bg-[#C85A32] rounded-lg border border-white/20 text-white">
+                  <span className="px-2.5 py-1 bg-[#C8920A] rounded-lg border border-white/20 text-white">
                     {String(timeLeft.seconds).padStart(2, "0")}s
                   </span>
                 </div>
@@ -105,8 +105,8 @@ export default function Express24hPage({ onTryOn, onRotate360 }) {
 
             {/* Address Checker Box */}
             <div className="lg:col-span-5 bg-white/95 text-gray-900 backdrop-blur-md rounded-2xl p-6 shadow-xl border border-white/40">
-              <h3 className="font-heading font-bold text-lg text-[#18392B] flex items-center gap-2 mb-2">
-                <MapPin className="w-5 h-5 text-[#C85A32]" />
+              <h3 className="font-heading font-bold text-lg text-[#FFDF00] flex items-center gap-2 mb-2">
+                <MapPin className="w-5 h-5 text-[#C8920A]" />
                 <span>Kiểm tra giao hỏa tốc tận nơi</span>
               </h3>
               <p className="text-xs text-gray-600 mb-4">
@@ -120,13 +120,13 @@ export default function Express24hPage({ onTryOn, onRotate360 }) {
                     placeholder="Ví dụ: 123 Lê Lợi, Quận 1, TP.HCM..."
                     value={addressInput}
                     onChange={(e) => setAddressInput(e.target.value)}
-                    className="w-full px-4 py-2.5 bg-[#FBF9F5] border border-gray-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-[#18392B]"
+                    className="w-full px-4 py-2.5 bg-[#FDF6C0] border border-gray-200 rounded-xl text-xs sm:text-sm focus:outline-none focus:border-[#FFDF00]"
                   />
                 </div>
                 <button
                   type="submit"
                   disabled={isCheckingAddress}
-                  className="w-full py-3 bg-[#18392B] text-white font-bold rounded-xl text-xs sm:text-sm hover:bg-[#18392B]/90 transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"
+                  className="w-full py-3 bg-[#FFDF00] text-white font-bold rounded-xl text-xs sm:text-sm hover:bg-[#FFDF00]/90 transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"
                 >
                   {isCheckingAddress ? (
                     <span>Đang kiểm tra...</span>
@@ -155,7 +155,7 @@ export default function Express24hPage({ onTryOn, onRotate360 }) {
         {/* 3 Core Commitments */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 rounded-xl bg-[#C85A32]/10 text-[#C85A32] flex items-center justify-center shrink-0">
+            <div className="w-12 h-12 rounded-xl bg-[#C8920A]/10 text-[#C8920A] flex items-center justify-center shrink-0">
               <Zap className="w-6 h-6" />
             </div>
             <div>
@@ -167,7 +167,7 @@ export default function Express24hPage({ onTryOn, onRotate360 }) {
           </div>
 
           <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-start gap-4 hover:shadow-md transition-shadow">
-            <div className="w-12 h-12 rounded-xl bg-[#18392B]/10 text-[#18392B] flex items-center justify-center shrink-0">
+            <div className="w-12 h-12 rounded-xl bg-[#FFDF00]/10 text-[#FFDF00] flex items-center justify-center shrink-0">
               <ShieldCheck className="w-6 h-6" />
             </div>
             <div>
@@ -194,7 +194,7 @@ export default function Express24hPage({ onTryOn, onRotate360 }) {
         {/* Section Heading */}
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
           <div>
-            <span className="text-xs uppercase tracking-widest text-[#C85A32] font-bold block mb-1">
+            <span className="text-xs uppercase tracking-widest text-[#C8920A] font-bold block mb-1">
               Danh Mục Ưu Tiên Giao Ngay
             </span>
             <h2 className="font-heading text-3xl font-bold text-gray-900">
@@ -208,7 +208,7 @@ export default function Express24hPage({ onTryOn, onRotate360 }) {
               onClick={() => setSelectedCategory("all")}
               className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 selectedCategory === "all"
-                  ? "bg-[#18392B] text-white shadow-md"
+                  ? "bg-[#FFDF00] text-white shadow-md"
                   : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-200"
               }`}
             >
@@ -218,7 +218,7 @@ export default function Express24hPage({ onTryOn, onRotate360 }) {
               onClick={() => setSelectedCategory("theu-tay")}
               className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 selectedCategory === "theu-tay"
-                  ? "bg-[#18392B] text-white shadow-md"
+                  ? "bg-[#FFDF00] text-white shadow-md"
                   : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-200"
               }`}
             >
@@ -228,7 +228,7 @@ export default function Express24hPage({ onTryOn, onRotate360 }) {
               onClick={() => setSelectedCategory("cuoi")}
               className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 selectedCategory === "cuoi"
-                  ? "bg-[#18392B] text-white shadow-md"
+                  ? "bg-[#FFDF00] text-white shadow-md"
                   : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-200"
               }`}
             >
@@ -238,7 +238,7 @@ export default function Express24hPage({ onTryOn, onRotate360 }) {
               onClick={() => setSelectedCategory("truyen-thong")}
               className={`px-4 py-2 rounded-xl text-xs font-semibold whitespace-nowrap transition-all cursor-pointer ${
                 selectedCategory === "truyen-thong"
-                  ? "bg-[#18392B] text-white shadow-md"
+                  ? "bg-[#FFDF00] text-white shadow-md"
                   : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-200"
               }`}
             >
@@ -260,10 +260,10 @@ export default function Express24hPage({ onTryOn, onRotate360 }) {
               {/* Express Tag line */}
               <div className="mt-2 px-3 py-1.5 bg-amber-50 border border-amber-200 rounded-xl text-[11px] font-medium text-amber-900 flex items-center justify-between">
                 <span className="flex items-center gap-1">
-                  <Zap className="w-3.5 h-3.5 text-[#C85A32]" />
+                  <Zap className="w-3.5 h-3.5 text-[#C8920A]" />
                   <span>{product.expressTag || "Giao hỏa tốc trong 24h"}</span>
                 </span>
-                <span className="text-[#C85A32] font-bold">24H</span>
+                <span className="text-[#C8920A] font-bold">24H</span>
               </div>
             </div>
           ))}
@@ -272,7 +272,7 @@ export default function Express24hPage({ onTryOn, onRotate360 }) {
         {/* Express Support Hotline Bar */}
         <div className="mt-16 bg-white p-8 rounded-3xl border border-gray-200 shadow-lg flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-4">
-            <div className="w-14 h-14 rounded-full bg-[#C85A32] text-white flex items-center justify-center shrink-0 shadow-lg shadow-[#C85A32]/30">
+            <div className="w-14 h-14 rounded-full bg-[#C8920A] text-white flex items-center justify-center shrink-0 shadow-lg shadow-[#C8920A]/30">
               <PhoneCall className="w-7 h-7" />
             </div>
             <div>
@@ -285,7 +285,7 @@ export default function Express24hPage({ onTryOn, onRotate360 }) {
           <div className="flex gap-3">
             <a
               href="tel:0909123456"
-              className="px-6 py-3 bg-[#18392B] text-white font-bold text-sm rounded-xl hover:bg-[#18392B]/90 transition-all shadow-md"
+              className="px-6 py-3 bg-[#FFDF00] text-white font-bold text-sm rounded-xl hover:bg-[#FFDF00]/90 transition-all shadow-md"
             >
               Hotline 24/7: (+84) 394961557
             </a>

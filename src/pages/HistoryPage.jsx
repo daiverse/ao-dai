@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Sparkles, Clock, ArrowRight } from "lucide-react";
 import { PRODUCTS } from "../data/products";
 import { FEATURE_FLAGS } from "../config/featureFlags";
@@ -22,11 +22,11 @@ export default function HistoryPage({ onNavigateToTryOn }) {
   ];
 
   return (
-    <div className="pt-28 pb-20 bg-[#FBF9F5] min-h-screen">
+    <div className="pt-28 pb-20 bg-[#FDF6C0] min-h-screen">
       <div className="container-page">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#18392B]/10 text-[#18392B] text-xs font-semibold uppercase tracking-wider mb-3">
-            <Clock className="w-4 h-4 text-[#C85A32]" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FFDF00]/10 text-[#FFDF00] text-xs font-semibold uppercase tracking-wider mb-3">
+            <Clock className="w-4 h-4 text-[#C8920A]" />
             <span>Lịch Sử Thử Đồ AI</span>
           </div>
           <h1 className="font-heading text-4xl sm:text-5xl font-bold text-gray-900">
@@ -46,15 +46,15 @@ export default function HistoryPage({ onNavigateToTryOn }) {
               <div>
                 <p className="text-xs text-gray-400 flex items-center gap-1"><Clock className="w-3.5 h-3.5" />{item.date}</p>
                 <h3 className="font-heading font-bold text-base text-gray-900 mt-1">{item.productName}</h3>
-                <p className="text-sm font-bold text-[#C85A32] mt-1">{item.price}</p>
+                <p className="text-sm font-bold text-[#C8920A] mt-1">{item.price}</p>
               </div>
 
               {FEATURE_FLAGS.ENABLE_AI_TRY_ON && (
                 <button
                   onClick={() => onNavigateToTryOn && onNavigateToTryOn()}
-                  className="w-full py-2.5 bg-[#18392B] text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5"
+                  className="w-full py-2.5 bg-[#FFDF00] text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5"
                 >
-                  <Sparkles className="w-3.5 h-3.5 text-[#D4A373]" />
+                  <Sparkles className="w-3.5 h-3.5 text-[#E8C55A]" />
                   <span>Thử Lại Trong Virtual Try-on</span>
                 </button>
               )}

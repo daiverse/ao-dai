@@ -1,4 +1,4 @@
-export const COLLECTIONS = [
+﻿export const COLLECTIONS = [
   {
     id: "moc-lan",
     name: "Mộc Lan",
@@ -9,7 +9,7 @@ export const COLLECTIONS = [
     priceFrom: "1.499.000đ",
     itemCount: 4,
     badge: "BST Mới Ra Mắt",
-    accentColor: "#D4A373"
+    accentColor: "#E8C55A"
   },
   {
     id: "phong-sac",

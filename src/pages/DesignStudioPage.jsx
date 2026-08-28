@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import { Sparkles, Palette, Upload, Check, RefreshCw, Wand2, ArrowRight, Bookmark, Image as ImageIcon, Layers, HelpCircle, Flower2, Feather, Crown, Flame, Sun, Waves } from "lucide-react";
 import { useCart } from "../context/CartContext";
 import { generateAoDaiDesign } from "../utils/hfAI";
@@ -44,7 +44,7 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
       id: "autumn",
       name: "Mùa Thu",
       colorName: "Cam Đất Hoàng Cúc",
-      colorCode: "#C85A32",
+      colorCode: "#C8920A",
       image: "/anh/748811734_122119072365355470_5191248946269688850_n.jpg"
     },
     {
@@ -58,10 +58,10 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
 
   // Pattern Library Options
   const patternOptions = [
-    { id: "sen", name: "Hoa Sen", icon: Flower2, desc: "Thêu tay sen vàng kiêu hãnh", color: "bg-[#E8A5A5]/25 text-[#C85A32]" },
-    { id: "hac", name: "Chim Hạc", icon: Feather, desc: "Hạc mây cuộn dệt nổi kim tuyến", color: "bg-[#C85A32]/15 text-[#C85A32]" },
-    { id: "rong", name: "Rồng", icon: Crown, desc: "Long triều uốn lụa cổ điển", color: "bg-[#18392B]/15 text-[#18392B]" },
-    { id: "phuong", name: "Phượng", icon: Flame, desc: "Phượng hoàng hoàng gia quý phái", color: "bg-[#D4A373]/25 text-[#C85A32]" },
+    { id: "sen", name: "Hoa Sen", icon: Flower2, desc: "Thêu tay sen vàng kiêu hãnh", color: "bg-[#E8A5A5]/25 text-[#C8920A]" },
+    { id: "hac", name: "Chim Hạc", icon: Feather, desc: "Hạc mây cuộn dệt nổi kim tuyến", color: "bg-[#C8920A]/15 text-[#C8920A]" },
+    { id: "rong", name: "Rồng", icon: Crown, desc: "Long triều uốn lụa cổ điển", color: "bg-[#FFDF00]/15 text-[#FFDF00]" },
+    { id: "phuong", name: "Phượng", icon: Flame, desc: "Phượng hoàng hoàng gia quý phái", color: "bg-[#E8C55A]/25 text-[#C8920A]" },
     { id: "mai", name: "Hoa Mai", icon: Sun, desc: "Mai vàng nhị thêu tơ tằm", color: "bg-[#E9C46A]/25 text-amber-700" },
     { id: "song", name: "Sóng Nước", icon: Waves, desc: "Sóng nước Thủy Ba triều đại", color: "bg-teal-500/15 text-teal-700" }
   ];
@@ -154,13 +154,13 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
   const currentSeason = seasonsData.find((s) => s.id === selectedSeason);
 
   return (
-    <div className="pt-24 pb-20 bg-[#FBF9F5] min-h-screen">
+    <div className="pt-24 pb-20 bg-[#FDF6C0] min-h-screen">
       {/* 1. Hero Header Banner */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#18392B] via-[#1c4333] to-[#0f241c] text-white py-14 px-4 sm:px-6 lg:px-8 mb-10 shadow-xl border-b border-[#D4A373]/30">
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#C85A32]/20 rounded-full blur-3xl pointer-events-none"></div>
+      <section className="relative overflow-hidden bg-gradient-to-br from-[#FFDF00] via-[#1c4333] to-[#0f241c] text-white py-14 px-4 sm:px-6 lg:px-8 mb-10 shadow-xl border-b border-[#E8C55A]/30">
+        <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#C8920A]/20 rounded-full blur-3xl pointer-events-none"></div>
 
         <div className="container-page relative z-10 text-center max-w-3xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold uppercase tracking-[0.25em] text-[#D4A373]">
+          <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold uppercase tracking-[0.25em] text-[#E8C55A]">
             <Wand2 className="w-3.5 h-3.5" />
             <span>FLUX KONTEXT PRO</span>
           </div>
@@ -174,14 +174,14 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
           </p>
 
           {/* Steps Indicator Flow */}
-          <div className="pt-3 flex flex-wrap items-center justify-center gap-2 text-xs font-mono font-semibold text-[#D4A373]">
+          <div className="pt-3 flex flex-wrap items-center justify-center gap-2 text-xs font-mono font-semibold text-[#E8C55A]">
             <span className="px-3 py-1 bg-black/30 rounded-full border border-white/15">1. CHỌN ÁO TRƠN</span>
             <span className="text-gray-400">→</span>
             <span className="px-3 py-1 bg-black/30 rounded-full border border-white/15">2. HỌA TIẾT</span>
             <span className="text-gray-400">→</span>
             <span className="px-3 py-1 bg-black/30 rounded-full border border-white/15">3. MÔ TẢ</span>
             <span className="text-gray-400">→</span>
-            <span className="px-3 py-1 bg-[#C85A32] text-white rounded-full font-bold">GENERATE</span>
+            <span className="px-3 py-1 bg-[#C8920A] text-white rounded-full font-bold">GENERATE</span>
           </div>
         </div>
       </section>
@@ -192,7 +192,7 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
         <div className="flex items-center justify-center gap-4 mb-10 text-xs font-medium">
           <div className="flex items-center gap-2">
             <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold transition-all ${
-              selectedSeason ? "bg-[#18392B] text-white" : "bg-gray-200 text-gray-600"
+              selectedSeason ? "bg-[#FFDF00] text-white" : "bg-gray-200 text-gray-600"
             }`}>
               <Check className="w-4 h-4" />
             </div>
@@ -202,7 +202,7 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
 
           <div className="flex items-center gap-2">
             <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold transition-all ${
-              selectedPatterns.length > 0 ? "bg-[#18392B] text-white" : "bg-gray-200 text-gray-600"
+              selectedPatterns.length > 0 ? "bg-[#FFDF00] text-white" : "bg-gray-200 text-gray-600"
             }`}>
               {selectedPatterns.length > 0 ? <Check className="w-4 h-4" /> : "2"}
             </div>
@@ -212,9 +212,9 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
 
           <div className="flex items-center gap-2">
             <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold transition-all ${
-              promptText.trim() ? "bg-[#18392B] text-white" : "bg-gray-200 text-gray-600"
+              promptText.trim() ? "bg-[#FFDF00] text-white" : "bg-gray-200 text-gray-600"
             }`}>
-              <Sparkles className="w-4 h-4 text-[#D4A373]" />
+              <Sparkles className="w-4 h-4 text-[#E8C55A]" />
             </div>
             <span className="text-gray-900 font-semibold hidden sm:inline">Mô tả</span>
           </div>
@@ -226,7 +226,7 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
             {/* BƯỚC 1: CHỌN ÁO DÀI TRƠN */}
             <div className="bg-white p-6 sm:p-8 rounded-3xl border border-gray-100 shadow-sm space-y-5">
               <div>
-                <span className="text-xs font-bold uppercase tracking-widest text-[#C85A32] block mb-1">BƯỚC 1</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-[#C8920A] block mb-1">BƯỚC 1</span>
                 <h2 className="font-heading font-bold text-2xl text-gray-900">Chọn áo dài trơn</h2>
                 <p className="text-xs text-gray-500 mt-1">
                   Chọn một trong 4 màu theo mùa hoặc tải ảnh áo dài trơn của bạn
@@ -246,8 +246,8 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
                       }}
                       className={`group relative rounded-2xl overflow-hidden border-2 transition-all cursor-pointer text-left ${
                         isSelected
-                          ? "border-[#18392B] ring-2 ring-[#18392B]/20 bg-[#18392B]/5 shadow-md"
-                          : "border-gray-200 hover:border-gray-300 bg-[#FBF9F5]"
+                          ? "border-[#FFDF00] ring-2 ring-[#FFDF00]/20 bg-[#FFDF00]/5 shadow-md"
+                          : "border-gray-200 hover:border-gray-300 bg-[#FDF6C0]"
                       }`}
                     >
                       <div className="aspect-[3/4] overflow-hidden bg-gray-100 relative">
@@ -257,7 +257,7 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                         {isSelected && (
-                          <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-[#18392B] text-white flex items-center justify-center shadow-md">
+                          <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-[#FFDF00] text-white flex items-center justify-center shadow-md">
                             <Check className="w-3.5 h-3.5" />
                           </div>
                         )}
@@ -279,10 +279,10 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
 
               {/* Custom Upload Drop Area */}
               <div className="pt-2">
-                <label className="border-2 border-dashed border-gray-200 hover:border-[#18392B] rounded-2xl p-4 text-center block cursor-pointer bg-[#FBF9F5] transition-colors">
+                <label className="border-2 border-dashed border-gray-200 hover:border-[#FFDF00] rounded-2xl p-4 text-center block cursor-pointer bg-[#FDF6C0] transition-colors">
                   <input type="file" accept="image/*" className="hidden" onChange={handleCustomBaseUpload} />
                   <div className="flex items-center justify-center gap-2 text-xs font-semibold text-gray-700">
-                    <Upload className="w-4 h-4 text-[#C85A32]" />
+                    <Upload className="w-4 h-4 text-[#C8920A]" />
                     <span>{customBaseImage ? "Thay đổi ảnh áo dài trơn của bạn" : "Hoặc tải ảnh áo dài trơn của bạn (PNG, JPG)"}</span>
                   </div>
                 </label>
@@ -297,7 +297,7 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
             {/* BƯỚC 2: CHỌN HỌA TIẾT THAM KHẢO */}
             <div className="bg-white p-6 sm:p-8 rounded-3xl border border-gray-100 shadow-sm space-y-5">
               <div>
-                <span className="text-xs font-bold uppercase tracking-widest text-[#C85A32] block mb-1">BƯỚC 2</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-[#C8920A] block mb-1">BƯỚC 2</span>
                 <h2 className="font-heading font-bold text-2xl text-gray-900">Chọn họa tiết tham khảo</h2>
                 <p className="text-xs text-gray-500 mt-1">
                   Chọn tối đa 3 họa tiết từ thư viện DaiVerse ({selectedPatterns.length}/3 đã chọn)
@@ -315,8 +315,8 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
                       onClick={() => togglePattern(pat.id)}
                       className={`group p-4 rounded-2xl border-2 transition-all cursor-pointer text-center flex flex-col items-center justify-center gap-2.5 ${
                         isSelected
-                          ? "border-[#C85A32] bg-[#C85A32]/5 ring-2 ring-[#C85A32]/20 shadow-xs"
-                          : "border-gray-200 hover:border-gray-300 bg-[#FBF9F5]"
+                          ? "border-[#C8920A] bg-[#C8920A]/5 ring-2 ring-[#C8920A]/20 shadow-xs"
+                          : "border-gray-200 hover:border-gray-300 bg-[#FDF6C0]"
                       }`}
                     >
                       <div className={`w-10 h-10 rounded-xl ${pat.color} flex items-center justify-center shadow-xs group-hover:scale-110 transition-transform`}>
@@ -333,7 +333,7 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
 
               {/* Custom Pattern Upload */}
               <div className="pt-1">
-                <label className="border-2 border-dashed border-gray-200 hover:border-[#C85A32] rounded-2xl p-3.5 text-center block cursor-pointer bg-[#FBF9F5] transition-colors">
+                <label className="border-2 border-dashed border-gray-200 hover:border-[#C8920A] rounded-2xl p-3.5 text-center block cursor-pointer bg-[#FDF6C0] transition-colors">
                   <input type="file" accept="image/*" className="hidden" onChange={(e) => {
                     if (e.target.files[0]) {
                       setCustomPatternImage(URL.createObjectURL(e.target.files[0]));
@@ -341,7 +341,7 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
                     }
                   }} />
                   <div className="flex items-center justify-center gap-2 text-xs font-semibold text-gray-700">
-                    <Upload className="w-4 h-4 text-[#18392B]" />
+                    <Upload className="w-4 h-4 text-[#FFDF00]" />
                     <span>Hoặc tải thêm tối đa 2 ảnh tham khảo (tùy chọn)</span>
                   </div>
                 </label>
@@ -351,7 +351,7 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
             {/* BƯỚC 3: MÔ TẢ THIẾT KẾ */}
             <div className="bg-white p-6 sm:p-8 rounded-3xl border border-gray-100 shadow-sm space-y-5">
               <div>
-                <span className="text-xs font-bold uppercase tracking-widest text-[#C85A32] block mb-1">BƯỚC 3</span>
+                <span className="text-xs font-bold uppercase tracking-widest text-[#C8920A] block mb-1">BƯỚC 3</span>
                 <h2 className="font-heading font-bold text-2xl text-gray-900">Mô tả thiết kế</h2>
                 <p className="text-xs text-gray-500 mt-1">
                   Mô tả chi tiết họa tiết, phong cách và chất liệu bạn mong muốn
@@ -363,7 +363,7 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
                 value={promptText}
                 onChange={(e) => setPromptText(e.target.value)}
                 placeholder="Ví dụ: Giữ nguyên form áo dài. Thêm hoa sen vàng chạy dọc tà áo, phong cách Huế, chất liệu lụa cao cấp..."
-                className="w-full p-4 bg-[#FBF9F5] border border-gray-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:border-[#18392B] focus:ring-2 focus:ring-[#18392B]/10 leading-relaxed resize-none"
+                className="w-full p-4 bg-[#FDF6C0] border border-gray-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:border-[#FFDF00] focus:ring-2 focus:ring-[#FFDF00]/10 leading-relaxed resize-none"
               ></textarea>
 
               {/* Sample Prompt Presets */}
@@ -376,10 +376,10 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
                     <button
                       key={idx}
                       onClick={() => setPromptText(preset)}
-                      className="w-full text-left p-2.5 bg-[#FBF9F5] hover:bg-gray-100 rounded-xl text-xs text-gray-700 transition-colors border border-gray-200/60 flex items-center justify-between group cursor-pointer"
+                      className="w-full text-left p-2.5 bg-[#FDF6C0] hover:bg-gray-100 rounded-xl text-xs text-gray-700 transition-colors border border-gray-200/60 flex items-center justify-between group cursor-pointer"
                     >
                       <span className="truncate pr-2">{preset}</span>
-                      <span className="text-[10px] font-semibold text-[#C85A32] shrink-0 group-hover:underline">
+                      <span className="text-[10px] font-semibold text-[#C8920A] shrink-0 group-hover:underline">
                         Dùng mẫu →
                       </span>
                     </button>
@@ -394,8 +394,8 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
             <div className="bg-white p-6 rounded-3xl border border-gray-100 shadow-xl space-y-5">
               <div className="flex items-center justify-between border-b border-gray-100 pb-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-full bg-[#18392B] text-white flex items-center justify-center">
-                    <Wand2 className="w-4 h-4 text-[#D4A373]" />
+                  <div className="w-8 h-8 rounded-full bg-[#FFDF00] text-white flex items-center justify-center">
+                    <Wand2 className="w-4 h-4 text-[#E8C55A]" />
                   </div>
                   <div>
                     <h3 className="font-heading font-bold text-lg text-gray-900">Kết Quả AI</h3>
@@ -405,18 +405,18 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
               </div>
 
               {/* Render Canvas Box */}
-              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-[#FBF9F5] border border-gray-200 shadow-inner flex flex-col items-center justify-center p-4">
+              <div className="relative aspect-[3/4] rounded-2xl overflow-hidden bg-[#FDF6C0] border border-gray-200 shadow-inner flex flex-col items-center justify-center p-4">
                 {isGenerating ? (
                   <div className="flex flex-col items-center justify-center text-center p-6 space-y-4 animate-pulse">
-                    <div className="w-16 h-16 rounded-full bg-[#18392B] text-[#D4A373] flex items-center justify-center shadow-lg">
+                    <div className="w-16 h-16 rounded-full bg-[#FFDF00] text-[#E8C55A] flex items-center justify-center shadow-lg">
                       <Sparkles className="w-8 h-8 animate-spin" />
                     </div>
                     <div>
-                      <h4 className="font-heading font-bold text-lg text-[#18392B]">AI đang dệt mẫu áo dài...</h4>
+                      <h4 className="font-heading font-bold text-lg text-[#FFDF00]">AI đang dệt mẫu áo dài...</h4>
                       <p className="text-xs text-gray-500 mt-1">Đang xử lý ánh sáng, thêu gấm và dựng mẫu 3D</p>
                     </div>
                     <div className="w-full bg-gray-200 h-1.5 rounded-full overflow-hidden max-w-xs">
-                      <div className="bg-[#C85A32] h-full w-2/3 animate-pulse"></div>
+                      <div className="bg-[#C8920A] h-full w-2/3 animate-pulse"></div>
                     </div>
                   </div>
                 ) : generatedResult ? (
@@ -433,9 +433,9 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
 
                     {/* Overlay Details Tag */}
                     <div className="absolute bottom-3 left-3 right-3 p-3 bg-white/90 backdrop-blur-md rounded-xl shadow-lg text-xs space-y-1 border border-white/50">
-                      <p className="font-heading font-bold text-[#18392B] truncate">{generatedResult.name}</p>
+                      <p className="font-heading font-bold text-[#FFDF00] truncate">{generatedResult.name}</p>
                       <p className="text-[11px] text-gray-600">Màu: {generatedResult.color} • {generatedResult.season}</p>
-                      <p className="text-[11px] text-[#C85A32] font-semibold">Họa tiết: {generatedResult.patterns.join(", ")}</p>
+                      <p className="text-[11px] text-[#C8920A] font-semibold">Họa tiết: {generatedResult.patterns.join(", ")}</p>
                     </div>
                   </div>
                 ) : (
@@ -457,9 +457,9 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
                   <button
                     onClick={handleGenerate}
                     disabled={isGenerating}
-                    className="w-full py-4 bg-[#18392B] text-white font-bold rounded-2xl shadow-xl shadow-[#18392B]/20 hover:bg-[#18392B]/90 transition-all flex items-center justify-center gap-2 text-sm cursor-pointer disabled:opacity-50"
+                    className="w-full py-4 bg-[#FFDF00] text-white font-bold rounded-2xl shadow-xl shadow-[#FFDF00]/20 hover:bg-[#FFDF00]/90 transition-all flex items-center justify-center gap-2 text-sm cursor-pointer disabled:opacity-50"
                   >
-                    <Sparkles className="w-5 h-5 text-[#D4A373]" />
+                    <Sparkles className="w-5 h-5 text-[#E8C55A]" />
                     <span>{isGenerating ? "Đang tạo..." : "Tạo Thiết Kế Với AI (Generate)"}</span>
                   </button>
                 ) : (
@@ -467,9 +467,9 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
                     {FEATURE_FLAGS.ENABLE_AI_TRY_ON && (
                       <button
                         onClick={handleTryOnNow}
-                        className="w-full py-3.5 bg-[#18392B] text-white font-bold rounded-2xl shadow-lg shadow-[#18392B]/20 hover:bg-[#18392B]/90 transition-all flex items-center justify-center gap-2 text-sm cursor-pointer"
+                        className="w-full py-3.5 bg-[#FFDF00] text-white font-bold rounded-2xl shadow-lg shadow-[#FFDF00]/20 hover:bg-[#FFDF00]/90 transition-all flex items-center justify-center gap-2 text-sm cursor-pointer"
                       >
-                        <Sparkles className="w-4 h-4 text-[#D4A373]" />
+                        <Sparkles className="w-4 h-4 text-[#E8C55A]" />
                         <span>Thử Đồ Ngay</span>
                       </button>
                     )}
@@ -479,7 +479,7 @@ export default function DesignStudioPage({ onNavigate, onNavigateToTryOn }) {
                         onClick={handleSaveDesign}
                         className="py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors cursor-pointer"
                       >
-                        <Bookmark className="w-4 h-4 text-[#C85A32]" />
+                        <Bookmark className="w-4 h-4 text-[#C8920A]" />
                         <span>Lưu Thiết Kế</span>
                       </button>
 

@@ -5,33 +5,33 @@ export default function Testimonials() {
   const testimonials = [
     {
       id: 1,
-      quote: "“Áo dài từ DaiVerse thực sự tuyệt vời! Chất lụa tơ tằm mềm mại, đường may tinh tế. Tính năng thử đồ AI giúp tôi chọn được mẫu ưng ý ngay lần đầu.”",
-      name: "Nguyễn Thị Minh Anh",
+      quote: "“Áo dài may đo cực kỳ phom dáng, vừa vặn như được đo trực tiếp tại xưởng. Trải nghiệm xem 360° giúp tôi nhìn rõ từng nếp gấp và hoa văn gấm trước khi chốt đơn.”",
+      name: "Phạm Hà Linh",
       location: "Hà Nội",
-      initials: "MA"
+      initials: "HL"
     },
     {
       id: 2,
-      quote: "“Tôi đã đặt áo dài cưới tại đây và hoàn toàn hài lòng. Gấm dệt kim tuyến lộng lẫy, phom dáng chuẩn. Dịch vụ tư vấn rất chuyên nghiệp.”",
-      name: "Trần Phương Linh",
+      quote: "“Tôi đã đặt áo dài thêu thủ công cho ngày trọng đại và hoàn toàn bị thuyết phục. Đường kim mũi chỉ vô cùng sắc nét, dịch vụ tư vấn tận tâm và chu đáo.”",
+      name: "Nguyễn Khánh Vân",
       location: "TP. Hồ Chí Minh",
-      initials: "PL"
+      initials: "KV"
     },
     {
       id: 3,
-      quote: "“Công nghệ AI thử đồ rất tiện lợi, giúp tôi hình dung được mình mặc áo dài như thế nào trước khi mua. Chất lượng sản phẩm xứng đáng với giá tiền.”",
-      name: "Lê Hoàng Yến Nhi",
+      quote: "“Chất liệu lụa tơ tằm mềm mại, mặc lên tôn dáng và nhẹ nhàng. Tính năng studio AI độc đáo giúp tôi tạo nên tà áo mang dấu ấn phong cách riêng không đụng hàng.”",
+      name: "Đặng Thùy Dương",
       location: "Đà Nẵng",
-      initials: "YN"
+      initials: "TD"
     }
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-[#FBF9F5]">
+    <section className="py-20 lg:py-28 bg-[#FDF6C0]">
       <div className="container-page">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <p className="text-xs uppercase tracking-[0.35em] text-[#C85A32] font-bold mb-3">
+          <p className="text-xs uppercase tracking-[0.35em] text-[#C8920A] font-bold mb-3">
             PHẢN HỒI
           </p>
           <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
@@ -41,7 +41,7 @@ export default function Testimonials() {
           {/* Decorative Divider */}
           <div className="flex items-center justify-center gap-3 my-4">
             <div className="w-12 h-px bg-gray-300"></div>
-            <div className="w-2 h-2 rotate-45 bg-[#18392B]"></div>
+            <div className="w-2 h-2 rotate-45 bg-[#FFDF00]"></div>
             <div className="w-12 h-px bg-gray-300"></div>
           </div>
 
@@ -60,9 +60,9 @@ export default function Testimonials() {
               <div>
                 {/* Rating Stars + Quote Icon */}
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-[#18392B]">
+                  <div className="flex items-center gap-1 text-[#FFDF00]">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current text-[#18392B]" />
+                      <Star key={i} className="w-4 h-4 fill-current text-[#FFDF00]" />
                     ))}
                   </div>
 

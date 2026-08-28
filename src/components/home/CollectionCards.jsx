@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { COLLECTIONS } from "../../data/collections";
 
@@ -19,7 +19,7 @@ export default function CollectionCards({ onSelectCollection }) {
       <div className="container-page">
         {/* Section Header */}
         <div className="text-center mb-16 lg:mb-24 max-w-3xl mx-auto">
-          <span className="text-xs uppercase tracking-[0.35em] text-[#C85A32] font-bold px-4 py-1.5 rounded-full bg-[#C85A32]/10 border border-[#C85A32]/20 inline-block mb-4">
+          <span className="text-xs uppercase tracking-[0.35em] text-[#C8920A] font-bold px-4 py-1.5 rounded-full bg-[#C8920A]/10 border border-[#C8920A]/20 inline-block mb-4">
             Bộ Sưu Tập Di Sản · 2026
           </span>
           <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.15]">
@@ -70,18 +70,18 @@ export default function CollectionCards({ onSelectCollection }) {
                     </div>
 
                     {/* Badge Top Left */}
-                    <div className="absolute top-6 left-6 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md text-[#18392B] font-bold text-xs shadow-md border border-white/50">
+                    <div className="absolute top-6 left-6 px-4 py-1.5 rounded-full bg-white/90 backdrop-blur-md text-[#FFDF00] font-bold text-xs shadow-md border border-white/50">
                       {col.badge}
                     </div>
 
                     {/* Quick Link Badge Top Right */}
                     <div className="absolute top-6 right-6 w-11 h-11 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center group-hover:bg-white transition-all duration-300">
-                      <ArrowUpRight className="w-5 h-5 text-white group-hover:text-[#18392B] transition-colors" />
+                      <ArrowUpRight className="w-5 h-5 text-white group-hover:text-[#FFDF00] transition-colors" />
                     </div>
 
                     {/* Image Caption Bottom Left */}
                     <div className="absolute bottom-6 left-6 text-white max-w-[70%]">
-                      <p className="text-[11px] uppercase tracking-widest text-[#D4A373] font-semibold">
+                      <p className="text-[11px] uppercase tracking-widest text-[#E8C55A] font-semibold">
                         {col.tagline}
                       </p>
                       <h4 className="font-heading text-2xl font-bold mt-0.5">
@@ -98,11 +98,11 @@ export default function CollectionCards({ onSelectCollection }) {
                   }`}
                 >
                   <div>
-                    <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#C85A32]">
+                    <span className="text-xs font-bold uppercase tracking-[0.25em] text-[#C8920A]">
                       {col.subtitle}
                     </span>
                     <h3 className="font-heading text-3xl sm:text-4xl font-bold text-gray-900 mt-2 mb-4 leading-tight">
-                      Bộ Sưu Tập <span className="text-[#18392B] italic">{col.name}</span>
+                      Bộ Sưu Tập <span className="text-[#FFDF00] italic">{col.name}</span>
                     </h3>
                     <p className="text-base text-gray-600 leading-relaxed">
                       {col.description}
@@ -113,7 +113,7 @@ export default function CollectionCards({ onSelectCollection }) {
                   <div className="space-y-3 pt-2">
                     {col.details.map((detail, dIdx) => (
                       <div key={dIdx} className="flex items-center gap-3 text-sm text-gray-700 font-medium">
-                        <div className="w-2 h-2 rounded-full bg-[#C85A32]"></div>
+                        <div className="w-2 h-2 rounded-full bg-[#C8920A]"></div>
                         <span>{detail}</span>
                       </div>
                     ))}
@@ -123,14 +123,14 @@ export default function CollectionCards({ onSelectCollection }) {
                   <div className="pt-4 flex items-center gap-6 border-t border-gray-100">
                     <div>
                       <span className="text-xs text-gray-400 block font-medium">Giá sản phẩm từ</span>
-                      <span className="text-2xl font-bold font-heading text-[#18392B]">
+                      <span className="text-2xl font-bold font-heading text-[#FFDF00]">
                         {col.priceFrom}
                       </span>
                     </div>
 
                     <button
                       onClick={() => onSelectCollection && onSelectCollection(col.id)}
-                      className="group inline-flex items-center gap-2.5 px-6 py-3 bg-[#18392B] text-white rounded-full font-medium text-sm hover:bg-[#18392B]/90 transition-all cursor-pointer shadow-lg shadow-[#18392B]/20"
+                      className="group inline-flex items-center gap-2.5 px-6 py-3 bg-[#FFDF00] text-white rounded-full font-medium text-sm hover:bg-[#FFDF00]/90 transition-all cursor-pointer shadow-lg shadow-[#FFDF00]/20"
                     >
                       <span>Khám phá ngay</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

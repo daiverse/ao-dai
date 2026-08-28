@@ -23,7 +23,7 @@ export default function Footer({ setActiveTab }) {
   };
 
   return (
-    <footer className="relative bg-[#18392B] text-[#FBF9F5] overflow-hidden mt-16">
+    <footer className="relative bg-[#FFDF00] text-[#2C1A00] overflow-hidden mt-16">
       {/* Background SVG Pattern */}
       <div 
         className="absolute inset-0 opacity-[0.03] pointer-events-none" 
@@ -32,22 +32,131 @@ export default function Footer({ setActiveTab }) {
         }}
       ></div>
 
-      <div className="h-px bg-gradient-to-r from-transparent via-[#C85A32] to-transparent"></div>
-      <div className="h-px bg-gradient-to-r from-transparent via-[#C85A32]/50 to-transparent mt-px"></div>
+      <div className="h-px bg-gradient-to-r from-transparent via-[#C8920A] to-transparent"></div>
+      <div className="h-px bg-gradient-to-r from-transparent via-[#C8920A]/50 to-transparent mt-px"></div>
 
       <div className="relative container-page py-14 lg:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
-          {/* Col 1: Brand & Newsletter */}
+          {/* Col 1: Khám Phá */}
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C8920A] mb-5">Khám Phá</h4>
+            <ul className="space-y-3">
+              <li>
+                <button onClick={() => handleNav("products")} className="text-sm text-[#2C1A00]/70 hover:text-[#C8920A] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
+                  Bộ Sưu Tập
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNav("express24h")} className="text-sm text-[#C8920A] font-semibold hover:underline transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer flex items-center gap-1">
+                  <span>⚡ Đặt Hàng 24h</span>
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNav("lookbook")} className="text-sm text-[#2C1A00]/70 hover:text-[#C8920A] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
+                  Lookbook
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNav("design-studio")} className="text-sm text-[#2C1A00]/70 hover:text-[#C8920A] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
+                  AI Design Studio
+                </button>
+              </li>
+              {FEATURE_FLAGS.ENABLE_AI_TRY_ON && (
+                <li>
+                  <button onClick={() => handleNav("try-on")} className="text-sm text-[#2C1A00]/70 hover:text-[#C8920A] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
+                    Phòng Xem Đồ AI
+                  </button>
+                </li>
+              )}
+              <li>
+                <button onClick={() => handleNav("360")} className="text-sm text-[#2C1A00]/70 hover:text-[#C8920A] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
+                  Trải Nghiệm 360°
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNav("journal")} className="text-sm text-[#2C1A00]/70 hover:text-[#C8920A] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
+                  Tạp Chí
+                </button>
+              </li>
+              <li>
+                <button onClick={() => handleNav("about")} className="text-sm text-[#2C1A00]/70 hover:text-[#C8920A] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
+                  Câu Chuyện
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 2: Chính Sách */}
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C8920A] mb-5">Chính Sách</h4>
+            <ul className="space-y-3">
+              <li><span className="text-sm text-[#2C1A00]/70 hover:text-[#C8920A] transition-colors duration-200 cursor-pointer">Giao Hàng Toàn Quốc</span></li>
+              <li><span className="text-sm text-[#2C1A00]/70 hover:text-[#C8920A] transition-colors duration-200 cursor-pointer">Đổi Trả 15 Ngày</span></li>
+              <li><span className="text-sm text-[#2C1A00]/70 hover:text-[#C8920A] transition-colors duration-200 cursor-pointer">Bảo Mật Thông Tin</span></li>
+              <li><span className="text-sm text-[#2C1A00]/70 hover:text-[#C8920A] transition-colors duration-200 cursor-pointer">Hướng Dẫn Chọn Size</span></li>
+              <li><span className="text-sm text-[#2C1A00]/70 hover:text-[#C8920A] transition-colors duration-200 cursor-pointer">Chăm Sóc Áo Dài</span></li>
+            </ul>
+          </div>
+
+          {/* Col 3: Liên Hệ & Social */}
+          <div>
+            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C8920A] mb-5">Liên Hệ</h4>
+            <ul className="space-y-3 text-sm text-[#2C1A00]/70">
+              <li className="flex items-start gap-2.5">
+                <MapPin className="w-4 h-4 text-[#C8920A]/80 mt-0.5 shrink-0" />
+                <span>Hoành Sơn Complex, 282 Nguyễn Huy Tưởng, Thanh Xuân, Hà Nội</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Phone className="w-4 h-4 text-[#C8920A]/80 shrink-0" />
+                <span>0394961557</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Mail className="w-4 h-4 text-[#C8920A]/80 shrink-0" />
+                <span>daiverseg5@gmail.com</span>
+              </li>
+              <li className="flex items-center gap-2.5">
+                <Clock className="w-4 h-4 text-[#C8920A]/80 shrink-0" />
+                <span>08:00 — 22:00</span>
+              </li>
+            </ul>
+
+            <div className="flex gap-3 mt-6">
+              <a 
+                href="https://www.facebook.com/profile.php?id=61590664110972" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                title="Facebook Fanpage"
+                className="w-9 h-9 rounded-full border border-[#2C1A00]/20 flex items-center justify-center text-[#2C1A00]/70 hover:border-[#C8920A] hover:text-[#C8920A] hover:bg-[#C8920A]/10 transition-all"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+              </a>
+              <a 
+                href="https://www.tiktok.com/@daiverse91" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                title="TikTok"
+                className="w-9 h-9 rounded-full border border-[#2C1A00]/20 flex items-center justify-center text-[#2C1A00]/70 hover:border-[#C8920A] hover:text-[#C8920A] hover:bg-[#C8920A]/10 transition-all"
+              >
+                <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
+                  <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .56.04.82.12V9.4a6.33 6.33 0 0 0-1-.08 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.05a8.27 8.27 0 0 0 4.97 1.63V7.24a4.83 4.83 0 0 1-3.01-.55z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          {/* Col 4: Brand & Newsletter */}
           <div className="lg:col-span-1">
-            <h3 className="font-heading text-2xl text-[#C85A32] mb-4 font-bold flex items-center gap-2">
-              <img src="/logo.jpg" alt="DaiVerse" className="w-8 h-8 rounded-full object-cover border border-[#D4A373]/40" />
+            <h3 className="font-heading text-2xl text-[#C8920A] mb-4 font-bold flex items-center gap-2">
+              <img src="/logo.jpg" alt="DaiVerse" className="w-8 h-8 rounded-full object-cover border border-[#E8C55A]/40" />
               <span>DaiVerse</span>
             </h3>
-            <p className="text-sm text-[#FBF9F5]/70 leading-relaxed">
-              Thương hiệu thời trang áo dài cao cấp kết hợp tinh hoa nghề dệt truyền thống với công nghệ AI hiện đại. Mỗi tà áo là một tác phẩm nghệ thuật tôn vinh vẻ đẹp người phụ nữ Việt Nam.
+            <p className="text-sm text-[#2C1A00]/80 leading-relaxed">
+              DaiVerse – nơi vẻ đẹp áo dài Việt hòa quyện cùng công nghệ AI, tạo nên những thiết kế độc bản mang dấu ấn riêng của mỗi người.
             </p>
             <div className="mt-6">
-              <p className="text-xs uppercase tracking-wider text-[#C85A32] font-medium mb-3">Nhận Ưu Đãi Mới Nhất</p>
+              <p className="text-xs uppercase tracking-wider text-[#C8920A] font-medium mb-3">Nhận Ưu Đãi Mới Nhất</p>
               <form onSubmit={handleSubmit} className="flex gap-2">
                 <input
                   type="email"
@@ -55,124 +164,28 @@ export default function Footer({ setActiveTab }) {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
-                  className="w-full min-w-0 px-3.5 py-2.5 h-10 bg-white/10 border border-white/20 text-[#FBF9F5] placeholder:text-[#FBF9F5]/40 text-sm rounded-lg focus:border-[#C85A32] focus:outline-none focus:ring-1 focus:ring-[#C85A32]"
+                  className="w-full min-w-0 px-3.5 py-2.5 h-10 bg-[#2C1A00]/10 border border-[#2C1A00]/25 text-[#2C1A00] placeholder:text-[#2C1A00]/50 text-sm rounded-lg focus:border-[#C8920A] focus:outline-none focus:ring-1 focus:ring-[#C8920A]"
                 />
                 <button
                   type="submit"
                   aria-label="Đăng ký"
-                  className="h-10 px-4 bg-[#C85A32] hover:bg-[#C85A32]/90 text-white shrink-0 rounded-lg flex items-center justify-center transition-colors cursor-pointer"
+                  className="h-10 px-4 bg-[#C8920A] hover:bg-[#C8920A]/90 text-white shrink-0 rounded-lg flex items-center justify-center transition-colors cursor-pointer"
                 >
                   <Send className="w-4 h-4" />
                 </button>
               </form>
             </div>
           </div>
-
-          {/* Col 2: Khám Phá */}
-          <div>
-            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C85A32] mb-5">Khám Phá</h4>
-            <ul className="space-y-3">
-              <li>
-                <button onClick={() => handleNav("products")} className="text-sm text-[#FBF9F5]/60 hover:text-[#C85A32] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
-                  Bộ Sưu Tập
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav("express24h")} className="text-sm text-[#C85A32] font-semibold hover:underline transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer flex items-center gap-1">
-                  <span>⚡ Đặt Hàng 24h</span>
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav("lookbook")} className="text-sm text-[#FBF9F5]/60 hover:text-[#C85A32] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
-                  Lookbook
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav("design-studio")} className="text-sm text-[#FBF9F5]/60 hover:text-[#C85A32] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
-                  AI Design Studio
-                </button>
-              </li>
-              {FEATURE_FLAGS.ENABLE_AI_TRY_ON && (
-                <li>
-                  <button onClick={() => handleNav("try-on")} className="text-sm text-[#FBF9F5]/60 hover:text-[#C85A32] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
-                    Phòng Xem Đồ AI
-                  </button>
-                </li>
-              )}
-              <li>
-                <button onClick={() => handleNav("360")} className="text-sm text-[#FBF9F5]/60 hover:text-[#C85A32] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
-                  Trải Nghiệm 360°
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav("journal")} className="text-sm text-[#FBF9F5]/60 hover:text-[#C85A32] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
-                  Tạp Chí
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav("about")} className="text-sm text-[#FBF9F5]/60 hover:text-[#C85A32] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
-                  Câu Chuyện
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Col 3: Chính Sách */}
-          <div>
-            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C85A32] mb-5">Chính Sách</h4>
-            <ul className="space-y-3">
-              <li><span className="text-sm text-[#FBF9F5]/60 hover:text-[#C85A32] transition-colors duration-200 cursor-pointer">Giao Hàng Toàn Quốc</span></li>
-              <li><span className="text-sm text-[#FBF9F5]/60 hover:text-[#C85A32] transition-colors duration-200 cursor-pointer">Đổi Trả 30 Ngày</span></li>
-              <li><span className="text-sm text-[#FBF9F5]/60 hover:text-[#C85A32] transition-colors duration-200 cursor-pointer">Bảo Mật Thông Tin</span></li>
-              <li><span className="text-sm text-[#FBF9F5]/60 hover:text-[#C85A32] transition-colors duration-200 cursor-pointer">Hướng Dẫn Chọn Size</span></li>
-              <li><span className="text-sm text-[#FBF9F5]/60 hover:text-[#C85A32] transition-colors duration-200 cursor-pointer">Chăm Sóc Áo Dài</span></li>
-            </ul>
-          </div>
-
-          {/* Col 4: Liên Hệ & Social */}
-          <div>
-            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#C85A32] mb-5">Liên Hệ</h4>
-            <ul className="space-y-3 text-sm text-[#FBF9F5]/60">
-              <li className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-[#C85A32]/80 mt-0.5 shrink-0" />
-                <span>Hà Nội, Việt Nam</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-[#C85A32]/80 shrink-0" />
-                <span>(+84) 394961557</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-[#C85A32]/80 shrink-0" />
-                <span>admin@daiverse.com.vn</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <Clock className="w-4 h-4 text-[#C85A32]/80 shrink-0" />
-                <span>9:00 — 21:00</span>
-              </li>
-            </ul>
-
-            <div className="flex gap-3 mt-6">
-              <a href="#" className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-white/60 hover:border-[#C85A32] hover:text-[#C85A32] hover:bg-[#C85A32]/10 transition-all">
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-              <a href="#" className="w-9 h-9 rounded-full border border-white/15 flex items-center justify-center text-white/60 hover:border-[#C85A32] hover:text-[#C85A32] hover:bg-[#C85A32]/10 transition-all">
-                <Send className="w-3.5 h-3.5" />
-              </a>
-            </div>
-          </div>
         </div>
 
         <div className="mt-12 mb-8 flex items-center gap-3">
-          <div className="flex-1 h-px bg-gradient-to-r from-transparent to-[#C85A32]/30"></div>
-          <div className="w-1.5 h-1.5 rotate-45 bg-[#C85A32]/60"></div>
-          <div className="flex-1 h-px bg-gradient-to-l from-transparent to-[#C85A32]/30"></div>
+          <div className="flex-1 h-px bg-gradient-to-r from-transparent to-[#C8920A]/30"></div>
+          <div className="w-1.5 h-1.5 rotate-45 bg-[#C8920A]/60"></div>
+          <div className="flex-1 h-px bg-gradient-to-l from-transparent to-[#C8920A]/30"></div>
         </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[#FBF9F5]/40">
-          <p>© 2026 DaiVerse. Bảo lưu mọi quyền.</p>
-          <p className="flex items-center gap-1.5">
-            Thiết kế với <Heart className="w-3 h-3 text-[#C85A32] fill-current" /> tại Việt Nam
-          </p>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[#2C1A00]/50">
+          <p>© 2026 DaiVerse.</p>
         </div>
       </div>
     </footer>
