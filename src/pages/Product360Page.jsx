@@ -22,6 +22,7 @@ import {
 } from "lucide-react";
 import { PRODUCTS } from "../data/products";
 import { FEATURE_FLAGS } from "../config/featureFlags";
+import { API_BASE_URL } from "../config/api";
 
 // ── Virtual Try-On Panel ─────────────────────────────────────────────────────
 // Các bước xử lý hiển thị cho người dùng
@@ -140,7 +141,7 @@ function VirtualTryOnPanel({ selectedProduct }) {
     startFakeProgress();
 
     try {
-      const response = await fetch("http://localhost:5000/api/ai/tryon", {
+      const response = await fetch(`${API_BASE_URL}/api/ai/tryon`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -175,7 +176,7 @@ function VirtualTryOnPanel({ selectedProduct }) {
       // Friendly messages cho từng loại lỗi
       let friendlyMsg = err.message || "Lỗi kết nối. Vui lòng thử lại.";
       if (err.name === "TypeError" && err.message.includes("fetch")) {
-        friendlyMsg = "Không thể kết nối đến server. Hãy kiểm tra backend đang chạy (localhost:5000).";
+        friendlyMsg = "Không thể kết nối đến máy chủ AI API. Vui lòng kiểm tra lại kết nối mạng hoặc thử lại sau ít phút.";
       }
 
       setErrorMsg(friendlyMsg);
