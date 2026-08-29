@@ -27,8 +27,9 @@ app.use(cors({
   origin: process.env.CLIENT_URL || "http://localhost:5173",
   credentials: true,
 }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Tăng giới hạn body lên 20MB để nhận base64 ảnh Virtual Try-On
+app.use(express.json({ limit: '20mb' }));
+app.use(express.urlencoded({ extended: true, limit: '20mb' }));
 
 // Passport config & middleware
 require("./config/passport");
