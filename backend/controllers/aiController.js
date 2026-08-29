@@ -21,15 +21,38 @@ const localImageToBase64 = (imagePath) => {
 };
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Helper: Fetch remote URL → Buffer
+// Helper: Fetch remote URL / Local file / Base64 → Buffer
 // ─────────────────────────────────────────────────────────────────────────────
 const fetchImageBuffer = async (url) => {
+  if (!url) throw new Error("URL ảnh không hợp lệ.");
+
+  if (url.startsWith("data:image/")) {
+    const base64Data = url.replace(/^data:image\/\w+;base64,/, "");
+    return Buffer.from(base64Data, "base64");
+  }
+
   if (url.startsWith("/")) {
+    // 1. Thử đường dẫn filesystem local dev
     const localPath = path.join(__dirname, "../../public", url);
     if (fs.existsSync(localPath)) return fs.readFileSync(localPath);
-    const res = await axios.get(`http://localhost:5000${url}`, { responseType: "arraybuffer", timeout: 15000 });
-    return Buffer.from(res.data);
+
+    // 2. Thử đường dẫn server backend static
+    const backendPath = path.join(__dirname, "../public", url);
+    if (fs.existsSync(backendPath)) return fs.readFileSync(backendPath);
+
+    // 3. Fetch từ CLIENT_URL nếu đã deploy
+    const clientUrl = process.env.CLIENT_URL || "http://localhost:5173";
+    try {
+      const res = await axios.get(`${clientUrl.replace(/\/$/, "")}${url}`, { responseType: "arraybuffer", timeout: 15000 });
+      return Buffer.from(res.data);
+    } catch (_) {
+      // 4. Fallback ảnh áo dài mặc định nếu không tải được từ URL tương đối
+      const fallbackUrl = "https://images.unsplash.com/photo-1583391733956-3750e0ff4e8b?q=80&w=768";
+      const fallbackRes = await axios.get(fallbackUrl, { responseType: "arraybuffer", timeout: 15000 });
+      return Buffer.from(fallbackRes.data);
+    }
   }
+
   const res = await axios.get(url, { responseType: "arraybuffer", timeout: 30000 });
   return Buffer.from(res.data);
 };

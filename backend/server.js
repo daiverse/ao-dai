@@ -24,7 +24,10 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:5173",
+  origin: (origin, callback) => {
+    // Cho phép tất cả origin kết nối (Vercel, Render, Netlify, localhost)
+    callback(null, true);
+  },
   credentials: true,
 }));
 // Tăng giới hạn body lên 20MB để nhận base64 ảnh Virtual Try-On

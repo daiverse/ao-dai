@@ -140,15 +140,34 @@ function VirtualTryOnPanel({ selectedProduct }) {
     setResultImage(null);
     startFakeProgress();
 
+    const fullGarmentUrl = garmentImageUrl?.startsWith("http")
+      ? garmentImageUrl
+      : typeof window !== "undefined"
+      ? `${window.location.origin}${garmentImageUrl}`
+      : garmentImageUrl;
+
     try {
-      const response = await fetch(`${API_BASE_URL}/api/ai/tryon`, {
+      let response = await fetch(`${API_BASE_URL}/api/ai/tryon`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           personImageBase64: personImage.base64,
-          garmentImageUrl,
+          garmentImageUrl: fullGarmentUrl,
         }),
       });
+
+      // Nếu backend đang ở trạng thái cold start (Render free tier boot), tự động retry sau 4 giây
+      if (response.status === 502 || response.status === 503) {
+        await new Promise((r) => setTimeout(r, 4000));
+        response = await fetch(`${API_BASE_URL}/api/ai/tryon`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            personImageBase64: personImage.base64,
+            garmentImageUrl: fullGarmentUrl,
+          }),
+        });
+      }
 
       // Xử lý HTTP error trước khi parse JSON
       if (response.status === 413) {
