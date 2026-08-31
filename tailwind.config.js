@@ -8,12 +8,16 @@ export default {
     extend: {
       colors: {
         lotus: {
-          deep: '#FFDF00',
-          DEFAULT: '#C8920A',
-          light: '#FDF3CC',
+          deep: '#EFB11D',
+          DEFAULT: '#E43D12',
+          light: '#FFF4D6',
         },
-        cream: '#FDF6C0',
-        'deep-red': '#8B0000',
+        cream: '#EBE9E1',
+        'deep-red': '#D6536D',
+        rose: '#D6536D',
+        'rose-light': '#FFA2B6',
+        'brand-yellow': '#EFB11D',
+        'brand-orange': '#E43D12',
       },
       fontFamily: {
         heading: ['Playfair Display', 'serif'],

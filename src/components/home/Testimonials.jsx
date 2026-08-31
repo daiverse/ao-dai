@@ -1,4 +1,4 @@
-import React from "react";
+﻿import React from "react";
 import { Star } from "lucide-react";
 
 export default function Testimonials() {
@@ -27,11 +27,11 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-[#FDF6C0]">
+    <section className="py-20 lg:py-28 bg-[#EBE9E1]">
       <div className="container-page">
         {/* Section Header */}
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <p className="text-xs uppercase tracking-[0.35em] text-[#C8920A] font-bold mb-3">
+          <p className="text-xs uppercase tracking-[0.35em] text-[#E43D12] font-bold mb-3">
             PHẢN HỒI
           </p>
           <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
@@ -41,7 +41,7 @@ export default function Testimonials() {
           {/* Decorative Divider */}
           <div className="flex items-center justify-center gap-3 my-4">
             <div className="w-12 h-px bg-gray-300"></div>
-            <div className="w-2 h-2 rotate-45 bg-[#FFDF00]"></div>
+            <div className="w-2 h-2 rotate-45 bg-[#EFB11D]"></div>
             <div className="w-12 h-px bg-gray-300"></div>
           </div>
 
@@ -60,9 +60,9 @@ export default function Testimonials() {
               <div>
                 {/* Rating Stars + Quote Icon */}
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-[#FFDF00]">
+                  <div className="flex items-center gap-1 text-[#EFB11D]">
                     {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current text-[#FFDF00]" />
+                      <Star key={i} className="w-4 h-4 fill-current text-[#EFB11D]" />
                     ))}
                   </div>
 

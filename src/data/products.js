@@ -1,10 +1,9 @@
-export const CATEGORIES = [
+﻿export const CATEGORIES = [
   { id: "all", name: "Tất Cả" },
   { id: "express24h", name: "⚡ Đặt Hàng 24h" },
   { id: "cuoi", name: "Áo Dài Cưới" },
   { id: "truyen-thong", name: "Áo Dài Truyền Thống" },
-  { id: "cach-tan", name: "Áo Dài Cách Tân" },
-  { id: "theu-tay", name: "Áo Dài Thêu Tay" }
+  { id: "cach-tan", name: "Áo Dài Cách Tân" }
 ];
 
 export const PRODUCTS = [
@@ -29,7 +28,7 @@ export const PRODUCTS = [
     storyContent: "Có những vẻ đẹp không cần quá rực rỡ để trở nên nổi bật. Bạch Lan không chỉ là một tà áo dài. Đó là sự giao thoa giữa nét đẹp truyền thống và hơi thở đương đại. Là món quà dành cho những cô gái yêu sự tối giản nhưng vẫn muốn mình thật nổi bật. Từng chi tiết được hoàn thiện với mong muốn khi khoác lên mình Bạch Lan, bạn không chỉ mặc một chiếc áo dài mà còn khoác lên sự tự tin, sự dịu dàng và niềm tự hào về vẻ đẹp Việt.",
     fabric: "Lụa gấm trúc cao cấp",
     colors: [
-      { name: "Đỏ Đô", code: "#8B0000" },
+      { name: "Đỏ Đô", code: "#D6536D" },
       { name: "Xanh Biển", code: "#1E3A8A" },
       { name: "Xanh Ngọc", code: "#0D9488" },
       { name: "Hồng Đỗ", code: "#DB2777" },

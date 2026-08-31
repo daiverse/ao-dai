@@ -9,8 +9,8 @@ export default function Toast() {
 
   return (
     <div className="fixed top-20 right-6 z-50 animate-fade-in">
-      <div className="bg-[#FFDF00] text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-[#E8C55A]/30 flex items-center gap-3">
-        <CheckCircle2 className="w-5 h-5 text-[#E8C55A]" />
+      <div className="bg-[#EFB11D] text-white px-5 py-3.5 rounded-2xl shadow-2xl border border-[#EFB11D]/30 flex items-center gap-3">
+        <CheckCircle2 className="w-5 h-5 text-[#EFB11D]" />
         <span className="text-xs sm:text-sm font-medium">{toastMessage}</span>
       </div>
     </div>

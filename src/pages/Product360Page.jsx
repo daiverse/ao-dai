@@ -224,15 +224,15 @@ function VirtualTryOnPanel({ selectedProduct }) {
     <div className="mt-14 relative">
       {/* Section Header */}
       <div className="text-center mb-10">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 border border-white/20 text-[#E8C55A] text-xs font-bold uppercase tracking-wider mb-3">
-          <Wand2 className="w-4 h-4" />
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E43D12]/10 border border-[#E43D12]/20 text-[#E43D12] text-xs font-bold uppercase tracking-wider mb-3">
+          <Wand2 className="w-4 h-4 text-[#E43D12]" />
           <span>AI Virtual Try-On</span>
         </div>
-        <h2 className="font-heading text-2xl sm:text-4xl font-bold">
+        <h2 className="font-heading text-2xl sm:text-4xl font-bold text-gray-900">
           Thử Áo Dài Với{" "}
-          <span className="text-[#E8C55A] italic">Trí Tuệ Nhân Tạo</span>
+          <span className="text-[#E43D12] italic font-heading">Trí Tuệ Nhân Tạo</span>
         </h2>
-        <p className="text-white/60 mt-2 text-sm max-w-lg mx-auto">
+        <p className="text-gray-600 mt-2 text-sm sm:text-base max-w-lg mx-auto font-normal leading-relaxed">
           Tải lên ảnh của bạn — AI sẽ tự động kết hợp với chiếc áo dài đang xem
           để tạo ra hình ảnh bạn mặc thật sự.
         </p>
@@ -242,12 +242,12 @@ function VirtualTryOnPanel({ selectedProduct }) {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
 
         {/* ── Cột 1: Upload Ảnh Người Dùng ── */}
-        <div className="bg-white/5 border border-white/15 rounded-3xl p-6 flex flex-col gap-4">
+        <div className="bg-white border border-gray-200 rounded-3xl p-6 flex flex-col gap-4 shadow-md">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-[#C8920A] flex items-center justify-center">
+            <div className="w-7 h-7 rounded-lg bg-[#E43D12] flex items-center justify-center text-white">
               <Camera className="w-4 h-4 text-white" />
             </div>
-            <h3 className="font-bold text-sm uppercase tracking-wider text-[#E8C55A]">
+            <h3 className="font-bold text-sm uppercase tracking-wider text-gray-900">
               Ảnh Của Bạn
             </h3>
           </div>
@@ -260,10 +260,10 @@ function VirtualTryOnPanel({ selectedProduct }) {
             onClick={() => !personImage && fileInputRef.current?.click()}
             className={`relative rounded-2xl border-2 border-dashed transition-all duration-300 overflow-hidden
               ${personImage
-                ? "border-[#C8920A]/50 cursor-default"
-                : "border-white/30 hover:border-[#C8920A] cursor-pointer"
+                ? "border-[#E43D12]/50 cursor-default"
+                : "border-gray-300 hover:border-[#E43D12] bg-[#EBE9E1]/50 cursor-pointer"
               }
-              ${isDragOver ? "border-[#E8C55A] bg-[#C8920A]/20 scale-[1.02]" : ""}
+              ${isDragOver ? "border-[#E43D12] bg-[#E43D12]/10 scale-[1.02]" : ""}
             `}
             style={{ minHeight: "280px" }}
           >
@@ -293,30 +293,30 @@ function VirtualTryOnPanel({ selectedProduct }) {
                   </button>
                 </div>
                 {/* Success badge */}
-                <div className="absolute top-3 left-3 px-2 py-1 bg-emerald-500/90 rounded-lg text-xs font-bold text-white flex items-center gap-1">
+                <div className="absolute top-3 left-3 px-2 py-1 bg-emerald-600 rounded-lg text-xs font-bold text-white flex items-center gap-1">
                   <CheckCircle2 className="w-3 h-3" /> Sẵn sàng
                 </div>
               </>
             ) : (
               <div className="flex flex-col items-center justify-center h-full p-8 text-center gap-3">
-                <div className="w-14 h-14 rounded-2xl bg-white/10 flex items-center justify-center">
-                  <Upload className="w-7 h-7 text-[#E8C55A]" />
+                <div className="w-14 h-14 rounded-2xl bg-white flex items-center justify-center shadow-xs">
+                  <Upload className="w-7 h-7 text-[#E43D12]" />
                 </div>
                 <div>
-                  <p className="font-semibold text-sm text-white">
+                  <p className="font-bold text-sm text-gray-900">
                     Kéo & thả ảnh vào đây
                   </p>
-                  <p className="text-white/50 text-xs mt-1">
+                  <p className="text-gray-500 text-xs mt-1 font-medium">
                     hoặc click để chọn từ thiết bị
                   </p>
                 </div>
                 <div className="flex flex-wrap justify-center gap-1 mt-1">
                   {["JPG", "PNG", "WEBP"].map((f) => (
-                    <span key={f} className="px-2 py-0.5 bg-white/10 rounded text-[10px] text-white/60 font-mono">
+                    <span key={f} className="px-2 py-0.5 bg-white border border-gray-200 rounded text-[10px] text-gray-600 font-mono font-bold">
                       {f}
                     </span>
                   ))}
-                  <span className="px-2 py-0.5 bg-white/10 rounded text-[10px] text-white/60 font-mono">
+                  <span className="px-2 py-0.5 bg-white border border-gray-200 rounded text-[10px] text-gray-600 font-mono font-bold">
                     Max 10MB
                   </span>
                 </div>
@@ -333,8 +333,8 @@ function VirtualTryOnPanel({ selectedProduct }) {
           />
 
           {/* Tips */}
-          <div className="bg-[#C8920A]/10 border border-[#C8920A]/20 rounded-xl p-3 text-xs text-white/60 space-y-1">
-            <p className="font-semibold text-[#E8C55A] text-[11px] uppercase tracking-wider">
+          <div className="bg-[#EBE9E1] border border-gray-200/80 rounded-xl p-3.5 text-xs text-gray-600 space-y-1 font-medium">
+            <p className="font-bold text-[#E43D12] text-[11px] uppercase tracking-wider">
               Mẹo để có kết quả tốt nhất
             </p>
             <p>• Chụp ảnh toàn thân hoặc nửa người</p>
@@ -344,11 +344,13 @@ function VirtualTryOnPanel({ selectedProduct }) {
         </div>
 
         {/* ── Cột 2: Nút Try-On + Trạng thái ── */}
-        <div className="flex flex-col items-center justify-center gap-6 py-8">
-          {/* Garment preview nhỏ */}
+        <div className="flex flex-col items-center justify-center gap-6 py-6 h-full">
+          {/* Garment preview lớn rõ nét */}
           <div className="text-center">
-            <p className="text-xs text-white/50 uppercase tracking-wider mb-2">Đang thử</p>
-            <div className="w-20 h-28 mx-auto rounded-xl overflow-hidden border-2 border-[#C8920A]/40 shadow-lg">
+            <span className="text-xs text-[#E43D12] font-extrabold uppercase tracking-widest px-3 py-1 bg-[#E43D12]/10 rounded-full border border-[#E43D12]/20 inline-block mb-3">
+              ĐANG THỬ MẪU NÀY
+            </span>
+            <div className="w-36 h-48 sm:w-40 sm:h-52 mx-auto rounded-2xl overflow-hidden border-3 border-[#E43D12] shadow-xl hover:scale-105 transition-transform bg-white">
               {garmentImageUrl && (
                 <img
                   src={garmentImageUrl}
@@ -357,43 +359,43 @@ function VirtualTryOnPanel({ selectedProduct }) {
                 />
               )}
             </div>
-            <p className="text-xs font-semibold text-[#E8C55A] mt-2 max-w-[120px] mx-auto leading-tight">
+            <p className="font-heading font-bold text-sm sm:text-base text-gray-900 mt-3 max-w-[200px] mx-auto leading-snug">
               {selectedProduct?.name}
             </p>
+            <p className="text-xs font-bold text-[#E43D12] mt-1">{selectedProduct?.formattedPrice}</p>
           </div>
 
           {/* Arrow */}
-          <div className="flex flex-col items-center gap-1 text-[#C8920A]/50">
+          <div className="flex flex-col items-center gap-1.5 text-[#E43D12]/60">
             <ChevronRight className="w-5 h-5 rotate-90" />
-            <div className="w-px h-8 bg-[#C8920A]/30" />
-            <Wand2 className="w-5 h-5 text-[#C8920A] animate-pulse" />
-            <div className="w-px h-8 bg-[#C8920A]/30" />
+            <div className="w-px h-6 bg-[#E43D12]/40" />
+            <Wand2 className="w-6 h-6 text-[#E43D12] animate-pulse" />
+            <div className="w-px h-6 bg-[#E43D12]/40" />
             <ChevronRight className="w-5 h-5 rotate-90" />
           </div>
 
-          {/* CTA Button */}
+          {/* CTA Button Lớn Nổi Bật */}
           <button
             type="button"
             onClick={handleTryOn}
             disabled={status === "loading" || !personImage}
-            className={`relative w-full max-w-[200px] py-4 rounded-2xl font-bold text-sm flex flex-col items-center justify-center gap-2 transition-all duration-300 border-none cursor-pointer
-              ${status === "loading"
-                ? "bg-[#C8920A]/60 text-white/70 cursor-not-allowed"
+            className={`relative w-full max-w-[340px] py-5 px-8 rounded-2xl font-bold text-base sm:text-lg flex items-center justify-center gap-3 transition-all duration-300 border-none cursor-pointer shadow-xl ${
+              status === "loading"
+                ? "bg-[#E43D12]/60 text-white/70 cursor-not-allowed"
                 : !personImage
-                ? "bg-white/10 text-white/40 cursor-not-allowed"
-                : "bg-[#C8920A] hover:bg-[#E8C55A] hover:text-[#2C1A00] text-white shadow-xl hover:shadow-[#C8920A]/40 hover:scale-105"
-              }
-            `}
+                ? "bg-gray-200 text-gray-400 cursor-not-allowed"
+                : "bg-[#E43D12] hover:bg-[#c7320b] text-white shadow-[#E43D12]/30 hover:scale-105 active:scale-95"
+            }`}
           >
             {status === "loading" ? (
               <>
-                <RefreshCw className="w-5 h-5 animate-spin" />
+                <RefreshCw className="w-6 h-6 animate-spin" />
                 <span>Đang xử lý...</span>
               </>
             ) : (
               <>
-                <Sparkles className="w-5 h-5" />
-                <span>Thử Ngay</span>
+                <Sparkles className="w-6 h-6" />
+                <span>Thử Đồ Ngay Với AI</span>
               </>
             )}
           </button>
@@ -402,25 +404,25 @@ function VirtualTryOnPanel({ selectedProduct }) {
           {status === "loading" && (
             <div className="w-full max-w-[230px] space-y-3">
               {/* Current step badge */}
-              <div className="bg-black/40 border border-[#C8920A]/30 rounded-xl p-3 text-center backdrop-blur-sm">
+              <div className="bg-white border border-gray-200 rounded-xl p-3 text-center shadow-sm">
                 <span className="text-xl block mb-1">
                   {LOADING_STEPS[loadingStep]?.icon}
                 </span>
-                <p className="text-[11px] text-[#E8C55A] font-semibold leading-snug">
+                <p className="text-[11px] text-[#E43D12] font-bold leading-snug">
                   {LOADING_STEPS[loadingStep]?.label}
                 </p>
               </div>
 
               {/* Progress bar */}
               <div>
-                <div className="flex justify-between text-[10px] text-white/50 mb-1">
+                <div className="flex justify-between text-[10px] text-gray-600 mb-1 font-bold">
                   <span>Tiến độ</span>
-                  <span className="font-mono font-bold text-[#E8C55A]">{progress}%</span>
+                  <span className="font-mono font-extrabold text-[#E43D12]">{progress}%</span>
                 </div>
-                <div className="w-full h-2 bg-white/10 rounded-full overflow-hidden">
+                <div className="w-full h-2 bg-gray-200 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-gradient-to-r from-[#C8920A] via-[#E8C55A] to-[#C8920A] rounded-full transition-all duration-1500"
-                    style={{ width: `${progress}%`, backgroundSize: "200% 100%", animation: "shimmer 2s infinite" }}
+                    className="h-full bg-[#E43D12] rounded-full transition-all duration-1500"
+                    style={{ width: `${progress}%` }}
                   />
                 </div>
               </div>
@@ -432,14 +434,14 @@ function VirtualTryOnPanel({ selectedProduct }) {
                     key={i}
                     className={`rounded-full transition-all duration-500 ${
                       i <= loadingStep
-                        ? "w-2 h-2 bg-[#E8C55A]"
-                        : "w-1.5 h-1.5 bg-white/20"
+                        ? "w-2 h-2 bg-[#E43D12]"
+                        : "w-1.5 h-1.5 bg-gray-300"
                     }`}
                   />
                 ))}
               </div>
 
-              <p className="text-[10px] text-white/30 text-center">
+              <p className="text-[10px] text-gray-500 font-semibold text-center">
                 Quá trình mất 2–5 phút, vui lòng đợi
               </p>
             </div>
@@ -447,56 +449,56 @@ function VirtualTryOnPanel({ selectedProduct }) {
 
           {/* Status messages */}
           {status === "success" && (
-            <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold">
-              <CheckCircle2 className="w-4 h-4" />
+            <div className="flex items-center gap-2 text-emerald-700 text-xs font-bold">
+              <CheckCircle2 className="w-4 h-4 text-emerald-600" />
               <span>Hoàn tất!</span>
             </div>
           )}
 
           {status === "error" && (
-            <div className="w-full max-w-[220px] bg-red-900/80 border border-red-500/60 rounded-xl p-3 flex items-start gap-2 backdrop-blur-sm">
-              <AlertCircle className="w-4 h-4 text-red-400 shrink-0 mt-0.5" />
-              <p className="text-red-200 text-[11px] leading-snug text-left">{errorMsg}</p>
+            <div className="w-full max-w-[220px] bg-red-50 border border-red-200 rounded-xl p-3 flex items-start gap-2">
+              <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+              <p className="text-red-700 text-[11px] leading-snug text-left">{errorMsg}</p>
             </div>
           )}
         </div>
 
         {/* ── Cột 3: Kết quả Try-On ── */}
-        <div className="bg-white/5 border border-white/15 rounded-3xl p-6 flex flex-col gap-4">
+        <div className="bg-white border border-gray-200 rounded-3xl p-6 flex flex-col gap-4 shadow-md">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 rounded-lg bg-emerald-600 flex items-center justify-center">
+            <div className="w-7 h-7 rounded-lg bg-[#E43D12] flex items-center justify-center text-white">
               <Shirt className="w-4 h-4 text-white" />
             </div>
-            <h3 className="font-bold text-sm uppercase tracking-wider text-[#E8C55A]">
+            <h3 className="font-bold text-sm uppercase tracking-wider text-gray-900">
               Kết Quả Try-On
             </h3>
           </div>
 
           <div
-            className="rounded-2xl border-2 border-dashed border-white/15 overflow-hidden flex items-center justify-center bg-black/20"
+            className="rounded-2xl border-2 border-dashed border-gray-300 overflow-hidden flex items-center justify-center bg-[#EBE9E1]/50"
             style={{ minHeight: "280px" }}
           >
             {status === "loading" ? (
               /* Loading skeleton */
               <div className="flex flex-col items-center gap-4 p-8 text-center">
                 <div className="relative w-16 h-16">
-                  <div className="absolute inset-0 rounded-full border-4 border-[#C8920A]/30" />
-                  <div className="absolute inset-0 rounded-full border-4 border-t-[#C8920A] animate-spin" />
-                  <Sparkles className="absolute inset-0 m-auto w-6 h-6 text-[#E8C55A] animate-pulse" />
+                  <div className="absolute inset-0 rounded-full border-4 border-[#E43D12]/30" />
+                  <div className="absolute inset-0 rounded-full border-4 border-t-[#E43D12] animate-spin" />
+                  <Sparkles className="absolute inset-0 m-auto w-6 h-6 text-[#E43D12] animate-pulse" />
                 </div>
                 <div>
-                  <p className="font-semibold text-sm text-white/80">
+                  <p className="font-bold text-sm text-gray-900">
                     AI đang tạo hình ảnh...
                   </p>
-                  <p className="text-white/40 text-xs mt-1">
+                  <p className="text-gray-500 text-xs mt-1 font-medium">
                     Phân tích và kết hợp áo dài vào ảnh của bạn
                   </p>
                 </div>
                 {/* Shimmer skeleton */}
                 <div className="w-full max-w-[160px] space-y-2 mt-2">
-                  <div className="h-2 bg-white/10 rounded-full animate-pulse" />
-                  <div className="h-2 bg-white/10 rounded-full animate-pulse w-3/4 mx-auto" />
-                  <div className="h-2 bg-white/10 rounded-full animate-pulse w-1/2 mx-auto" />
+                  <div className="h-2 bg-gray-200 rounded-full animate-pulse" />
+                  <div className="h-2 bg-gray-200 rounded-full animate-pulse w-3/4 mx-auto" />
+                  <div className="h-2 bg-gray-200 rounded-full animate-pulse w-1/2 mx-auto" />
                 </div>
               </div>
             ) : resultImage ? (
@@ -508,10 +510,10 @@ function VirtualTryOnPanel({ selectedProduct }) {
               />
             ) : (
               <div className="flex flex-col items-center gap-3 p-8 text-center">
-                <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center">
-                  <Sparkles className="w-7 h-7 text-white/20" />
+                <div className="w-14 h-14 rounded-2xl bg-[#EBE9E1] flex items-center justify-center">
+                  <Sparkles className="w-7 h-7 text-gray-400" />
                 </div>
-                <p className="text-white/30 text-xs">
+                <p className="text-gray-500 font-medium text-xs text-center">
                   Kết quả sẽ hiển thị<br />tại đây sau khi xử lý
                 </p>
               </div>
@@ -524,7 +526,7 @@ function VirtualTryOnPanel({ selectedProduct }) {
               <button
                 type="button"
                 onClick={handleDownload}
-                className="flex-1 py-2.5 bg-[#C8920A] hover:bg-[#E8C55A] hover:text-[#2C1A00] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer"
+                className="flex-1 py-2.5 bg-[#E43D12] hover:bg-[#EFB11D] hover:text-[#2C1A00] text-white rounded-xl text-xs font-bold flex items-center justify-center gap-1.5 transition-all cursor-pointer"
               >
                 <Download className="w-3.5 h-3.5" />
                 Tải ảnh về
@@ -614,23 +616,23 @@ export default function Product360Page() {
   const currentFrame = getCurrentFrame(selectedProduct, rotationAngle);
 
   return (
-    <div className="pt-28 pb-20 bg-[#C8A800] min-h-screen text-white relative overflow-hidden select-none">
+    <div className="pt-28 pb-20 bg-[#EBE9E1] min-h-screen text-gray-900 relative overflow-hidden select-none">
       {/* Dynamic Lighting Effects */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-[#C8920A]/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#E8C55A]/10 rounded-full blur-2xl pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-[#E43D12]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-96 h-96 bg-[#EFB11D]/10 rounded-full blur-2xl pointer-events-none" />
 
       <div className="container-page relative z-10">
         {/* Title Header */}
         <div className="text-center max-w-3xl mx-auto mb-10">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C8920A]/20 border border-[#C8920A]/40 text-[#E8C55A] text-xs font-bold uppercase tracking-wider mb-3">
-            <RotateCcw className="w-4 h-4 animate-spin" style={{ animationDuration: "10s" }} />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E43D12]/10 border border-[#E43D12]/20 text-[#E43D12] text-xs font-bold uppercase tracking-wider mb-3">
+            <RotateCcw className="w-4 h-4 text-[#E43D12] animate-spin" style={{ animationDuration: "10s" }} />
             <span>DaiVerse 360° Experience</span>
           </div>
-          <h1 className="font-heading text-3xl sm:text-5xl font-bold leading-tight">
+          <h1 className="font-heading text-3xl sm:text-5xl font-bold leading-tight text-gray-900">
             Trải Nghiệm Áo Dài 360°{" "}
-            <span className="text-[#E8C55A] italic">Cùng DaiVerse</span>
+            <span className="text-[#E43D12] italic font-heading">Cùng DaiVerse</span>
           </h1>
-          <p className="text-gray-300 mt-2 text-xs sm:text-sm max-w-xl mx-auto">
+          <p className="text-gray-600 mt-2 text-xs sm:text-sm max-w-xl mx-auto font-normal">
             Xoay và khám phá từng chi tiết thiết kế với góc nhìn 360°, mang đến
             trải nghiệm chân thực trước khi lựa chọn chiếc áo dài phù hợp.
           </p>
@@ -641,7 +643,7 @@ export default function Product360Page() {
           <div className="lg:col-span-8 flex flex-col items-center">
             <div
               ref={containerRef}
-              className="relative w-full max-w-lg aspect-[3/4] bg-gradient-to-b from-[#FFDF00] to-[#0D1F17] rounded-3xl border border-white/20 overflow-hidden shadow-2xl cursor-grab active:cursor-grabbing group"
+              className="relative w-full max-w-lg aspect-[3/4] bg-gradient-to-b from-[#1C4333] via-[#142D22] to-[#0F241C] rounded-3xl border border-gray-300 overflow-hidden shadow-2xl cursor-grab active:cursor-grabbing group"
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
@@ -662,19 +664,19 @@ export default function Product360Page() {
               />
 
               {/* Angle Tag Badge Overlay */}
-              <div className="absolute top-4 left-4 px-4 py-2 bg-black/70 backdrop-blur-md rounded-2xl border border-white/20 text-xs">
-                <p className="font-bold text-[#E8C55A] flex items-center gap-1.5">
-                  <Compass className="w-4 h-4 text-[#C8920A]" />
+              <div className="absolute top-4 left-4 px-4 py-2 bg-black/80 backdrop-blur-md rounded-2xl border border-white/20 text-xs">
+                <p className="font-bold text-[#EFB11D] flex items-center gap-1.5">
+                  <Compass className="w-4 h-4 text-[#E43D12]" />
                   <span>{selectedProduct.name}</span>
                 </p>
-                <p className="text-[#E8C55A] font-semibold text-[11px] mt-0.5">
+                <p className="text-[#EFB11D] font-semibold text-[11px] mt-0.5">
                   Góc chụp:{" "}
                   <span className="text-white font-bold">{currentFrame.label}</span>
                 </p>
               </div>
 
               {/* Digital Compass Degree Indicator */}
-              <div className="absolute top-4 right-4 px-3.5 py-1.5 bg-black/70 backdrop-blur-md rounded-full text-xs font-mono font-bold text-[#E8C55A] border border-white/20 flex items-center gap-1.5">
+              <div className="absolute top-4 right-4 px-3.5 py-1.5 bg-black/80 backdrop-blur-md rounded-full text-xs font-mono font-bold text-[#EFB11D] border border-white/20 flex items-center gap-1.5">
                 <div className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
                 <span>{Math.round(rotationAngle)}°</span>
               </div>
@@ -693,16 +695,16 @@ export default function Product360Page() {
                         e.stopPropagation();
                         setActiveHotspot(activeHotspot === idx ? null : idx);
                       }}
-                      className="relative w-8 h-8 rounded-full bg-[#C8920A] text-white flex items-center justify-center shadow-xl hover:scale-125 transition-all cursor-pointer"
+                      className="relative w-8 h-8 rounded-full bg-[#E43D12] text-white flex items-center justify-center shadow-xl hover:scale-125 transition-all cursor-pointer"
                     >
                       <Info className="w-4 h-4" />
-                      <span className="absolute inset-0 rounded-full bg-[#C8920A] animate-ping opacity-60" />
+                      <span className="absolute inset-0 rounded-full bg-[#E43D12] animate-ping opacity-60" />
                     </button>
 
                     {activeHotspot === idx && (
                       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-60 p-3.5 bg-white text-gray-900 rounded-2xl shadow-2xl border border-gray-200 z-30 text-xs animate-fadeIn">
-                        <h4 className="font-bold text-[#FFDF00] font-heading text-sm flex items-center gap-1">
-                          <Sparkles className="w-3.5 h-3.5 text-[#C8920A]" />
+                        <h4 className="font-bold text-[#EFB11D] font-heading text-sm flex items-center gap-1">
+                          <Sparkles className="w-3.5 h-3.5 text-[#E43D12]" />
                           <span>{hs.title}</span>
                         </h4>
                         <p className="text-gray-600 mt-1 leading-relaxed text-[11px]">
@@ -714,21 +716,21 @@ export default function Product360Page() {
                 ))}
 
               {/* Bottom Drag Instruction Pill */}
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-black/70 backdrop-blur-md rounded-full text-xs text-white flex items-center gap-2 border border-white/20 pointer-events-none">
-                <MoveHorizontal className="w-4 h-4 text-[#E8C55A] animate-pulse" />
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-black/80 backdrop-blur-md rounded-full text-xs text-white flex items-center gap-2 border border-white/20 pointer-events-none">
+                <MoveHorizontal className="w-4 h-4 text-[#EFB11D] animate-pulse" />
                 <span>Kéo trái / phải để xoay 360°</span>
               </div>
             </div>
 
             {/* Action Toolbar: Auto Rotate & Zoom */}
-            <div className="w-full max-w-lg mt-5 bg-white/5 p-4 rounded-2xl border border-white/10 flex items-center justify-between">
+            <div className="w-full max-w-lg mt-5 bg-white p-4 rounded-2xl border border-gray-200 shadow-sm flex items-center justify-between">
               <button
                 type="button"
                 onClick={() => setAutoRotate(!autoRotate)}
                 className={`px-3.5 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer ${
                   autoRotate
                     ? "bg-emerald-600 text-white shadow-md"
-                    : "bg-white/10 text-gray-200 hover:bg-white/20"
+                    : "bg-gray-100 text-gray-700 hover:bg-gray-200"
                 }`}
               >
                 {autoRotate ? (
@@ -745,18 +747,18 @@ export default function Product360Page() {
                 <button
                   type="button"
                   onClick={() => setZoomLevel((z) => Math.max(1, z - 0.2))}
-                  className="p-2 bg-white/10 hover:bg-white/20 rounded-xl text-white transition-all cursor-pointer"
+                  className="p-2 bg-gray-100 hover:bg-gray-200 rounded-xl text-gray-700 transition-all cursor-pointer"
                   title="Thu nhỏ"
                 >
                   <ZoomOut className="w-4 h-4" />
                 </button>
-                <span className="text-xs font-mono font-bold px-2">
+                <span className="text-xs font-mono font-bold text-gray-900 px-2">
                   {Math.round(zoomLevel * 100)}%
                 </span>
                 <button
                   type="button"
                   onClick={() => setZoomLevel((z) => Math.min(2, z + 0.2))}
-                  className="p-2 bg-white/10 hover:bg-white/20 rounded-xl text-white transition-all cursor-pointer"
+                  className="p-2 bg-gray-100 hover:bg-gray-200 rounded-xl text-gray-700 transition-all cursor-pointer"
                   title="Phóng to soi vải"
                 >
                   <ZoomIn className="w-4 h-4" />
@@ -766,12 +768,12 @@ export default function Product360Page() {
           </div>
 
           {/* Right Product Selector List */}
-          <div className="lg:col-span-4 bg-white/5 border border-white/15 p-6 rounded-3xl space-y-4">
+          <div className="lg:col-span-4 bg-white border border-gray-200 p-6 rounded-3xl space-y-4 shadow-md">
             <div>
-              <span className="text-xs uppercase tracking-widest text-[#C8920A] font-bold block mb-1">
+              <span className="text-xs uppercase tracking-widest text-[#E43D12] font-bold block mb-1">
                 Bộ Sưu Tập Áo Dài 3D
               </span>
-              <h3 className="font-heading font-bold text-xl text-[#E8C55A]">
+              <h3 className="font-heading font-bold text-xl text-gray-900">
                 Chọn Mẫu Trải Nghiệm 360°
               </h3>
             </div>
@@ -791,8 +793,8 @@ export default function Product360Page() {
                     }}
                     className={`w-full p-3 rounded-2xl border flex items-center gap-3 text-left transition-all cursor-pointer ${
                       isSelected
-                        ? "border-[#C8920A] bg-[#C8920A]/20 ring-1 ring-[#C8920A]"
-                        : "border-white/10 hover:bg-white/10"
+                        ? "border-[#E43D12] bg-[#E43D12]/5 ring-1 ring-[#E43D12]"
+                        : "border-gray-200 hover:border-gray-300 bg-white"
                     }`}
                   >
                     <img
@@ -802,19 +804,19 @@ export default function Product360Page() {
                     />
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center justify-between">
-                        <p className="font-semibold text-xs text-white truncate">
+                        <p className="font-semibold text-xs text-gray-900 truncate">
                           {prod.name}
                         </p>
                         {prod.images360 && (
-                          <span className="bg-[#C8920A] text-white text-[9px] px-1.5 py-0.5 rounded font-bold uppercase shrink-0">
+                          <span className="bg-[#E43D12] text-white text-[9px] px-1.5 py-0.5 rounded font-bold uppercase shrink-0">
                             3D
                           </span>
                         )}
                       </div>
-                      <p className="text-[11px] text-gray-300 mt-0.5 truncate">
+                      <p className="text-[11px] text-gray-500 mt-0.5 truncate">
                         {prod.fabric}
                       </p>
-                      <p className="text-xs font-bold text-[#E8C55A] mt-1">
+                      <p className="text-xs font-bold text-[#E43D12] mt-1">
                         {prod.formattedPrice}
                       </p>
                     </div>
@@ -825,11 +827,11 @@ export default function Product360Page() {
 
             {/* Try-On teaser badge */}
             {FEATURE_FLAGS.ENABLE_AI_TRY_ON && (
-              <div className="flex items-center gap-2 p-3 bg-[#C8920A]/15 border border-[#C8920A]/30 rounded-xl">
-                <Wand2 className="w-4 h-4 text-[#E8C55A] shrink-0" />
-                <p className="text-[11px] text-white/70 leading-snug">
+              <div className="flex items-center gap-2 p-3 bg-[#EBE9E1] border border-gray-200 rounded-xl">
+                <Wand2 className="w-4 h-4 text-[#E43D12] shrink-0" />
+                <p className="text-[11px] text-gray-600 leading-snug">
                   Cuộn xuống để thử{" "}
-                  <span className="text-[#E8C55A] font-semibold">
+                  <span className="text-[#E43D12] font-bold">
                     Virtual Try-On AI
                   </span>{" "}
                   với mẫu đang chọn
@@ -844,10 +846,10 @@ export default function Product360Page() {
           <>
             {/* Divider */}
             <div className="my-12 flex items-center gap-4">
-              <div className="flex-1 h-px bg-white/10" />
-              <div className="flex items-center gap-2 px-4 py-1.5 bg-[#C8920A]/20 border border-[#C8920A]/40 rounded-full">
-                <Sparkles className="w-4 h-4 text-[#E8C55A]" />
-                <span className="text-[#E8C55A] text-xs font-bold uppercase tracking-wider">
+              <div className="flex-1 h-px bg-gray-300" />
+              <div className="flex items-center gap-2 px-4 py-1.5 bg-white border border-gray-200 rounded-full shadow-xs">
+                <Sparkles className="w-4 h-4 text-[#E43D12]" />
+                <span className="text-[#E43D12] text-xs font-bold uppercase tracking-wider">
                   AI Virtual Try-On
                 </span>
               </div>

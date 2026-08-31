@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { RotateCcw, Info, Sparkles, MoveHorizontal, Play, Pause, Compass } from "lucide-react";
 import { PRODUCTS } from "../../data/products";
 
@@ -61,21 +61,22 @@ export default function Interactive360Preview({ onNavigateTo360 }) {
   const currentFrame = getCurrentFrame(selectedProduct, rotationAngle);
 
   return (
-    <section className="py-20 bg-[#FFDF00] text-white relative overflow-hidden select-none">
-      {/* Decorative background circle */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#C8920A]/10 rounded-full blur-3xl pointer-events-none"></div>
+    <section className="py-20 bg-[#13110C] text-white relative overflow-hidden select-none">
+      {/* Decorative background glow circles */}
+      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#E43D12]/15 rounded-full blur-[120px] pointer-events-none"></div>
+      <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#EFB11D]/10 rounded-full blur-[100px] pointer-events-none"></div>
 
       <div className="container-page relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Text Column */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#C8920A]/20 border border-[#C8920A]/40 text-[#E8C55A] text-xs font-semibold uppercase tracking-wider">
-              <RotateCcw className="w-3.5 h-3.5 animate-spin" style={{ animationDuration: "12s" }} />
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E43D12]/20 border border-[#E43D12]/50 text-[#EFB11D] text-xs font-semibold uppercase tracking-wider">
+              <RotateCcw className="w-3.5 h-3.5 animate-spin text-[#EFB11D]" style={{ animationDuration: "12s" }} />
               <span>Trải Nghiệm 3D 360° Thực Tế</span>
             </div>
 
-            <h2 className="font-heading text-4xl sm:text-5xl font-bold leading-tight">
-              Chi tiết từng <span className="text-[#E8C55A] italic">thớ lụa & đường thêu</span>
+            <h2 className="font-heading text-4xl sm:text-5xl font-bold leading-tight text-white">
+              Chi tiết từng <span className="text-[#EFB11D] italic font-heading">thớ lụa & đường thêu</span>
             </h2>
 
             <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
@@ -83,10 +84,10 @@ export default function Interactive360Preview({ onNavigateTo360 }) {
             </p>
 
             {/* Quick Angle Buttons */}
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/10 space-y-3">
-              <div className="flex items-center justify-between text-xs font-bold text-[#E8C55A]">
+            <div className="p-4 rounded-2xl bg-white/5 border border-white/15 backdrop-blur-md space-y-3">
+              <div className="flex items-center justify-between text-xs font-bold text-[#EFB11D]">
                 <span>Chuyển Góc Chụp 360:</span>
-                <span className="text-gray-400 font-mono">{Math.round(rotationAngle)}°</span>
+                <span className="text-amber-200/90 font-mono">{Math.round(rotationAngle)}°</span>
               </div>
               <div className="grid grid-cols-4 gap-2">
                 {[
@@ -102,10 +103,10 @@ export default function Interactive360Preview({ onNavigateTo360 }) {
                       setRotationAngle(btn.angle);
                       setAutoRotate(false);
                     }}
-                    className={`py-1.5 px-1 rounded-lg text-[11px] font-bold transition-all cursor-pointer text-center border ${
+                    className={`py-2 px-1 rounded-xl text-xs font-bold transition-all cursor-pointer text-center border ${
                       currentFrame.angle === btn.angle
-                        ? "bg-[#C8920A] text-white border-[#C8920A]"
-                        : "bg-white/5 text-gray-300 border-white/10 hover:bg-white/10"
+                        ? "bg-[#E43D12] text-white border-[#E43D12] shadow-lg shadow-[#E43D12]/40 scale-[1.02]"
+                        : "bg-white/10 text-white/90 border-white/15 hover:bg-white/20 hover:text-white"
                     }`}
                   >
                     {btn.label}
@@ -114,11 +115,11 @@ export default function Interactive360Preview({ onNavigateTo360 }) {
               </div>
             </div>
 
-            <div className="flex flex-wrap items-center gap-3">
+            <div className="flex flex-wrap items-center gap-3 pt-2">
               <button
                 type="button"
                 onClick={() => onNavigateTo360 && onNavigateTo360()}
-                className="px-7 py-3.5 bg-[#C8920A] text-white rounded-full font-bold hover:bg-[#C8920A]/90 shadow-xl shadow-[#C8920A]/30 flex items-center gap-2 transition-all cursor-pointer text-xs border-none"
+                className="px-7 py-3.5 bg-[#E43D12] text-white rounded-full font-bold hover:bg-[#E43D12]/90 shadow-xl shadow-[#E43D12]/30 flex items-center gap-2 transition-all cursor-pointer text-xs border-none"
               >
                 <Sparkles className="w-4 h-4" />
                 <span>Khám Phá Phòng 360° Đầy Đủ</span>
@@ -127,13 +128,13 @@ export default function Interactive360Preview({ onNavigateTo360 }) {
               <button
                 type="button"
                 onClick={() => setAutoRotate(!autoRotate)}
-                className={`px-5 py-3.5 rounded-full font-bold text-xs flex items-center gap-1.5 transition-all cursor-pointer border ${
+                className={`px-5 py-3.5 rounded-full font-bold text-xs flex items-center gap-2 transition-all cursor-pointer border ${
                   autoRotate
-                    ? "bg-emerald-600 text-white border-emerald-500"
-                    : "bg-white/10 text-gray-200 border-white/15 hover:bg-white/20"
+                    ? "bg-[#EFB11D] text-gray-950 border-[#EFB11D] shadow-lg shadow-[#EFB11D]/30"
+                    : "bg-white/10 text-white border-white/20 hover:bg-white/20 hover:border-white/30 backdrop-blur-sm"
                 }`}
               >
-                {autoRotate ? <Pause className="w-3.5 h-3.5" /> : <Play className="w-3.5 h-3.5" />}
+                {autoRotate ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
                 <span>{autoRotate ? "Dừng xoay" : "Tự xoay 360°"}</span>
               </button>
             </div>
@@ -142,7 +143,7 @@ export default function Interactive360Preview({ onNavigateTo360 }) {
           {/* Right 360 Canvas Viewer */}
           <div className="lg:col-span-7 flex flex-col items-center">
             <div
-              className="relative w-full max-w-md aspect-[3/4] bg-gradient-to-b from-[#FFDF00] to-[#0D1F17] rounded-3xl border border-white/15 overflow-hidden shadow-2xl cursor-grab active:cursor-grabbing group"
+              className="relative w-full max-w-md aspect-[3/4] bg-gradient-to-b from-[#EFB11D] to-[#0D1F17] rounded-3xl border border-white/15 overflow-hidden shadow-2xl cursor-grab active:cursor-grabbing group"
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
@@ -160,11 +161,11 @@ export default function Interactive360Preview({ onNavigateTo360 }) {
 
               {/* Angle Indicator Badge */}
               <div className="absolute top-4 left-4 px-3.5 py-1.5 bg-black/60 backdrop-blur-md rounded-2xl text-xs font-semibold text-white/90 border border-white/20 flex items-center gap-1.5">
-                <Compass className="w-3.5 h-3.5 text-[#E8C55A]" />
+                <Compass className="w-3.5 h-3.5 text-[#EFB11D]" />
                 <span>{currentFrame.label}</span>
               </div>
 
-              <div className="absolute top-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-mono text-[#E8C55A] border border-white/20 font-bold">
+              <div className="absolute top-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-mono text-[#EFB11D] border border-white/20 font-bold">
                 {Math.round(rotationAngle)}°
               </div>
 
@@ -182,16 +183,16 @@ export default function Interactive360Preview({ onNavigateTo360 }) {
                         e.stopPropagation();
                         setActiveHotspot(activeHotspot === idx ? null : idx);
                       }}
-                      className="relative w-7 h-7 rounded-full bg-[#C8920A] text-white flex items-center justify-center shadow-lg hover:scale-125 transition-transform cursor-pointer"
+                      className="relative w-7 h-7 rounded-full bg-[#E43D12] text-white flex items-center justify-center shadow-lg hover:scale-125 transition-transform cursor-pointer"
                     >
                       <Info className="w-4 h-4" />
-                      <span className="absolute inset-0 rounded-full bg-[#C8920A] animate-ping opacity-75"></span>
+                      <span className="absolute inset-0 rounded-full bg-[#E43D12] animate-ping opacity-75"></span>
                     </button>
 
                     {/* Hotspot Popup */}
                     {activeHotspot === idx && (
                       <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-56 p-3 bg-white text-gray-900 rounded-2xl shadow-2xl border border-gray-100 z-30 text-xs animate-fadeIn">
-                        <h4 className="font-bold text-[#FFDF00] font-heading">{hs.title}</h4>
+                        <h4 className="font-bold text-[#E43D12] font-heading">{hs.title}</h4>
                         <p className="text-gray-600 mt-1 leading-snug">{hs.description}</p>
                       </div>
                     )}
@@ -199,7 +200,7 @@ export default function Interactive360Preview({ onNavigateTo360 }) {
                 ))}
 
               <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-black/60 backdrop-blur-md rounded-full text-xs text-white/90 flex items-center gap-2 border border-white/20 pointer-events-none">
-                <MoveHorizontal className="w-4 h-4 text-[#E8C55A] animate-pulse" />
+                <MoveHorizontal className="w-4 h-4 text-[#EFB11D] animate-pulse" />
                 <span>Kéo rê chuột để xoay 360°</span>
               </div>
             </div>

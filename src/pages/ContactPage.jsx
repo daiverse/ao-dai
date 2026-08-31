@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+﻿import React, { useState } from "react";
 import { MapPin, Phone, Mail, Clock, Send, CheckCircle2 } from "lucide-react";
 import { useCart } from "../context/CartContext";
 
@@ -13,10 +13,10 @@ export default function ContactPage() {
   };
 
   return (
-    <div className="pt-28 pb-20 bg-[#FDF6C0] min-h-screen">
+    <div className="pt-28 pb-20 bg-[#EBE9E1] min-h-screen">
       <div className="container-page">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <p className="text-xs uppercase tracking-[0.3em] text-[#C8920A] font-bold mb-2">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#E43D12] font-bold mb-2">
             Kết Nối Cùng DaiVerse
           </p>
           <h1 className="font-heading text-4xl sm:text-5xl font-bold text-gray-900">
@@ -29,7 +29,7 @@ export default function ContactPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           {/* Info Card Left */}
-          <div className="lg:col-span-5 bg-[#FFDF00] text-[#2C1A00] p-8 rounded-3xl shadow-xl space-y-8">
+          <div className="lg:col-span-5 bg-[#EFB11D] text-[#2C1A00] p-8 rounded-3xl shadow-xl space-y-8">
             <h3 className="font-heading font-bold text-2xl text-[#2C1A00]">Showroom Trải Nghiệm</h3>
             
             <div className="space-y-6 text-sm text-[#2C1A00]/80">
@@ -130,7 +130,7 @@ export default function ContactPage() {
                     placeholder="Nguyễn Văn A"
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 bg-[#FDF6C0] border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#FFDF00]"
+                    className="w-full px-4 py-3 bg-[#EBE9E1] border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#EFB11D]"
                   />
                 </div>
                 <div>
@@ -141,7 +141,7 @@ export default function ContactPage() {
                     placeholder="0901234567"
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-4 py-3 bg-[#FDF6C0] border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#FFDF00]"
+                    className="w-full px-4 py-3 bg-[#EBE9E1] border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#EFB11D]"
                   />
                 </div>
               </div>
@@ -153,7 +153,7 @@ export default function ContactPage() {
                   placeholder="yourname@gmail.com"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className="w-full px-4 py-3 bg-[#FDF6C0] border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#FFDF00]"
+                  className="w-full px-4 py-3 bg-[#EBE9E1] border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#EFB11D]"
                 />
               </div>
 
@@ -165,15 +165,15 @@ export default function ContactPage() {
                   placeholder="Nhập nội dung cần hỗ trợ..."
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                  className="w-full px-4 py-3 bg-[#FDF6C0] border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#FFDF00]"
+                  className="w-full px-4 py-3 bg-[#EBE9E1] border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#EFB11D]"
                 ></textarea>
               </div>
 
               <button
                 type="submit"
-                className="w-full py-4 bg-[#FFDF00] text-white font-bold rounded-2xl hover:bg-[#FFDF00]/90 shadow-xl shadow-[#FFDF00]/20 flex items-center justify-center gap-2 transition-all cursor-pointer text-sm"
+                className="w-full py-4 bg-[#EFB11D] text-white font-bold rounded-2xl hover:bg-[#EFB11D]/90 shadow-xl shadow-[#EFB11D]/20 flex items-center justify-center gap-2 transition-all cursor-pointer text-sm"
               >
-                <Send className="w-4 h-4 text-[#E8C55A]" />
+                <Send className="w-4 h-4 text-[#EFB11D]" />
                 <span>Gửi Yêu Cầu Tư Vấn</span>
               </button>
             </form>

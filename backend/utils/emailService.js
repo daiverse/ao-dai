@@ -414,4 +414,161 @@ const sendCustomerThankYouEmail = async (order) => {
   });
 };
 
-module.exports = { sendOTPEmail, sendResetPasswordEmail, sendNewOrderNotificationToAdmin, sendCustomerThankYouEmail };
+// ── Gửi thông báo đặt hàng thiết kế AI đến Admin (kèm ảnh AI & hình thức giao hàng) ──
+const sendAiDesignOrderToAdmin = async ({ name, phone, email, size, deliveryOption, address, note, designName, designImage, price }) => {
+  const adminMail = process.env.ADMIN_EMAIL || "admin@daiverse.com.vn";
+  const orderCode = `AI-${Date.now()}`;
+  const is24h = deliveryOption === "express24h";
+
+  const subject = is24h
+    ? `⚡ [GẮN NHÃN 24H - ĐẶT HÀNG THIẾT KẾ AI] ${orderCode} — Khách: ${name}`
+    : `🎨 [ĐẶT HÀNG THIẾT KẾ AI] ${orderCode} — Khách: ${name}`;
+
+  const imageTag = designImage
+    ? `<img src="${designImage}" alt="Thiết kế AI" style="width:100%;max-width:360px;border-radius:12px;border:2px solid #EFB11D;display:block;margin:0 auto;" />`
+    : `<p style="color:#9CA3AF;text-align:center;">(Không có ảnh thiết kế)</p>`;
+
+  const html = baseTemplate(`
+    ${is24h
+      ? `<div class="badge-24h">⚡ GẮN NHÃN GIAO 24H (HỎA TỐC HÀ NỘI - GIAO GẤP 2H - 24H)</div>`
+      : `<div style="margin-bottom:16px;"><span class="badge-standard">📦 Giao hàng tiêu chuẩn toàn quốc (Freeship)</span></div>`
+    }
+
+    <div style="text-align:center;margin-bottom:24px;">
+      <div style="font-size:36px;margin-bottom:6px;">🎨</div>
+      <h2 style="color:#18392B;font-size:20px;">ĐƠN ĐẶT HÀNG THIẾT KẾ AI MỚI</h2>
+      <p style="color:#6B7280;font-size:13px;">Khách hàng đã tạo thiết kế AI và xác nhận đặt mua tại DaiVerse Studio</p>
+    </div>
+
+    <table class="form-table">
+      <thead>
+        <tr><th colspan="2">👤 THÔNG TIN KHÁCH HÀNG</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="label">Mã đơn AI:</td><td><strong style="color:#E43D12;">${orderCode}</strong></td></tr>
+        <tr><td class="label">Họ và tên:</td><td><strong>${name}</strong></td></tr>
+        <tr><td class="label">Số điện thoại:</td><td><a href="tel:${phone}" style="color:#C85A32;font-weight:700;text-decoration:none;">${phone}</a></td></tr>
+        <tr><td class="label">Email khách:</td><td><strong>${email || "Chưa cung cấp email"}</strong></td></tr>
+        <tr><td class="label">Hình thức giao hàng:</td><td>
+          ${is24h
+            ? `<span style="background:#FEE2E2;color:#DC2626;padding:4px 10px;border-radius:6px;font-weight:800;font-size:12px;">⚡ GẮN NHÃN 24H (GIAO GẤP 2H - 24H HÀ NỘI)</span>`
+            : `<span style="background:#E5E7EB;color:#374151;padding:4px 10px;border-radius:6px;font-weight:600;font-size:12px;">📦 Giao hàng tiêu chuẩn toàn quốc</span>`
+          }
+        </td></tr>
+        <tr><td class="label">Địa chỉ giao hàng:</td><td>${address || "Chưa nhập địa chỉ cụ thể"}</td></tr>
+        <tr><td class="label">Size áo:</td><td><strong>${size}</strong></td></tr>
+        <tr><td class="label">Ghi chú:</td><td style="color:#D97706;">${note || "Không có ghi chú"}</td></tr>
+      </tbody>
+    </table>
+
+    <table class="form-table">
+      <thead>
+        <tr><th colspan="2">🪡 THÔNG TIN THIẾT KẾ AI</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="label">Tên thiết kế:</td><td><strong>${designName || "Thiết kế AI DaiVerse"}</strong></td></tr>
+        <tr><td class="label">Giá thiết kế:</td><td><strong style="color:#C85A32;font-size:15px;">${price || "2.150.000đ"}</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div style="margin:24px 0;">
+      <p style="font-weight:700;color:#18392B;margin-bottom:12px;font-size:14px;">🖼️ HÌNH ẢNH THIẾT KẾ AI KHÁCH CHỌN:</p>
+      <div style="background:#FBF9F5;border:1px solid #E5E7EB;border-radius:16px;padding:16px;text-align:center;">
+        ${imageTag}
+      </div>
+    </div>
+
+    <div style="background:#FEF3C7;border:1px solid #F59E0B;border-radius:12px;padding:14px;margin-top:16px;">
+      <p style="font-weight:700;color:#92400E;margin-bottom:4px;">📌 Hành động cần thực hiện:</p>
+      <p style="color:#78350F;font-size:13px;margin:0;">Liên hệ khách hàng qua SĐT <strong>${phone}</strong> ${email ? `hoặc Email <strong>${email}</strong>` : ""} để xác nhận đơn hàng và trao đổi chi tiết may đo.</p>
+    </div>
+  `);
+
+  await sendMail({
+    from: `"DaiVerse AI Studio" <${process.env.EMAIL_USER || "admin@daiverse.com.vn"}>`,
+    to: adminMail,
+    subject,
+    html,
+  });
+};
+
+// ── Gửi Email Cảm Ơn Khách Hàng sau khi đặt Thiết Kế AI ─────────────────────
+const sendAiDesignThankYouEmailToCustomer = async ({ email, name, phone, size, deliveryOption, address, note, designName, designImage, price }) => {
+  if (!email) return;
+
+  const adminMail = process.env.ADMIN_EMAIL || "admin@daiverse.com.vn";
+  const orderCode = `AI-${Date.now()}`;
+  const is24h = deliveryOption === "express24h";
+
+  const subject = `🌸 [DaiVerse] Cảm ơn ${name} đã đặt may thiết kế AI (Mã đơn: ${orderCode})`;
+
+  const imageTag = designImage
+    ? `<img src="${designImage}" alt="Thiết kế AI" style="width:100%;max-width:360px;border-radius:12px;border:2px solid #EFB11D;display:block;margin:0 auto;" />`
+    : `<p style="color:#9CA3AF;text-align:center;">(Mẫu thiết kế áo dài AI của bạn)</p>`;
+
+  const html = baseTemplate(`
+    <div style="text-align:center;margin-bottom:20px;">
+      <div style="font-size:40px;margin-bottom:8px;">🌸</div>
+      <h2 style="color:#18392B;font-size:22px;">CẢM ƠN BẠN ĐÃ ĐẶT MAY THIẾT KẾ AI TẠI DAIVERSE!</h2>
+      <p style="color:#6B7280;font-size:13px;">Đơn đặt thiết kế độc bản của bạn đã được chuyển tới các nghệ nhân xưởng may thủ công.</p>
+    </div>
+
+    <div style="background:#FBF9F5;border-left:4px solid #C85A32;padding:16px;border-radius:12px;margin-bottom:24px;">
+      <p style="margin-bottom:6px;font-weight:700;color:#18392B;">Kính gửi chị/anh ${name},</p>
+      <p style="margin-bottom:0;color:#4B5563;font-size:13px;line-height:1.6;">
+        DaiVerse Studio xin gửi lời cảm ơn chân thành tới chị/anh đã sáng tạo và lựa chọn thiết kế áo dài độc bản từ AI Studio. Đội ngũ nghệ nhân sẽ sớm liên hệ qua SĐT <strong>${phone}</strong> để xác nhận số đo và hoàn thiện trang phục dành riêng cho bạn.
+      </p>
+    </div>
+
+    <table class="form-table">
+      <thead>
+        <tr><th colspan="2">📍 THÔNG TIN ĐƠN ĐẶT HÀNG THIẾT KẾ AI #${orderCode}</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="label">Họ và tên người nhận:</td><td><strong>${name}</strong></td></tr>
+        <tr><td class="label">Số điện thoại liên hệ:</td><td><strong style="color:#C85A32;">${phone}</strong></td></tr>
+        <tr><td class="label">Hình thức giao hàng:</td><td>
+          ${is24h
+            ? `<span style="background:#FEE2E2;color:#DC2626;padding:4px 10px;border-radius:6px;font-weight:800;font-size:12px;">⚡ GIAO HÀNG HỎA TỐC 24H (HÀ NỘI)</span>`
+            : `<span style="background:#E5E7EB;color:#374151;padding:4px 10px;border-radius:6px;font-weight:600;font-size:12px;">📦 Giao hàng tiêu chuẩn toàn quốc (Freeship)</span>`
+          }
+        </td></tr>
+        <tr><td class="label">Địa chỉ giao hàng:</td><td>${address || "Sẽ xác nhận qua điện thoại"}</td></tr>
+        <tr><td class="label">Size chọn:</td><td><strong>Size ${size}</strong></td></tr>
+        <tr><td class="label">Ghi chú may đo:</td><td>${note || "Không có ghi chú"}</td></tr>
+      </tbody>
+    </table>
+
+    <table class="form-table">
+      <thead>
+        <tr><th colspan="2">🪡 SẢN PHẨM THIẾT KẾ AI</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="label">Tên tác phẩm AI:</td><td><strong>${designName || "Áo Dài Thiết Kế AI"}</strong></td></tr>
+        <tr><td class="label">Giá sản phẩm:</td><td><strong style="color:#C85A32;font-size:15px;">${price || "2.150.000đ"}</strong></td></tr>
+      </tbody>
+    </table>
+
+    <div style="margin:24px 0;">
+      <p style="font-weight:700;color:#18392B;margin-bottom:12px;font-size:14px;text-align:center;">🖼️ HÌNH ẢNH MẪU THIẾT KẾ AI BẠN ĐÃ TẠO:</p>
+      <div style="background:#FBF9F5;border:1px solid #E5E7EB;border-radius:16px;padding:16px;text-align:center;">
+        ${imageTag}
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:28px;padding-top:20px;border-top:1px solid #E5E7EB;color:#6B7280;font-size:12px;">
+      <p>Mọi thắc mắc về đơn hàng, quý khách vui lòng liên hệ CSKH DaiVerse Studio:</p>
+      <p style="margin-top:4px;">📞 Hotline 24/7: <strong>(+84) 394961557</strong> | ✉️ Email: <strong>${adminMail}</strong></p>
+    </div>
+  `);
+
+  await sendMail({
+    from: `"DaiVerse Studio" <${process.env.EMAIL_USER || "admin@daiverse.com.vn"}>`,
+    replyTo: adminMail,
+    to: email,
+    subject,
+    html,
+  });
+};
+
+module.exports = { sendOTPEmail, sendResetPasswordEmail, sendNewOrderNotificationToAdmin, sendCustomerThankYouEmail, sendAiDesignOrderToAdmin, sendAiDesignThankYouEmailToCustomer };

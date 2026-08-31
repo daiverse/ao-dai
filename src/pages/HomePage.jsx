@@ -9,7 +9,7 @@ import Testimonials from "../components/home/Testimonials";
 
 export default function HomePage({ onNavigate, onTryOn, onRotate360 }) {
   return (
-    <div className="bg-[#FDF6C0]">
+    <div className="bg-[#EBE9E1]">
       {/* 1. Hero Banner */}
       <HeroBanner onNavigate={onNavigate} />
 

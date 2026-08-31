@@ -53,7 +53,7 @@ export default function LookbookPage() {
 
         {/* Floating Top Badges */}
         <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10">
-          <span className="text-[11px] uppercase tracking-[0.2em] text-[#E8C55A] font-bold bg-[#FFDF00]/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 shadow-md">
+          <span className="text-[11px] uppercase tracking-[0.2em] text-[#EFB11D] font-bold bg-[#EFB11D]/90 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-white/10 shadow-md">
             BST {item.collectionName}
           </span>
           <div className="flex items-center gap-2">
@@ -61,15 +61,15 @@ export default function LookbookPage() {
               {item.totalImages} ảnh
             </span>
             <div className="p-2 rounded-full bg-white text-gray-900 shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300">
-              <Eye className="w-4 h-4 text-[#FFDF00]" />
+              <Eye className="w-4 h-4 text-[#EFB11D]" />
             </div>
           </div>
         </div>
 
         {/* Quick View Button overlay on hover */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 pointer-events-none">
-          <span className="px-5 py-2.5 bg-white/90 backdrop-blur-md text-[#FFDF00] text-xs font-bold rounded-full shadow-xl flex items-center gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-            <Eye className="w-4 h-4 text-[#C8920A]" />
+          <span className="px-5 py-2.5 bg-white/90 backdrop-blur-md text-[#EFB11D] text-xs font-bold rounded-full shadow-xl flex items-center gap-2 transform translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
+            <Eye className="w-4 h-4 text-[#E43D12]" />
             <span>Xem Bộ Ảnh Chi Tiết</span>
           </span>
         </div>
@@ -78,10 +78,10 @@ export default function LookbookPage() {
       {/* Bottom Information Card */}
       <div className="p-6 sm:p-7 bg-white flex-1 flex flex-col justify-between space-y-3">
         <div className="space-y-2">
-          <span className="text-xs uppercase tracking-wider text-[#C8920A] font-semibold block">
+          <span className="text-xs uppercase tracking-wider text-[#E43D12] font-semibold block">
             {item.fabric}
           </span>
-          <h3 className="font-heading text-2xl font-bold text-gray-900 leading-snug group-hover:text-[#C8920A] transition-colors">
+          <h3 className="font-heading text-2xl font-bold text-gray-900 leading-snug group-hover:text-[#E43D12] transition-colors">
             {item.title}
           </h3>
           <p className="text-xs text-gray-600 line-clamp-2 leading-relaxed font-light">
@@ -90,8 +90,8 @@ export default function LookbookPage() {
         </div>
 
         <div className="pt-3 flex items-center justify-between border-t border-gray-100 text-xs">
-          <span className="font-bold text-[#FFDF00] text-base">{item.formattedPrice}</span>
-          <span className="text-[#C8920A] font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1.5">
+          <span className="font-bold text-[#EFB11D] text-base">{item.formattedPrice}</span>
+          <span className="text-[#E43D12] font-bold group-hover:translate-x-1 transition-transform flex items-center gap-1.5">
             <span>Xem Chi Tiết</span>
             <ArrowRight className="w-4 h-4" />
           </span>
@@ -101,17 +101,17 @@ export default function LookbookPage() {
   );
 
   return (
-    <div className="pt-28 pb-20 bg-[#FDF6C0] min-h-screen">
+    <div className="pt-28 pb-20 bg-[#EBE9E1] min-h-screen">
       <div className="container-page">
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto mb-12 space-y-3">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FFDF00]/10 text-[#FFDF00] text-xs font-bold uppercase tracking-[0.25em]">
-            <Layers className="w-3.5 h-3.5 text-[#C8920A]" />
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#EFB11D]/10 text-[#EFB11D] text-xs font-bold uppercase tracking-[0.25em]">
+            <Layers className="w-3.5 h-3.5 text-[#E43D12]" />
             <span>Bộ Sưu Tập Áo Dài DaiVerse 2026</span>
           </div>
 
           <h1 className="font-heading text-4xl sm:text-5xl font-bold text-gray-900 leading-tight">
-            Lookbook High-Fashion <span className="font-heading italic text-[#C8920A]">DaiVerse</span>
+            Lookbook High-Fashion <span className="font-heading italic text-[#E43D12]">DaiVerse</span>
           </h1>
 
           <p className="text-gray-600 text-base sm:text-lg leading-relaxed font-light max-w-2xl mx-auto">
@@ -125,7 +125,7 @@ export default function LookbookPage() {
             onClick={() => setActiveFilter("all")}
             className={`px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer border-none outline-none ${
               activeFilter === "all"
-                ? "bg-[#FFDF00] text-white shadow-xl shadow-[#FFDF00]/20 scale-105"
+                ? "bg-[#EFB11D] text-white shadow-xl shadow-[#EFB11D]/20 scale-105"
                 : "bg-white text-gray-700 hover:bg-gray-100 shadow-sm border border-gray-200"
             }`}
           >
@@ -138,7 +138,7 @@ export default function LookbookPage() {
               onClick={() => setActiveFilter(col.id)}
               className={`px-6 py-3 rounded-full text-xs font-bold uppercase tracking-wider transition-all cursor-pointer border-none outline-none ${
                 activeFilter === col.id
-                  ? "bg-[#FFDF00] text-white shadow-xl shadow-[#FFDF00]/20 scale-105"
+                  ? "bg-[#EFB11D] text-white shadow-xl shadow-[#EFB11D]/20 scale-105"
                   : "bg-white text-gray-700 hover:bg-gray-100 shadow-sm border border-gray-200"
               }`}
             >
@@ -156,7 +156,7 @@ export default function LookbookPage() {
 
         {/* INTERSPERSED BANNER 1: BST Mộc Lan Feature Banner */}
         {activeFilter === "all" && (
-          <div className="my-16 rounded-3xl overflow-hidden shadow-2xl relative bg-[#FFDF00] text-white">
+          <div className="my-16 rounded-3xl overflow-hidden shadow-2xl relative bg-[#EFB11D] text-white">
             <div className="grid grid-cols-1 lg:grid-cols-12 items-center">
               <div className="lg:col-span-6 h-[320px] sm:h-[380px] lg:h-[420px] relative overflow-hidden">
                 <img
@@ -164,12 +164,12 @@ export default function LookbookPage() {
                   alt="BST Mộc Lan Editorial"
                   className="w-full h-full object-cover object-top"
                 />
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#FFDF00]/30 to-[#FFDF00] hidden lg:block"></div>
-                <div className="absolute inset-0 bg-gradient-to-t from-[#FFDF00] to-transparent lg:hidden"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-[#EFB11D]/30 to-[#EFB11D] hidden lg:block"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-[#EFB11D] to-transparent lg:hidden"></div>
               </div>
 
               <div className="lg:col-span-6 p-8 sm:p-10 lg:p-12 space-y-4">
-                <span className="text-xs uppercase tracking-[0.3em] text-[#E8C55A] font-bold block">
+                <span className="text-xs uppercase tracking-[0.3em] text-[#EFB11D] font-bold block">
                   BST Mộc Lan · 4 Thiết Kế Độc Bản
                 </span>
                 <h2 className="font-heading text-3xl sm:text-4xl font-bold leading-tight">
@@ -181,7 +181,7 @@ export default function LookbookPage() {
                 <div className="pt-3 flex flex-wrap items-center gap-3">
                   <button
                     onClick={() => setActiveFilter("moc-lan")}
-                    className="px-6 py-3 bg-[#C8920A] text-white rounded-full text-xs font-bold hover:bg-[#C8920A]/90 shadow-md cursor-pointer border-none"
+                    className="px-6 py-3 bg-[#E43D12] text-white rounded-full text-xs font-bold hover:bg-[#E43D12]/90 shadow-md cursor-pointer border-none"
                   >
                     Khám Phá BST Mộc Lan
                   </button>
@@ -200,7 +200,7 @@ export default function LookbookPage() {
 
         {/* INTERSPERSED BANNER 2: BST Phong Sắc Feature Banner */}
         {activeFilter === "all" && (
-          <div className="my-16 rounded-3xl overflow-hidden shadow-2xl relative bg-[#C8920A] text-white p-8 sm:p-12">
+          <div className="my-16 rounded-3xl overflow-hidden shadow-2xl relative bg-[#E43D12] text-white p-8 sm:p-12">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
               <div className="lg:col-span-8 space-y-4">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white/20 backdrop-blur-md text-xs font-bold uppercase tracking-wider">
@@ -217,7 +217,7 @@ export default function LookbookPage() {
               <div className="lg:col-span-4 flex lg:justify-end">
                 <button
                   onClick={() => setActiveFilter("phong-sac")}
-                  className="px-8 py-4 bg-white text-[#C8920A] rounded-full font-bold shadow-xl hover:bg-gray-100 transition-all flex items-center gap-2 text-sm cursor-pointer border-none"
+                  className="px-8 py-4 bg-white text-[#E43D12] rounded-full font-bold shadow-xl hover:bg-gray-100 transition-all flex items-center gap-2 text-sm cursor-pointer border-none"
                 >
                   <Eye className="w-4 h-4" />
                   <span>Xem BST Phong Sắc</span>

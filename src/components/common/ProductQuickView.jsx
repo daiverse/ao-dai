@@ -58,10 +58,10 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
         <div className="relative w-full max-w-5xl bg-white rounded-3xl shadow-2xl overflow-hidden animate-fade-in border border-gray-100 my-4 sm:my-8 z-10">
           
           {/* Top Header Bar */}
-          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-[#FDF6C0]">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100 bg-[#EBE9E1]">
             <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-[#C8920A]"></span>
-              <span className="text-xs uppercase font-bold tracking-[0.2em] text-[#FFDF00]">
+              <span className="w-2.5 h-2.5 rounded-full bg-[#E43D12]"></span>
+              <span className="text-xs uppercase font-bold tracking-[0.2em] text-[#EFB11D]">
                 Chi Tiết Sản Phẩm · DaiVerse
               </span>
             </div>
@@ -90,12 +90,12 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
                 {/* Overlay Badges */}
                 <div className="absolute top-3 left-3 flex flex-col gap-1.5 z-10">
                   {product.isExpress24h && (
-                    <span className="px-3 py-1 bg-[#C8920A] text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-md animate-pulse">
+                    <span className="px-3 py-1 bg-[#E43D12] text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-md animate-pulse">
                       ⚡ Giao Hỏa Tốc 24h
                     </span>
                   )}
                   {product.isNew && (
-                    <span className="px-3 py-1 bg-[#FFDF00] text-[#E8C55A] text-[10px] font-semibold uppercase tracking-wider rounded-full shadow-md">
+                    <span className="px-3 py-1 bg-[#EFB11D] text-white text-[10px] font-bold uppercase tracking-wider rounded-full shadow-md">
                       Mới 2026
                     </span>
                   )}
@@ -142,7 +142,7 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
                         onClick={() => setSelectedImageIdx(idx)}
                         className={`relative w-16 h-20 rounded-xl overflow-hidden border-2 transition-all shrink-0 cursor-pointer ${
                           selectedImageIdx === idx
-                            ? "border-[#C8920A] ring-2 ring-[#C8920A]/30 scale-105 shadow-md"
+                            ? "border-[#E43D12] ring-2 ring-[#E43D12]/30 scale-105 shadow-md"
                             : "border-gray-200 opacity-70 hover:opacity-100 hover:border-gray-400"
                         }`}
                       >
@@ -152,7 +152,7 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
                           className="w-full h-full object-cover"
                         />
                         {selectedImageIdx === idx && (
-                          <div className="absolute inset-0 bg-[#C8920A]/10"></div>
+                          <div className="absolute inset-0 bg-[#E43D12]/10"></div>
                         )}
                       </button>
                     ))}
@@ -168,9 +168,9 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
                       setQuickViewProduct(null);
                       if (onNavigateToTryOn) onNavigateToTryOn(product);
                     }}
-                    className="py-2.5 px-3 bg-[#FFDF00] text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-[#FFDF00]/90 shadow-sm cursor-pointer"
+                    className="py-2.5 px-3 bg-[#EFB11D] text-white rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-[#EFB11D]/90 shadow-sm cursor-pointer"
                   >
-                    <Sparkles className="w-3.5 h-3.5 text-[#E8C55A]" />
+                    <Sparkles className="w-3.5 h-3.5 text-white" />
                     <span>Thử Đồ AI</span>
                   </button>
                 )}
@@ -182,7 +182,7 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
                     }}
                     className="py-2.5 px-3 bg-white text-gray-800 border border-gray-200 rounded-xl text-xs font-semibold flex items-center justify-center gap-1.5 hover:bg-gray-100 shadow-sm cursor-pointer"
                   >
-                    <RotateCcw className="w-3.5 h-3.5 text-[#FFDF00]" />
+                    <RotateCcw className="w-3.5 h-3.5 text-[#EFB11D]" />
                     <span>Xem 360°</span>
                   </button>
                 )}
@@ -196,7 +196,7 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
               {/* Product Info Header */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="px-3 py-1 rounded-full bg-[#F5F2EB] text-[#C8920A] text-xs font-bold uppercase tracking-wider border border-[#E8C55A]/30">
+                  <span className="px-3 py-1 rounded-full bg-[#F5F2EB] text-[#E43D12] text-xs font-bold uppercase tracking-wider border border-[#EFB11D]/30">
                     {product.fabric || "Gấm Lụa Cao Cấp"}
                   </span>
                   
@@ -213,7 +213,7 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
 
                 {/* Price Display */}
                 <div className="flex items-baseline gap-3 pt-1">
-                  <span className="font-heading text-2xl font-bold text-[#FFDF00]">
+                  <span className="font-heading text-2xl font-bold text-[#EFB11D]">
                     {product.formattedPrice}
                   </span>
                   {product.formattedOriginalPrice && (
@@ -235,7 +235,7 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
                   onClick={() => setActiveTab("story")}
                   className={`pb-2.5 transition-all cursor-pointer border-b-2 flex items-center gap-1.5 ${
                     activeTab === "story"
-                      ? "border-[#FFDF00] text-[#FFDF00]"
+                      ? "border-[#EFB11D] text-[#EFB11D]"
                       : "border-transparent text-gray-400 hover:text-gray-700"
                   }`}
                 >
@@ -246,7 +246,7 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
                   onClick={() => setActiveTab("specs")}
                   className={`pb-2.5 transition-all cursor-pointer border-b-2 flex items-center gap-1.5 ${
                     activeTab === "specs"
-                      ? "border-[#FFDF00] text-[#FFDF00]"
+                      ? "border-[#EFB11D] text-[#EFB11D]"
                       : "border-transparent text-gray-400 hover:text-gray-700"
                   }`}
                 >
@@ -256,13 +256,13 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
 
               {/* TAB CONTENT 1: CÂU CHUYỆN THIẾT KẾ FROM DOCX */}
               {activeTab === "story" && (
-                <div className="bg-[#FDF6C0] p-5 rounded-2xl border border-[#E8C55A]/40 space-y-3 relative max-h-64 overflow-y-auto pr-3 shadow-inner">
-                  <div className="sticky top-0 right-0 float-right pl-3 pb-1 text-[#E8C55A]/30 pointer-events-none">
+                <div className="bg-[#EBE9E1] p-5 rounded-2xl border border-[#EFB11D]/40 space-y-3 relative max-h-64 overflow-y-auto pr-3 shadow-inner">
+                  <div className="sticky top-0 right-0 float-right pl-3 pb-1 text-[#EFB11D]/30 pointer-events-none">
                     <BookOpen className="w-6 h-6" />
                   </div>
 
                   {product.storyTitle && (
-                    <h3 className="font-heading font-bold text-base text-[#FFDF00] tracking-wide border-b border-[#E8C55A]/20 pb-2">
+                    <h3 className="font-heading font-bold text-base text-[#EFB11D] tracking-wide border-b border-[#EFB11D]/20 pb-2">
                       {product.storyTitle}
                     </h3>
                   )}
@@ -298,7 +298,7 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
                     <button
                       type="button"
                       onClick={() => setIsSizeGuideOpen(true)}
-                      className="text-xs text-[#C8920A] font-medium underline cursor-pointer bg-transparent border-none p-0"
+                      className="text-xs text-[#E43D12] font-medium underline cursor-pointer bg-transparent border-none p-0"
                     >
                       Bảng Hướng Dẫn May Đo
                     </button>
@@ -310,7 +310,7 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
                         onClick={() => setSelectedSize(sz)}
                         className={`px-4 py-2 text-xs font-bold rounded-xl border transition-all cursor-pointer ${
                           selectedSize === sz
-                            ? "border-[#FFDF00] bg-[#FFDF00] text-white shadow-md"
+                            ? "border-[#EFB11D] bg-[#EFB11D] text-white shadow-md"
                             : "border-gray-200 bg-white text-gray-700 hover:border-gray-400"
                         }`}
                       >
@@ -324,15 +324,15 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
               {/* GUARANTEES BAR */}
               <div className="grid grid-cols-3 gap-2 py-3 border-y border-gray-100 text-[11px] text-gray-600 font-medium">
                 <div className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-[#FFDF00]" />
+                  <ShieldCheck className="w-4 h-4 text-[#EFB11D]" />
                   <span>Cam Kết May Tỉ Mỉ</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <Truck className="w-4 h-4 text-[#FFDF00]" />
+                  <Truck className="w-4 h-4 text-[#EFB11D]" />
                   <span>Giao Hàng Hỏa Tốc</span>
                 </div>
                 <div className="flex items-center gap-1.5">
-                  <RefreshCw className="w-4 h-4 text-[#FFDF00]" />
+                  <RefreshCw className="w-4 h-4 text-[#EFB11D]" />
                   <span>Đổi Size 15 Ngày</span>
                 </div>
               </div>
@@ -340,9 +340,9 @@ export default function ProductQuickView({ onNavigateToTryOn, onNavigateTo360 })
               {/* ADD TO CART ACTION BUTTON */}
               <button
                 onClick={handleAddToCart}
-                className="w-full py-4 bg-gradient-to-r from-[#FFDF00] to-[#153125] text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:opacity-95 shadow-xl transition-all cursor-pointer text-sm tracking-wide"
+                className="w-full py-4 bg-gradient-to-r from-[#EFB11D] to-[#153125] text-white rounded-2xl font-bold flex items-center justify-center gap-2 hover:opacity-95 shadow-xl transition-all cursor-pointer text-sm tracking-wide"
               >
-                <ShoppingBag className="w-5 h-5 text-[#E8C55A]" />
+                <ShoppingBag className="w-5 h-5 text-white" />
                 <span>THÊM VÀO GIỎ HÀNG — {product.formattedPrice}</span>
               </button>
 

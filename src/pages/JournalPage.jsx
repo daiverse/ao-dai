@@ -28,7 +28,7 @@ export default function JournalPage() {
     const relatedArticles = ARTICLES.filter(a => a.id !== selectedArticle.id).slice(0, 3);
 
     return (
-      <div className="pt-28 sm:pt-32 pb-24 bg-[#FDF6C0] min-h-screen text-gray-900">
+      <div className="pt-28 sm:pt-32 pb-24 bg-[#EBE9E1] min-h-screen text-gray-900">
         <div className="container-page max-w-5xl mx-auto">
           {/* Top Navigation & Breadcrumbs */}
           <div className="flex flex-wrap items-center justify-between gap-4 mb-8 pt-4">
@@ -37,20 +37,20 @@ export default function JournalPage() {
                 setSelectedArticle(null);
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-gray-200 text-gray-800 text-xs font-bold hover:bg-[#FFDF00] hover:text-white transition-all shadow-sm cursor-pointer"
+              className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-gray-200 text-gray-800 text-xs font-bold hover:bg-[#EFB11D] hover:text-white transition-all shadow-sm cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Quay Lại Trang Tạp Chí</span>
             </button>
 
             <div className="text-xs text-gray-500 font-medium">
-              <span>Tạp Chí</span> <span className="mx-1">/</span> <span className="text-[#C8920A] font-semibold">{selectedArticle.category}</span>
+              <span>Tạp Chí</span> <span className="mx-1">/</span> <span className="text-[#E43D12] font-semibold">{selectedArticle.category}</span>
             </div>
           </div>
 
           {/* Article Editorial Header */}
           <header className="space-y-6 mb-10 text-center max-w-4xl mx-auto">
-            <span className="text-xs uppercase tracking-[0.3em] text-[#C8920A] font-bold px-4 py-1.5 rounded-full bg-[#C8920A]/10 border border-[#C8920A]/20 inline-block">
+            <span className="text-xs uppercase tracking-[0.3em] text-[#E43D12] font-bold px-4 py-1.5 rounded-full bg-[#E43D12]/10 border border-[#E43D12]/20 inline-block">
               {selectedArticle.category}
             </span>
 
@@ -60,23 +60,23 @@ export default function JournalPage() {
 
             <div className="flex flex-wrap items-center justify-center gap-6 text-xs sm:text-sm text-gray-600 border-y border-gray-200/80 py-4">
               <span className="flex items-center gap-2 font-medium">
-                <User className="w-4 h-4 text-[#C8920A]" />
+                <User className="w-4 h-4 text-[#E43D12]" />
                 {selectedArticle.author}
               </span>
               <span className="flex items-center gap-2">
-                <Calendar className="w-4 h-4 text-[#C8920A]" />
+                <Calendar className="w-4 h-4 text-[#E43D12]" />
                 {selectedArticle.date}
               </span>
               <span className="flex items-center gap-2">
-                <Clock className="w-4 h-4 text-[#C8920A]" />
+                <Clock className="w-4 h-4 text-[#E43D12]" />
                 {selectedArticle.readTime}
               </span>
             </div>
 
             {/* Citation Banner Header */}
-            <div className="bg-[#FFDF00]/5 border border-[#FFDF00]/15 p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-left max-w-3xl mx-auto">
+            <div className="bg-[#EFB11D]/5 border border-[#EFB11D]/15 p-4 rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-left max-w-3xl mx-auto">
               <div className="flex items-center gap-2.5 text-gray-800 font-medium">
-                <Globe className="w-4 h-4 text-[#FFDF00] shrink-0" />
+                <Globe className="w-4 h-4 text-[#EFB11D] shrink-0" />
                 <span><strong>Nguồn trích dẫn uy tín:</strong> {selectedArticle.sourceName}</span>
               </div>
               {selectedArticle.sourceUrl && (
@@ -84,7 +84,7 @@ export default function JournalPage() {
                   href={selectedArticle.sourceUrl}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-flex items-center gap-1.5 text-[#C8920A] font-bold hover:underline shrink-0"
+                  className="inline-flex items-center gap-1.5 text-[#E43D12] font-bold hover:underline shrink-0"
                 >
                   <span>Truy cập trang nguồn</span>
                   <ExternalLink className="w-3.5 h-3.5" />
@@ -106,7 +106,7 @@ export default function JournalPage() {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 mb-16">
             {/* Main Text Content */}
             <main className="lg:col-span-8 space-y-8 bg-white p-8 sm:p-12 rounded-3xl border border-gray-100 shadow-md">
-              <div className="text-lg sm:text-xl font-heading text-[#FFDF00] font-semibold leading-relaxed border-l-4 border-[#C8920A] pl-5 italic">
+              <div className="text-lg sm:text-xl font-heading text-[#EFB11D] font-semibold leading-relaxed border-l-4 border-[#E43D12] pl-5 italic">
                 "{selectedArticle.excerpt}"
               </div>
 
@@ -114,7 +114,7 @@ export default function JournalPage() {
                 {selectedArticle.sections ? (
                   selectedArticle.sections.map((sec, idx) => (
                     <div key={idx} className="space-y-4 pt-4 border-t border-gray-100 first:border-none first:pt-0">
-                      <h2 className="font-heading text-2xl sm:text-3xl font-bold text-[#FFDF00] leading-snug">
+                      <h2 className="font-heading text-2xl sm:text-3xl font-bold text-[#EFB11D] leading-snug">
                         {sec.heading}
                       </h2>
                       <div className="text-gray-700 leading-[1.9] font-light whitespace-pre-line">
@@ -130,9 +130,9 @@ export default function JournalPage() {
               </div>
 
               {/* Bottom Original Source Link Card */}
-              <div className="mt-12 p-5 sm:p-6 bg-gradient-to-r from-[#FFDF00] to-[#C8A800] text-white rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl border border-white/10">
+              <div className="mt-12 p-5 sm:p-6 bg-gradient-to-r from-[#EFB11D] to-[#C8A800] text-white rounded-2xl flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-xl border border-white/10">
                 <div className="space-y-1">
-                  <span className="text-[11px] text-[#E8C55A] uppercase tracking-widest font-bold block">
+                  <span className="text-[11px] text-[#EFB11D] uppercase tracking-widest font-bold block">
                     🔗 Nguồn bài viết gốc
                   </span>
                   <p className="text-sm font-semibold text-white/90">
@@ -144,7 +144,7 @@ export default function JournalPage() {
                     href={selectedArticle.sourceUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="px-5 py-2.5 bg-[#C8920A] hover:bg-[#C8920A]/90 text-white text-xs font-bold rounded-full transition-all flex items-center justify-center gap-2 shrink-0 shadow-lg border-none no-underline cursor-pointer whitespace-nowrap"
+                    className="px-5 py-2.5 bg-[#E43D12] hover:bg-[#E43D12]/90 text-white text-xs font-bold rounded-full transition-all flex items-center justify-center gap-2 shrink-0 shadow-lg border-none no-underline cursor-pointer whitespace-nowrap"
                   >
                     <span>Đọc bài gốc</span>
                     <ExternalLink className="w-3.5 h-3.5" />
@@ -157,7 +157,7 @@ export default function JournalPage() {
             <aside className="lg:col-span-4 space-y-8">
               {/* Author Box */}
               <div className="p-6 bg-white rounded-3xl border border-gray-100 shadow-sm space-y-3">
-                <span className="text-[11px] font-bold text-[#C8920A] uppercase tracking-wider block">Tác Giả & Biên Tập</span>
+                <span className="text-[11px] font-bold text-[#E43D12] uppercase tracking-wider block">Tác Giả & Biên Tập</span>
                 <h3 className="font-heading font-bold text-lg text-gray-900">{selectedArticle.author}</h3>
                 <p className="text-xs text-gray-500 font-light leading-relaxed">
                   Chuyên san nghiên cứu văn hóa may mặc Áo dài Việt Nam thuộc DaiVerse Journal.
@@ -174,14 +174,14 @@ export default function JournalPage() {
                     <div
                       key={rel.id}
                       onClick={() => handleSelectArticle(rel)}
-                      className="group cursor-pointer flex gap-3 items-center hover:bg-[#FDF6C0] p-2 rounded-2xl transition-colors"
+                      className="group cursor-pointer flex gap-3 items-center hover:bg-[#EBE9E1] p-2 rounded-2xl transition-colors"
                     >
                       <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 bg-gray-100">
                         <img src={rel.image} alt={rel.title} className="w-full h-full object-cover object-top" />
                       </div>
                       <div className="space-y-1">
-                        <span className="text-[10px] text-[#C8920A] font-bold uppercase">{rel.category}</span>
-                        <h4 className="font-heading text-xs font-bold text-gray-900 group-hover:text-[#C8920A] transition-colors line-clamp-2 leading-snug">
+                        <span className="text-[10px] text-[#E43D12] font-bold uppercase">{rel.category}</span>
+                        <h4 className="font-heading text-xs font-bold text-gray-900 group-hover:text-[#E43D12] transition-colors line-clamp-2 leading-snug">
                           {rel.title}
                         </h4>
                       </div>
@@ -199,7 +199,7 @@ export default function JournalPage() {
                 setSelectedArticle(null);
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }}
-              className="px-8 py-4 bg-[#FFDF00] text-white rounded-full font-bold text-xs uppercase tracking-wider hover:bg-[#FFDF00]/90 shadow-xl transition-all flex items-center gap-2 cursor-pointer border-none"
+              className="px-8 py-4 bg-[#EFB11D] text-white rounded-full font-bold text-xs uppercase tracking-wider hover:bg-[#EFB11D]/90 shadow-xl transition-all flex items-center gap-2 cursor-pointer border-none"
             >
               <ArrowLeft className="w-4 h-4" />
               <span>Quay Lại Danh Sách Tạp Chí</span>
@@ -212,7 +212,7 @@ export default function JournalPage() {
 
   // DEFAULT VIEW: Journal Index Page
   return (
-    <div className="bg-[#FDF6C0] min-h-screen pb-24">
+    <div className="bg-[#EBE9E1] min-h-screen pb-24">
       {/* 1. HERO BANNER */}
       <section className="relative min-h-[50vh] lg:min-h-[55vh] overflow-hidden flex items-end">
         <div className="absolute inset-0 grid grid-cols-3">
@@ -240,16 +240,16 @@ export default function JournalPage() {
         </div>
 
         {/* Dark gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-t from-[#FFDF00] via-[#FFDF00]/80 to-[#FFDF00]/50"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-[#EFB11D] via-[#EFB11D]/80 to-[#EFB11D]/50"></div>
 
         {/* Hero Text */}
         <div className="relative container-page w-full pb-12 lg:pb-16 pt-36 text-center">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[#E8C55A] text-xs font-bold uppercase tracking-[0.25em] mb-4 border border-white/10">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md text-[#EFB11D] text-xs font-bold uppercase tracking-[0.25em] mb-4 border border-white/10">
             <BookOpen className="w-4 h-4" />
             <span>Tạp Chí Áo Dài DaiVerse Journal</span>
           </div>
           <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-tight">
-            Tri Thức Di Sản & <em className="text-[#E8C55A] font-heading italic font-normal">Nghệ Thuật Áo Dài</em>
+            Tri Thức Di Sản & <em className="text-[#EFB11D] font-heading italic font-normal">Nghệ Thuật Áo Dài</em>
           </h1>
           <p className="text-base lg:text-lg text-white/80 mt-4 max-w-2xl mx-auto leading-relaxed font-light">
             Tổng hợp lịch sử may mặc, giá trị di sản văn hóa, bí quyết bảo quản lụa tơ tằm và xu hướng thời trang áo dài đương đại (Nguồn trích dẫn uy tín).
@@ -271,7 +271,7 @@ export default function JournalPage() {
               className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent lg:hidden"></div>
-            <span className="absolute top-5 left-5 bg-[#C8920A] text-white text-[10px] uppercase tracking-[0.24em] font-bold px-4 py-2 rounded-full shadow-lg">
+            <span className="absolute top-5 left-5 bg-[#E43D12] text-white text-[10px] uppercase tracking-[0.24em] font-bold px-4 py-2 rounded-full shadow-lg">
               Bài Nổi Bật
             </span>
           </div>
@@ -279,10 +279,10 @@ export default function JournalPage() {
           {/* Featured Content */}
           <div className="flex flex-col justify-between p-8 lg:p-12 xl:p-14">
             <div className="space-y-4">
-              <span className="text-xs uppercase tracking-[0.28em] text-[#C8920A] font-bold block">
+              <span className="text-xs uppercase tracking-[0.28em] text-[#E43D12] font-bold block">
                 {featuredArticle.category}
               </span>
-              <h2 className="font-heading text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-900 leading-[1.2] group-hover:text-[#C8920A] transition-colors">
+              <h2 className="font-heading text-2xl lg:text-3xl xl:text-4xl font-bold text-gray-900 leading-[1.2] group-hover:text-[#E43D12] transition-colors">
                 {featuredArticle.title}
               </h2>
               <p className="text-sm text-gray-600 leading-[1.8] font-light">
@@ -291,17 +291,17 @@ export default function JournalPage() {
             </div>
 
             <div className="pt-6 space-y-4 border-t border-gray-100 mt-6">
-              <div className="flex items-center gap-2 text-xs text-gray-500 bg-[#FDF6C0] p-3 rounded-xl border border-gray-200/70">
-                <Globe className="w-4 h-4 text-[#FFDF00] shrink-0" />
+              <div className="flex items-center gap-2 text-xs text-gray-500 bg-[#EBE9E1] p-3 rounded-xl border border-gray-200/70">
+                <Globe className="w-4 h-4 text-[#EFB11D] shrink-0" />
                 <span className="truncate"><strong>Nguồn trích dẫn:</strong> {featuredArticle.sourceName}</span>
               </div>
 
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4 text-xs text-gray-500 font-medium">
-                  <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-[#FFDF00]" />{featuredArticle.date}</span>
-                  <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-[#FFDF00]" />{featuredArticle.readTime}</span>
+                  <span className="flex items-center gap-1.5"><Calendar className="w-3.5 h-3.5 text-[#EFB11D]" />{featuredArticle.date}</span>
+                  <span className="flex items-center gap-1.5"><Clock className="w-3.5 h-3.5 text-[#EFB11D]" />{featuredArticle.readTime}</span>
                 </div>
-                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#FFDF00] group-hover:text-[#C8920A] transition-colors">
+                <span className="inline-flex items-center gap-1.5 text-xs font-bold text-[#EFB11D] group-hover:text-[#E43D12] transition-colors">
                   <span>Đọc Trang Bài Viết</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </span>
@@ -316,7 +316,7 @@ export default function JournalPage() {
         {/* Filter Bar */}
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6 mb-12 border-b border-gray-200/80 pb-6">
           <div>
-            <span className="text-xs uppercase tracking-[0.28em] text-[#C8920A] font-bold block mb-1">
+            <span className="text-xs uppercase tracking-[0.28em] text-[#E43D12] font-bold block mb-1">
               Thư Viện Tri Thức
             </span>
             <h3 className="font-heading text-3xl font-bold text-gray-900">
@@ -331,7 +331,7 @@ export default function JournalPage() {
                 onClick={() => setActiveFilter(cat.id)}
                 className={`px-5 py-2.5 rounded-full text-xs font-bold transition-all border cursor-pointer outline-none ${
                   activeFilter === cat.id
-                    ? "bg-[#FFDF00] text-white border-[#FFDF00] shadow-md shadow-[#FFDF00]/20 scale-105"
+                    ? "bg-[#EFB11D] text-white border-[#EFB11D] shadow-md shadow-[#EFB11D]/20 scale-105"
                     : "bg-white text-gray-700 border-gray-200 hover:bg-gray-100"
                 }`}
               >
@@ -356,7 +356,7 @@ export default function JournalPage() {
                   alt={art.title}
                   className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
                 />
-                <span className="absolute top-4 left-4 text-[10px] uppercase tracking-[0.2em] font-bold bg-[#FFDF00]/90 backdrop-blur-md text-[#E8C55A] px-3.5 py-1.5 rounded-full border border-white/10 shadow-sm">
+                <span className="absolute top-4 left-4 text-[10px] uppercase tracking-[0.2em] font-bold bg-[#EFB11D]/90 backdrop-blur-md text-[#EFB11D] px-3.5 py-1.5 rounded-full border border-white/10 shadow-sm">
                   {art.category}
                 </span>
               </div>
@@ -366,13 +366,13 @@ export default function JournalPage() {
                 <div className="space-y-2.5">
                   <div className="flex items-center gap-3 text-xs text-gray-400">
                     <span className="flex items-center gap-1">
-                      <Calendar className="w-3.5 h-3.5 text-[#C8920A]" />
+                      <Calendar className="w-3.5 h-3.5 text-[#E43D12]" />
                       {art.date}
                     </span>
                     <span>• {art.readTime}</span>
                   </div>
 
-                  <h4 className="font-heading font-bold text-xl text-gray-900 group-hover:text-[#C8920A] transition-colors leading-snug line-clamp-2">
+                  <h4 className="font-heading font-bold text-xl text-gray-900 group-hover:text-[#E43D12] transition-colors leading-snug line-clamp-2">
                     {art.title}
                   </h4>
 
@@ -383,17 +383,17 @@ export default function JournalPage() {
 
                 <div className="pt-4 border-t border-gray-100 space-y-3">
                   {/* Source tag */}
-                  <div className="text-[11px] text-gray-500 bg-[#FDF6C0] p-2.5 rounded-xl border border-gray-200/60 flex items-center gap-1.5 truncate">
-                    <Globe className="w-3.5 h-3.5 text-[#FFDF00] shrink-0" />
+                  <div className="text-[11px] text-gray-500 bg-[#EBE9E1] p-2.5 rounded-xl border border-gray-200/60 flex items-center gap-1.5 truncate">
+                    <Globe className="w-3.5 h-3.5 text-[#EFB11D] shrink-0" />
                     <span className="truncate">Nguồn: {art.sourceName}</span>
                   </div>
 
                   <div className="flex items-center justify-between text-xs pt-1">
                     <span className="flex items-center gap-1 text-gray-500 font-medium">
-                      <User className="w-3.5 h-3.5 text-[#C8920A]" />
+                      <User className="w-3.5 h-3.5 text-[#E43D12]" />
                       {art.author}
                     </span>
-                    <span className="inline-flex items-center gap-1 font-bold text-[#FFDF00] group-hover:text-[#C8920A] transition-colors">
+                    <span className="inline-flex items-center gap-1 font-bold text-[#EFB11D] group-hover:text-[#E43D12] transition-colors">
                       <span>Xem trang bài viết</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
                     </span>

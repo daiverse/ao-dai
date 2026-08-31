@@ -484,4 +484,184 @@ const virtualTryOn = asyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { generateDesign, virtualTryOn };
+// ─────────────────────────────────────────────────────────────────────────────
+// @desc    Thử đồ với Thiết Kế AI (garment = base64 từ FLUX) dùng Perfect Corp
+// @route   POST /api/ai/tryon-ai-design
+// @access  Public
+// ─────────────────────────────────────────────────────────────────────────────
+const tryOnWithAiDesign = asyncHandler(async (req, res) => {
+  const { personImageBase64, garmentImageBase64 } = req.body;
+
+  if (!personImageBase64 || !personImageBase64.startsWith("data:image/")) {
+    res.status(400);
+    throw new Error("Vui lòng cung cấp ảnh người dùng hợp lệ (base64).");
+  }
+  if (!garmentImageBase64 || !garmentImageBase64.startsWith("data:image/")) {
+    res.status(400);
+    throw new Error("Vui lòng cung cấp ảnh thiết kế AI hợp lệ (base64).");
+  }
+
+  const garmentSizeMB = (garmentImageBase64.length * 3) / 4 / (1024 * 1024);
+  console.log(`\n🎨 [AI-DESIGN TRY-ON] Bắt đầu xử lý ảnh thiết kế AI...`);
+  console.log(`   Garment (AI design) size: ~${garmentSizeMB.toFixed(2)}MB`);
+
+  // Helper: base64 → Buffer cho garment
+  const garmentBase64Data = garmentImageBase64.replace(/^data:image\/\w+;base64,/, "");
+  const garmentBuffer = Buffer.from(garmentBase64Data, "base64");
+  const personBase64Data = personImageBase64.replace(/^data:image\/\w+;base64,/, "");
+  const personBuffer = Buffer.from(personBase64Data, "base64");
+
+  const apiKey = process.env.PERFECT_CORP_API_KEY;
+  const baseUrl = "https://yce-api-01.makeupar.com";
+
+  if (!apiKey) {
+    res.status(503);
+    throw new Error("Perfect Corp API chưa được cấu hình.");
+  }
+
+  // Step 1: Request presigned upload URLs
+  const fileInitRes = await axios.post(
+    `${baseUrl}/s2s/v2.0/file`,
+    {
+      files: [
+        { content_type: "image/jpeg", file_name: "person.jpg", file_size: personBuffer.length },
+        { content_type: "image/jpeg", file_name: "ai_design.jpg", file_size: garmentBuffer.length }
+      ]
+    },
+    {
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      timeout: 30000
+    }
+  );
+
+  const filesInfo = fileInitRes.data?.data?.files || fileInitRes.data?.files || fileInitRes.data;
+  if (!Array.isArray(filesInfo) || filesInfo.length < 2) {
+    throw new Error("Perfect Corp File API không trả về thông tin upload hợp lệ.");
+  }
+
+  const personFile = filesInfo[0];
+  const garmentFile = filesInfo[1];
+  const personReq = personFile.requests ? personFile.requests[0] : personFile;
+  const garmentReq = garmentFile.requests ? garmentFile.requests[0] : garmentFile;
+
+  console.log(`✅ [AI-DESIGN TRY-ON] File IDs: Person(${personFile.file_id}), Garment(${garmentFile.file_id})`);
+
+  // Step 2: Upload buffers to presigned S3 URLs
+  await Promise.all([
+    axios.put(personReq.url, personBuffer, {
+      headers: personReq.headers || { "Content-Type": "image/jpeg" },
+      timeout: 60000
+    }),
+    axios.put(garmentReq.url, garmentBuffer, {
+      headers: garmentReq.headers || { "Content-Type": "image/jpeg" },
+      timeout: 60000
+    })
+  ]);
+  console.log("✅ [AI-DESIGN TRY-ON] Đã upload 2 ảnh lên Perfect Corp S3!");
+
+  // Step 3: Create AI Clothes Task v4.0 with AI design as garment
+  const taskRes = await axios.post(
+    `${baseUrl}/s2s/v2.0/task/cloth-v4`,
+    {
+      src_file_id: personFile.file_id,
+      ref_file_id: garmentFile.file_id,
+      garment_category: "full_body",
+      change_shoes: false
+    },
+    {
+      headers: { Authorization: `Bearer ${apiKey}`, "Content-Type": "application/json" },
+      timeout: 30000
+    }
+  );
+
+  const taskId = taskRes.data?.data?.task_id || taskRes.data?.task_id;
+  if (!taskId) {
+    throw new Error(taskRes.data?.error_message || "Không thể tạo task Virtual Try-On với thiết kế AI.");
+  }
+  console.log(`📋 [AI-DESIGN TRY-ON] Task ID: ${taskId}. Đang poll kết quả...`);
+
+  // Step 4: Poll until complete
+  const MAX_WAIT = 120_000;
+  const POLL_INTERVAL = 2000;
+  const startTime = Date.now();
+
+  while (Date.now() - startTime < MAX_WAIT) {
+    await new Promise((r) => setTimeout(r, POLL_INTERVAL));
+
+    const statusRes = await axios.get(`${baseUrl}/s2s/v2.0/task/cloth-v4/${taskId}`, {
+      headers: { Authorization: `Bearer ${apiKey}` },
+      timeout: 15000
+    });
+
+    const taskData = statusRes.data?.data || statusRes.data;
+    const taskStatus = taskData?.task_status || taskData?.status;
+
+    if (taskStatus === "success") {
+      const resultUrl = taskData?.results?.url || taskData?.result_url;
+      if (!resultUrl) throw new Error("Không nhận được URL kết quả từ Perfect Corp.");
+
+      console.log("🎉 [AI-DESIGN TRY-ON] Thành công! URL:", resultUrl);
+      const resultBuf = await fetchImageBuffer(resultUrl);
+      const resultBase64 = `data:image/png;base64,${resultBuf.toString("base64")}`;
+      return res.json({
+        success: true,
+        message: "Thử đồ thiết kế AI hoàn tất! Chiếc áo dài AI trông rất đẹp trên bạn! ✨",
+        resultImageBase64: resultBase64,
+        provider: "Perfect Corp YouCam AI Clothes v4.0"
+      });
+    }
+
+    if (taskStatus === "error" || taskStatus === "failed") {
+      throw new Error(taskData?.error_message || "Perfect Corp xử lý ảnh thiết kế AI thất bại.");
+    }
+
+    const elapsed = Math.round((Date.now() - startTime) / 1000);
+    console.log(`⏳ [AI-DESIGN TRY-ON] Đang xử lý (${taskStatus})... (${elapsed}s)`);
+  }
+
+  throw new Error("Quá thời gian chờ từ Perfect Corp AI khi xử lý thiết kế AI.");
+});
+
+// ─────────────────────────────────────────────────────────────────────────────
+// @desc    Đặt hàng thiết kế AI → Gửi email thông báo đến Admin & Email Cảm Ơn đến Khách Hàng
+// @route   POST /api/ai/order-design
+// @access  Public
+// ─────────────────────────────────────────────────────────────────────────────
+const orderAiDesign = asyncHandler(async (req, res) => {
+  const { name, phone, email, size, deliveryOption, address, note, designName, designImage, price } = req.body;
+
+  if (!name || !phone) {
+    res.status(400);
+    throw new Error("Vui lòng nhập họ tên và số điện thoại.");
+  }
+
+  const { sendAiDesignOrderToAdmin, sendAiDesignThankYouEmailToCustomer } = require("../utils/emailService");
+
+  console.log(`\n🎨 [AI DESIGN ORDER] Nhận đơn đặt hàng thiết kế AI từ: ${name} (${phone}) | Email: ${email || "N/A"} | Giao hàng: ${deliveryOption || "standard"}`);
+
+  // 1. Gửi thông báo đến Admin
+  try {
+    await sendAiDesignOrderToAdmin({ name, phone, email, size: size || "M", deliveryOption: deliveryOption || "standard", address, note, designName, designImage, price });
+    console.log(`✅ [AI DESIGN ORDER] Đã gửi mail thông báo đến Admin thành công!`);
+  } catch (mailErr) {
+    console.error(`❌ [AI DESIGN ORDER - ADMIN MAIL ERROR]:`, mailErr.message);
+  }
+
+  // 2. Gửi Email cảm ơn đến Khách hàng (nếu có nhập email)
+  if (email && email.trim()) {
+    try {
+      await sendAiDesignThankYouEmailToCustomer({ email, name, phone, size: size || "M", deliveryOption: deliveryOption || "standard", address, note, designName, designImage, price });
+      console.log(`✅ [AI DESIGN ORDER] Đã gửi Email Cảm Ơn đến Khách Hàng (${email}) thành công!`);
+    } catch (custMailErr) {
+      console.error(`❌ [AI DESIGN ORDER - CUSTOMER THANK YOU MAIL ERROR]:`, custMailErr.message);
+    }
+  }
+
+  res.status(200).json({
+    success: true,
+    message: "Đặt hàng thành công! Email cảm ơn kèm thiết kế đã được gửi đến bạn.",
+    orderCode: `AI-${Date.now()}`,
+  });
+});
+
+module.exports = { generateDesign, virtualTryOn, tryOnWithAiDesign, orderAiDesign };

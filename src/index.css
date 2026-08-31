@@ -5,18 +5,20 @@
 
 @layer base {
   :root {
-    --color-lotus-deep: #FFDF00;
-    --color-lotus: #C8920A;
-    --color-lotus-light: #FDF3CC;
-    --color-cream: #FDF6C0;
-    --color-deep-red: #8B0000;
+    --color-lotus-deep: #EFB11D;
+    --color-lotus: #E43D12;
+    --color-lotus-light: #FFF4D6;
+    --color-cream: #EBE9E1;
+    --color-deep-red: #D6536D;
+    --color-rose: #D6536D;
+    --color-rose-light: #FFA2B6;
   }
 }
 :root {
-  --background: #FDF6C0;
+  --background: #EBE9E1;
   --foreground: #1C1917;
-  --lotus-deep: #FFDF00;
-  --lotus: #C8920A;
+  --lotus-deep: #EFB11D;
+  --lotus: #E43D12;
 }
 
 body {
@@ -71,16 +73,16 @@ h1, h2, h3, .font-heading {
 }
 
 ::-webkit-scrollbar-track {
-  background: #FDF6C0;
+  background: #EBE9E1;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #C8920A;
+  background: #E43D12;
   border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FFDF00;
+  background: #EFB11D;
 }
 
 /* Smooth keyframes */

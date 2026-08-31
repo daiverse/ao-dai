@@ -18,10 +18,10 @@ export default function CartDrawer({ onNavigateToCheckout }) {
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
         <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col justify-between animate-fade-in">
           {/* Header */}
-          <div className="p-6 border-b border-gray-100 flex items-center justify-between bg-[#FDF6C0]">
+          <div className="p-6 border-b border-gray-100 flex items-center justify-between bg-[#EBE9E1]">
             <div className="flex items-center gap-2">
-              <ShoppingBag className="w-5 h-5 text-[#FFDF00]" />
-              <h2 className="font-heading text-xl font-bold text-[#FFDF00]">
+              <ShoppingBag className="w-5 h-5 text-[#EFB11D]" />
+              <h2 className="font-heading text-xl font-bold text-[#EFB11D]">
                 Giỏ Hàng Của Bạn ({totalItems})
               </h2>
             </div>
@@ -37,20 +37,20 @@ export default function CartDrawer({ onNavigateToCheckout }) {
           <div className="flex-1 overflow-y-auto p-6 space-y-4">
             {cart.length === 0 ? (
               <div className="text-center py-16 space-y-4">
-                <div className="w-16 h-16 bg-[#FDF6C0] rounded-full flex items-center justify-center mx-auto text-gray-400">
-                  <ShoppingBag className="w-8 h-8 text-[#C8920A]/60" />
+                <div className="w-16 h-16 bg-[#EBE9E1] rounded-full flex items-center justify-center mx-auto text-gray-400">
+                  <ShoppingBag className="w-8 h-8 text-[#E43D12]/60" />
                 </div>
                 <p className="text-gray-500 font-medium">Giỏ hàng của bạn đang trống</p>
                 <button
                   onClick={() => setIsCartOpen(false)}
-                  className="px-6 py-2.5 bg-[#FFDF00] text-white text-sm rounded-full font-medium hover:bg-[#FFDF00]/90 transition-all shadow-md"
+                  className="px-6 py-2.5 bg-[#EFB11D] text-white text-sm rounded-full font-medium hover:bg-[#EFB11D]/90 transition-all shadow-md"
                 >
                   Khám Phá Áo Dài Ngay
                 </button>
               </div>
             ) : (
               cart.map((item, index) => (
-                <div key={index} className="flex gap-4 p-3 bg-[#FDF6C0] rounded-2xl border border-gray-100 relative group">
+                <div key={index} className="flex gap-4 p-3 bg-[#EBE9E1] rounded-2xl border border-gray-100 relative group">
                   <img
                     src={item.product.images[0]}
                     alt={item.product.name}
@@ -83,7 +83,7 @@ export default function CartDrawer({ onNavigateToCheckout }) {
                         </button>
                       </div>
 
-                      <span className="font-bold text-sm text-[#C8920A]">
+                      <span className="font-bold text-sm text-[#E43D12]">
                         {new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(item.product.price * item.quantity)}
                       </span>
                     </div>
@@ -102,10 +102,10 @@ export default function CartDrawer({ onNavigateToCheckout }) {
 
           {/* Footer: Total & Checkout */}
           {cart.length > 0 && (
-            <div className="p-6 border-t border-gray-100 bg-[#FDF6C0] space-y-4">
+            <div className="p-6 border-t border-gray-100 bg-[#EBE9E1] space-y-4">
               <div className="flex items-center justify-between text-base">
                 <span className="text-gray-600 font-medium">Tổng tiền tạm tính:</span>
-                <span className="font-heading font-bold text-xl text-[#FFDF00]">{formattedTotalPrice}</span>
+                <span className="font-heading font-bold text-xl text-[#EFB11D]">{formattedTotalPrice}</span>
               </div>
               <p className="text-xs text-gray-500">Phí vận chuyển và ưu đãi sẽ được tính khi đặt hàng.</p>
 
@@ -114,7 +114,7 @@ export default function CartDrawer({ onNavigateToCheckout }) {
                   setIsCartOpen(false);
                   if (onNavigateToCheckout) onNavigateToCheckout();
                 }}
-                className="w-full py-4 bg-[#FFDF00] text-white rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-[#FFDF00]/90 transition-all shadow-xl shadow-[#FFDF00]/20 cursor-pointer"
+                className="w-full py-4 bg-[#EFB11D] text-white rounded-xl font-medium flex items-center justify-center gap-2 hover:bg-[#EFB11D]/90 transition-all shadow-xl shadow-[#EFB11D]/20 cursor-pointer"
               >
                 <span>Tiến Hành Đặt Hàng</span>
                 <ArrowRight className="w-4 h-4" />

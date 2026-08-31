@@ -10,17 +10,17 @@ export default function FeaturedProducts({ onTryOn, onRotate360 }) {
     : PRODUCTS.filter((p) => p.category === activeCategory);
 
   return (
-    <section className="py-24 lg:py-32 bg-[#FDF6C0]">
+    <section className="py-24 lg:py-32 bg-[#EBE9E1]">
       <div className="container-page">
         {/* Section Title */}
         <div className="text-center mb-12 max-w-2xl mx-auto">
-          <p className="text-xs uppercase tracking-[0.3em] text-[#C8920A] font-bold mb-2">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#E43D12] font-bold mb-2">
             Tuyệt Tác May Đo
           </p>
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-[#FFDF00]">
+          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-[#EFB11D]">
             Bộ Sưu Tập Nổi Bật
           </h2>
-          <div className="w-12 h-0.5 bg-[#C8920A] mx-auto mt-4"></div>
+          <div className="w-12 h-0.5 bg-[#E43D12] mx-auto mt-4"></div>
         </div>
 
         {/* Category Tabs */}
@@ -31,7 +31,7 @@ export default function FeaturedProducts({ onTryOn, onRotate360 }) {
               onClick={() => setActiveCategory(cat.id)}
               className={`px-5 py-2.5 rounded-full text-xs sm:text-sm font-semibold transition-all cursor-pointer ${
                 activeCategory === cat.id
-                  ? "bg-[#FFDF00] text-white shadow-lg shadow-[#FFDF00]/20"
+                  ? "bg-[#EFB11D] text-white shadow-lg shadow-[#EFB11D]/20"
                   : "bg-white text-gray-700 hover:bg-gray-100 border border-gray-200"
               }`}
             >

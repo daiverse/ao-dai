@@ -9,7 +9,7 @@
     priceFrom: "1.499.000đ",
     itemCount: 4,
     badge: "BST Mới Ra Mắt",
-    accentColor: "#E8C55A"
+    accentColor: "#EFB11D"
   },
   {
     id: "phong-sac",
