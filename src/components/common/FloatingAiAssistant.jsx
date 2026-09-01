@@ -7,7 +7,7 @@ export default function FloatingAiAssistant() {
   const [messages, setMessages] = useState([
     {
       sender: "bot",
-      text: "Xin chào! Tôi là Trợ Lý AI của ÁO DÀI DAIVERSE. Bạn cần tư vấn chọn Áo Dài, chọn size hay thử đồ với công nghệ AI?"
+      text: "Xin chào! Tôi là Trợ Lý AI của DAIVERSE. Bạn cần tư vấn chọn Áo Dài, chọn size hay thử đồ với công nghệ AI?"
     }
   ]);
 
@@ -20,7 +20,7 @@ export default function FloatingAiAssistant() {
     setInputMsg("");
 
     setTimeout(() => {
-      let botReply = "Cảm ơn bạn! ÁO DÀI DAIVERSE khuyên bạn nên thử trải nghiệm **AI Design Studio** hoặc **Phòng Thử Đồ AI** để phối đồ chuẩn vóc dáng nhất.";
+      let botReply = "Cảm ơn bạn! DAIVERSE khuyên bạn nên thử trải nghiệm **Custom Áo Dài** hoặc **Phòng Thử Đồ AI** để phối đồ chuẩn vóc dáng nhất.";
       if (userText.toLowerCase().includes("cưới") || userText.toLowerCase().includes("lễ")) {
         botReply = "Đối với lễ cưới và sự kiện trọng đại, bộ sưu tập **Áo Dài Cưới DaiVerse Gấm Hoàng Gia** đang là lựa chọn được yêu thích nhất với sắc đỏ quý phái!";
       } else if (userText.toLowerCase().includes("size") || userText.toLowerCase().includes("đo")) {

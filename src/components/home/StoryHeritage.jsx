@@ -12,11 +12,6 @@ export default function StoryHeritage({ onNavigate }) {
 
   const pillars = [
     {
-      icon: Scissors,
-      title: "Di Sản May Thủ Công",
-      desc: "Nghệ thuật thêu dệt tỉ mỉ từng đường kim mũi chỉ từ nghệ nhân lành nghề."
-    },
-    {
       icon: Wand2,
       title: "Công Nghệ AI & 3D Studio",
       desc: "Ứng dụng Virtual Try-On giúp thử Áo Dài 3D và ghép dáng trực tiếp trên ảnh."
@@ -110,7 +105,7 @@ export default function StoryHeritage({ onNavigate }) {
                 <span>HÀNH TRÌNH DI SẢN & ĐỔI MỚI</span>
               </div>
 
-              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-[#111111] leading-tight uppercase tracking-wide">
+              <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#111111] leading-tight uppercase tracking-wide">
                 THỜI TRANG ÁO DÀI DAIVERSE <br />
                 <span className="text-[#C5A059]">CÔNG NGHỆ AI & 3D STUDIO</span>
               </h2>
@@ -160,7 +155,7 @@ export default function StoryHeritage({ onNavigate }) {
                 className="group inline-flex items-center gap-2 px-6 py-3.5 bg-white hover:bg-neutral-100 text-[#111111] text-xs font-bold uppercase tracking-widest border border-[#C5A059] transition-all cursor-pointer"
               >
                 <Wand2 className="w-4 h-4 text-[#C5A059]" />
-                <span>TRẢI NGHIỆM AI STUDIO</span>
+                <span>TRẢI NGHIỆM CUSTOM ÁO DÀI</span>
               </button>
             </div>
 

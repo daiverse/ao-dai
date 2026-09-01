@@ -8,6 +8,12 @@ const orderItemSchema = new mongoose.Schema({
   size: { type: String, required: true },
   color: { type: String },
   quantity: { type: Number, required: true, default: 1 },
+  isCustomAi: { type: Boolean, default: false },
+  customOptions: { type: Object, default: {} },
+  customPrompt: { type: String, default: "" },
+  baseAoDaiName: { type: String, default: "" },
+  aiGeneratedImage: { type: String, default: "" },
+  tryOnImage: { type: String, default: "" },
 });
 
 const orderSchema = new mongoose.Schema(

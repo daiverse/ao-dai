@@ -628,7 +628,7 @@ const tryOnWithAiDesign = asyncHandler(async (req, res) => {
 // @access  Public
 // ─────────────────────────────────────────────────────────────────────────────
 const orderAiDesign = asyncHandler(async (req, res) => {
-  const { name, phone, email, size, deliveryOption, address, note, designName, designImage, price } = req.body;
+  const { name, phone, email, size, deliveryOption, address, note, designName, designImage, price, customOptions } = req.body;
 
   if (!name || !phone) {
     res.status(400);
@@ -637,11 +637,11 @@ const orderAiDesign = asyncHandler(async (req, res) => {
 
   const { sendAiDesignOrderToAdmin, sendAiDesignThankYouEmailToCustomer } = require("../utils/emailService");
 
-  console.log(`\n🎨 [AI DESIGN ORDER] Nhận đơn đặt hàng thiết kế AI từ: ${name} (${phone}) | Email: ${email || "N/A"} | Giao hàng: ${deliveryOption || "standard"}`);
+  console.log(`\n🎨 [AI DESIGN ORDER] Nhận đơn đặt hàng thiết kế AI từ: ${name} (${phone}) | Email: ${email || "N/A"} | Custom Options:`, customOptions);
 
   // 1. Gửi thông báo đến Admin
   try {
-    await sendAiDesignOrderToAdmin({ name, phone, email, size: size || "M", deliveryOption: deliveryOption || "standard", address, note, designName, designImage, price });
+    await sendAiDesignOrderToAdmin({ name, phone, email, size: size || "M", deliveryOption: deliveryOption || "standard", address, note, designName, designImage, price, customOptions });
     console.log(`✅ [AI DESIGN ORDER] Đã gửi mail thông báo đến Admin thành công!`);
   } catch (mailErr) {
     console.error(`❌ [AI DESIGN ORDER - ADMIN MAIL ERROR]:`, mailErr.message);
@@ -650,7 +650,7 @@ const orderAiDesign = asyncHandler(async (req, res) => {
   // 2. Gửi Email cảm ơn đến Khách hàng (nếu có nhập email)
   if (email && email.trim()) {
     try {
-      await sendAiDesignThankYouEmailToCustomer({ email, name, phone, size: size || "M", deliveryOption: deliveryOption || "standard", address, note, designName, designImage, price });
+      await sendAiDesignThankYouEmailToCustomer({ email, name, phone, size: size || "M", deliveryOption: deliveryOption || "standard", address, note, designName, designImage, price, customOptions });
       console.log(`✅ [AI DESIGN ORDER] Đã gửi Email Cảm Ơn đến Khách Hàng (${email}) thành công!`);
     } catch (custMailErr) {
       console.error(`❌ [AI DESIGN ORDER - CUSTOMER THANK YOU MAIL ERROR]:`, custMailErr.message);

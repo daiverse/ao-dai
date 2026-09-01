@@ -18,15 +18,12 @@
     "password": "Tieuvu1234512345@@"
   },
   "mtateeeee@gmail.com": {
-    "_id": "google_113411758929967759254",
+    "_id": "user_1788237728517",
     "name": "Minh Vũ",
     "email": "mtateeeee@gmail.com",
-    "googleId": "113411758929967759254",
-    "avatar": "https://lh3.googleusercontent.com/a/ACg8ocJnaHcExRwhNElnsGBiNduUwnQprcYbqok4Zg_mIvWerl83YQ=s96-c",
-    "role": "customer",
-    "isEmailVerified": true,
-    "isActive": true,
-    "password": "Tieuvu1234512345@@"
+    "password": "Tieuvu123123@@",
+    "phone": "",
+    "role": "customer"
   },
   "vvmvvm123456123456@gmail.com": {
     "_id": "user_1787229425002",

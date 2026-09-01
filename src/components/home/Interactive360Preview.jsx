@@ -86,7 +86,7 @@ export default function Interactive360Preview({ onNavigateTo360 }) {
 
             {/* Title */}
             <div className="space-y-2">
-              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black leading-tight text-white uppercase tracking-wide">
+              <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight text-white uppercase tracking-wide">
                 CHI TIẾT 360° <br />
                 <span className="bg-gradient-to-r from-[#D4AF37] via-[#C5A059] to-[#E6C687] bg-clip-text text-transparent">
                   GẤM LỤA THỦ CÔNG

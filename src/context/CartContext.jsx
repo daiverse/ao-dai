@@ -79,6 +79,12 @@ export function CartProvider({ children }) {
           size,
           color: selectedColor,
           quantity,
+          isCustomAi: product.isCustomAi || false,
+          customOptions: product.customOptions || {},
+          customPrompt: product.customPrompt || "",
+          baseAoDaiName: product.baseAoDaiName || "",
+          aiGeneratedImage: product.aiGeneratedImage || "",
+          tryOnImage: product.tryOnImage || "",
         }),
       });
 
@@ -94,26 +100,25 @@ export function CartProvider({ children }) {
               price: item.price,
               images: [item.image],
             },
+            name: item.name,
+            image: item.image,
+            price: item.price,
             size: item.size,
             color: item.color,
             quantity: item.quantity,
+            isCustomAi: item.isCustomAi,
+            customOptions: item.customOptions,
+            customPrompt: item.customPrompt,
+            baseAoDaiName: item.baseAoDaiName,
+            aiGeneratedImage: item.aiGeneratedImage,
+            tryOnImage: item.tryOnImage,
           }));
           setCart(updatedItems);
         } else {
-          setCart((prevCart) => {
-            const pId = product.id || product._id;
-            const existingIndex = prevCart.findIndex(
-              (item) => (item.product.id === pId || item.product._id === pId) && item.size === size && item.color === selectedColor
-            );
-
-            if (existingIndex > -1) {
-              const updated = [...prevCart];
-              updated[existingIndex].quantity += quantity;
-              return updated;
-            } else {
-              return [...prevCart, { product, size, color: selectedColor, quantity }];
-            }
-          });
+          setCart((prevCart) => [
+            ...prevCart,
+            { product, name: product.name, image: product.image, price: product.price, size, color: selectedColor, quantity, ...product }
+          ]);
         }
 
         showToast(`🛍️ Đã lưu "${product.name}" vào giỏ hàng Database!`);

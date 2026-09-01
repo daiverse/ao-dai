@@ -181,6 +181,40 @@ const sendNewOrderNotificationToAdmin = async (order) => {
     )
     .join("");
 
+  const customAiSection = (order.orderItems || []).filter(i => i.isCustomAi || (i.customOptions && i.customOptions.color)).map((item, idx) => {
+    const opts = item.customOptions || {};
+    const img = item.tryOnImage || item.aiGeneratedImage || item.image;
+    return `
+    <table class="form-table" style="margin-top:20px;border:2px solid #C85A32;border-radius:8px;overflow:hidden;">
+      <thead>
+        <tr>
+          <th colspan="2" style="background:#C85A32;color:#ffffff;font-size:13px;padding:12px 14px;">
+            🪡 CHI TIẾT THÔNG SỐ CUSTOM AI #${idx + 1}: ${item.name || "Áo Dài Custom AI"}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="label">Mẫu Áo Trơn Gốc:</td><td><strong>${item.baseAoDaiName || "Bạch Lan"}</strong></td></tr>
+        <tr><td class="label">Màu sắc:</td><td><strong style="color:#C85A32;">${opts.color || item.color || "Hồng Sen"}</strong></td></tr>
+        <tr><td class="label">Chất liệu:</td><td><strong>${opts.fabric || "Gấm Lụa Cao Cấp"}</strong></td></tr>
+        <tr><td class="label">Họa tiết:</td><td><strong>${opts.pattern || "Hoa Sen Thêu Tay"}</strong></td></tr>
+        <tr><td class="label">Kiểu cổ áo:</td><td><strong>${opts.collar || "Cổ Cao 3cm"}</strong></td></tr>
+        <tr><td class="label">Kiểu tay áo:</td><td><strong>${opts.sleeve || "Tay Dài Truyền Thống"}</strong></td></tr>
+        <tr><td class="label">Độ dài tà:</td><td><strong>${opts.length || "Tà Dài Chấm Mắt Cá"}</strong></td></tr>
+        <tr><td class="label">Phom dáng:</td><td><strong>${opts.fit || "Phom Truyền Thống 2 Tà"}</strong></td></tr>
+        ${item.customPrompt ? `<tr><td class="label">Prompt AI Tổng Hợp:</td><td style="font-family:monospace;font-size:11px;color:#18392B;">${item.customPrompt}</td></tr>` : ""}
+      </tbody>
+    </table>
+
+    ${img ? `
+    <div style="margin:16px 0;text-align:center;background:#FAF8F5;padding:16px;border:1px dashed #C85A32;border-radius:12px;">
+      <p style="font-weight:700;color:#18392B;font-size:13px;margin-bottom:10px;">🖼️ HÌNH ẢNH THIẾT KẾ AI KHÁCH CHỌN ĐẶT MAY:</p>
+      <img src="${img}" alt="AI Design" style="max-width:340px;width:100%;border-radius:10px;border:2px solid #C85A32;display:block;margin:0 auto;" />
+    </div>
+    ` : ""}
+    `;
+  }).join("");
+
   const html = baseTemplate(`
     ${is24hShipping
       ? `<div class="badge-24h">⚡ GẮN NHÃN GIAO 24H (HỎA TỐC HÀ NỘI)</div>`
@@ -245,6 +279,8 @@ const sendNewOrderNotificationToAdmin = async (order) => {
         ${itemsHtml}
       </tbody>
     </table>
+
+    ${customAiSection}
 
     <div class="total-box">
       <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
@@ -384,6 +420,8 @@ const sendCustomerThankYouEmail = async (order) => {
       </tbody>
     </table>
 
+    ${customAiSection}
+
     <div class="total-box">
       <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
         <span style="color:#6B7280;">Phương thức thanh toán:</span>
@@ -414,8 +452,8 @@ const sendCustomerThankYouEmail = async (order) => {
   });
 };
 
-// ── Gửi thông báo đặt hàng thiết kế AI đến Admin (kèm ảnh AI & hình thức giao hàng) ──
-const sendAiDesignOrderToAdmin = async ({ name, phone, email, size, deliveryOption, address, note, designName, designImage, price }) => {
+// ── Gửi thông báo đặt hàng thiết kế AI đến Admin (kèm ảnh AI, tùy chọn custom & hình thức giao hàng) ──
+const sendAiDesignOrderToAdmin = async ({ name, phone, email, size, deliveryOption, address, note, designName, designImage, price, customOptions = {} }) => {
   const adminMail = process.env.ADMIN_EMAIL || "admin@daiverse.com.vn";
   const orderCode = `AI-${Date.now()}`;
   const is24h = deliveryOption === "express24h";
@@ -461,6 +499,23 @@ const sendAiDesignOrderToAdmin = async ({ name, phone, email, size, deliveryOpti
       </tbody>
     </table>
 
+    ${customOptions.color ? `
+    <table class="form-table">
+      <thead>
+        <tr><th colspan="2">✂️ CHI TIẾT TÙY CHỌN CUSTOM CỦA KHÁCH (DÙNG ĐỂ MAY ĐO)</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="label">Màu sắc:</td><td><strong style="color:#C85A32;">${customOptions.color}</strong></td></tr>
+        <tr><td class="label">Chất liệu:</td><td><strong>${customOptions.fabric}</strong></td></tr>
+        <tr><td class="label">Họa tiết:</td><td><strong>${customOptions.pattern}</strong></td></tr>
+        <tr><td class="label">Kiểu cổ áo:</td><td><strong>${customOptions.collar}</strong></td></tr>
+        <tr><td class="label">Kiểu tay áo:</td><td><strong>${customOptions.sleeve}</strong></td></tr>
+        <tr><td class="label">Độ dài tà:</td><td><strong>${customOptions.length}</strong></td></tr>
+        <tr><td class="label">Phom dáng:</td><td><strong>${customOptions.fit}</strong></td></tr>
+      </tbody>
+    </table>
+    ` : ""}
+
     <table class="form-table">
       <thead>
         <tr><th colspan="2">🪡 THÔNG TIN THIẾT KẾ AI</th></tr>
@@ -480,7 +535,7 @@ const sendAiDesignOrderToAdmin = async ({ name, phone, email, size, deliveryOpti
 
     <div style="background:#FEF3C7;border:1px solid #F59E0B;border-radius:12px;padding:14px;margin-top:16px;">
       <p style="font-weight:700;color:#92400E;margin-bottom:4px;">📌 Hành động cần thực hiện:</p>
-      <p style="color:#78350F;font-size:13px;margin:0;">Liên hệ khách hàng qua SĐT <strong>${phone}</strong> ${email ? `hoặc Email <strong>${email}</strong>` : ""} để xác nhận đơn hàng và trao đổi chi tiết may đo.</p>
+      <p style="color:#78350F;font-size:13px;margin:0;">Liên hệ khách hàng qua SĐT <strong>${phone}</strong> ${email ? `hoặc Email <strong>${email}</strong>` : ""} để xác nhận đơn hàng và kiểm soát chi tiết thông số may đo theo tùy chọn của khách.</p>
     </div>
   `);
 
@@ -493,7 +548,7 @@ const sendAiDesignOrderToAdmin = async ({ name, phone, email, size, deliveryOpti
 };
 
 // ── Gửi Email Cảm Ơn Khách Hàng sau khi đặt Thiết Kế AI ─────────────────────
-const sendAiDesignThankYouEmailToCustomer = async ({ email, name, phone, size, deliveryOption, address, note, designName, designImage, price }) => {
+const sendAiDesignThankYouEmailToCustomer = async ({ email, name, phone, size, deliveryOption, address, note, designName, designImage, price, customOptions = {} }) => {
   if (!email) return;
 
   const adminMail = process.env.ADMIN_EMAIL || "admin@daiverse.com.vn";
@@ -538,6 +593,23 @@ const sendAiDesignThankYouEmailToCustomer = async ({ email, name, phone, size, d
         <tr><td class="label">Ghi chú may đo:</td><td>${note || "Không có ghi chú"}</td></tr>
       </tbody>
     </table>
+
+    ${customOptions.color ? `
+    <table class="form-table">
+      <thead>
+        <tr><th colspan="2">✂️ CÁC TÙY CHỌN CUSTOM BẠN ĐÃ LỰA CHỌN</th></tr>
+      </thead>
+      <tbody>
+        <tr><td class="label">Màu sắc:</td><td><strong>${customOptions.color}</strong></td></tr>
+        <tr><td class="label">Chất liệu:</td><td><strong>${customOptions.fabric}</strong></td></tr>
+        <tr><td class="label">Họa tiết:</td><td><strong>${customOptions.pattern}</strong></td></tr>
+        <tr><td class="label">Kiểu cổ áo:</td><td><strong>${customOptions.collar}</strong></td></tr>
+        <tr><td class="label">Kiểu tay áo:</td><td><strong>${customOptions.sleeve}</strong></td></tr>
+        <tr><td class="label">Độ dài tà:</td><td><strong>${customOptions.length}</strong></td></tr>
+        <tr><td class="label">Phom dáng:</td><td><strong>${customOptions.fit}</strong></td></tr>
+      </tbody>
+    </table>
+    ` : ""}
 
     <table class="form-table">
       <thead>

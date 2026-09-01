@@ -17,7 +17,7 @@ export default function FeaturedProducts({ onTryOn, onRotate360 }) {
           <p className="text-xs uppercase tracking-[0.3em] text-[#C5A059] font-extrabold mb-2">
             ÁO DÀI DAIVERSE SELECTION
           </p>
-          <h2 className="font-heading text-3xl sm:text-4xl font-black text-[#111111] uppercase tracking-wide">
+          <h2 className="font-heading text-2xl sm:text-3xl font-bold text-[#111111] uppercase tracking-wide">
             SẢN PHẨM NỔI BẬT
           </h2>
           <div className="w-12 h-0.5 bg-[#C5A059] mx-auto mt-3"></div>

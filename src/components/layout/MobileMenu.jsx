@@ -11,7 +11,7 @@ export default function MobileMenu({ isOpen, onClose, activeTab, setActiveTab })
     { id: "express24h", label: "⚡ GIAO 24H (HỎA TỐC)", isExpress: true },
     { id: "360", label: "XEM SẢN PHẨM 360°" },
     { id: "lookbook", label: "BỘ SƯU TẬP LOOKBOOK 2026" },
-    { id: "design-studio", label: "AI DESIGN STUDIO" },
+    { id: "design-studio", label: "CUSTOM ÁO DÀI" },
     ...(FEATURE_FLAGS.ENABLE_AI_TRY_ON ? [{ id: "try-on", label: "PHÒNG THỬ ĐỒ AI" }] : []),
     { id: "about", label: "CÂU CHUYỆN CÔNG TY DaiVerse" },
     { id: "journal", label: "TẠP CHÍ THỜI TRANG" },
@@ -72,7 +72,7 @@ export default function MobileMenu({ isOpen, onClose, activeTab, setActiveTab })
             className="w-full py-3 bg-[#C5A059] text-white text-xs font-bold uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-[#A4813D] transition-all cursor-pointer border-none"
           >
             <Sparkles className="w-4 h-4 text-white" />
-            <span>Trải Nghiệm AI Studio</span>
+            <span>Trải Nghiệm Custom Áo Dài</span>
           </button>
         </div>
       </div>

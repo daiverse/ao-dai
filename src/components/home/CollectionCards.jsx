@@ -75,7 +75,7 @@ export default function CollectionCards({ onSelectCollection }) {
             <span>HAUTE COUTURE COLLECTION · 2026</span>
           </div>
 
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-[#111111] uppercase tracking-wide">
+          <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#111111] uppercase tracking-wide">
             BỘ SƯU TẬP <span className="text-[#C5A059]">DAIVERSE</span>
           </h2>
 

@@ -41,10 +41,10 @@ const getCart = asyncHandler(async (req, res) => {
 // @access  Private
 const addToCart = asyncHandler(async (req, res) => {
   const userId = req.user._id.toString();
-  const { productId, name, image, price, size, color, quantity = 1 } = req.body;
+  const { productId, name, image, price, size, color, quantity = 1, isCustomAi, customOptions, customPrompt, baseAoDaiName, aiGeneratedImage, tryOnImage } = req.body;
 
   if (isDBConnected()) {
-    let product = await Product.findById(productId);
+    let product = mongoose.Types.ObjectId.isValid(productId) ? await Product.findById(productId) : null;
     let cart = await Cart.findOne({ user: req.user._id });
 
     if (!cart) {
@@ -55,20 +55,27 @@ const addToCart = asyncHandler(async (req, res) => {
       (item) =>
         item.product && item.product.toString() === productId &&
         item.size === size &&
-        item.color === color
+        item.color === color &&
+        !isCustomAi
     );
 
     if (existingIndex > -1) {
       cart.items[existingIndex].quantity += quantity;
     } else {
       cart.items.push({
-        product: productId,
-        name: name || product?.name || "Sản phẩm Áo Dài",
+        product: product ? productId : null,
+        name: name || product?.name || "Sản phẩm Áo Dài Custom AI",
         image: image || product?.images?.[0] || "",
         price: price || product?.price || 0,
         size,
         color,
         quantity,
+        isCustomAi: !!isCustomAi,
+        customOptions: customOptions || {},
+        customPrompt: customPrompt || "",
+        baseAoDaiName: baseAoDaiName || "",
+        aiGeneratedImage: aiGeneratedImage || "",
+        tryOnImage: tryOnImage || "",
       });
     }
 
@@ -86,7 +93,8 @@ const addToCart = asyncHandler(async (req, res) => {
     (item) =>
       (item.productId === productId || item.name === name) &&
       item.size === size &&
-      item.color === color
+      item.color === color &&
+      !isCustomAi
   );
 
   if (existingIndex > -1) {
@@ -101,6 +109,12 @@ const addToCart = asyncHandler(async (req, res) => {
       size,
       color,
       quantity,
+      isCustomAi: !!isCustomAi,
+      customOptions: customOptions || {},
+      customPrompt: customPrompt || "",
+      baseAoDaiName: baseAoDaiName || "",
+      aiGeneratedImage: aiGeneratedImage || "",
+      tryOnImage: tryOnImage || "",
     });
   }
 

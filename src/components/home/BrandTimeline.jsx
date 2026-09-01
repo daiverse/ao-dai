@@ -58,7 +58,7 @@ export default function BrandTimeline() {
           <p className="text-xs uppercase tracking-[0.3em] text-[#C5A059] font-extrabold mb-3">
             CÂU CHUYỆN THƯƠNG HIỆU
           </p>
-          <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-[#111111] uppercase tracking-wide">
+          <h2 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#111111] uppercase tracking-wide">
             HÀNH TRÌNH TẠO NÊN <span className="text-[#C5A059]">ÁO DÀI DAIVERSE</span>
           </h2>
         </div>

@@ -3,6 +3,7 @@ import { ChevronLeft, ChevronRight, Sparkles, ArrowRight } from "lucide-react";
 
 export default function HeroBanner({ onNavigate }) {
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [activeImgIndex, setActiveImgIndex] = useState(0);
 
   const slides = [
     {
@@ -12,7 +13,12 @@ export default function HeroBanner({ onNavigate }) {
       titleSub: "BST MỘC LAN 2026",
       titleBottom: "MAI",
       tagline: "DaiVerse kết hợp tinh hoa áo dài Việt với AI, 3D và Virtual Try-On, mang đến trải nghiệm thời trang thông minh và phong cách dành riêng cho bạn.",
-      image: "/anh/suong-mai/banner.png",
+      bannerBg: "/anh/suong-mai/banner.png",
+      images: [
+        { url: "/anh/suong-mai/1.jpg", label: "Sương Mai — Nhã Nhặn" },
+        { url: "/anh/suong-mai/2.jpg", label: "Cận Cảnh Gấm Tơ" },
+        { url: "/anh/suong-mai/3.jpg", label: "Dáng Áo Toàn Thân" }
+      ],
       fallbackImage: "/anh/746927465_122119237899355470_7558522641041819280_n.jpg",
       linkCategory: "products"
     },
@@ -23,7 +29,12 @@ export default function HeroBanner({ onNavigate }) {
       titleSub: "BST MỘC LAN 2026",
       titleBottom: "LAN",
       tagline: "DaiVerse kết hợp tinh hoa áo dài Việt với AI, 3D và Virtual Try-On, mang đến trải nghiệm thời trang thông minh và phong cách dành riêng cho bạn.",
-      image: "/anh/bach-lan/banner.png",
+      bannerBg: "/anh/bach-lan/banner.png",
+      images: [
+        { url: "/anh/bach-lan/1.jpg", label: "Bạch Lan — Trắng Ngọc" },
+        { url: "/anh/bach-lan/2.jpg", label: "Thêu Hoa Sen Nổi" },
+        { url: "/anh/bach-lan/3.jpg", label: "Phom Dáng Chuẩn Mực" }
+      ],
       fallbackImage: "/anh/746947278_122119072383355470_6400495368402003300_n.jpg",
       linkCategory: "products"
     },
@@ -34,7 +45,12 @@ export default function HeroBanner({ onNavigate }) {
       titleSub: "BST PHONG SẮC 2026",
       titleBottom: "PHONG",
       tagline: "DaiVerse kết hợp tinh hoa áo dài Việt với AI, 3D và Virtual Try-On, mang đến trải nghiệm thời trang thông minh và phong cách dành riêng cho bạn.",
-      image: "/anh/thanh-phong/banner.png",
+      bannerBg: "/anh/thanh-phong/banner.png",
+      images: [
+        { url: "/anh/thanh-phong/1.jpg", label: "Thanh Phong — Đương Đại" },
+        { url: "/anh/thanh-phong/2.jpg", label: "Áo Choàng Tafta" },
+        { url: "/anh/thanh-phong/3.png", label: "Phom 3 Món Độc Đáo" }
+      ],
       fallbackImage: "/anh/747178293_122119072509355470_7986902361393680700_n.jpg",
       linkCategory: "products"
     },
@@ -45,7 +61,12 @@ export default function HeroBanner({ onNavigate }) {
       titleSub: "BST MỘC LAN 2026",
       titleBottom: "NGUYỆT",
       tagline: "DaiVerse kết hợp tinh hoa áo dài Việt với AI, 3D và Virtual Try-On, mang đến trải nghiệm thời trang thông minh và phong cách dành riêng cho bạn.",
-      image: "/anh/hong-nguyet/banner.png",
+      bannerBg: "/anh/hong-nguyet/banner.png",
+      images: [
+        { url: "/anh/hong-nguyet/1.jpg", label: "Hồng Nguyệt — Tơ Tằm" },
+        { url: "/anh/hong-nguyet/2.jpg", label: "Cận Cảnh Ánh Kim" },
+        { url: "/anh/hong-nguyet/3.jpg", label: "Thiết Kế 4 Tà Sang Trọng" }
+      ],
       fallbackImage: "/anh/748552016_122119237911355470_8898990539200168318_n.jpg",
       linkCategory: "products"
     }
@@ -61,16 +82,34 @@ export default function HeroBanner({ onNavigate }) {
     return () => clearInterval(timer);
   }, []);
 
+  useEffect(() => {
+    setActiveImgIndex(0);
+  }, [currentSlide]);
+
   const slide = slides[currentSlide];
+  const activeImage = slide.images[activeImgIndex] || slide.images[0];
+  const subImage1 = slide.images[(activeImgIndex + 1) % 3];
+  const subImage2 = slide.images[(activeImgIndex + 2) % 3];
 
   return (
     <div className="w-full pt-20 sm:pt-24 lg:pt-20 bg-[#FAF6F0]">
-      {/* ─── 1. MAIN HERO SLIDER SECTION (Background Màu Be Sang Trọng) ──────────────── */}
-      <section className="relative w-full overflow-hidden bg-[#F3EFE6] border-b border-[#E5DECE] min-h-[440px] sm:min-h-[540px] lg:min-h-[600px] flex items-center transition-colors duration-500">
+      {/* ─── 1. MAIN HERO SLIDER SECTION (Background Màu Be Sang Trọng Kết Hợp Ảnh Banner) ──────────────── */}
+      <section className="relative w-full overflow-hidden bg-[#F3EFE6] border-b border-[#E5DECE] min-h-[460px] sm:min-h-[560px] lg:min-h-[620px] flex items-center transition-colors duration-500">
         
+        {/* Banner Folder Image Overlay with soft opacity */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden">
+          <img 
+            key={slide.id}
+            src={slide.bannerBg} 
+            alt="Banner background"
+            className="w-full h-full object-cover object-center opacity-25 mix-blend-multiply transition-opacity duration-700"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#F3EFE6] via-[#F3EFE6]/80 to-transparent"></div>
+        </div>
+
         {/* Soft Luxury Pattern Background Overlay */}
         <div 
-          className="absolute inset-0 pointer-events-none opacity-30 mix-blend-multiply"
+          className="absolute inset-0 pointer-events-none opacity-20 mix-blend-multiply"
           style={{
             backgroundImage: `radial-gradient(circle at 50% 50%, rgba(197, 160, 89, 0.15) 0%, rgba(0, 0, 0, 0.05) 100%)`,
             backgroundSize: "cover"
@@ -86,12 +125,12 @@ export default function HeroBanner({ onNavigate }) {
               <div className="inline-block relative">
                 
                 {/* Word 1: THỜI / SƯƠNG / BẠCH / THANH / HỒNG */}
-                <h1 className="font-heading font-black text-[65px] sm:text-[95px] lg:text-[120px] leading-[0.9] text-[#C5A059] tracking-wide uppercase drop-shadow-xs">
+                <h1 className="font-heading font-bold text-[55px] sm:text-[85px] lg:text-[105px] leading-[0.9] text-[#C5A059] tracking-wide uppercase drop-shadow-xs">
                   {slide.titleTop}
                 </h1>
 
                 {/* Word 2: MAI / LAN / PHONG / NGUYỆT */}
-                <h2 className="font-heading font-black text-[65px] sm:text-[95px] lg:text-[120px] leading-[0.9] text-[#C5A059] tracking-wide uppercase drop-shadow-xs lg:ml-16">
+                <h2 className="font-heading font-bold text-[55px] sm:text-[85px] lg:text-[105px] leading-[0.9] text-[#C5A059] tracking-wide uppercase drop-shadow-xs lg:ml-16">
                   {slide.titleBottom}
                 </h2>
               </div>
@@ -115,21 +154,65 @@ export default function HeroBanner({ onNavigate }) {
               </div>
             </div>
 
-            {/* RIGHT COLUMN: Real Store Áo Dài Showcase Photo */}
-            <div className="lg:col-span-6 flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-[440px] aspect-[3/4] overflow-hidden rounded-none shadow-2xl bg-neutral-900 border-2 border-[#C5A059]/40 group">
-                <img
-                  src={slide.image}
-                  onError={(e) => { e.target.src = slide.fallbackImage; }}
-                  alt="Ảnh thực tế Áo Dài DaiVerse"
-                  className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
-                />
+            {/* RIGHT COLUMN: 3-Photo Editorial Composite Composition */}
+            <div className="lg:col-span-6 flex justify-center lg:justify-end relative pt-4 pb-6 lg:py-4">
+              <div className="relative w-full max-w-[420px]">
                 
-                {/* Floating Real Photo Badge */}
-                <div className="absolute top-4 left-4 bg-[#111111]/90 text-white border border-[#C5A059]/50 px-3 py-1 text-[10px] font-extrabold uppercase tracking-widest backdrop-blur-md flex items-center gap-1.5 shadow-lg">
-                  <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
-                  <span>ẢNH THỰC TẾ SẢN PHẨM</span>
+                {/* 1. Main Stage Large Photo */}
+                <div className="relative p-2.5 bg-white border border-[#E5DECE] shadow-2xl">
+                  <div className="relative aspect-[3/4] overflow-hidden bg-neutral-900 group">
+                    <img
+                      src={activeImage.url}
+                      onError={(e) => { e.target.src = slide.fallbackImage; }}
+                      alt={activeImage.label}
+                      className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                    />
+
+                    {/* Gradient Vignette & Overlay Caption */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/20"></div>
+
+                    {/* Main Image Title Bottom */}
+                    <div className="absolute bottom-3 left-3 right-3 text-white">
+                      <p className="text-[10px] uppercase font-extrabold tracking-widest text-[#C5A059]">
+                        {slide.titleSub}
+                      </p>
+                      <h3 className="font-heading text-base font-bold uppercase tracking-wide mt-0.5">
+                        {activeImage.label}
+                      </h3>
+                    </div>
+                  </div>
                 </div>
+
+                {/* 2. Top-Left Overlapping Inset Photo Card */}
+                <div 
+                  onClick={() => setActiveImgIndex((activeImgIndex + 1) % 3)}
+                  className="absolute -top-4 -left-4 sm:-left-8 w-2/5 aspect-[3/4] p-1 bg-white border-2 border-[#C5A059] shadow-2xl hidden sm:block group/inset1 cursor-pointer hover:scale-105 transition-all duration-300 z-20"
+                >
+                  <div className="relative w-full h-full overflow-hidden bg-neutral-900">
+                    <img
+                      src={subImage1.url}
+                      alt={subImage1.label}
+                      className="w-full h-full object-cover object-top group-hover/inset1:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-black/20 group-hover/inset1:bg-transparent transition-colors"></div>
+                  </div>
+                </div>
+
+                {/* 3. Bottom-Right Overlapping Inset Photo Card */}
+                <div 
+                  onClick={() => setActiveImgIndex((activeImgIndex + 2) % 3)}
+                  className="absolute -bottom-6 -right-4 sm:-right-8 w-2/5 aspect-[3/4] p-1.5 bg-white border-2 border-[#C5A059] shadow-2xl hidden sm:block group/inset2 cursor-pointer hover:scale-105 transition-all duration-300 z-20"
+                >
+                  <div className="relative w-full h-full overflow-hidden bg-neutral-900">
+                    <img
+                      src={subImage2.url}
+                      alt={subImage2.label}
+                      className="w-full h-full object-cover object-top group-hover/inset2:scale-110 transition-transform duration-500"
+                    />
+                    <div className="absolute inset-0 bg-black/20 group-hover/inset2:bg-transparent transition-colors"></div>
+                  </div>
+                </div>
+
               </div>
             </div>
 

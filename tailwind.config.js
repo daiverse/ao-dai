@@ -32,7 +32,7 @@ export default {
         'brand-orange': '#C5A059',
       },
       fontFamily: {
-        heading: ['Playfair Display', 'Cormorant Garamond', 'serif'],
+        heading: ['Cormorant Garamond', 'Lora', 'Playfair Display', 'serif'],
         sans: ['Inter', 'sans-serif'],
         script: ['Cormorant Garamond', 'serif'],
       }

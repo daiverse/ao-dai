@@ -169,13 +169,19 @@ export default function CheckoutModal({ isOpen, onClose }) {
         },
         body: JSON.stringify({
           orderItems: cart.map((item) => ({
-            product: item.product?._id || item.product?.id,
+            product: item.product?._id || item.product?.id || null,
             name: item.product?.name || item.name,
             image: item.product?.images?.[0] || item.image || "",
             price: item.product?.price || item.price,
             size: item.size,
             color: item.color,
             quantity: item.quantity,
+            isCustomAi: item.isCustomAi || item.product?.isCustomAi || false,
+            customOptions: item.customOptions || item.product?.customOptions || {},
+            customPrompt: item.customPrompt || item.product?.customPrompt || "",
+            baseAoDaiName: item.baseAoDaiName || item.product?.baseAoDaiName || "",
+            aiGeneratedImage: item.aiGeneratedImage || item.product?.aiGeneratedImage || "",
+            tryOnImage: item.tryOnImage || item.product?.tryOnImage || "",
           })),
           shippingAddress: { fullName, phone, address, city, note, shippingMethod: selectedShipping.name },
           paymentMethod: "PAYOS",
@@ -215,13 +221,19 @@ export default function CheckoutModal({ isOpen, onClose }) {
 
     try {
       const orderItems = cart.map((item) => ({
-        product: item.product?._id || item.product?.id,
+        product: item.product?._id || item.product?.id || null,
         name: item.product?.name || item.name,
         image: item.product?.images?.[0] || item.image || "",
         price: item.product?.price || item.price,
         size: item.size,
         color: item.color,
         quantity: item.quantity,
+        isCustomAi: item.isCustomAi || item.product?.isCustomAi || false,
+        customOptions: item.customOptions || item.product?.customOptions || {},
+        customPrompt: item.customPrompt || item.product?.customPrompt || "",
+        baseAoDaiName: item.baseAoDaiName || item.product?.baseAoDaiName || "",
+        aiGeneratedImage: item.aiGeneratedImage || item.product?.aiGeneratedImage || "",
+        tryOnImage: item.tryOnImage || item.product?.tryOnImage || "",
       }));
 
       const res = await fetch(`${API_BASE_URL}/api/orders`, {

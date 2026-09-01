@@ -4,7 +4,7 @@ const cartItemSchema = new mongoose.Schema({
   product: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "Product",
-    required: true,
+    required: false,
   },
   name: String,
   image: String,
@@ -12,6 +12,12 @@ const cartItemSchema = new mongoose.Schema({
   size: { type: String, required: true },
   color: { type: String, required: true },
   quantity: { type: Number, required: true, min: 1, default: 1 },
+  isCustomAi: { type: Boolean, default: false },
+  customOptions: { type: Object, default: {} },
+  customPrompt: { type: String, default: "" },
+  baseAoDaiName: { type: String, default: "" },
+  aiGeneratedImage: { type: String, default: "" },
+  tryOnImage: { type: String, default: "" },
 });
 
 const cartSchema = new mongoose.Schema(

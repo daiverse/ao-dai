@@ -72,7 +72,7 @@ export default function Footer({ setActiveTab }) {
               </span>
             </div>
             <p className="text-xs text-neutral-400 leading-relaxed mb-6">
-              DaiVerse – Thương hiệu thời trang Áo Dài cao cấp hàng đầu Việt Nam. Sự kết hợp giữa đường nét Áo Dài truyền thống và hơi thở công nghệ AI hiện đại.
+              Daiverse - Thương hiệu thời trang Áo Dài cao cấp Việt Nam. Giải pháp cá nhân hoá Áo Dài Việt kết hợp với công nghệ AI và thử đồ 3D.
             </p>
             <ul className="space-y-2.5 text-xs text-neutral-300">
               <li className="flex items-start gap-2">
@@ -113,7 +113,7 @@ export default function Footer({ setActiveTab }) {
               </li>
               <li>
                 <button onClick={() => handleNav("design-studio")} className="text-neutral-400 hover:text-[#C5A059] transition-colors cursor-pointer border-none bg-transparent">
-                  AI Design Studio
+                  Custom Áo Dài
                 </button>
               </li>
               {FEATURE_FLAGS.ENABLE_AI_TRY_ON && (

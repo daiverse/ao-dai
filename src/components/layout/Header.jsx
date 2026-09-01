@@ -51,7 +51,7 @@ export default function Header({ activeTab, setActiveTab, onOpenMobileMenu }) {
   ];
 
   const aiExperiences = [
-    { id: "design-studio", title: "AI Design Studio", desc: "Tự tay thiết kế kiểu dáng & họa tiết", icon: Palette },
+    { id: "design-studio", title: "Custom Áo Dài", desc: "Tự tay thiết kế kiểu dáng & họa tiết", icon: Palette },
     ...(FEATURE_FLAGS.ENABLE_AI_TRY_ON ? [{ id: "try-on", title: "Phòng Xem Đồ AI", desc: "Thử áo dài trực tiếp trên ảnh cá nhân", icon: Sparkles }] : []),
     { id: "history", title: "Lịch Sử Thử Đồ", desc: "Xem lại các mẫu đã tạo & thử nghiệm", icon: History }
   ];
@@ -144,7 +144,7 @@ export default function Header({ activeTab, setActiveTab, onOpenMobileMenu }) {
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-[#111111] text-white hover:bg-[#C5A059] transition-all cursor-pointer border-none outline-none"
               >
                 <Sparkles className="w-3.5 h-3.5 text-[#C5A059] animate-pulse" />
-                <span className="uppercase tracking-wider">AI Studio</span>
+                <span className="uppercase tracking-wider">Custom Áo Dài</span>
                 <ChevronDown className={`w-3 h-3 transition-transform ${isAiDropdownOpen ? "rotate-180" : ""}`} />
               </button>
 

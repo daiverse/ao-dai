@@ -349,13 +349,12 @@ export default function AboutPage() {
             <span>CÂU CHUYỆN THƯƠNG HIỆU · DAIVERSE 2026</span>
           </div>
 
-          <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-[#111111] uppercase tracking-wide leading-tight">
-            ÁO DÀI DAIVERSE — THIẾT KẾ ÁO DÀI CAO CẤP <br />
-            <span className="text-[#C5A059]">GIAO THOA DI SẢN & ĐƯƠNG ĐẠI</span>
+          <h1 className="font-heading text-2xl sm:text-3xl lg:text-4xl font-bold text-[#C5A059] uppercase tracking-wide leading-tight">
+            GIAO THOA VĂN HOÁ & THỜI TRANG SỐ
           </h1>
 
           <p className="text-neutral-600 text-xs sm:text-sm lg:text-base max-w-2xl mx-auto font-normal leading-relaxed">
-            Mang đến trải nghiệm mua sắm Áo Dài thời trang hiện đại, cá nhân hóa bằng công nghệ AI Virtual Try-on giúp phái đẹp tỏa sáng rạng ngời.
+            Nhấn mạnh phong cách thiết kế cao cấp kết hợp xu hướng mua sắm trực tuyến cá nhân hóa bằng công nghệ và thử mặc 3D.
           </p>
         </div>
 
