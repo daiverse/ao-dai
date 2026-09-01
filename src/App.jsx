@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { CartProvider } from "./context/CartContext";
 import { AuthProvider } from "./context/AuthContext";
 
@@ -95,9 +95,9 @@ function AppContent() {
       case "try-on":
         if (!FEATURE_FLAGS.ENABLE_AI_TRY_ON) {
           return (
-            <div className="pt-36 pb-20 bg-[#EBE9E1] min-h-[70vh] flex items-center justify-center">
-              <div className="container-page text-center max-w-lg mx-auto bg-white p-8 sm:p-10 rounded-3xl border border-gray-100 shadow-xl space-y-4">
-                <div className="w-16 h-16 rounded-full bg-amber-50 text-[#E43D12] flex items-center justify-center mx-auto text-2xl">
+            <div className="pt-36 pb-20 bg-[#FAF6F0] min-h-[70vh] flex items-center justify-center">
+              <div className="container-page text-center max-w-lg mx-auto bg-[#FAF6F0] p-8 sm:p-10 rounded-3xl border border-neutral-300 shadow-xl space-y-4">
+                <div className="w-16 h-16 rounded-full bg-amber-50 text-[#C5A059] flex items-center justify-center mx-auto text-2xl">
                   ✨
                 </div>
                 <h2 className="font-heading font-bold text-2xl text-gray-900">Tính Năng Tạm Ẩn</h2>
@@ -106,7 +106,7 @@ function AppContent() {
                 </p>
                 <button
                   onClick={() => setActiveTab("products")}
-                  className="px-6 py-3 bg-[#EFB11D] text-white rounded-full text-xs font-bold hover:bg-[#EFB11D]/90 transition-all shadow-md cursor-pointer border-none"
+                  className="px-6 py-3 bg-[#C5A059] text-white rounded-full text-xs font-bold hover:bg-[#A4813D] transition-all shadow-md cursor-pointer border-none"
                 >
                   Khám Phá Sản Phẩm
                 </button>
@@ -135,7 +135,7 @@ function AppContent() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#EBE9E1] text-gray-900 selection:bg-[#E43D12] selection:text-white">
+    <div className="min-h-screen flex flex-col bg-[#FAF6F0] text-gray-900 selection:bg-[#C5A059] selection:text-white">
       {/* Toast Notification */}
       <Toast />
 

@@ -1,15 +1,16 @@
-﻿export const COLLECTIONS = [
+export const COLLECTIONS = [
   {
     id: "moc-lan",
     name: "Mộc Lan",
     subtitle: "Khởi đầu của một vẻ đẹp thuần khiết & bình yên.",
     description: "BST Mộc Lan gồm 4 thiết kế áo dài độc đáo: Bạch Lan, Sương Mai, Mộc An, và Hồng Nguyệt, mang sự giao thoa giữa nét đẹp truyền thống và hơi thở đương đại.",
     image: "/anh/bach-lan/1.jpg",
+    bannerImage: "/anh/suong-mai/banner.png",
     fallbackImage: "/anh/bach-lan/1.jpg",
     priceFrom: "1.499.000đ",
     itemCount: 4,
     badge: "BST Mới Ra Mắt",
-    accentColor: "#EFB11D"
+    accentColor: "#C5A059"
   },
   {
     id: "phong-sac",
@@ -17,6 +18,7 @@
     subtitle: "Thanh thoát trong từng nhịp gió.",
     description: "BST Phong Sắc gồm thiết kế Thanh Phong nổi bật với áo khoác choàng tafta sang trọng, hiện đại và thanh lịch.",
     image: "/anh/thanh-phong/1.jpg",
+    bannerImage: "/anh/thanh-phong/banner.png",
     fallbackImage: "/anh/thanh-phong/1.jpg",
     priceFrom: "1.799.000đ",
     itemCount: 1,

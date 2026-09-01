@@ -7,24 +7,38 @@ export default {
   theme: {
     extend: {
       colors: {
-        lotus: {
-          deep: '#EFB11D',
-          DEFAULT: '#E43D12',
-          light: '#FFF4D6',
+        nem: {
+          black: '#111111',
+          red: '#C5A059',
+          darkred: '#A4813D',
+          gold: '#C5A059',
+          darkgold: '#A4813D',
+          gray: '#666666',
+          lightgray: '#F3EFE6',
+          border: '#E5DECE',
+          beige: '#FAF6F0',
         },
-        cream: '#EBE9E1',
-        'deep-red': '#D6536D',
-        rose: '#D6536D',
-        'rose-light': '#FFA2B6',
-        'brand-yellow': '#EFB11D',
-        'brand-orange': '#E43D12',
+        lotus: {
+          deep: '#C5A059',
+          DEFAULT: '#C5A059',
+          light: '#FAF6F0',
+        },
+        cream: '#FAF6F0',
+        beige: '#FAF6F0',
+        'deep-red': '#C5A059',
+        rose: '#C5A059',
+        'rose-light': '#F5EBE0',
+        'brand-yellow': '#C5A059',
+        'brand-orange': '#C5A059',
       },
       fontFamily: {
-        heading: ['Playfair Display', 'serif'],
+        heading: ['Playfair Display', 'Cormorant Garamond', 'serif'],
         sans: ['Inter', 'sans-serif'],
-        script: ['Kaushan Script', 'cursive'],
+        script: ['Cormorant Garamond', 'serif'],
       }
     },
   },
   plugins: [],
 }
+
+

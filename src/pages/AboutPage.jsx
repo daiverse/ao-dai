@@ -1,4 +1,4 @@
-﻿import React, { useState } from "react";
+import React, { useState } from "react";
 import { Sparkles, Scissors, Feather, Award, ShieldCheck, Clock, CheckCircle2, Heart, Layers, Eye, ArrowLeft, ChevronLeft, ChevronRight, X, ArrowUpRight } from "lucide-react";
 import { COLLECTIONS } from "../data/collections";
 import { PRODUCTS } from "../data/products";
@@ -11,21 +11,21 @@ function StoryDetail({ product, onBack }) {
   const goPrev = () => setActiveImg(i => (i - 1 + product.images.length) % product.images.length);
 
   return (
-    <div className="pt-28 sm:pt-32 pb-24 bg-[#EBE9E1] min-h-screen">
+    <div className="pt-32 sm:pt-36 pb-20 bg-white min-h-screen">
       <div className="container-page max-w-6xl mx-auto">
         {/* Breadcrumb & back */}
         <div className="flex items-center justify-between gap-4 mb-8 pt-4">
           <button
             onClick={onBack}
-            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white border border-gray-200 text-gray-800 text-xs font-bold hover:bg-[#EFB11D] hover:text-white transition-all shadow-sm cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2 bg-[#111111] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#C5A059] transition-all cursor-pointer border-none"
           >
             <ArrowLeft className="w-4 h-4" />
-            Quay Lại Câu Chuyện
+            QUAY LẠI CÂU CHUYỆN
           </button>
-          <div className="text-xs text-gray-500 font-medium hidden sm:block">
-            <span>Câu Chuyện</span>
+          <div className="text-xs text-neutral-500 font-bold uppercase tracking-wider hidden sm:block">
+            <span>CÂU CHUYỆN</span>
             <span className="mx-1.5">/</span>
-            <span className="text-[#E43D12] font-semibold">{product.name}</span>
+            <span className="text-[#C5A059]">{product.name}</span>
           </div>
         </div>
 
@@ -34,52 +34,45 @@ function StoryDetail({ product, onBack }) {
 
           {/* LEFT: Image Gallery */}
           <div className="space-y-4 sticky top-28">
-            {/* Main image */}
-            <div className="relative aspect-[3/4] rounded-3xl overflow-hidden bg-gray-100 shadow-2xl border border-gray-100 group">
+            <div className="relative aspect-[3/4] bg-neutral-100 border border-neutral-300 shadow-xl overflow-hidden group">
               <img
                 src={product.images[activeImg]}
                 alt={`${product.name} - ảnh ${activeImg + 1}`}
                 className="w-full h-full object-cover object-top transition-opacity duration-500"
               />
-              {/* Collection badge */}
               <div className="absolute top-4 left-4">
-                <span className="text-[11px] font-bold uppercase tracking-widest bg-[#EFB11D]/90 backdrop-blur-md text-[#EFB11D] px-3.5 py-1.5 rounded-full border border-white/10">
-                  {product.collection === "moc-lan" ? "BST Mộc Lan" : "BST Phong Sắc"}
+                <span className="text-[10px] font-extrabold uppercase tracking-widest bg-[#111111] text-white px-3 py-1">
+                  {product.collection === "moc-lan" ? "BST MỘC LAN" : "BST PHONG SẮC"}
                 </span>
               </div>
-              {/* Nav arrows */}
               {product.images.length > 1 && (
                 <>
                   <button
                     onClick={goPrev}
-                    className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-white/80 backdrop-blur-md rounded-full shadow-lg hover:bg-white transition-all opacity-0 group-hover:opacity-100 cursor-pointer border-none"
+                    className="absolute left-3 top-1/2 -translate-y-1/2 p-2 bg-white/90 text-[#111111] shadow-lg hover:bg-white transition-all opacity-0 group-hover:opacity-100 cursor-pointer border-none"
                   >
-                    <ChevronLeft className="w-5 h-5 text-gray-800" />
+                    <ChevronLeft className="w-5 h-5" />
                   </button>
                   <button
                     onClick={goNext}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-white/80 backdrop-blur-md rounded-full shadow-lg hover:bg-white transition-all opacity-0 group-hover:opacity-100 cursor-pointer border-none"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 p-2 bg-white/90 text-[#111111] shadow-lg hover:bg-white transition-all opacity-0 group-hover:opacity-100 cursor-pointer border-none"
                   >
-                    <ChevronRight className="w-5 h-5 text-gray-800" />
+                    <ChevronRight className="w-5 h-5" />
                   </button>
                 </>
               )}
-              {/* Image counter */}
-              <div className="absolute bottom-4 right-4 text-xs bg-black/50 backdrop-blur-sm text-white px-3 py-1 rounded-full font-medium">
-                {activeImg + 1} / {product.images.length}
-              </div>
             </div>
 
             {/* Thumbnail strip */}
-            <div className="grid grid-cols-4 gap-2.5">
+            <div className="grid grid-cols-4 gap-2">
               {product.images.map((img, idx) => (
                 <button
                   key={idx}
                   onClick={() => setActiveImg(idx)}
-                  className={`aspect-[3/4] rounded-xl overflow-hidden border-2 transition-all cursor-pointer p-0 ${
+                  className={`aspect-[3/4] overflow-hidden border-2 transition-all cursor-pointer p-0 ${
                     activeImg === idx
-                      ? "border-[#EFB11D] shadow-lg scale-105"
-                      : "border-gray-200/80 hover:border-gray-400 opacity-70 hover:opacity-100"
+                      ? "border-[#111111]"
+                      : "border-neutral-200 opacity-60 hover:opacity-100"
                   }`}
                 >
                   <img src={img} alt={`thumb ${idx + 1}`} className="w-full h-full object-cover object-top" />
@@ -89,122 +82,205 @@ function StoryDetail({ product, onBack }) {
           </div>
 
           {/* RIGHT: Story Content */}
-          <div className="space-y-8">
-            {/* Category & fabric badge */}
+          <div className="space-y-6">
             <div className="flex flex-wrap gap-2">
-              <span className="text-[11px] font-bold uppercase tracking-widest text-[#E43D12] bg-[#E43D12]/10 border border-[#E43D12]/20 px-4 py-1.5 rounded-full">
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#C5A059] bg-red-50 border border-red-200 px-3 py-1">
                 {product.fabric}
               </span>
               {product.isExpress24h && (
-                <span className="text-[11px] font-bold uppercase tracking-widest text-emerald-700 bg-emerald-50 border border-emerald-200 px-4 py-1.5 rounded-full">
-                  ⚡ Giao Hỏa Tốc 24h
+                <span className="text-[10px] font-extrabold uppercase tracking-widest text-emerald-800 bg-emerald-50 border border-emerald-200 px-3 py-1">
+                  ⚡ GIAO HỎA TỐC 24H
                 </span>
               )}
             </div>
 
-            {/* Story headline */}
-            <div className="space-y-3">
-              <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 leading-[1.15]">
+            <div className="space-y-2">
+              <h1 className="font-heading text-3xl sm:text-4xl font-black text-[#111111] uppercase tracking-wide">
                 {product.storyTitle}
               </h1>
-              <p className="text-xs sm:text-sm text-gray-500 font-medium uppercase tracking-wider">
+              <p className="text-xs text-neutral-500 font-bold uppercase tracking-widest">
                 {product.name}
               </p>
             </div>
 
-            {/* Decorative divider */}
-            <div className="flex items-center gap-4">
-              <div className="h-px flex-1 bg-[#E43D12]/30"></div>
-              <span className="text-[#E43D12] text-lg">✦</span>
-              <div className="h-px flex-1 bg-[#E43D12]/30"></div>
-            </div>
+            <div className="h-0.5 bg-[#111111] w-20"></div>
 
-            {/* Story content */}
-            <div className="text-base sm:text-lg text-gray-700 leading-[1.9] font-light">
+            <div className="text-sm sm:text-base text-neutral-700 leading-relaxed font-normal">
               {product.storyContent}
             </div>
 
-            {/* Detail specs */}
-            <div className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 space-y-4">
-              <h3 className="font-heading font-bold text-[#EFB11D] text-sm uppercase tracking-wider">
-                Chi Tiết Thiết Kế
+            <div className="bg-neutral-50 border border-neutral-300 p-5 space-y-3">
+              <h3 className="font-heading font-black text-[#111111] text-xs uppercase tracking-widest">
+                THÔNG SỐ THIẾT KẾ
               </h3>
-              <div className="grid grid-cols-1 gap-3 text-sm">
+              <div className="grid grid-cols-1 gap-2 text-xs">
                 <div className="flex items-start gap-3">
-                  <span className="text-[#E43D12] font-bold text-xs uppercase tracking-wide w-20 shrink-0 pt-0.5">Chất liệu</span>
-                  <span className="text-gray-700 font-medium">{product.fabric}</span>
+                  <span className="text-[#C5A059] font-extrabold text-[11px] uppercase tracking-wider w-20 shrink-0">Chất liệu</span>
+                  <span className="text-neutral-800 font-semibold">{product.fabric}</span>
                 </div>
                 <div className="flex items-start gap-3">
-                  <span className="text-[#E43D12] font-bold text-xs uppercase tracking-wide w-20 shrink-0 pt-0.5">Sizes</span>
-                  <span className="text-gray-700">{product.sizes?.join(" · ")}</span>
+                  <span className="text-[#C5A059] font-extrabold text-[11px] uppercase tracking-wider w-20 shrink-0">Bảng Size</span>
+                  <span className="text-neutral-800 font-semibold">{product.sizes?.join(" · ")}</span>
                 </div>
-                {product.description && (
-                  <div className="flex items-start gap-3">
-                    <span className="text-[#E43D12] font-bold text-xs uppercase tracking-wide w-20 shrink-0 pt-0.5">Mô tả</span>
-                    <span className="text-gray-600 font-light leading-relaxed">{product.description}</span>
-                  </div>
-                )}
               </div>
             </div>
 
             {/* Price & CTA */}
-            <div className="bg-[#EFB11D] rounded-2xl p-6 text-white space-y-4">
+            <div className="bg-[#111111] text-white p-6 border border-neutral-800 space-y-4">
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="text-[#EFB11D] text-xs uppercase tracking-wider font-bold block mb-1">Giá tham khảo</span>
-                  <div className="flex items-baseline gap-3">
-                    <span className="font-heading text-3xl font-bold text-white">{product.formattedPrice}</span>
-                    {product.formattedOriginalPrice && (
-                      <span className="text-white/40 line-through text-sm">{product.formattedOriginalPrice}</span>
-                    )}
-                  </div>
-                </div>
-                <div className="text-right">
-                  <span className="text-white/60 text-xs block">⭐ {product.rating}</span>
-                  <span className="text-white/60 text-xs">({product.reviewsCount} đánh giá)</span>
+                  <span className="text-neutral-400 text-[10px] uppercase font-bold tracking-widest block mb-1">Giá bán niêm yết</span>
+                  <span className="font-heading text-2xl font-black text-[#C5A059]">{product.formattedPrice}</span>
                 </div>
               </div>
-              <button className="w-full py-3.5 bg-[#E43D12] hover:bg-[#E43D12]/90 text-white font-bold text-sm rounded-xl transition-all cursor-pointer border-none flex items-center justify-center gap-2">
-                <span>Đặt May Ngay</span>
+              <button className="w-full py-3.5 bg-[#C5A059] hover:bg-[#A4813D] text-white font-bold text-xs uppercase tracking-widest transition-all cursor-pointer border-none flex items-center justify-center gap-2">
+                <span>ĐẶT MUA NGAY</span>
                 <ArrowUpRight className="w-4 h-4" />
               </button>
             </div>
           </div>
         </div>
 
-        {/* Full-width photo story strip */}
-        {product.images.length > 2 && (
-          <section className="mb-16">
-            <div className="text-center mb-8">
-              <span className="text-xs uppercase tracking-[0.3em] text-[#E43D12] font-bold">Bộ Sưu Tập Ảnh</span>
-              <h2 className="font-heading text-3xl font-bold text-gray-900 mt-1">
-                Hành Trình Của {product.storyTitle.split('|')[0].trim()}
-              </h2>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {product.images.map((img, idx) => (
-                <div
-                  key={idx}
-                  onClick={() => setActiveImg(idx)}
-                  className={`aspect-[3/4] rounded-2xl overflow-hidden cursor-pointer shadow-md hover:shadow-xl transition-all hover:-translate-y-1 border-2 ${activeImg === idx ? "border-[#E43D12]" : "border-transparent"}`}
-                >
-                  <img src={img} alt={`${product.name} lookbook ${idx + 1}`} className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-500" />
-                </div>
-              ))}
-            </div>
-          </section>
-        )}
-
         {/* Back button bottom */}
-        <div className="flex justify-center pt-8 border-t border-gray-200">
+        <div className="flex justify-center pt-8 border-t border-neutral-200">
           <button
             onClick={onBack}
-            className="px-8 py-4 bg-[#EFB11D] text-white rounded-full font-bold text-xs uppercase tracking-wider hover:bg-[#EFB11D]/90 shadow-xl transition-all flex items-center gap-2 cursor-pointer border-none"
+            className="px-6 py-3 bg-[#111111] hover:bg-[#C5A059] text-white font-bold text-xs uppercase tracking-widest transition-all flex items-center gap-2 cursor-pointer border-none"
           >
             <ArrowLeft className="w-4 h-4" />
-            Quay Lại Danh Sách Câu Chuyện
+            QUAY LẠI DANH SÁCH CÂU CHUYỆN
           </button>
         </div>
+      </div>
+    </div>
+  );
+}
+
+// ─── HERO BANNER SHOWCASE COMPONENT ──────────────────────────────────────────
+function HeroBannerShowcase({ stats }) {
+  const slides = [
+    {
+      id: "bach-lan",
+      titleTop: "BẠCH",
+      titleBottom: "LAN",
+      subTitle: "BST MỘC LAN 2026",
+      tagline: "DaiVerse kết hợp tinh hoa áo dài Việt với công nghệ AI 3D và Virtual Try-On, tôn vinh vẻ đẹp truyền thống và phong cách riêng biệt của người phụ nữ Việt.",
+      image: "/anh/bach-lan/banner.png"
+    },
+    {
+      id: "suong-mai",
+      titleTop: "SƯƠNG",
+      titleBottom: "MAI",
+      subTitle: "BST MỘC LAN 2026",
+      tagline: "Gấm tơ mềm óng ả hòa quyện cùng hoa sen thêu tay thủ công di sản, mang lại cảm xúc thanh tao và sang trọng tuyệt đối.",
+      image: "/anh/suong-mai/banner.png"
+    },
+    {
+      id: "thanh-phong",
+      titleTop: "THANH",
+      titleBottom: "PHONG",
+      subTitle: "BST PHONG SẮC 2026",
+      tagline: "Dáng suông Tafta giãn ngang 3 món phá cách đương đại, kiến tạo hình ảnh người phụ nữ tự tin, kiêu hãnh và hiện đại.",
+      image: "/anh/thanh-phong/banner.png"
+    }
+  ];
+
+  const [activeIdx, setActiveIdx] = useState(0);
+
+  const nextSlide = () => setActiveIdx((prev) => (prev + 1) % slides.length);
+  const prevSlide = () => setActiveIdx((prev) => (prev - 1 + slides.length) % slides.length);
+
+  const active = slides[activeIdx];
+
+  return (
+    <div className="mt-10 relative overflow-hidden bg-[#FAF6F0] border border-[#E5DECE] shadow-2xl transition-all duration-500">
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center p-6 sm:p-10 lg:p-12">
+        
+        {/* Left Editorial Content Column */}
+        <div className="lg:col-span-6 space-y-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#111111] text-white text-[10px] font-extrabold uppercase tracking-widest border border-[#C5A059]">
+            <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
+            <span>{active.subTitle}</span>
+          </div>
+
+          <div>
+            <span className="text-[10px] font-extrabold uppercase tracking-[0.25em] text-[#C5A059] block mb-1">
+              DAIVERSE HAUTE COUTURE EDITORIAL · 2026
+            </span>
+            <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-black text-[#111111] uppercase tracking-widest leading-none">
+              {active.titleTop} <span className="text-[#C5A059]">{active.titleBottom}</span>
+            </h1>
+          </div>
+
+          <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed font-normal max-w-xl">
+            {active.tagline}
+          </p>
+
+          {/* Quick Tab Switcher & Navigation Controls */}
+          <div className="pt-2 flex flex-wrap items-center justify-between gap-4 border-t border-neutral-200">
+            <div className="flex items-center gap-2">
+              {slides.map((item, idx) => (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveIdx(idx)}
+                  className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer border ${
+                    activeIdx === idx
+                      ? "bg-[#111111] text-white border-[#111111]"
+                      : "bg-white text-neutral-700 border-neutral-300 hover:border-[#111111]"
+                  }`}
+                >
+                  {item.titleTop} {item.titleBottom}
+                </button>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-2">
+              <button
+                onClick={prevSlide}
+                className="w-9 h-9 bg-white border border-neutral-300 hover:border-[#111111] flex items-center justify-center text-[#111111] font-bold transition-all cursor-pointer"
+              >
+                ‹
+              </button>
+              <button
+                onClick={nextSlide}
+                className="w-9 h-9 bg-white border border-neutral-300 hover:border-[#111111] flex items-center justify-center text-[#111111] font-bold transition-all cursor-pointer"
+              >
+                ›
+              </button>
+            </div>
+          </div>
+
+          {/* Stats Bar */}
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-3 border-t border-neutral-200">
+            {stats.map((st, idx) => (
+              <div key={idx} className="bg-white p-2.5 border border-neutral-300 text-center">
+                <p className="font-heading text-lg sm:text-xl font-black text-[#C5A059]">{st.number}</p>
+                <p className="text-[9px] text-neutral-600 font-bold uppercase tracking-wider">{st.label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Right Visual Image Stage Column */}
+        <div className="lg:col-span-6">
+          <div className="relative aspect-[16/10] sm:aspect-[16/9] overflow-hidden bg-neutral-900 border border-neutral-300 shadow-xl group">
+            <img
+              src={active.image}
+              alt={active.titleTop + " " + active.titleBottom}
+              className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-700"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent"></div>
+            <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between text-white">
+              <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#C5A059]">
+                GIAO THOA DI SẢN & CÔNG NGHỆ AI
+              </span>
+              <span className="text-[10px] font-bold uppercase tracking-widest bg-[#111111]/80 px-2.5 py-1 backdrop-blur-xs">
+                SLIDE {activeIdx + 1} / {slides.length}
+              </span>
+            </div>
+          </div>
+        </div>
+
       </div>
     </div>
   );
@@ -224,105 +300,82 @@ export default function AboutPage() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  // Render Story Detail if a product is selected
   if (selectedProduct) {
     return <StoryDetail product={selectedProduct} onBack={handleBack} />;
   }
 
   const stats = [
-    { number: "02", label: "Bộ Sưu Tập Biểu Tượng" },
-    { number: "05", label: "Thiết Kế Độc Bản" },
-    { number: "100%", label: "Lụa Gấm & Tơ Cao Cấp" },
-    { number: "AI 3D", label: "Thử Đồ Cá Nhân Hóa" }
+    { number: "02", label: "BỘ SƯU TẬP MỚI" },
+    { number: "05", label: "THIẾT KẾ ĐỘC BẢN" },
+    { number: "100%", label: "LỤA GẤM CAO CẤP" },
+    { number: "AI 3D", label: "THỬ ĐỒ THỜI TRANG" }
   ];
 
   const coreValues = [
     {
       step: "01",
-      title: "Tinh Hoa Chất Liệu",
-      desc: "Tuyển chọn các chất liệu thượng hạng từ Lụa gấm trúc, Gấm tơ mềm, Tơ tằm ánh kim 4 tà cho đến Tafta giãn ngang cao cấp."
+      title: "TINH HOA CHẤT LIỆU",
+      desc: "Tuyển chọn các chất liệu thượng hạng từ Lụa gấm trúc, Gấm tơ mềm, Tơ tằm ánh kim 4 tà cho đến Tafta cao cấp."
     },
     {
       step: "02",
-      title: "Giao Thoa Đương Đại",
-      desc: "Sự kết hợp hoàn hảo giữa nét đẹp truyền thống thanh lịch và hơi thở hiện đại trong từng nếp áo, đường cắt cúp."
+      title: "GIAO THOA ĐƯƠNG ĐẠI",
+      desc: "Sự kết hợp hoàn hảo giữa nét đẹp truyền thống thanh lịch và phong cách hiện đại Áo Dài DaiVerse trong từng nếp áo."
     },
     {
       step: "03",
-      title: "Cá Nhân Hóa Trí Tuệ AI",
-      desc: "Ứng dụng AI Design Studio & Virtual Try-on giúp xem trước phom dáng 3D và thử áo dài trực tiếp trên ảnh cá nhân."
+      title: "CÁ NHÂN HÓA CÔNG NGHỆ",
+      desc: "Ứng dụng DaiVerse AI Design Studio & Virtual Try-on giúp xem trước phom dáng 3D và thử trang phục trực tiếp."
     }
   ];
 
   const commitments = [
-    { icon: <ShieldCheck className="w-6 h-6 text-[#E43D12]" />, title: "Chất Liệu Thượng Hạng", desc: "Cam kết lụa gấm trúc, gấm tơ mềm & tơ tằm ánh kim 100% chuẩn di sản." },
-    { icon: <Clock className="w-6 h-6 text-[#E43D12]" />, title: "May Sẵn & Giao 24h", desc: "Đội ngũ sẵn size S, M, L giao hỏa tốc 24h và hỗ trợ may đo cá nhân." },
-    { icon: <Scissors className="w-6 h-6 text-[#E43D12]" />, title: "Phom Dáng Vừa Vặn", desc: "Tỉ lệ đường may tôn vinh đường cong thanh thoát tự nhiên của phụ nữ Việt." },
-    { icon: <Award className="w-6 h-6 text-[#E43D12]" />, title: "Trải Nghiệm AI Trực Quan", desc: "Xem trước sản phẩm trên ảnh cá nhân trước khi quyết định may sở hữu." }
+    { icon: <ShieldCheck className="w-5 h-5 text-[#C5A059]" />, title: "CHẤT LIỆU THƯỢNG HẠNG", desc: "Cam kết lụa gấm trúc, gấm tơ mềm chuẩn chất lượng thời trang DaiVerse." },
+    { icon: <Clock className="w-5 h-5 text-[#C5A059]" />, title: "GIAO HÀNG 24H", desc: "Đội ngũ sẵn size S, M, L giao hỏa tốc 24h và hỗ trợ chỉnh sửa phom dáng." },
+    { icon: <Scissors className="w-5 h-5 text-[#C5A059]" />, title: "PHOM DÁNG CHUẨN MỰC", desc: "Tỉ lệ đường may tôn vinh đường cong thanh thoát của phụ nữ Việt." },
+    { icon: <Award className="w-5 h-5 text-[#C5A059]" />, title: "TRẢI NGHIỆM DAIVERSE VIP", desc: "Xem trước sản phẩm với công nghệ thử đồ ảo trực quan." }
   ];
 
-  // Group products by collection
   const mocLanProducts = PRODUCTS.filter(p => p.collection === "moc-lan");
   const phongSacProducts = PRODUCTS.filter(p => p.collection === "phong-sac");
 
   return (
-    <div className="pt-32 sm:pt-36 lg:pt-32 pb-24 bg-[#EBE9E1] min-h-screen text-gray-900">
+    <div className="pt-32 sm:pt-36 pb-20 bg-white min-h-screen text-[#111111]">
       {/* 1. Hero Header Section */}
-      <section className="container-page mb-16 lg:mb-20">
-        <div className="text-center max-w-4xl mx-auto space-y-4">
-          <span className="text-xs uppercase tracking-[0.35em] text-[#E43D12] font-bold px-4 py-1.5 rounded-full bg-[#E43D12]/10 border border-[#E43D12]/20 inline-block">
-            Câu Chuyện Thương Hiệu · DaiVerse 2026
-          </span>
-          <h1 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-[1.18]">
-            DaiVerse — Giải Pháp Cá Nhân Hóa Áo Dài Việt<br />
-            <span className="text-[#EFB11D] italic font-heading font-semibold">Giao Thoa Di Sản Truyền Thống & AI Đương Đại</span>
+      <section className="container-page mb-16">
+        <div className="text-center max-w-4xl mx-auto space-y-3">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-[#111111] text-white text-[11px] font-extrabold uppercase tracking-widest border border-[#C5A059]">
+            <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
+            <span>CÂU CHUYỆN THƯƠNG HIỆU · DAIVERSE 2026</span>
+          </div>
+
+          <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black text-[#111111] uppercase tracking-wide leading-tight">
+            ÁO DÀI DAIVERSE — THIẾT KẾ ÁO DÀI CAO CẤP <br />
+            <span className="text-[#C5A059]">GIAO THOA DI SẢN & ĐƯƠNG ĐẠI</span>
           </h1>
-          <p className="text-base sm:text-lg text-gray-600 mt-4 leading-relaxed max-w-3xl mx-auto font-light">
-            DaiVerse được xây dựng với mong muốn mang đến một trải nghiệm mua sắm áo dài hiện đại, trực quan và cá nhân hóa. Thông qua ứng dụng công nghệ AI, mô phỏng 3D và thử đồ ảo (Virtual Try-on), DaiVerse giúp khách hàng dễ dàng lựa chọn kiểu dáng, xem trước tà áo dài trên vóc dáng cá nhân và đặt may sản phẩm phù hợp nhất.
+
+          <p className="text-neutral-600 text-xs sm:text-sm lg:text-base max-w-2xl mx-auto font-normal leading-relaxed">
+            Mang đến trải nghiệm mua sắm Áo Dài thời trang hiện đại, cá nhân hóa bằng công nghệ AI Virtual Try-on giúp phái đẹp tỏa sáng rạng ngời.
           </p>
         </div>
 
-        {/* Hero Showcase Image */}
-        <div className="mt-12 relative rounded-3xl overflow-hidden shadow-2xl h-[380px] sm:h-[480px] lg:h-[540px] bg-gray-900 border border-gray-100">
-          <img
-            src="/anh/bach-lan/1.jpg"
-            alt="DaiVerse Heritage Showcase"
-            className="w-full h-full object-cover"
-            style={{ objectPosition: "50% 10%" }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent"></div>
-
-          <div className="absolute top-6 left-6 z-10 hidden sm:block">
-            <div className="px-4 py-2 bg-white/20 backdrop-blur-md rounded-full text-white text-xs font-bold uppercase tracking-widest border border-white/20">
-              Bộ Sưu Tập Mộc Lan & Phong Sắc
-            </div>
-          </div>
-
-          {/* Stats Bar Floating Bottom */}
-          <div className="absolute bottom-4 left-4 right-4 sm:bottom-6 sm:left-6 sm:right-6 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 bg-white/15 backdrop-blur-md p-3.5 sm:p-5 rounded-2xl border border-white/20 text-white text-center z-10">
-            {stats.map((st, idx) => (
-              <div key={idx} className="space-y-0.5 sm:space-y-1">
-                <p className="font-heading text-xl sm:text-3xl font-bold text-[#EBE9E1]">{st.number}</p>
-                <p className="text-[11px] sm:text-xs text-white/80 font-medium">{st.label}</p>
-              </div>
-            ))}
-          </div>
-        </div>
+        {/* Hero Interactive Showcase Image Banner */}
+        <HeroBannerShowcase stats={stats} />
       </section>
 
       {/* 2. Core Pillars Section */}
-      <section className="py-20 bg-white border-y border-gray-200/80 mb-20">
+      <section className="py-16 bg-neutral-50 border-y border-neutral-200 mb-16">
         <div className="container-page">
-          <div className="text-center max-w-2xl mx-auto mb-16">
-            <span className="text-xs uppercase tracking-[0.3em] text-[#E43D12] font-bold block mb-2">Triết Lý Thiết Kế</span>
-            <h2 className="font-heading text-3xl sm:text-4xl font-bold text-gray-900">Nét Đẹp Tối Giản & Thanh Tao</h2>
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="text-[10px] uppercase tracking-widest text-[#C5A059] font-extrabold block mb-1">TRIẾT LÝ THIẾT KẾ</span>
+            <h2 className="font-heading text-2xl sm:text-3xl font-black text-[#111111] uppercase">NÉT ĐẸP QUÝ PHÁI & SANG TRỌNG</h2>
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {coreValues.map((pillar, idx) => (
-              <div key={idx} className="p-8 rounded-3xl bg-[#EBE9E1] border border-gray-100 space-y-4 hover:shadow-xl transition-all">
-                <span className="text-3xl font-heading font-bold text-[#E43D12] block">{pillar.step}</span>
-                <h3 className="font-heading text-2xl font-bold text-[#EFB11D]">{pillar.title}</h3>
-                <p className="text-sm text-gray-600 leading-relaxed font-light">{pillar.desc}</p>
+              <div key={idx} className="p-6 bg-white border border-neutral-300 space-y-3">
+                <span className="text-2xl font-heading font-black text-[#C5A059] block">{pillar.step}</span>
+                <h3 className="font-heading font-black text-base text-[#111111] uppercase">{pillar.title}</h3>
+                <p className="text-xs text-neutral-600 leading-relaxed font-normal">{pillar.desc}</p>
               </div>
             ))}
           </div>
@@ -330,60 +383,39 @@ export default function AboutPage() {
       </section>
 
       {/* 3. Collections with CLICKABLE Design Cards */}
-      <section className="container-page space-y-24 mb-24">
+      <section className="container-page space-y-16 mb-20">
 
         {/* BST 1: Mộc Lan */}
-        <div className="bg-white rounded-3xl p-8 sm:p-12 border border-gray-200/80 shadow-xl space-y-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-gray-100 pb-8">
-            <div className="lg:col-span-8 space-y-3">
-              <span className="text-xs uppercase tracking-[0.3em] text-[#E43D12] font-bold block">Bộ Sưu Tập 01</span>
-              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-[#EFB11D]">
-                BST Mộc Lan — Khởi Đầu Của Sự Thuần Khiết & Bình Yên
-              </h2>
-              <p className="text-sm sm:text-base text-gray-600 font-light leading-relaxed">
-                BST Mộc Lan gồm 4 thiết kế áo dài độc đáo: <strong>Bạch Lan</strong>, <strong>Sương Mai</strong>, <strong>Mộc An</strong>, và <strong>Hồng Nguyệt</strong>. Mang sự giao thoa giữa nét đẹp truyền thống và hơi thở đương đại quý phái.
-              </p>
-            </div>
-            <div className="lg:col-span-4 flex lg:justify-end">
-              <div className="px-5 py-2.5 bg-[#EFB11D]/10 text-[#EFB11D] rounded-full text-xs font-bold uppercase tracking-wider">
-                ✦ 4 Thiết Kế Độc Bản
-              </div>
-            </div>
+        <div className="bg-white border border-neutral-300 p-6 sm:p-10 space-y-8">
+          <div className="border-b border-neutral-200 pb-6">
+            <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#C5A059] block mb-1">BỘ SƯU TẬP 01</span>
+            <h2 className="font-heading text-2xl sm:text-3xl font-black text-[#111111] uppercase">
+              BST MỘC LAN — THUẦN KHẢO & BÌNH YÊN
+            </h2>
           </div>
 
-          {/* Clickable product cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {mocLanProducts.map(product => (
               <article
                 key={product.id}
                 onClick={() => handleSelectProduct(product)}
-                className="group space-y-3 bg-[#EBE9E1] p-5 rounded-2xl border border-gray-100 hover:border-[#E43D12]/40 hover:shadow-xl transition-all duration-400 cursor-pointer hover:-translate-y-1"
+                className="group space-y-2 bg-neutral-50 p-4 border border-neutral-300 cursor-pointer hover:border-[#111111] transition-all"
               >
-                <div className="relative aspect-[3/4] rounded-xl overflow-hidden bg-gray-200">
+                <div className="relative aspect-[3/4] overflow-hidden bg-neutral-200">
                   <img
                     src={product.images[0]}
                     alt={product.name}
                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-400"></div>
-                  <div className="absolute bottom-3 left-0 right-0 flex justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-400 translate-y-2 group-hover:translate-y-0">
-                    <span className="text-xs font-bold text-white bg-[#E43D12] px-4 py-2 rounded-full shadow-lg flex items-center gap-1.5">
-                      <Eye className="w-3.5 h-3.5" />
-                      Xem Câu Chuyện
-                    </span>
-                  </div>
                 </div>
-                <span className="text-[11px] text-[#E43D12] font-bold uppercase tracking-wider block">{product.fabric}</span>
-                <h3 className="font-heading text-lg font-bold text-gray-900 group-hover:text-[#E43D12] transition-colors">
+                <span className="text-[10px] text-[#C5A059] font-bold uppercase tracking-wider block">{product.fabric}</span>
+                <h3 className="font-heading font-black text-sm text-[#111111] uppercase truncate">
                   {product.storyTitle.split('|')[0].trim()}
                 </h3>
-                <p className="text-xs text-gray-600 line-clamp-3 font-light leading-relaxed">
-                  {product.storyContent.substring(0, 100)}...
-                </p>
                 <div className="flex items-center justify-between pt-1 text-xs">
-                  <span className="font-bold text-[#EFB11D]">{product.formattedPrice}</span>
-                  <span className="text-[#E43D12] font-bold flex items-center gap-1 group-hover:gap-2 transition-all">
-                    Đọc thêm <ArrowUpRight className="w-3.5 h-3.5" />
+                  <span className="font-bold text-[#C5A059]">{product.formattedPrice}</span>
+                  <span className="text-[#111111] font-bold uppercase text-[10px] flex items-center gap-1">
+                    ĐỌC THÊM <ArrowUpRight className="w-3.5 h-3.5" />
                   </span>
                 </div>
               </article>
@@ -391,65 +423,38 @@ export default function AboutPage() {
           </div>
         </div>
 
-        {/* BST 2: Phong Sắc */}
-        <div className="bg-gradient-to-br from-[#EFB11D] to-[#C8A800] text-white rounded-3xl p-8 sm:p-12 shadow-2xl space-y-8">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center border-b border-white/10 pb-8">
-            <div className="lg:col-span-8 space-y-4">
-              <span className="text-xs uppercase tracking-[0.3em] text-[#EFB11D] font-bold block">Bộ Sưu Tập 02</span>
-              <h2 className="font-heading text-3xl sm:text-4xl font-bold text-white">
-                BST Phong Sắc — Thanh Thoát Trong Từng Nhịp Gió
-              </h2>
-              <p className="text-sm sm:text-base text-gray-200 font-light leading-relaxed">
-                Thiết kế dáng suông Tafta 3 món cao cấp (Áo, Quần & Áo khoác choàng tay cánh dơi). Gam màu xanh dịu và đỏ thanh lịch tôn vinh sự tự do, kiêu hãnh của người phụ nữ hiện đại.
-              </p>
-              <div className="flex items-center gap-3 text-xs text-[#EFB11D] font-medium">
-                <CheckCircle2 className="w-4 h-4 text-[#EFB11D]" />
-                <span>Chất liệu Tafta giãn ngang nhẹ cao cấp</span>
-              </div>
-            </div>
-            <div className="lg:col-span-4 flex lg:justify-end">
-              <div className="px-5 py-2.5 bg-white/10 text-[#EFB11D] rounded-full text-xs font-bold uppercase tracking-wider border border-white/10">
-                ✦ 1 Thiết Kế Độc Bản
-              </div>
-            </div>
+        {/* BST 02: Phong Sắc */}
+        <div className="bg-white border border-neutral-300 p-6 sm:p-10 space-y-8">
+          <div className="border-b border-neutral-200 pb-6">
+            <span className="text-[10px] font-extrabold uppercase tracking-widest text-[#C5A059] block mb-1">BỘ SƯU TẬP 02</span>
+            <h2 className="font-heading text-2xl sm:text-3xl font-black text-[#111111] uppercase">
+              BST PHONG SẮC — THANH THOÁT & THỜI THƯỢNG
+            </h2>
           </div>
 
-          {/* Phong Sac clickable cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {phongSacProducts.map(product => (
               <article
                 key={product.id}
                 onClick={() => handleSelectProduct(product)}
-                className="group bg-white/10 backdrop-blur-sm border border-white/20 rounded-2xl overflow-hidden hover:bg-white/15 hover:border-[#EFB11D]/50 hover:shadow-2xl transition-all duration-400 cursor-pointer hover:-translate-y-1"
+                className="group space-y-2 bg-neutral-50 p-4 border border-neutral-300 cursor-pointer hover:border-[#111111] transition-all"
               >
-                <div className="relative aspect-[4/3] overflow-hidden bg-white/5">
+                <div className="relative aspect-[3/4] overflow-hidden bg-neutral-200">
                   <img
                     src={product.images[0]}
                     alt={product.name}
                     className="w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                  <div className="absolute bottom-3 left-0 right-0 flex justify-center opacity-0 group-hover:opacity-100 transition-all translate-y-2 group-hover:translate-y-0">
-                    <span className="text-xs font-bold text-white bg-[#E43D12] px-4 py-2 rounded-full shadow-lg flex items-center gap-1.5">
-                      <Eye className="w-3.5 h-3.5" />
-                      Xem Câu Chuyện
-                    </span>
-                  </div>
                 </div>
-                <div className="p-5 space-y-2">
-                  <span className="text-[11px] text-[#EFB11D] font-bold uppercase tracking-wider block">{product.fabric}</span>
-                  <h3 className="font-heading text-lg font-bold text-white group-hover:text-[#EFB11D] transition-colors">
-                    {product.storyTitle.split('|')[0].trim()}
-                  </h3>
-                  <p className="text-xs text-white/70 line-clamp-2 font-light leading-relaxed">
-                    {product.storyContent.substring(0, 90)}...
-                  </p>
-                  <div className="flex items-center justify-between pt-2 text-xs">
-                    <span className="font-bold text-[#EFB11D]">{product.formattedPrice}</span>
-                    <span className="text-[#EFB11D] font-bold flex items-center gap-1">
-                      Đọc thêm <ArrowUpRight className="w-3.5 h-3.5" />
-                    </span>
-                  </div>
+                <span className="text-[10px] text-[#C5A059] font-bold uppercase tracking-wider block">{product.fabric}</span>
+                <h3 className="font-heading font-black text-sm text-[#111111] uppercase truncate">
+                  {product.storyTitle ? product.storyTitle.split('|')[0].trim() : product.name}
+                </h3>
+                <div className="flex items-center justify-between pt-1 text-xs">
+                  <span className="font-bold text-[#C5A059]">{product.formattedPrice}</span>
+                  <span className="text-[#111111] font-bold uppercase text-[10px] flex items-center gap-1">
+                    ĐỌC THÊM <ArrowUpRight className="w-3.5 h-3.5" />
+                  </span>
                 </div>
               </article>
             ))}
@@ -459,16 +464,16 @@ export default function AboutPage() {
 
       {/* 4. Brand Commitments Grid */}
       <section className="container-page mb-12">
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <span className="text-xs uppercase tracking-[0.3em] text-[#E43D12] font-bold block mb-2">Cam Kết Chất Lượng</span>
-          <h2 className="font-heading text-3xl sm:text-4xl font-bold text-gray-900">An Tâm Trong Từng Tà Áo</h2>
+        <div className="text-center max-w-2xl mx-auto mb-10">
+          <span className="text-[10px] uppercase tracking-widest text-[#C5A059] font-extrabold block mb-1">CAM KẾT CHẤT LƯỢNG</span>
+          <h2 className="font-heading text-2xl font-black text-[#111111] uppercase">THỜI TRANG ÁO DÀI DAIVERSE VIP</h2>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {commitments.map((cm, idx) => (
-            <div key={idx} className="p-6 rounded-3xl bg-white border border-gray-100 shadow-lg space-y-3">
-              <div className="p-3 w-fit rounded-2xl bg-[#E43D12]/10">{cm.icon}</div>
-              <h4 className="font-heading font-bold text-lg text-gray-900">{cm.title}</h4>
-              <p className="text-xs text-gray-500 leading-relaxed font-light">{cm.desc}</p>
+            <div key={idx} className="p-5 bg-neutral-50 border border-neutral-300 space-y-2">
+              <div className="p-2 w-fit bg-white border border-neutral-300">{cm.icon}</div>
+              <h4 className="font-heading font-black text-xs uppercase text-[#111111]">{cm.title}</h4>
+              <p className="text-xs text-neutral-600 leading-relaxed font-normal">{cm.desc}</p>
             </div>
           ))}
         </div>
@@ -476,3 +481,4 @@ export default function AboutPage() {
     </div>
   );
 }
+

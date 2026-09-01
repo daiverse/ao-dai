@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   X,
   Truck,
@@ -72,16 +72,16 @@ export default function CheckoutModal({ isOpen, onClose }) {
     standard: {
       id: "standard",
       name: "Giao Tiêu Chuẩn (3 - 5 ngày)",
-      badge: "Tiết kiệm",
+      badge: "FREESHIP 500K",
       desc: "Vận chuyển đường bộ tiêu chuẩn toàn quốc",
-      fee: totalPrice >= 1500000 || totalPrice === 0 ? 0 : 30000,
-      feeText: totalPrice >= 1500000 || totalPrice === 0 ? "Miễn phí (Freeship)" : "30.000 đ",
+      fee: totalPrice >= 500000 || totalPrice === 0 ? 0 : 30000,
+      feeText: totalPrice >= 500000 || totalPrice === 0 ? "Miễn phí (Freeship)" : "30.000 đ",
       icon: Truck,
     },
     fast: {
       id: "fast",
       name: "Giao Nhanh (1 - 2 ngày)",
-      badge: "Phổ biến",
+      badge: "DaiVerse FAST",
       desc: "Vận chuyển hàng không / đường bộ ưu tiên",
       fee: 50000,
       feeText: "50.000 đ",
@@ -90,7 +90,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
     express: {
       id: "express",
       name: "Giao Hỏa Tốc (2h - 24h) ⚡",
-      badge: "VIP 24H",
+      badge: "DaiVerse 24H VIP",
       desc: "Shipper riêng giao tận tay + Hộp quà Luxury DaiVerse",
       fee: 90000,
       feeText: "90.000 đ",
@@ -151,7 +151,6 @@ export default function CheckoutModal({ isOpen, onClose }) {
         if (data.success && data.status === "PAID") {
           setPayOsStatus("PAID");
           clearInterval(pollingTimerRef.current);
-          // Tự động tạo đơn hàng hoàn tất
           autoCompletePayOsOrder();
         }
       } catch (err) {}
@@ -263,47 +262,47 @@ export default function CheckoutModal({ isOpen, onClose }) {
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-md animate-fadeIn">
-      <div className="relative w-full max-w-xl bg-white rounded-3xl shadow-2xl overflow-hidden border border-gray-100 max-h-[92vh] flex flex-col">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/75 backdrop-blur-xs animate-fade-in">
+      <div className="relative w-full max-w-xl bg-white rounded-none shadow-2xl overflow-hidden border border-neutral-300 max-h-[92vh] flex flex-col">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-5 right-5 p-2 text-gray-400 hover:text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-full transition-all z-10 border-none cursor-pointer"
+          className="absolute top-4 right-4 p-1.5 text-neutral-400 hover:text-white bg-transparent hover:bg-[#C5A059] transition-all z-10 border-none cursor-pointer"
         >
           <X className="w-5 h-5" />
         </button>
 
         {/* Header Step Indicator */}
-        <div className="bg-gradient-to-r from-[#EFB11D] to-[#C8A800] p-6 text-white text-center shrink-0">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-[#EFB11D] text-[11px] font-bold uppercase tracking-wider mb-2 border border-white/10">
-            <Sparkles className="w-3.5 h-3.5" /> DaiVerse Checkout
+        <div className="bg-[#111111] p-6 text-white text-center shrink-0 border-b-2 border-[#C5A059]">
+          <div className="inline-flex items-center gap-1.5 px-3 py-0.5 bg-[#C5A059] text-white text-[10px] font-extrabold uppercase tracking-widest mb-2">
+            DaiVerse FASHION CHECKOUT
           </div>
-          <h2 className="font-heading text-2xl font-bold">
-            {step === 1 && "Thông Tin Giao Hàng"}
-            {step === 2 && "Cổng Thanh Toán QR PayOS"}
-            {step === 3 && "Đặt Hàng Thành Công!"}
+          <h2 className="font-heading text-xl font-black uppercase tracking-wider text-white">
+            {step === 1 && "1. THÔNG TIN GIAO HÀNG"}
+            {step === 2 && "2. CỔNG THANH TOÁN QR PAYOS"}
+            {step === 3 && "3. ĐẶT HÀNG THÀNH CÔNG!"}
           </h2>
 
           {/* Steps Progress */}
-          <div className="flex items-center justify-center gap-3 mt-4 text-xs font-bold">
-            <span className={`px-3 py-1 rounded-full ${step >= 1 ? "bg-[#E43D12] text-white" : "bg-white/10 text-white/60"}`}>
-              1. Địa Chỉ
+          <div className="flex items-center justify-center gap-3 mt-3 text-[11px] font-bold uppercase tracking-wider">
+            <span className={`px-2.5 py-0.5 ${step >= 1 ? "bg-[#C5A059] text-white" : "bg-neutral-800 text-neutral-400"}`}>
+              1. ĐỊA CHỈ
             </span>
-            <ChevronRight className="w-3.5 h-3.5 text-white/40" />
-            <span className={`px-3 py-1 rounded-full ${step >= 2 ? "bg-[#E43D12] text-white" : "bg-white/10 text-white/60"}`}>
-              2. Thanh Toán QR
+            <ChevronRight className="w-3.5 h-3.5 text-neutral-500" />
+            <span className={`px-2.5 py-0.5 ${step >= 2 ? "bg-[#C5A059] text-white" : "bg-neutral-800 text-neutral-400"}`}>
+              2. THANH TOÁN
             </span>
-            <ChevronRight className="w-3.5 h-3.5 text-white/40" />
-            <span className={`px-3 py-1 rounded-full ${step === 3 ? "bg-emerald-600 text-white" : "bg-white/10 text-white/60"}`}>
-              3. Hoàn Tất
+            <ChevronRight className="w-3.5 h-3.5 text-neutral-500" />
+            <span className={`px-2.5 py-0.5 ${step === 3 ? "bg-emerald-600 text-white" : "bg-neutral-800 text-neutral-400"}`}>
+              3. HOÀN TẤT
             </span>
           </div>
         </div>
 
         {/* Body Content */}
-        <div className="p-6 overflow-y-auto space-y-5 flex-1">
+        <div className="p-6 overflow-y-auto space-y-4 flex-1 bg-white">
           {error && (
-            <div className="p-3.5 text-xs text-rose-700 bg-rose-50 border border-rose-200 rounded-2xl">
+            <div className="p-3 text-xs text-[#C5A059] bg-rose-50 border border-rose-200 font-semibold">
               ⚠️ {error}
             </div>
           )}
@@ -313,42 +312,42 @@ export default function CheckoutModal({ isOpen, onClose }) {
             <div className="space-y-4">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-gray-700 uppercase">Họ và tên người nhận</label>
+                  <label className="text-xs font-bold text-[#111111] uppercase tracking-wider">Họ và tên người nhận</label>
                   <div className="relative">
-                    <User className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <User className="w-4 h-4 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2" />
                     <input
                       type="text"
                       required
                       placeholder="Nguyễn Văn A"
                       value={fullName}
                       onChange={(e) => setFullName(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2.5 bg-[#EBE9E1] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#E43D12]"
+                      className="w-full pl-9 pr-3 py-2 bg-neutral-50 border border-neutral-300 text-xs font-semibold focus:outline-none focus:border-[#111111]"
                     />
                   </div>
                 </div>
 
                 <div className="space-y-1">
-                  <label className="text-xs font-bold text-gray-700 uppercase">Số điện thoại nhận hàng</label>
+                  <label className="text-xs font-bold text-[#111111] uppercase tracking-wider">Số điện thoại nhận hàng</label>
                   <div className="relative">
-                    <Phone className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <Phone className="w-4 h-4 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2" />
                     <input
                       type="tel"
                       required
                       placeholder="0912 345 678"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value)}
-                      className="w-full pl-9 pr-3 py-2.5 bg-[#EBE9E1] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#E43D12]"
+                      className="w-full pl-9 pr-3 py-2 bg-neutral-50 border border-neutral-300 text-xs font-semibold focus:outline-none focus:border-[#111111]"
                     />
                   </div>
                 </div>
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-bold text-gray-700 uppercase">Tỉnh / Thành phố</label>
+                <label className="text-xs font-bold text-[#111111] uppercase tracking-wider">Tỉnh / Thành phố</label>
                 <select
                   value={city}
                   onChange={(e) => setCity(e.target.value)}
-                  className="w-full px-3 py-2.5 bg-[#EBE9E1] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#E43D12]"
+                  className="w-full px-3 py-2 bg-neutral-50 border border-neutral-300 text-xs font-semibold focus:outline-none focus:border-[#111111]"
                 >
                   <option value="Hà Nội">Hà Nội (Giao hỏa tốc 2h - 24h)</option>
                   <option value="TP. Hồ Chí Minh">TP. Hồ Chí Minh (Giao 1 - 2 ngày)</option>
@@ -359,40 +358,40 @@ export default function CheckoutModal({ isOpen, onClose }) {
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-bold text-gray-700 uppercase">Địa chỉ chi tiết (Số nhà, tên đường)</label>
+                <label className="text-xs font-bold text-[#111111] uppercase tracking-wider">Địa chỉ chi tiết (Số nhà, tên đường)</label>
                 <div className="relative">
-                  <MapPin className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <MapPin className="w-4 h-4 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2" />
                   <input
                     type="text"
                     required
                     placeholder="VD: Số 18 Tràng Tiền, Hoàn Kiếm"
                     value={address}
                     onChange={(e) => setAddress(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2.5 bg-[#EBE9E1] border border-gray-200 rounded-xl text-xs font-semibold focus:outline-none focus:border-[#E43D12]"
+                    className="w-full pl-9 pr-3 py-2 bg-neutral-50 border border-neutral-300 text-xs font-semibold focus:outline-none focus:border-[#111111]"
                   />
                 </div>
               </div>
 
               <div className="space-y-1">
-                <label className="text-xs font-bold text-gray-700 uppercase">Ghi chú cho thợ may / shipper (Tùy chọn)</label>
+                <label className="text-xs font-bold text-[#111111] uppercase tracking-wider">Ghi chú cho DaiVerse / shipper (Tùy chọn)</label>
                 <div className="relative">
-                  <FileText className="w-4 h-4 text-gray-400 absolute left-3 top-3" />
+                  <FileText className="w-4 h-4 text-neutral-400 absolute left-3 top-3" />
                   <textarea
                     rows={2}
-                    placeholder="VD: May gấp tà áo dài 140cm, giao giờ hành chính"
+                    placeholder="VD: Giao giờ hành chính..."
                     value={note}
                     onChange={(e) => setNote(e.target.value)}
-                    className="w-full pl-9 pr-3 py-2 bg-[#EBE9E1] border border-gray-200 rounded-xl text-xs font-medium focus:outline-none focus:border-[#E43D12]"
+                    className="w-full pl-9 pr-3 py-2 bg-neutral-50 border border-neutral-300 text-xs font-medium focus:outline-none focus:border-[#111111]"
                   />
                 </div>
               </div>
 
               {/* LỰA CHỌN PHƯƠNG THỨC GIAO HÀNG */}
-              <div className="space-y-2 pt-2 border-t border-gray-100">
-                <label className="text-xs font-bold text-gray-700 uppercase tracking-wider block">
+              <div className="space-y-2 pt-2 border-t border-neutral-200">
+                <label className="text-xs font-bold text-[#111111] uppercase tracking-wider block">
                   Chọn Phương Thức Vận Chuyển:
                 </label>
-                <div className="grid grid-cols-1 gap-2.5">
+                <div className="grid grid-cols-1 gap-2">
                   {Object.values(shippingRates).map((opt) => {
                     const isSelected = shippingOption === opt.id;
                     const IconComponent = opt.icon;
@@ -400,38 +399,32 @@ export default function CheckoutModal({ isOpen, onClose }) {
                       <div
                         key={opt.id}
                         onClick={() => setShippingOption(opt.id)}
-                        className={`p-3.5 rounded-2xl border-2 transition-all cursor-pointer flex items-center justify-between gap-3 ${
+                        className={`p-3 border transition-all cursor-pointer flex items-center justify-between gap-3 ${
                           isSelected
-                            ? "border-[#EFB11D] bg-[#EFB11D]/5 ring-1 ring-[#EFB11D]/20 shadow-sm"
-                            : "border-gray-200 hover:border-gray-300 bg-[#EBE9E1]"
+                            ? "border-[#111111] bg-neutral-100"
+                            : "border-neutral-200 hover:border-neutral-400 bg-white"
                         }`}
                       >
                         <div className="flex items-center gap-3 min-w-0">
-                          <div className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 ${
-                            isSelected ? "bg-[#EFB11D] text-white" : "bg-gray-200 text-gray-600"
+                          <div className={`w-8 h-8 rounded-none flex items-center justify-center shrink-0 ${
+                            isSelected ? "bg-[#111111] text-white" : "bg-neutral-200 text-neutral-600"
                           }`}>
                             <IconComponent className="w-4 h-4" />
                           </div>
                           <div className="min-w-0">
                             <div className="flex items-center gap-2">
-                              <p className="font-bold text-xs text-gray-900 truncate">{opt.name}</p>
+                              <p className="font-bold text-xs text-[#111111] truncate">{opt.name}</p>
                               {opt.badge && (
-                                <span className={`text-[9px] font-bold px-2 py-0.5 rounded-full uppercase shrink-0 ${
-                                  opt.id === "express"
-                                    ? "bg-[#E43D12] text-white animate-pulse"
-                                    : opt.id === "fast"
-                                    ? "bg-[#EFB11D] text-[#EFB11D]"
-                                    : "bg-gray-200 text-gray-700"
-                                }`}>
+                                <span className="text-[9px] font-extrabold px-1.5 py-0.5 bg-[#C5A059] text-white uppercase shrink-0">
                                   {opt.badge}
                                 </span>
                               )}
                             </div>
-                            <p className="text-[11px] text-gray-500 truncate mt-0.5">{opt.desc}</p>
+                            <p className="text-[11px] text-neutral-500 truncate mt-0.5">{opt.desc}</p>
                           </div>
                         </div>
                         <div className="text-right shrink-0">
-                          <span className={`font-bold text-xs ${isSelected ? "text-[#E43D12]" : "text-gray-700"}`}>
+                          <span className={`font-bold text-xs ${isSelected ? "text-[#C5A059]" : "text-neutral-700"}`}>
                             {opt.feeText}
                           </span>
                         </div>
@@ -452,7 +445,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
                   setStep(2);
                   handleGeneratePayOsLink();
                 }}
-                className="w-full py-3.5 bg-[#EFB11D] hover:bg-[#EFB11D]/90 text-white font-bold text-xs rounded-xl shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer border-none mt-4"
+                className="w-full py-3.5 bg-[#111111] hover:bg-[#C5A059] text-white font-bold text-xs uppercase tracking-widest transition-all flex items-center justify-center gap-2 cursor-pointer border-none mt-4"
               >
                 <span>Tiếp Tục: Chọn Phương Thức Thanh Toán</span>
                 <ChevronRight className="w-4 h-4" />
@@ -462,40 +455,36 @@ export default function CheckoutModal({ isOpen, onClose }) {
 
           {/* ──────────────── BƯỚC 2: PHƯƠNG THỨC THANH TOÁN ──────────────── */}
           {step === 2 && (
-            <form onSubmit={handleCreateOrder} className="space-y-5">
+            <form onSubmit={handleCreateOrder} className="space-y-4">
               {/* Tóm tắt tổng tiền */}
-              <div className="p-4 bg-[#EBE9E1] rounded-2xl border border-gray-200 space-y-2 text-xs">
-                <div className="flex justify-between text-gray-600">
-                  <span>Tiền hàng ({cart.length} sản phẩm):</span>
-                  <span className="font-semibold text-gray-900">{formattedTotalPrice}</span>
+              <div className="p-4 bg-neutral-50 border border-neutral-300 space-y-1.5 text-xs">
+                <div className="flex justify-between text-neutral-600">
+                  <span>Sản phẩm ({cart.length}):</span>
+                  <span className="font-bold text-[#111111]">{formattedTotalPrice}</span>
                 </div>
-                <div className="flex justify-between text-gray-600">
-                  <span>Dịch vụ giao hàng:</span>
-                  <span className="font-semibold text-gray-900">{selectedShipping.name}</span>
+                <div className="flex justify-between text-neutral-600">
+                  <span>Phí giao hàng:</span>
+                  <span className="font-bold text-[#C5A059]">{selectedShipping.feeText}</span>
                 </div>
-                <div className="flex justify-between text-gray-600">
-                  <span>Phí vận chuyển:</span>
-                  <span className="font-semibold text-emerald-700">{selectedShipping.feeText}</span>
-                </div>
-                <div className="pt-2 border-t border-gray-200 flex justify-between items-center font-bold text-sm">
-                  <span className="text-gray-900">TỔNG THÀNH TIỀN:</span>
-                  <span className="text-base text-[#EFB11D] font-heading">{formattedFinalTotal}</span>
+                <div className="pt-2 border-t border-neutral-200 flex justify-between items-center font-bold text-sm">
+                  <span className="text-[#111111]">TỔNG CỘNG:</span>
+                  <span className="text-base text-[#C5A059] font-heading font-black">{formattedFinalTotal}</span>
                 </div>
               </div>
 
               {/* Lựa chọn phương thức thanh toán */}
-              <div className="space-y-3">
-                <label className="text-xs font-bold text-gray-700 uppercase tracking-wider block">
+              <div className="space-y-2">
+                <label className="text-xs font-bold text-[#111111] uppercase tracking-wider block">
                   Chọn Phương Thức Thanh Toán:
                 </label>
 
-                {/* 1. PAYOS VIETQR AUTO */}
+                {/* 1. PAYOS VIETQR */}
                 <label
                   onClick={() => setPaymentMethod("PAYOS")}
-                  className={`p-4 rounded-2xl border flex items-center gap-3 cursor-pointer transition-all ${
+                  className={`p-3.5 border flex items-center gap-3 cursor-pointer transition-all ${
                     paymentMethod === "PAYOS"
-                      ? "border-[#005baa] bg-[#005baa]/5 ring-2 ring-[#005baa]/20"
-                      : "border-gray-200 hover:border-gray-300"
+                      ? "border-[#111111] bg-neutral-100"
+                      : "border-neutral-200 hover:border-neutral-400"
                   }`}
                 >
                   <input
@@ -503,31 +492,29 @@ export default function CheckoutModal({ isOpen, onClose }) {
                     name="payment"
                     checked={paymentMethod === "PAYOS"}
                     onChange={() => setPaymentMethod("PAYOS")}
-                    className="accent-[#005baa]"
+                    className="accent-[#111111]"
                   />
-                  <div className="w-9 h-9 rounded-xl bg-[#005baa] text-white flex items-center justify-center shrink-0 font-bold text-xs shadow-sm">
-                    <QrCode className="w-5 h-5" />
+                  <div className="w-8 h-8 bg-[#111111] text-white flex items-center justify-center shrink-0 font-bold text-xs">
+                    <QrCode className="w-4 h-4" />
                   </div>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <p className="font-bold text-xs text-gray-900">Thanh Toán QR PayOS (Tự Động 24/7)</p>
-                      <span className="bg-[#005baa] text-white text-[10px] px-2 py-0.5 rounded-full font-bold">
+                      <p className="font-bold text-xs text-[#111111] uppercase">Quét Mã QR PayOS (Auto 24/7)</p>
+                      <span className="bg-[#C5A059] text-white text-[9px] px-1.5 py-0.5 font-bold uppercase">
                         Khuyên Dùng
                       </span>
                     </div>
-                    <p className="text-[11px] text-gray-500 mt-0.5">
-                      Quét mã QR tự động nhận diện khớp đơn 100% bằng ngân hàng bất kỳ (VietQR, MB, VCB)
-                    </p>
+                    <p className="text-[11px] text-neutral-500 mt-0.5">Tự động xác nhận khớp đơn hàng sau khi quét QR</p>
                   </div>
                 </label>
 
                 {/* 2. COD */}
                 <label
                   onClick={() => setPaymentMethod("COD")}
-                  className={`p-4 rounded-2xl border flex items-center gap-3 cursor-pointer transition-all ${
+                  className={`p-3.5 border flex items-center gap-3 cursor-pointer transition-all ${
                     paymentMethod === "COD"
-                      ? "border-[#EFB11D] bg-[#EFB11D]/5 ring-2 ring-[#EFB11D]/20"
-                      : "border-gray-200 hover:border-gray-300"
+                      ? "border-[#111111] bg-neutral-100"
+                      : "border-neutral-200 hover:border-neutral-400"
                   }`}
                 >
                   <input
@@ -535,29 +522,29 @@ export default function CheckoutModal({ isOpen, onClose }) {
                     name="payment"
                     checked={paymentMethod === "COD"}
                     onChange={() => setPaymentMethod("COD")}
-                    className="accent-[#EFB11D]"
+                    className="accent-[#111111]"
                   />
-                  <div className="w-9 h-9 rounded-xl bg-[#EFB11D]/10 text-[#EFB11D] flex items-center justify-center shrink-0">
-                    <Truck className="w-5 h-5" />
+                  <div className="w-8 h-8 bg-neutral-200 text-neutral-700 flex items-center justify-center shrink-0">
+                    <Truck className="w-4 h-4" />
                   </div>
                   <div>
-                    <p className="font-bold text-xs text-gray-900">Thanh toán khi nhận hàng (COD)</p>
-                    <p className="text-[11px] text-gray-500">Kiểm tra sản phẩm vừa vặn mới thanh toán cho shipper</p>
+                    <p className="font-bold text-xs text-[#111111] uppercase">Thanh Toán Khi Nhận Hàng (COD)</p>
+                    <p className="text-[11px] text-neutral-500">Thanh toán trực tiếp cho nhân viên giao hàng</p>
                   </div>
                 </label>
               </div>
 
               {/* KHUNG HIỂN THỊ MÃ QR PAYOS TỰ ĐỘNG */}
               {paymentMethod === "PAYOS" && (
-                <div className="p-5 bg-white border-2 border-dashed border-[#005baa]/30 rounded-2xl text-center space-y-3 animate-fadeIn shadow-sm">
+                <div className="p-4 bg-white border border-neutral-300 text-center space-y-3 animate-fade-in shadow-xs">
                   {isPayOsLoading ? (
-                    <div className="py-8 flex flex-col items-center gap-2">
-                      <RefreshCw className="w-8 h-8 text-[#005baa] animate-spin" />
-                      <p className="text-xs text-gray-600 font-semibold">Đang kết nối cổng thanh toán PayOS 4K...</p>
+                    <div className="py-6 flex flex-col items-center gap-2">
+                      <RefreshCw className="w-6 h-6 text-[#111111] animate-spin" />
+                      <p className="text-xs text-neutral-600 font-bold uppercase">Đang tải mã QR PayOS...</p>
                     </div>
                   ) : (
                     <>
-                      <div className="relative w-48 h-48 bg-white p-2 rounded-2xl overflow-hidden mx-auto shadow-md border border-gray-200 group">
+                      <div className="relative w-44 h-44 bg-white p-2 border border-neutral-300 mx-auto shadow-sm">
                         <img
                           src={
                             payOsData?.qrCode
@@ -570,48 +557,19 @@ export default function CheckoutModal({ isOpen, onClose }) {
                           className="w-full h-full object-contain"
                         />
                         {payOsStatus === "PAID" && (
-                          <div className="absolute inset-0 bg-emerald-600/90 text-white flex flex-col items-center justify-center gap-1 font-bold animate-fadeIn">
-                            <CheckCircle2 className="w-10 h-10 animate-bounce" />
-                            <span>Đã Nhận Chuyển Khoản!</span>
+                          <div className="absolute inset-0 bg-emerald-700/90 text-white flex flex-col items-center justify-center gap-1 font-bold">
+                            <CheckCircle2 className="w-8 h-8" />
+                            <span className="text-xs uppercase">Đã Nhận Chuyển Khoản!</span>
                           </div>
                         )}
                       </div>
 
-                      <div className="text-xs space-y-1.5">
-                        <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-blue-50 text-[#005baa] rounded-full font-bold text-[11px]">
-                          <RefreshCw className="w-3.5 h-3.5 animate-spin" />
-                          <span>Đang chờ quét mã QR PayOS...</span>
-                        </div>
-
-                        <p className="font-bold text-gray-900 pt-1">
-                          Số tài khoản: <span className="text-[#005baa] text-sm">{payOsData?.accountNumber || "0394961557"}</span>
+                      <div className="text-xs space-y-1">
+                        <p className="font-bold text-[#111111]">
+                          STK MB: <span className="text-[#C5A059] font-mono text-sm">{payOsData?.accountNumber || "0394961557"}</span>
                         </p>
-                        <p className="font-medium text-gray-700">Chủ TK: {payOsData?.accountName || "DAIVERSE AO DAI"}</p>
-
-                        <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-gray-100 rounded-xl text-[11px] text-gray-800">
-                          <span>Nội dung CK: <strong>{payOsData?.description || "DV-AODAI"}</strong></span>
-                          <button
-                            type="button"
-                            onClick={() => handleCopyMemo(payOsData?.description || "DV-AODAI")}
-                            className="text-xs font-bold text-[#005baa] hover:underline bg-transparent border-none p-0 cursor-pointer flex items-center gap-0.5"
-                          >
-                            <Copy className="w-3 h-3" />
-                            <span>{isCopied ? "Đã copy!" : "Copy"}</span>
-                          </button>
-                        </div>
+                        <p className="text-neutral-600">Chủ TK: {payOsData?.accountName || "DaiVerse FASHION AO DAI"}</p>
                       </div>
-
-                      {payOsData?.checkoutUrl && (
-                        <a
-                          href={payOsData.checkoutUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#005baa] hover:underline pt-1"
-                        >
-                          <span>Mở trang Gateway PayOS</span>
-                          <ExternalLink className="w-3.5 h-3.5" />
-                        </a>
-                      )}
                     </>
                   )}
                 </div>
@@ -621,7 +579,7 @@ export default function CheckoutModal({ isOpen, onClose }) {
                 <button
                   type="button"
                   onClick={() => setStep(1)}
-                  className="px-4 py-3 bg-gray-100 hover:bg-gray-200 text-gray-700 font-bold text-xs rounded-xl transition-all cursor-pointer border-none flex items-center gap-1"
+                  className="px-4 py-3 bg-neutral-100 hover:bg-neutral-200 text-neutral-800 font-bold text-xs uppercase tracking-wider transition-all cursor-pointer border-none flex items-center gap-1"
                 >
                   <ArrowLeft className="w-4 h-4" />
                   <span>Quay lại</span>
@@ -630,15 +588,12 @@ export default function CheckoutModal({ isOpen, onClose }) {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="flex-1 py-3.5 bg-[#E43D12] hover:bg-[#E43D12]/90 text-white font-bold text-xs rounded-xl shadow-lg transition-all flex items-center justify-center gap-2 cursor-pointer border-none disabled:opacity-50"
+                  className="flex-1 py-3.5 bg-[#111111] hover:bg-[#C5A059] text-white font-bold text-xs uppercase tracking-widest transition-all cursor-pointer border-none disabled:opacity-50"
                 >
                   {loading ? (
-                    <RefreshCw className="w-4 h-4 animate-spin" />
+                    <RefreshCw className="w-4 h-4 animate-spin mx-auto" />
                   ) : (
-                    <>
-                      <ShieldCheck className="w-4 h-4" />
-                      <span>{paymentMethod === "PAYOS" ? "HOÀN TẤT ĐẶT HÀNG QR PAYOS" : "XÁC NHẬN ĐẶT HÀNG COD"}</span>
-                    </>
+                    <span>XÁC NHẬN ĐẶT HÀNG</span>
                   )}
                 </button>
               </div>
@@ -647,33 +602,29 @@ export default function CheckoutModal({ isOpen, onClose }) {
 
           {/* ──────────────── BƯỚC 3: ĐẶT HÀNG THÀNH CÔNG ──────────────── */}
           {step === 3 && createdOrder && (
-            <div className="text-center p-6 space-y-4 animate-fadeIn">
-              <div className="w-16 h-16 bg-emerald-100 text-emerald-700 rounded-full flex items-center justify-center mx-auto shadow-inner">
-                <CheckCircle2 className="w-10 h-10" />
+            <div className="text-center p-6 space-y-4 animate-fade-in">
+              <div className="w-16 h-16 bg-[#111111] text-[#C5A059] rounded-full flex items-center justify-center mx-auto shadow-md">
+                <CheckCircle2 className="w-9 h-9" />
               </div>
               <div>
-                <h3 className="font-heading font-bold text-2xl text-gray-900">Đặt Hàng Thành Công!</h3>
-                <p className="text-xs text-gray-500 mt-1">
-                  Cảm ơn bạn đã tin tưởng dịch vụ của <strong>DaiVerse</strong>. Đơn hàng đang được nghệ nhân tiếp nhận.
+                <h3 className="font-heading font-black text-xl text-[#111111] uppercase tracking-wide">ĐẶT HÀNG THÀNH CÔNG!</h3>
+                <p className="text-xs text-neutral-500 mt-1">
+                  Cảm ơn bạn đã lựa chọn sản phẩm Áo Dài từ <strong>DaiVerse</strong>.
                 </p>
               </div>
 
-              <div className="p-4 bg-[#EBE9E1] border border-gray-200 rounded-2xl text-left text-xs space-y-2">
+              <div className="p-4 bg-neutral-50 border border-neutral-300 text-left text-xs space-y-2">
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Mã đơn hàng:</span>
-                  <span className="font-bold text-[#EFB11D] text-sm">{createdOrder.orderCode}</span>
+                  <span className="text-neutral-500">Mã đơn hàng:</span>
+                  <span className="font-bold text-[#111111]">{createdOrder.orderCode}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-gray-500">Người nhận:</span>
-                  <span className="font-semibold text-gray-800">{createdOrder.shippingAddress?.fullName} ({createdOrder.shippingAddress?.phone})</span>
+                  <span className="text-neutral-500">Người nhận:</span>
+                  <span className="font-semibold text-neutral-900">{createdOrder.shippingAddress?.fullName} ({createdOrder.shippingAddress?.phone})</span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-gray-500">Phương thức:</span>
-                  <span className="font-bold text-[#005baa] uppercase">{createdOrder.paymentMethod}</span>
-                </div>
-                <div className="flex justify-between pt-2 border-t border-gray-200">
-                  <span className="text-gray-500">Tổng thanh toán:</span>
-                  <span className="font-bold text-[#E43D12] text-sm">{formattedFinalTotal}</span>
+                <div className="flex justify-between border-t border-neutral-200 pt-2">
+                  <span className="text-neutral-500">Tổng thanh toán:</span>
+                  <span className="font-bold text-[#C5A059] text-sm">{formattedFinalTotal}</span>
                 </div>
               </div>
 
@@ -682,9 +633,9 @@ export default function CheckoutModal({ isOpen, onClose }) {
                   onClose();
                   setStep(1);
                 }}
-                className="w-full py-3.5 bg-[#EFB11D] hover:bg-[#EFB11D]/90 text-white font-bold text-xs rounded-xl shadow-md transition-all cursor-pointer border-none"
+                className="w-full py-3.5 bg-[#111111] hover:bg-[#C5A059] text-white font-bold text-xs uppercase tracking-widest transition-all cursor-pointer border-none"
               >
-                Tiếp Tục Khám Phá Bộ Sưu Tập Áo Dài
+                Tiếp Tục Mua Sắm Tại DaiVerse
               </button>
             </div>
           )}
@@ -693,3 +644,4 @@ export default function CheckoutModal({ isOpen, onClose }) {
     </div>
   );
 }
+

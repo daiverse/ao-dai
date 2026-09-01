@@ -1,25 +1,25 @@
-﻿import React from "react";
+import React from "react";
 import { Star } from "lucide-react";
 
 export default function Testimonials() {
   const testimonials = [
     {
       id: 1,
-      quote: "“Áo dài may đo cực kỳ phom dáng, vừa vặn như được đo trực tiếp tại xưởng. Trải nghiệm xem 360° giúp tôi nhìn rõ từng nếp gấp và hoa văn gấm trước khi chốt đơn.”",
+      quote: "“Áo dài DaiVerse may đo cực kỳ phom dáng, vừa vặn như được đo trực tiếp. Trải nghiệm xem 360° giúp tôi nhìn rõ từng chi tiết thêu gấm trước khi đặt hàng.”",
       name: "Phạm Hà Linh",
       location: "Hà Nội",
       initials: "HL"
     },
     {
       id: 2,
-      quote: "“Tôi đã đặt áo dài thêu thủ công cho ngày trọng đại và hoàn toàn bị thuyết phục. Đường kim mũi chỉ vô cùng sắc nét, dịch vụ tư vấn tận tâm và chu đáo.”",
+      quote: "“Tôi đã chọn bộ Áo Dài thêu thủ công DaiVerse cho ngày trọng đại và hoàn toàn hài lòng. Đường kim mũi chỉ vô cùng sắc nét, đóng gói quà vô cùng sang trọng.”",
       name: "Nguyễn Khánh Vân",
       location: "TP. Hồ Chí Minh",
       initials: "KV"
     },
     {
       id: 3,
-      quote: "“Chất liệu lụa tơ tằm mềm mại, mặc lên tôn dáng và nhẹ nhàng. Tính năng studio AI độc đáo giúp tôi tạo nên tà áo mang dấu ấn phong cách riêng không đụng hàng.”",
+      quote: "“Chất liệu gấm lụa cao cấp mềm mại, mặc lên tôn dáng và lịch thiệp. Công nghệ thử đồ AI giúp tôi lựa chọn màu sắc Áo Dài chuẩn phong cách cá nhân.”",
       name: "Đặng Thùy Dương",
       location: "Đà Nẵng",
       initials: "TD"
@@ -27,66 +27,50 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="py-20 lg:py-28 bg-[#EBE9E1]">
+    <section className="py-16 lg:py-24 bg-white border-b border-neutral-200">
       <div className="container-page">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
-          <p className="text-xs uppercase tracking-[0.35em] text-[#E43D12] font-bold mb-3">
-            PHẢN HỒI
+        <div className="text-center max-w-2xl mx-auto mb-14">
+          <p className="text-xs uppercase tracking-[0.3em] text-[#C5A059] font-extrabold mb-2">
+            ĐÁNH GIÁ KHÁCH HÀNG
           </p>
-          <h2 className="font-heading text-4xl sm:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-            Khách Hàng Nói Gì
+          <h2 className="font-heading text-3xl sm:text-4xl font-black text-[#111111] uppercase tracking-wide">
+            CẢM NHẬN VỀ DaiVerse FASHION
           </h2>
-
-          {/* Decorative Divider */}
-          <div className="flex items-center justify-center gap-3 my-4">
-            <div className="w-12 h-px bg-gray-300"></div>
-            <div className="w-2 h-2 rotate-45 bg-[#EFB11D]"></div>
-            <div className="w-12 h-px bg-gray-300"></div>
-          </div>
-
-          <p className="text-sm sm:text-base text-gray-600 leading-relaxed mt-4">
-            Niềm vui của khách hàng là thước đo lớn nhất cho sự tận tâm của chúng tôi.
-          </p>
+          <div className="w-12 h-0.5 bg-[#C5A059] mx-auto mt-3"></div>
         </div>
 
         {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {testimonials.map((item) => (
             <div
               key={item.id}
-              className="bg-white rounded-3xl p-8 border border-gray-100 shadow-md hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-6"
+              className="bg-neutral-50 p-6 border border-neutral-300 flex flex-col justify-between space-y-6"
             >
               <div>
-                {/* Rating Stars + Quote Icon */}
-                <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-[#EFB11D]">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-current text-[#EFB11D]" />
-                    ))}
-                  </div>
-
-                  <span className="text-4xl font-serif text-gray-300 leading-none select-none">
-                    99
-                  </span>
+                {/* Rating Stars */}
+                <div className="flex items-center gap-1 text-[#C5A059] mb-4">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 fill-current text-[#C5A059]" />
+                  ))}
                 </div>
 
                 {/* Quote Text */}
-                <p className="text-sm sm:text-base text-gray-700 italic leading-relaxed mt-6">
+                <p className="text-xs sm:text-sm text-neutral-700 italic leading-relaxed">
                   {item.quote}
                 </p>
               </div>
 
               {/* User Info Footer */}
-              <div className="pt-6 border-t border-gray-100/80 flex items-center gap-4">
-                <div className="w-11 h-11 rounded-full bg-[#EAE7DF] text-gray-700 font-bold text-xs flex items-center justify-center shrink-0">
+              <div className="pt-4 border-t border-neutral-200 flex items-center gap-3">
+                <div className="w-9 h-9 rounded-full bg-[#111111] text-white font-bold text-xs flex items-center justify-center shrink-0">
                   {item.initials}
                 </div>
                 <div>
-                  <h4 className="font-heading font-bold text-sm text-gray-900">
+                  <h4 className="font-heading font-black text-xs text-[#111111] uppercase">
                     {item.name}
                   </h4>
-                  <p className="text-xs text-gray-400 mt-0.5">
+                  <p className="text-[11px] text-neutral-500 font-semibold">
                     {item.location}
                   </p>
                 </div>
@@ -98,3 +82,4 @@ export default function Testimonials() {
     </section>
   );
 }
+

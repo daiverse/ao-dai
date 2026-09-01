@@ -1,4 +1,4 @@
-﻿import React from "react";
+import React from "react";
 import HeroBanner from "../components/home/HeroBanner";
 import CollectionCards from "../components/home/CollectionCards";
 import FeaturedProducts from "../components/home/FeaturedProducts";
@@ -9,9 +9,10 @@ import Testimonials from "../components/home/Testimonials";
 
 export default function HomePage({ onNavigate, onTryOn, onRotate360 }) {
   return (
-    <div className="bg-[#EBE9E1]">
+    <div className="bg-white">
       {/* 1. Hero Banner */}
       <HeroBanner onNavigate={onNavigate} />
+
 
       {/* 2. Collection Cards */}
       <CollectionCards onSelectCollection={() => onNavigate("products")} />

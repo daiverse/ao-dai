@@ -1,5 +1,5 @@
-﻿import React, { useState, useMemo } from "react";
-import { Search, Sparkles, Layers, LayoutGrid, Palette } from "lucide-react";
+import React, { useState, useMemo } from "react";
+import { Search, Sparkles, Layers, LayoutGrid } from "lucide-react";
 import { CATEGORIES, PRODUCTS } from "../data/products";
 import { COLLECTIONS } from "../data/collections";
 import ProductCard from "../components/common/ProductCard";
@@ -60,40 +60,38 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
   }, [selectedCategory, selectedCollection, searchTerm, sortOption]);
 
   return (
-    <div className="pt-24 pb-20 bg-[#EBE9E1] min-h-screen">
-      {/* 1. Hero Header Banner */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-[#EFB11D] via-[#1d4232] to-[#0f241c] text-white py-14 px-4 sm:px-6 lg:px-8 mb-10 shadow-xl border-b border-[#EFB11D]/30">
-        <div className="absolute inset-0 opacity-15 mix-blend-overlay pointer-events-none">
-          <img
-            src="/anh/746927465_122119237899355470_7558522641041819280_n.jpg"
-            alt="Hero background"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#E43D12]/20 rounded-full blur-3xl pointer-events-none"></div>
+    <div className="pt-32 sm:pt-36 pb-20 bg-[#FAF6F0] min-h-screen">
 
-        <div className="container-page relative z-10 text-center max-w-4xl mx-auto space-y-4">
-          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-semibold uppercase tracking-[0.25em] text-[#EFB11D]">
+      {/* 1. Hero Header Banner */}
+      <section className="relative overflow-hidden bg-[#111111] text-white py-14 px-4 sm:px-6 lg:px-8 mb-8 border-b-2 border-[#C5A059]">
+        <img 
+          src="/anh/bach-lan/banner.png" 
+          alt="Áo Dài DaiVerse Banner" 
+          className="absolute inset-0 w-full h-full object-cover opacity-25"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-[#111111] via-[#111111]/70 to-transparent"></div>
+        <div className="container-page relative z-10 text-center max-w-4xl mx-auto space-y-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#C5A059] text-white text-[10px] font-extrabold uppercase tracking-widest">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>Bộ Sưu Tập · {PRODUCTS.length} Thiết Kế</span>
+            <span>DAIVERSE · {PRODUCTS.length} THIẾT KẾ ÁO DÀI</span>
           </div>
 
-          <h1 className="font-heading text-4xl sm:text-5xl font-bold tracking-tight text-white leading-tight">
-            Áo Dài
+          <h1 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black tracking-wide text-white uppercase">
+            ÁO DÀI DAIVERSE
           </h1>
 
-          <p className="text-gray-200 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-light">
+          <p className="text-neutral-300 text-xs sm:text-sm max-w-xl mx-auto leading-relaxed font-normal">
             DaiVerse - nơi tinh hoa Việt hòa quyện cùng công nghệ AI, kiến tạo những tà áo độc bản mang dấu ấn riêng của bạn.
           </p>
 
           {FEATURE_FLAGS.ENABLE_AI_TRY_ON && (
-            <div className="flex flex-wrap items-center justify-center gap-3 pt-2 text-xs sm:text-sm font-medium text-gray-200">
+            <div className="flex flex-wrap items-center justify-center gap-3 pt-2 text-xs font-semibold">
               <button
                 onClick={() => onNavigate && onNavigate("try-on")}
-                className="flex items-center gap-1.5 bg-[#E43D12] hover:bg-[#E43D12]/90 text-white px-4 py-1.5 rounded-full transition-all shadow-md cursor-pointer border-none"
+                className="flex items-center gap-1.5 bg-[#C5A059] hover:bg-[#A4813D] text-white px-5 py-2 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer border-none"
               >
                 <Sparkles className="w-3.5 h-3.5" />
-                <span>Thử đồ AI miễn phí</span>
+                <span>THỬ ĐỒ AI MIỄN PHÍ</span>
               </button>
             </div>
           )}
@@ -106,51 +104,37 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
           
           {/* LEFT SIDEBAR: BỘ LỌC */}
           <aside className="lg:col-span-4 xl:col-span-3 lg:sticky lg:top-28">
-            <div className="bg-white rounded-3xl p-5 sm:p-6 border border-gray-100 shadow-md space-y-6 max-h-[calc(100vh-130px)] overflow-y-auto pr-2">
+            <div className="bg-neutral-50 p-5 border border-neutral-300 space-y-6 max-h-[calc(100vh-130px)] overflow-y-auto">
               
               {/* Sidebar Title Header */}
-              <div className="border-b border-gray-100 pb-4">
-                <h3 className="font-heading text-2xl font-bold text-gray-900">
-                  Bộ lọc
+              <div className="border-b border-neutral-300 pb-3">
+                <h3 className="font-heading text-lg font-black text-[#111111] uppercase tracking-wide">
+                  BỘ LỌC SẢN PHẨM
                 </h3>
-                <p className="text-xs text-gray-400 mt-0.5">
-                  Tinh chỉnh kết quả
-                </p>
               </div>
 
               {/* SECTION 1: BỘ SƯU TẬP */}
-              <div className="space-y-4">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-full bg-[#EAE8E2] flex items-center justify-center text-gray-700 shrink-0">
-                    <Layers className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="text-xs uppercase tracking-[0.2em] font-bold text-gray-800">
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <Layers className="w-4 h-4 text-[#C5A059]" />
+                  <span className="text-xs uppercase tracking-wider font-extrabold text-[#111111]">
                     BỘ SƯU TẬP
                   </span>
                 </div>
 
                 {/* Collection Filter Cards List */}
-                <div className="space-y-3">
+                <div className="space-y-2">
                   {/* Item 0: Tất cả BST */}
                   <button
                     onClick={() => setSelectedCollection("all")}
-                    className={`w-full p-3.5 rounded-2xl transition-all text-left flex items-center gap-3.5 cursor-pointer border ${
+                    className={`w-full p-2.5 transition-all text-left flex items-center justify-between cursor-pointer border ${
                       selectedCollection === "all"
-                        ? "border-[#EFB11D] bg-[#EBE9E1] shadow-xs"
-                        : "border-gray-200/80 bg-white hover:border-gray-300"
+                        ? "border-[#111111] bg-white font-bold"
+                        : "border-neutral-200 bg-neutral-100 hover:border-neutral-400"
                     }`}
                   >
-                    <div className="w-11 h-11 rounded-2xl bg-[#F5F2EB] flex items-center justify-center text-[#EFB11D] shrink-0">
-                      <Sparkles className="w-5 h-5 text-[#8B6B43]" />
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <div className="font-bold text-sm text-gray-900 leading-tight">
-                        Tất cả BST
-                      </div>
-                      <div className="text-xs text-gray-400 mt-0.5">
-                        {PRODUCTS.length} sản phẩm
-                      </div>
-                    </div>
+                    <span className="text-xs text-[#111111] uppercase font-bold">Tất cả BST</span>
+                    <span className="text-[11px] text-neutral-500 font-semibold">{PRODUCTS.length}</span>
                   </button>
 
                   {/* Items 1..N: COLLECTIONS */}
@@ -162,28 +146,14 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
                       <button
                         key={col.id}
                         onClick={() => setSelectedCollection(col.id)}
-                        className={`w-full p-3.5 rounded-2xl transition-all text-left flex items-center gap-3.5 cursor-pointer border ${
+                        className={`w-full p-2.5 transition-all text-left flex items-center justify-between cursor-pointer border ${
                           isSelected
-                            ? "border-[#EFB11D] bg-[#EBE9E1] shadow-xs"
-                            : "border-gray-200/80 bg-white hover:border-gray-300"
+                            ? "border-[#111111] bg-white font-bold"
+                            : "border-neutral-200 bg-neutral-100 hover:border-neutral-400"
                         }`}
                       >
-                        <img
-                          src={col.fallbackImage}
-                          alt={col.name}
-                          className="w-11 h-11 rounded-full object-cover object-top shrink-0 border border-gray-100 shadow-xs"
-                        />
-                        <div className="flex-1 min-w-0 pr-2">
-                          <div className="font-bold text-sm text-gray-900 leading-tight">
-                            {col.name}
-                          </div>
-                          <div className="text-xs text-gray-400 mt-0.5 line-clamp-1">
-                            {col.subtitle}
-                          </div>
-                        </div>
-                        <span className="text-xs text-gray-400 font-semibold shrink-0">
-                          {count}
-                        </span>
+                        <span className="text-xs text-[#111111] font-bold">{col.name}</span>
+                        <span className="text-[11px] text-neutral-500 font-semibold">{count}</span>
                       </button>
                     );
                   })}
@@ -191,18 +161,16 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
               </div>
 
               {/* SECTION 2: DANH MỤC */}
-              <div className="space-y-4 pt-2 border-t border-gray-100">
-                <div className="flex items-center gap-2.5">
-                  <div className="w-7 h-7 rounded-full bg-[#EAE8E2] flex items-center justify-center text-gray-700 shrink-0">
-                    <LayoutGrid className="w-3.5 h-3.5" />
-                  </div>
-                  <span className="text-xs uppercase tracking-[0.2em] font-bold text-gray-800">
+              <div className="space-y-3 pt-3 border-t border-neutral-300">
+                <div className="flex items-center gap-2">
+                  <LayoutGrid className="w-4 h-4 text-[#C5A059]" />
+                  <span className="text-xs uppercase tracking-wider font-extrabold text-[#111111]">
                     DANH MỤC
                   </span>
                 </div>
 
                 {/* Category Filter Pills */}
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-col gap-1.5">
                   {CATEGORIES.map((cat) => {
                     const isSelected = selectedCategory === cat.id;
                     const count = categoryCounts[cat.id] || 0;
@@ -211,10 +179,10 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
                       <button
                         key={cat.id}
                         onClick={() => setSelectedCategory(cat.id)}
-                        className={`px-4 py-2 rounded-full text-xs font-semibold transition-all cursor-pointer border-none outline-none ${
+                        className={`px-3 py-2 text-left text-xs font-bold transition-all cursor-pointer border ${
                           isSelected
-                            ? "bg-[#EFB11D] text-white shadow-sm"
-                            : "bg-[#F5F2EB] text-gray-700 hover:bg-gray-200"
+                            ? "bg-[#111111] text-white border-[#111111]"
+                            : "bg-white text-neutral-800 border-neutral-300 hover:border-neutral-500"
                         }`}
                       >
                         {cat.name} ({count})
@@ -226,16 +194,16 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
 
               {/* Reset Filter Button (if filtered) */}
               {(selectedCategory !== "all" || selectedCollection !== "all" || searchTerm) && (
-                <div className="pt-2">
+                <div className="pt-2 border-t border-neutral-300">
                   <button
                     onClick={() => {
                       setSelectedCategory("all");
                       setSelectedCollection("all");
                       setSearchTerm("");
                     }}
-                    className="w-full py-2.5 bg-gray-100 hover:bg-gray-200 text-gray-700 rounded-2xl text-xs font-bold transition-all cursor-pointer border-none"
+                    className="w-full py-2 bg-[#C5A059] text-white text-xs font-bold uppercase tracking-wider transition-all cursor-pointer border-none"
                   >
-                    ✕ Xóa tất cả bộ lọc
+                    ✕ XÓA BỘ LỌC
                   </button>
                 </div>
               )}
@@ -247,21 +215,21 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
           <main className="lg:col-span-8 xl:col-span-9 space-y-6">
             
             {/* Controls Bar: Search & Sort */}
-            <div className="bg-white p-4 sm:p-5 rounded-3xl border border-gray-100 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="bg-neutral-50 p-4 border border-neutral-300 flex flex-col sm:flex-row items-center justify-between gap-4">
               {/* Search Box */}
               <div className="relative w-full sm:w-80">
-                <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-gray-400" />
+                <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-neutral-400" />
                 <input
                   type="text"
-                  placeholder="Tìm kiếm tên áo, chất liệu gấm lụa..."
+                  placeholder="Tìm sản phẩm, chất liệu..."
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-[#EBE9E1] border border-gray-200 rounded-2xl text-xs sm:text-sm focus:outline-none focus:border-[#EFB11D] transition-colors"
+                  className="w-full pl-9 pr-4 py-2 bg-white border border-neutral-300 text-xs focus:outline-none focus:border-[#111111]"
                 />
                 {searchTerm && (
                   <button
                     onClick={() => setSearchTerm("")}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-gray-400 hover:text-gray-700"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-xs text-neutral-500 hover:text-black border-none bg-transparent cursor-pointer"
                   >
                     ✕
                   </button>
@@ -270,34 +238,34 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
 
               {/* Sort Options */}
               <div className="flex items-center justify-between sm:justify-end gap-3 w-full sm:w-auto">
-                <span className="text-xs text-gray-500 font-medium">
-                  Hiển thị <strong className="text-gray-900 font-bold">{filteredProducts.length}</strong> sản phẩm
+                <span className="text-xs text-neutral-500 font-bold">
+                  {filteredProducts.length} sản phẩm
                 </span>
 
-                <div className="flex items-center gap-1 bg-[#EBE9E1] p-1 rounded-2xl border border-gray-200">
+                <div className="flex items-center gap-1">
                   <button
                     onClick={() => setSortOption("newest")}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer border-none ${
-                      sortOption === "newest" ? "bg-[#EFB11D] text-white shadow-xs" : "text-gray-600 hover:text-gray-900"
+                    className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer border ${
+                      sortOption === "newest" ? "bg-[#111111] text-white border-[#111111]" : "bg-white text-neutral-700 border-neutral-300"
                     }`}
                   >
-                    ✦ Mới Nhất
+                    Mới Nhất
                   </button>
                   <button
                     onClick={() => setSortOption("price-low")}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer border-none ${
-                      sortOption === "price-low" ? "bg-[#EFB11D] text-white shadow-xs" : "text-gray-600 hover:text-gray-900"
+                    className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer border ${
+                      sortOption === "price-low" ? "bg-[#111111] text-white border-[#111111]" : "bg-white text-neutral-700 border-neutral-300"
                     }`}
                   >
-                    ↑ Giá Thấp
+                    Giá Thấp
                   </button>
                   <button
                     onClick={() => setSortOption("price-high")}
-                    className={`px-3 py-1.5 rounded-xl text-xs font-semibold transition-all cursor-pointer border-none ${
-                      sortOption === "price-high" ? "bg-[#EFB11D] text-white shadow-xs" : "text-gray-600 hover:text-gray-900"
+                    className={`px-3 py-1.5 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer border ${
+                      sortOption === "price-high" ? "bg-[#111111] text-white border-[#111111]" : "bg-white text-neutral-700 border-neutral-300"
                     }`}
                   >
-                    ↓ Giá Cao
+                    Giá Cao
                   </button>
                 </div>
               </div>
@@ -305,13 +273,10 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
 
             {/* Products Grid */}
             {filteredProducts.length === 0 ? (
-              <div className="text-center py-20 bg-white rounded-3xl border border-gray-100 shadow-sm space-y-4">
-                <div className="w-16 h-16 rounded-full bg-gray-100 text-gray-400 flex items-center justify-center mx-auto text-2xl">
-                  🔍
-                </div>
-                <h3 className="font-heading font-bold text-xl text-gray-800">Không tìm thấy sản phẩm nào</h3>
-                <p className="text-sm text-gray-500 max-w-md mx-auto">
-                  Không có thiết kế áo dài nào phù hợp với các tiêu chí tìm kiếm hiện tại của bạn.
+              <div className="text-center py-16 bg-neutral-50 border border-neutral-300 space-y-3">
+                <h3 className="font-heading font-black text-lg text-[#111111] uppercase">Không tìm thấy sản phẩm nào</h3>
+                <p className="text-xs text-neutral-500 max-w-md mx-auto">
+                  Vui lòng thử điều chỉnh lại từ khóa hoặc xóa bộ lọc tìm kiếm.
                 </p>
                 <button
                   onClick={() => {
@@ -319,9 +284,9 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
                     setSelectedCategory("all");
                     setSelectedCollection("all");
                   }}
-                  className="px-6 py-2.5 bg-[#EFB11D] text-white rounded-full text-xs font-bold hover:bg-[#EFB11D]/90 transition-all shadow-md cursor-pointer border-none"
+                  className="px-5 py-2.5 bg-[#111111] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#C5A059] transition-all cursor-pointer border-none"
                 >
-                  Xóa tất cả bộ lọc
+                  XÓA BỘ LỌC
                 </button>
               </div>
             ) : (
@@ -344,3 +309,4 @@ export default function ProductsPage({ onTryOn, onRotate360, onNavigate }) {
     </div>
   );
 }
+

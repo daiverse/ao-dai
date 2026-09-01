@@ -1,5 +1,5 @@
-﻿import React, { useState } from "react";
-import { Send, MapPin, Phone, Mail, Clock, Heart, ExternalLink } from "lucide-react";
+import React, { useState } from "react";
+import { Send, MapPin, Phone, Mail, Clock, Heart, ExternalLink, ShieldCheck, Truck, RefreshCw } from "lucide-react";
 import { useCart } from "../../context/CartContext";
 import { FEATURE_FLAGS } from "../../config/featureFlags";
 
@@ -10,7 +10,7 @@ export default function Footer({ setActiveTab }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (email) {
-      showToast("Cảm ơn bạn đã đăng ký nhận tin tức & ưu đãi!");
+      showToast("Cảm ơn bạn đã đăng ký nhận thông tin ưu đãi từ Áo Dài DaiVerse!");
       setEmail("");
     }
   };
@@ -23,110 +23,165 @@ export default function Footer({ setActiveTab }) {
   };
 
   return (
-    <footer className="relative bg-[#EFB11D] text-[#2C1A00] overflow-hidden mt-16">
-      {/* Background SVG Pattern */}
-      <div 
-        className="absolute inset-0 opacity-[0.03] pointer-events-none" 
-        style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23B6B09D' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`
-        }}
-      ></div>
+    <footer className="bg-[#111111] text-white pt-16 pb-12 mt-20 border-t-4 border-[#C5A059]">
+      {/* Policy highlights bar */}
+      <div className="container-page pb-12 border-b border-neutral-800">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left">
+          <div className="flex items-center justify-center md:justify-start gap-4">
+            <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-700 flex items-center justify-center shrink-0 text-[#C5A059]">
+              <Truck className="w-6 h-6" />
+            </div>
+            <div>
+              <h5 className="text-xs font-bold uppercase tracking-wider text-white">GIAO HÀNG HỎA TỐC 24H</h5>
+              <p className="text-xs text-neutral-400 mt-1">Giao hàng hỏa tốc tận tay trong vòng 24h</p>
+            </div>
+          </div>
 
-      <div className="h-px bg-gradient-to-r from-transparent via-[#E43D12] to-transparent"></div>
-      <div className="h-px bg-gradient-to-r from-transparent via-[#E43D12]/50 to-transparent mt-px"></div>
+          <div className="flex items-center justify-center md:justify-start gap-4">
+            <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-700 flex items-center justify-center shrink-0 text-[#C5A059]">
+              <RefreshCw className="w-6 h-6" />
+            </div>
+            <div>
+              <h5 className="text-xs font-bold uppercase tracking-wider text-white">ĐỔI TRẢ TRONG 15 NGÀY</h5>
+              <p className="text-xs text-neutral-400 mt-1">Đổi trả dễ dàng tại toàn bộ hệ thống cửa hàng</p>
+            </div>
+          </div>
 
-      <div className="relative container-page py-14 lg:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-12">
-          {/* Col 1: Khám Phá */}
+          <div className="flex items-center justify-center md:justify-start gap-4">
+            <div className="w-12 h-12 rounded-full bg-neutral-900 border border-neutral-700 flex items-center justify-center shrink-0 text-[#C5A059]">
+              <ShieldCheck className="w-6 h-6" />
+            </div>
+            <div>
+              <h5 className="text-xs font-bold uppercase tracking-wider text-white">100% CHÍNH HÃNG</h5>
+              <p className="text-xs text-neutral-400 mt-1">Cam kết sản phẩm cao cấp, tinh xảo từng đường may</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Footer Links */}
+      <div className="container-page py-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+          
+          {/* Col 1: Brand Info */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#E43D12] mb-5">Khám Phá</h4>
-            <ul className="space-y-3">
+            <div className="mb-4 flex items-center gap-3">
+              <img src="/logo.png" alt="Áo Dài DaiVerse" className="h-12 w-auto bg-white p-1 rounded-sm object-contain shrink-0" />
+              <span className="font-heading font-black text-xl tracking-widest text-[#C5A059] uppercase block">
+                DAIVERSE
+              </span>
+            </div>
+            <p className="text-xs text-neutral-400 leading-relaxed mb-6">
+              DaiVerse – Thương hiệu thời trang Áo Dài cao cấp hàng đầu Việt Nam. Sự kết hợp giữa đường nét Áo Dài truyền thống và hơi thở công nghệ AI hiện đại.
+            </p>
+            <ul className="space-y-2.5 text-xs text-neutral-300">
+              <li className="flex items-start gap-2">
+                <MapPin className="w-4 h-4 text-[#C5A059] shrink-0 mt-0.5" />
+                <span>Showroom: Hoành Sơn Complex, 282 Nguyễn Huy Tưởng, Thanh Xuân, Hà Nội</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <Phone className="w-4 h-4 text-[#C5A059] shrink-0" />
+                <span>Hotline: <strong className="text-white">0394961557</strong> (8:00 - 22:00)</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <Mail className="w-4 h-4 text-[#C5A059] shrink-0" />
+                <span>Email: daiverseg5@gmail.com</span>
+              </li>
+            </ul>
+          </div>
+
+          {/* Col 2: Navigation Links */}
+          <div>
+            <h4 className="text-xs font-bold uppercase tracking-widest text-white border-b border-neutral-800 pb-3 mb-4">
+              KHÁM PHÁ BỘ SƯU TẬP
+            </h4>
+            <ul className="space-y-2 text-xs">
               <li>
-                <button onClick={() => handleNav("products")} className="text-sm text-[#2C1A00]/70 hover:text-[#E43D12] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
-                  Bộ Sưu Tập
+                <button onClick={() => handleNav("products")} className="text-neutral-400 hover:text-[#C5A059] transition-colors cursor-pointer border-none bg-transparent">
+                  Áo Dài Truyền Thống
                 </button>
               </li>
               <li>
-                <button onClick={() => handleNav("express24h")} className="text-sm text-[#E43D12] font-semibold hover:underline transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer flex items-center gap-1">
-                  <span>⚡ Đặt Hàng 24h</span>
+                <button onClick={() => handleNav("express24h")} className="text-[#C5A059] font-semibold hover:underline transition-colors cursor-pointer border-none bg-transparent flex items-center gap-1">
+                  <span>⚡ Giao Hàng Hỏa Tốc 24h</span>
                 </button>
               </li>
               <li>
-                <button onClick={() => handleNav("lookbook")} className="text-sm text-[#2C1A00]/70 hover:text-[#E43D12] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
-                  Lookbook
+                <button onClick={() => handleNav("lookbook")} className="text-neutral-400 hover:text-[#C5A059] transition-colors cursor-pointer border-none bg-transparent">
+                  Bộ Sưu Tập Lookbook 2026
                 </button>
               </li>
               <li>
-                <button onClick={() => handleNav("design-studio")} className="text-sm text-[#2C1A00]/70 hover:text-[#E43D12] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
+                <button onClick={() => handleNav("design-studio")} className="text-neutral-400 hover:text-[#C5A059] transition-colors cursor-pointer border-none bg-transparent">
                   AI Design Studio
                 </button>
               </li>
               {FEATURE_FLAGS.ENABLE_AI_TRY_ON && (
                 <li>
-                  <button onClick={() => handleNav("try-on")} className="text-sm text-[#2C1A00]/70 hover:text-[#E43D12] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
-                    Phòng Xem Đồ AI
+                  <button onClick={() => handleNav("try-on")} className="text-neutral-400 hover:text-[#C5A059] transition-colors cursor-pointer border-none bg-transparent">
+                    Phòng Thử Đồ AI
                   </button>
                 </li>
               )}
               <li>
-                <button onClick={() => handleNav("360")} className="text-sm text-[#2C1A00]/70 hover:text-[#E43D12] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
-                  Trải Nghiệm 360°
+                <button onClick={() => handleNav("360")} className="text-neutral-400 hover:text-[#C5A059] transition-colors cursor-pointer border-none bg-transparent">
+                  Xem Sản Phẩm 360°
                 </button>
               </li>
               <li>
-                <button onClick={() => handleNav("journal")} className="text-sm text-[#2C1A00]/70 hover:text-[#E43D12] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
-                  Tạp Chí
-                </button>
-              </li>
-              <li>
-                <button onClick={() => handleNav("about")} className="text-sm text-[#2C1A00]/70 hover:text-[#E43D12] transition-colors duration-200 hover:translate-x-1 inline-block text-left cursor-pointer">
-                  Câu Chuyện
+                <button onClick={() => handleNav("journal")} className="text-neutral-400 hover:text-[#C5A059] transition-colors cursor-pointer border-none bg-transparent">
+                  Tạp Chí Thời Trang
                 </button>
               </li>
             </ul>
           </div>
 
-          {/* Col 2: Chính Sách */}
+          {/* Col 3: Customer Support */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#E43D12] mb-5">Chính Sách</h4>
-            <ul className="space-y-3">
-              <li><span className="text-sm text-[#2C1A00]/70 hover:text-[#E43D12] transition-colors duration-200 cursor-pointer">Giao Hàng Toàn Quốc</span></li>
-              <li><span className="text-sm text-[#2C1A00]/70 hover:text-[#E43D12] transition-colors duration-200 cursor-pointer">Đổi Trả 15 Ngày</span></li>
-              <li><span className="text-sm text-[#2C1A00]/70 hover:text-[#E43D12] transition-colors duration-200 cursor-pointer">Bảo Mật Thông Tin</span></li>
-              <li><span className="text-sm text-[#2C1A00]/70 hover:text-[#E43D12] transition-colors duration-200 cursor-pointer">Hướng Dẫn Chọn Size</span></li>
-              <li><span className="text-sm text-[#2C1A00]/70 hover:text-[#E43D12] transition-colors duration-200 cursor-pointer">Chăm Sóc Áo Dài</span></li>
+            <h4 className="text-xs font-bold uppercase tracking-widest text-white border-b border-neutral-800 pb-3 mb-4">
+              HỖ TRỢ KHÁCH HÀNG
+            </h4>
+            <ul className="space-y-2 text-xs text-neutral-400">
+              <li className="hover:text-white cursor-pointer transition-colors">Hướng dẫn chọn Size Áo Dài</li>
+              <li className="hover:text-white cursor-pointer transition-colors">Chính sách bảo hành & sửa đồ</li>
+              <li className="hover:text-white cursor-pointer transition-colors">Quy định đổi trả hàng</li>
+              <li className="hover:text-white cursor-pointer transition-colors">Chính sách bảo mật thông tin</li>
+              <li className="hover:text-white cursor-pointer transition-colors">Điều khoản dịch vụ</li>
+              <li className="hover:text-white cursor-pointer transition-colors">Hệ thống cửa hàng DaiVerse</li>
             </ul>
           </div>
 
-          {/* Col 3: Liên Hệ & Social */}
+          {/* Col 4: Newsletter & Social */}
           <div>
-            <h4 className="text-xs font-semibold uppercase tracking-[0.2em] text-[#E43D12] mb-5">Liên Hệ</h4>
-            <ul className="space-y-3 text-sm text-[#2C1A00]/70">
-              <li className="flex items-start gap-2.5">
-                <MapPin className="w-4 h-4 text-[#E43D12]/80 mt-0.5 shrink-0" />
-                <span>Hoành Sơn Complex, 282 Nguyễn Huy Tưởng, Thanh Xuân, Hà Nội</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <Phone className="w-4 h-4 text-[#E43D12]/80 shrink-0" />
-                <span>0394961557</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <Mail className="w-4 h-4 text-[#E43D12]/80 shrink-0" />
-                <span>daiverseg5@gmail.com</span>
-              </li>
-              <li className="flex items-center gap-2.5">
-                <Clock className="w-4 h-4 text-[#E43D12]/80 shrink-0" />
-                <span>08:00 — 22:00</span>
-              </li>
-            </ul>
+            <h4 className="text-xs font-bold uppercase tracking-widest text-white border-b border-neutral-800 pb-3 mb-4">
+              ĐĂNG KÝ NHẬN VOUCHER 10%
+            </h4>
+            <p className="text-xs text-neutral-400 mb-4">
+              Nhập email để nhận ngay mã giảm giá và cập nhật bộ sưu tập mới nhất từ DaiVerse.
+            </p>
+            <form onSubmit={handleSubmit} className="flex flex-col gap-2 mb-6">
+              <input
+                type="email"
+                placeholder="Địa chỉ Email của bạn..."
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="w-full px-3 py-2.5 bg-neutral-900 border border-neutral-700 text-white placeholder-neutral-500 text-xs focus:border-[#C5A059] focus:outline-none"
+              />
+              <button
+                type="submit"
+                className="w-full py-2.5 bg-[#C5A059] hover:bg-[#A4813D] text-white text-xs font-bold uppercase tracking-widest transition-colors cursor-pointer border-none"
+              >
+                Đăng Ký Ngay
+              </button>
+            </form>
 
-            <div className="flex gap-3 mt-6">
+            <div className="flex gap-3">
               <a 
                 href="https://www.facebook.com/profile.php?id=61590664110972" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                title="Facebook Fanpage"
-                className="w-9 h-9 rounded-full border border-[#2C1A00]/20 flex items-center justify-center text-[#2C1A00]/70 hover:border-[#E43D12] hover:text-[#E43D12] hover:bg-[#E43D12]/10 transition-all"
+                className="w-8 h-8 rounded-full bg-neutral-900 border border-neutral-700 flex items-center justify-center text-neutral-300 hover:text-white hover:bg-[#C5A059] hover:border-[#C5A059] transition-all"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                   <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
@@ -136,8 +191,7 @@ export default function Footer({ setActiveTab }) {
                 href="https://www.tiktok.com/@daiverse91" 
                 target="_blank" 
                 rel="noopener noreferrer"
-                title="TikTok"
-                className="w-9 h-9 rounded-full border border-[#2C1A00]/20 flex items-center justify-center text-[#2C1A00]/70 hover:border-[#E43D12] hover:text-[#E43D12] hover:bg-[#E43D12]/10 transition-all"
+                className="w-8 h-8 rounded-full bg-neutral-900 border border-neutral-700 flex items-center justify-center text-neutral-300 hover:text-white hover:bg-[#C5A059] hover:border-[#C5A059] transition-all"
               >
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                   <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64c.29 0 .56.04.82.12V9.4a6.33 6.33 0 0 0-1-.08 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V9.05a8.27 8.27 0 0 0 4.97 1.63V7.24a4.83 4.83 0 0 1-3.01-.55z"/>
@@ -146,48 +200,14 @@ export default function Footer({ setActiveTab }) {
             </div>
           </div>
 
-          {/* Col 4: Brand & Newsletter */}
-          <div className="lg:col-span-1">
-            <h3 className="font-heading text-2xl text-[#E43D12] mb-4 font-bold flex items-center gap-2">
-              <img src="/logo.jpg" alt="DaiVerse" className="w-8 h-8 rounded-full object-cover border border-[#EFB11D]/40" />
-              <span>DaiVerse</span>
-            </h3>
-            <p className="text-sm text-[#2C1A00]/80 leading-relaxed">
-              DaiVerse – nơi vẻ đẹp áo dài Việt hòa quyện cùng công nghệ AI, tạo nên những thiết kế độc bản mang dấu ấn riêng của mỗi người.
-            </p>
-            <div className="mt-6">
-              <p className="text-xs uppercase tracking-wider text-[#E43D12] font-medium mb-3">Nhận Ưu Đãi Mới Nhất</p>
-              <form onSubmit={handleSubmit} className="flex gap-2">
-                <input
-                  type="email"
-                  placeholder="Email của bạn"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  className="w-full min-w-0 px-3.5 py-2.5 h-10 bg-[#2C1A00]/10 border border-[#2C1A00]/25 text-[#2C1A00] placeholder:text-[#2C1A00]/50 text-sm rounded-lg focus:border-[#E43D12] focus:outline-none focus:ring-1 focus:ring-[#E43D12]"
-                />
-                <button
-                  type="submit"
-                  aria-label="Đăng ký"
-                  className="h-10 px-4 bg-[#E43D12] hover:bg-[#E43D12]/90 text-white shrink-0 rounded-lg flex items-center justify-center transition-colors cursor-pointer"
-                >
-                  <Send className="w-4 h-4" />
-                </button>
-              </form>
-            </div>
-          </div>
         </div>
+      </div>
 
-        <div className="mt-12 mb-8 flex items-center gap-3">
-          <div className="flex-1 h-px bg-gradient-to-r from-transparent to-[#E43D12]/30"></div>
-          <div className="w-1.5 h-1.5 rotate-45 bg-[#E43D12]/60"></div>
-          <div className="flex-1 h-px bg-gradient-to-l from-transparent to-[#E43D12]/30"></div>
-        </div>
-
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-[#2C1A00]/50">
-          <p>© 2026 DaiVerse.</p>
-        </div>
+      {/* Copyright Bar */}
+      <div className="container-page pt-6 border-t border-neutral-900 text-center text-xs text-neutral-500">
+        <p>© 2026 ÁO DÀI DAIVERSE. Tất cả quyền được bảo lưu.</p>
       </div>
     </footer>
   );
 }
+

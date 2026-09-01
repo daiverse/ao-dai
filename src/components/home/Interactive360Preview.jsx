@@ -1,9 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { RotateCcw, Info, Sparkles, MoveHorizontal, Play, Pause, Compass } from "lucide-react";
+import { RotateCcw, Info, Sparkles, MoveHorizontal, Play, Pause, Compass, Eye, Layers, ChevronRight, X } from "lucide-react";
 import { PRODUCTS } from "../../data/products";
 
 export default function Interactive360Preview({ onNavigateTo360 }) {
-  const selectedProduct = PRODUCTS.find((p) => p.images360) || PRODUCTS[0];
+  // Lấy các sản phẩm có ảnh 360 hoặc danh sách sản phẩm nổi bật
+  const productsWith360 = PRODUCTS.filter((p) => p.images360 && p.images360.length > 0);
+  const availableProducts = productsWith360.length > 0 ? productsWith360 : PRODUCTS.slice(0, 4);
+  
+  const [selectedProduct, setSelectedProduct] = useState(availableProducts[0]);
   const [rotationAngle, setRotationAngle] = useState(0);
   const [isDragging, setIsDragging] = useState(false);
   const [startX, setStartX] = useState(0);
@@ -61,89 +65,158 @@ export default function Interactive360Preview({ onNavigateTo360 }) {
   const currentFrame = getCurrentFrame(selectedProduct, rotationAngle);
 
   return (
-    <section className="py-20 bg-[#13110C] text-white relative overflow-hidden select-none">
-      {/* Decorative background glow circles */}
-      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-[#E43D12]/15 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-[#EFB11D]/10 rounded-full blur-[100px] pointer-events-none"></div>
+    <section className="py-20 lg:py-28 bg-[#0D0C0A] text-white relative overflow-hidden select-none border-b border-[#C5A059]/20">
+      {/* Background Luxury Glowing Orbs & Ambient Noise Grid */}
+      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#C5A059]/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#A4813D]/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="container-page relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        
+        {/* Section Top Tagline & Product Switcher */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+          
           {/* Left Text Column */}
           <div className="lg:col-span-5 space-y-6">
-            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#E43D12]/20 border border-[#E43D12]/50 text-[#EFB11D] text-xs font-semibold uppercase tracking-wider">
-              <RotateCcw className="w-3.5 h-3.5 animate-spin text-[#EFB11D]" style={{ animationDuration: "12s" }} />
-              <span>Trải Nghiệm 3D 360° Thực Tế</span>
+            
+            {/* Header Badge */}
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#C5A059]/15 border border-[#C5A059]/40 text-[#C5A059] text-[11px] font-extrabold uppercase tracking-widest backdrop-blur-md shadow-sm">
+              <RotateCcw className="w-3.5 h-3.5 animate-spin text-[#C5A059]" style={{ animationDuration: "10s" }} />
+              <span>ÁO DÀI DAIVERSE 360° LUXURY EXPERIENCE</span>
             </div>
 
-            <h2 className="font-heading text-4xl sm:text-5xl font-bold leading-tight text-white">
-              Chi tiết từng <span className="text-[#EFB11D] italic font-heading">thớ lụa & đường thêu</span>
-            </h2>
+            {/* Title */}
+            <div className="space-y-2">
+              <h2 className="font-heading text-3xl sm:text-4xl lg:text-5xl font-black leading-tight text-white uppercase tracking-wide">
+                CHI TIẾT 360° <br />
+                <span className="bg-gradient-to-r from-[#D4AF37] via-[#C5A059] to-[#E6C687] bg-clip-text text-transparent">
+                  GẤM LỤA THỦ CÔNG
+                </span>
+              </h2>
+              <div className="w-16 h-1 bg-gradient-to-r from-[#C5A059] to-transparent rounded-full mt-3"></div>
+            </div>
 
-            <p className="text-sm sm:text-base text-gray-300 leading-relaxed">
+            <p className="text-xs sm:text-sm text-neutral-300 leading-relaxed font-normal">
               Xoay và tương tác 4 góc chụp 360° thực tế (Mặt trước, sườn phải, mặt lưng và sườn trái) để cảm nhận độ rủ của tà áo, đường may giấu chỉ và họa tiết dệt gấm trúc nổi tinh xảo.
             </p>
 
-            {/* Quick Angle Buttons */}
-            <div className="p-4 rounded-2xl bg-white/5 border border-white/15 backdrop-blur-md space-y-3">
-              <div className="flex items-center justify-between text-xs font-bold text-[#EFB11D]">
-                <span>Chuyển Góc Chụp 360:</span>
-                <span className="text-amber-200/90 font-mono">{Math.round(rotationAngle)}°</span>
+            {/* Interactive Product Selector Pills */}
+            <div className="space-y-2.5 pt-2">
+              <span className="text-[11px] font-bold uppercase tracking-widest text-[#C5A059] block">
+                CHỌN MẪU ÁO DÀI XEM 360°:
+              </span>
+              <div className="flex flex-wrap gap-2">
+                {availableProducts.map((prod) => {
+                  const isSelected = selectedProduct.id === prod.id;
+                  return (
+                    <button
+                      key={prod.id}
+                      type="button"
+                      onClick={() => {
+                        setSelectedProduct(prod);
+                        setRotationAngle(0);
+                        setActiveHotspot(null);
+                      }}
+                      className={`px-3.5 py-2 text-xs font-bold uppercase tracking-wider transition-all cursor-pointer rounded-none border ${
+                        isSelected
+                          ? "bg-[#C5A059] text-white border-[#C5A059] shadow-lg shadow-[#C5A059]/20"
+                          : "bg-[#1A1815] text-neutral-300 border-[#C5A059]/30 hover:border-[#C5A059] hover:text-white"
+                      }`}
+                    >
+                      {prod.name.replace("Áo Dài Gấm Tơ ", "").replace("Áo Dài ", "")}
+                    </button>
+                  );
+                })}
               </div>
+            </div>
+
+            {/* Quick Angle Controls Box */}
+            <div className="p-5 bg-[#161412] border border-[#C5A059]/25 shadow-xl space-y-4 relative backdrop-blur-md">
+              <div className="flex items-center justify-between text-xs font-bold text-neutral-200 uppercase tracking-wider border-b border-[#C5A059]/20 pb-2.5">
+                <span className="flex items-center gap-2">
+                  <Compass className="w-4 h-4 text-[#C5A059]" />
+                  GÓC QUAN SÁT HIỆN TẠI:
+                </span>
+                <span className="text-[#C5A059] font-mono font-bold text-base px-2.5 py-0.5 bg-[#C5A059]/10 border border-[#C5A059]/30">
+                  {Math.round(rotationAngle)}°
+                </span>
+              </div>
+
+              {/* 4 Directional Preset Buttons */}
               <div className="grid grid-cols-4 gap-2">
                 {[
                   { angle: 0, label: "Mặt Trước" },
                   { angle: 90, label: "Sườn Phải" },
                   { angle: 180, label: "Mặt Sau" },
                   { angle: 270, label: "Sườn Trái" },
-                ].map((btn) => (
-                  <button
-                    key={btn.angle}
-                    type="button"
-                    onClick={() => {
-                      setRotationAngle(btn.angle);
-                      setAutoRotate(false);
-                    }}
-                    className={`py-2 px-1 rounded-xl text-xs font-bold transition-all cursor-pointer text-center border ${
-                      currentFrame.angle === btn.angle
-                        ? "bg-[#E43D12] text-white border-[#E43D12] shadow-lg shadow-[#E43D12]/40 scale-[1.02]"
-                        : "bg-white/10 text-white/90 border-white/15 hover:bg-white/20 hover:text-white"
-                    }`}
-                  >
-                    {btn.label}
-                  </button>
-                ))}
+                ].map((btn) => {
+                  const isActive = currentFrame.angle === btn.angle;
+                  return (
+                    <button
+                      key={btn.angle}
+                      type="button"
+                      onClick={() => {
+                        setRotationAngle(btn.angle);
+                        setAutoRotate(false);
+                      }}
+                      className={`py-2.5 px-1 text-[11px] font-extrabold uppercase transition-all cursor-pointer text-center border ${
+                        isActive
+                          ? "bg-[#C5A059] text-white border-[#C5A059] shadow-md"
+                          : "bg-[#221F1B] text-neutral-300 border-[#C5A059]/20 hover:border-[#C5A059]/50 hover:bg-[#2A2722]"
+                      }`}
+                    >
+                      {btn.label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Angle Slider Bar */}
+              <div className="pt-1">
+                <input
+                  type="range"
+                  min="0"
+                  max="359"
+                  value={Math.round(rotationAngle)}
+                  onChange={(e) => {
+                    setRotationAngle(Number(e.target.value));
+                    setAutoRotate(false);
+                  }}
+                  className="w-full h-1.5 bg-[#2A2722] rounded-lg appearance-none cursor-pointer accent-[#C5A059]"
+                />
               </div>
             </div>
 
+            {/* Action CTAs */}
             <div className="flex flex-wrap items-center gap-3 pt-2">
               <button
                 type="button"
                 onClick={() => onNavigateTo360 && onNavigateTo360()}
-                className="px-7 py-3.5 bg-[#E43D12] text-white rounded-full font-bold hover:bg-[#E43D12]/90 shadow-xl shadow-[#E43D12]/30 flex items-center gap-2 transition-all cursor-pointer text-xs border-none"
+                className="flex-1 min-w-[200px] py-4 bg-[#C5A059] hover:bg-[#A4813D] text-white font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 transition-all cursor-pointer border-none shadow-xl shadow-[#C5A059]/20 hover:scale-[1.02]"
               >
                 <Sparkles className="w-4 h-4" />
-                <span>Khám Phá Phòng 360° Đầy Đủ</span>
+                <span>VÀO PHÒNG 360° CHI TIẾT</span>
+                <ChevronRight className="w-4 h-4" />
               </button>
 
               <button
                 type="button"
                 onClick={() => setAutoRotate(!autoRotate)}
-                className={`px-5 py-3.5 rounded-full font-bold text-xs flex items-center gap-2 transition-all cursor-pointer border ${
+                className={`py-4 px-6 font-bold text-xs uppercase tracking-wider flex items-center gap-2 transition-all cursor-pointer border ${
                   autoRotate
-                    ? "bg-[#EFB11D] text-gray-950 border-[#EFB11D] shadow-lg shadow-[#EFB11D]/30"
-                    : "bg-white/10 text-white border-white/20 hover:bg-white/20 hover:border-white/30 backdrop-blur-sm"
+                    ? "bg-white text-[#111111] border-white shadow-lg"
+                    : "bg-[#1A1815] text-white border-[#C5A059]/40 hover:border-[#C5A059] hover:bg-[#25221E]"
                 }`}
               >
-                {autoRotate ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
-                <span>{autoRotate ? "Dừng xoay" : "Tự xoay 360°"}</span>
+                {autoRotate ? <Pause className="w-4 h-4 text-[#111111]" /> : <Play className="w-4 h-4 text-[#C5A059]" />}
+                <span>{autoRotate ? "DỪNG XOAY" : "TỰ XOAY 360°"}</span>
               </button>
             </div>
           </div>
 
-          {/* Right 360 Canvas Viewer */}
+          {/* Right 360 Interactive Canvas Showcase Stage */}
           <div className="lg:col-span-7 flex flex-col items-center">
             <div
-              className="relative w-full max-w-md aspect-[3/4] bg-gradient-to-b from-[#EFB11D] to-[#0D1F17] rounded-3xl border border-white/15 overflow-hidden shadow-2xl cursor-grab active:cursor-grabbing group"
+              className="relative w-full max-w-lg aspect-[3/4] bg-[#161412] border-2 border-[#C5A059]/40 overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.8)] cursor-grab active:cursor-grabbing group transition-all duration-300"
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
@@ -152,24 +225,29 @@ export default function Interactive360Preview({ onNavigateTo360 }) {
               onTouchMove={handleMouseMove}
               onTouchEnd={handleMouseUp}
             >
-              {/* 360 Angle Image */}
+              {/* Main 360 Angle Image */}
               <img
                 src={currentFrame.url}
-                alt="360 view Áo Dài"
-                className="w-full h-full object-cover pointer-events-none transition-all duration-300"
+                alt={selectedProduct.name}
+                className="w-full h-full object-cover pointer-events-none transition-all duration-300 group-hover:scale-105"
               />
 
-              {/* Angle Indicator Badge */}
-              <div className="absolute top-4 left-4 px-3.5 py-1.5 bg-black/60 backdrop-blur-md rounded-2xl text-xs font-semibold text-white/90 border border-white/20 flex items-center gap-1.5">
-                <Compass className="w-3.5 h-3.5 text-[#EFB11D]" />
-                <span>{currentFrame.label}</span>
+              {/* Ambient Image Gradient Overlay */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none"></div>
+
+              {/* Top Left Live Angle Badge */}
+              <div className="absolute top-4 left-4 px-3.5 py-1.5 bg-[#0D0C0A]/90 text-white text-[11px] font-bold uppercase tracking-wider border border-[#C5A059]/40 backdrop-blur-md flex items-center gap-2 shadow-lg">
+                <Compass className="w-4 h-4 text-[#C5A059]" />
+                <span>{selectedProduct.name}</span>
+                <span className="text-[#C5A059] font-mono">({currentFrame.label})</span>
               </div>
 
-              <div className="absolute top-4 right-4 px-3 py-1 bg-black/60 backdrop-blur-md rounded-full text-xs font-mono text-[#EFB11D] border border-white/20 font-bold">
+              {/* Top Right Live Degree Readout */}
+              <div className="absolute top-4 right-4 px-3 py-1 bg-[#C5A059] text-white text-xs font-mono font-black shadow-lg">
                 {Math.round(rotationAngle)}°
               </div>
 
-              {/* Hotspots */}
+              {/* Hotspots Interactive Pins */}
               {selectedProduct.hotspots &&
                 selectedProduct.hotspots.map((hs, idx) => (
                   <div
@@ -177,36 +255,59 @@ export default function Interactive360Preview({ onNavigateTo360 }) {
                     className="absolute z-20 transform -translate-x-1/2 -translate-y-1/2"
                     style={{ left: hs.x, top: hs.y }}
                   >
+                    {/* Pulsing Radar Ring */}
+                    <span className="absolute inset-0 rounded-full bg-[#C5A059] opacity-75 animate-ping"></span>
+
                     <button
                       type="button"
                       onClick={(e) => {
                         e.stopPropagation();
                         setActiveHotspot(activeHotspot === idx ? null : idx);
                       }}
-                      className="relative w-7 h-7 rounded-full bg-[#E43D12] text-white flex items-center justify-center shadow-lg hover:scale-125 transition-transform cursor-pointer"
+                      className="relative w-8 h-8 rounded-full bg-[#C5A059] text-white flex items-center justify-center shadow-xl hover:scale-110 transition-transform cursor-pointer border-2 border-white"
+                      title={hs.title}
                     >
                       <Info className="w-4 h-4" />
-                      <span className="absolute inset-0 rounded-full bg-[#E43D12] animate-ping opacity-75"></span>
                     </button>
 
-                    {/* Hotspot Popup */}
+                    {/* Hotspot Glassmorphism Popup */}
                     {activeHotspot === idx && (
-                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-56 p-3 bg-white text-gray-900 rounded-2xl shadow-2xl border border-gray-100 z-30 text-xs animate-fadeIn">
-                        <h4 className="font-bold text-[#E43D12] font-heading">{hs.title}</h4>
-                        <p className="text-gray-600 mt-1 leading-snug">{hs.description}</p>
+                      <div className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-60 p-4 bg-[#181614]/95 text-white shadow-2xl border border-[#C5A059] z-30 text-xs animate-fade-in backdrop-blur-md">
+                        <div className="flex items-center justify-between border-b border-[#C5A059]/30 pb-1.5 mb-1.5">
+                          <h4 className="font-heading font-black text-[#C5A059] uppercase text-xs flex items-center gap-1.5">
+                            <Sparkles className="w-3.5 h-3.5 text-[#C5A059]" />
+                            <span>{hs.title}</span>
+                          </h4>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setActiveHotspot(null);
+                            }}
+                            className="p-0.5 text-neutral-400 hover:text-white bg-transparent border-none cursor-pointer"
+                          >
+                            <X className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                        <p className="text-neutral-300 leading-relaxed font-normal text-[11px]">
+                          {hs.description}
+                        </p>
                       </div>
                     )}
                   </div>
                 ))}
 
-              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-4 py-2 bg-black/60 backdrop-blur-md rounded-full text-xs text-white/90 flex items-center gap-2 border border-white/20 pointer-events-none">
-                <MoveHorizontal className="w-4 h-4 text-[#EFB11D] animate-pulse" />
-                <span>Kéo rê chuột để xoay 360°</span>
+              {/* Bottom Drag Instruction Bar */}
+              <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-5 py-2 bg-[#0D0C0A]/90 border border-[#C5A059]/40 backdrop-blur-md text-[11px] font-bold text-white uppercase tracking-widest flex items-center gap-2 pointer-events-none shadow-xl">
+                <MoveHorizontal className="w-4 h-4 text-[#C5A059] animate-pulse" />
+                <span>KÉO CHUỘT / VẬY NÓN ĐỂ XOAY 360°</span>
               </div>
             </div>
           </div>
+
         </div>
+
       </div>
     </section>
   );
 }
+
