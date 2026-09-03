@@ -26,7 +26,7 @@ export default function FloatingAiAssistant() {
       } else if (userText.toLowerCase().includes("size") || userText.toLowerCase().includes("đo")) {
         botReply = "DaiVerse hỗ trợ bảng size tiêu chuẩn S, M, L, XL và dịch vụ may theo số đo riêng. Bạn có thể bấm vào 'Bảng Size Chuẩn' khi xem chi tiết sản phẩm!";
       } else if (userText.toLowerCase().includes("giá") || userText.toLowerCase().includes("tiền")) {
-        botReply = "Các sản phẩm Áo Dài DaiVerse có mức giá ưu đãi từ 1.250.000đ - 2.850.000đ tùy theo chất liệu gấm lụa cao cấp!";
+        botReply = "Các sản phẩm Áo Dài DaiVerse có mức giá ưu đãi từ 1.399.000đ - 1.799.000đ tùy theo chất liệu gấm lụa cao cấp!";
       }
 
       setMessages((prev) => [...prev, { sender: "bot", text: botReply }]);
